@@ -5,7 +5,7 @@ URLs, packages, or recovery steps.
 
 ## Release and installation surface
 
-The stable release is **0.4.0**. Engine, View, and SDK use the same exact version.
+The stable release is **0.4.1**. Engine, View, and SDK use the same exact version.
 
 | Channel | npm tag | Source | Intended use |
 |:--|:--|:--|:--|
