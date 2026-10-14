@@ -1,7 +1,8 @@
 # ForgeAX Engine + SDK: AI bootstrap contract
 
 You are an AI coding Agent. Execute this contract exactly. Do not guess versions,
-URLs, packages, or recovery steps.
+URLs, packages, or recovery steps. This page installs and initializes the tools, then
+hands off to their installed local documentation.
 
 ## Release and installation surface
 
@@ -115,9 +116,6 @@ cat "$GAME_ROOT/AGENTS.md"
 cd "$GAME_ROOT"
 pnpm exec forgeax project skill verify --json
 pnpm exec forgeax project check --json
-pnpm test
-pnpm run typecheck
-pnpm build
 ```
 
 For development, set `RELEASE_CHANNEL=next` before executing the bootstrap. For a
@@ -139,109 +137,38 @@ dependencies before `new`.
 files plus rebuildable Agent discovery links. If `project skill verify --json` is
 not OK, run `project skill install --json`, verify again, and stop on any remaining error.
 
+## Continue in the installed documentation
+
+After bootstrap, continue from these local entrypoints. Follow their required reading
+and workflow before developing or delivering a game; this page owns installation.
+
+| Local entry | Responsibility |
+|:--|:--|
+| `$SDK_ROOT/AGENTS.md` | SDK initialization, project creation, and further required reading |
+| `$GAME_ROOT/AGENTS.md` | Every new or resumed game task; **Run, test, build, and release** owns development and delivery acceptance |
+| `$GAME_ROOT/skills/forgeax-engine-sdk/SKILL.md` | Capability selection and routing to focused Engine contracts |
+| `$GAME_ROOT/skills/forgeax-engine-cli/SKILL.md` | Project commands, live inspection, and artifact operations |
+
+`project init` and `project new` report required local files in
+`value.onboarding.read`. Read the reported files in order and follow the generated
+game guide before editing. The SDK installs the game guide and skills into the project,
+so later work starts there without revisiting this website. The installed SDK's
+`skills/forgeax-engine-sdk/references/browser-capture-and-local-engine.md` owns
+browser capture and local Engine iteration instructions.
+
 ## Existing ForgeAX game
 
 If the target already contains `forge.json`, `package.json`, and its entry module, do
-not run `new` or install the SDK carrier into the game. Read its `AGENTS.md` and
-record the installed Engine identity and lockfile before changing dependencies.
-Reproduce failures on the original pinned Engine first. Do not automatically upgrade
-an existing game as part of inspection. Run its checks and the acceptance below.
+not run `new` or install the SDK carrier into the game. Read its local `AGENTS.md` and
+continue through its installed skills above. Preserve the pinned Engine identity and
+lockfile; inspection does not authorize an automatic upgrade. If installation or
+migration is needed, follow the matching SDK's local guide and reported onboarding
+paths. Keep SDK installations separate from game directories.
 
-When migrating to another release, resolve and match the selected channel as above,
-review its release notes, update exact dependencies and project-local skills through
-the matching SDK's documented commands, and rerun the same reproduction and acceptance
-in a fresh session. Keep old-release, new-release, and post-fix results distinct;
-an upgrade or successful install alone is not a fix.
+## Bootstrap report
 
-## Verify the authored game before delivery
-
-After every gameplay, UI, asset, plugin, or dependency change, run acceptance on the
-actual authored game. Initial scaffold checks and SDK canonical-template tests do not
-accept later game edits. Complete this before saying the game is finished or handing
-its preview to the user; publication is not required to trigger verification.
-
-| Gate | Required evidence |
-|:--|:--|
-| Source and build | `project check --json`, relevant tests, typecheck, and build succeed on the final source. Add the smallest regression test for a reproduced defect. |
-| Startup and runtime | Start the real game, wait for readiness, inspect diagnostics and native startup descendants, and fail on page, console, App, GPU, and failed-resource errors. |
-| Appearance | Capture the actual game including UI. Open and inspect the screenshot for expected content, readable layout, and absence of blank output or error overlays. |
-| Play | Drive at least one representative gameplay interaction and assert its visible result; exercise restart or reload and repeat the affected path. |
-| Built output | Serve final `dist` over HTTP(S) with `project preview`, open that URL, and repeat startup, appearance, and key interaction checks. A source-dev pass does not accept the built artifact. |
-
-Discover the installed command contracts first; older games may expose different inputs:
-
-```sh
-pnpm exec forgeax help dev --tree --json
-pnpm exec forgeax dev start --headless false --json
-pnpm exec forgeax dev status --json
-pnpm exec forgeax dev capture --output artifacts/capture/game-ui.png --json
-```
-
-Inspect the returned status and capture report, including errors; `ok`, a job ID,
-a URL, HTTP 200, or a root Fiber marked active alone does not establish game readiness.
-`plugin-startup-failed` is a failed gate even when the root is active: inspect the
-failed descendant and its source origin. Never swallow the exception, disable the
-plugin, or bypass an SDK guard to make verification green. Fix the owning dependency,
-then start a fresh session and repeat the failing path and all affected gates.
-Use `dev reload` for ordinary iteration, `dev stop` for owned-session cleanup, and the
-Browser capture section below for multi-step input and screenshots. If a browser or
-target host is unavailable, report the blocked gate and preserved diagnostics; do not
-report the game as verified or ask the user to perform the Agent's unfinished checks.
-
-For third-party platform SDKs, read the currently installed SDK's contract. Await its
-initialization in the browser/frontend owner before any dependent API or UI starts.
-Separate consumer plugins declare native `inject` dependencies on the service published
-only after initialization succeeds; plugin array order is not an async readiness
-contract. Retain cleanup with that owner. Browser APIs stay outside Engine Workers;
-module evaluation and Pack `build()` must not initialize the platform. Verify platform
-features in the actual platform Preview/host too: a standalone development stub does
-not prove injected-host initialization, storage, or multiplayer behavior.
-
-## Browser capture, including game UI
-
-Use the browser-compositor capture when a screenshot must include the rendered
-Canvas and HTML/CSS/open Shadow DOM UI. `auto` is the default portable lane;
-`software` is the explicit no-physical-GPU and/or no-display lane.
-
-```sh
-pnpm exec forgeax project capture --backend auto --require-ui --deterministic \
-  --output artifacts/capture/game-ui.png --json
-
-pnpm exec forgeax project capture --backend software --require-ui --deterministic \
-  --output artifacts/capture/game-ui-software.png --json
-```
-
-`--require-ui` expects game UI under `#game-ui`. Capture waits for a real Engine
-frame-submitted signal and a non-flat Canvas witness; game code may additionally set
-`document.documentElement.dataset.forgeaxCaptureReady` to a named logical checkpoint.
-Do not replace readiness with a guessed sleep. For a continuous playthrough,
-discover `dev start`, `dev capture`, and `dev stop` through `forgeax help`; read
-`$SDK_ROOT/skills/forgeax-engine-sdk/references/browser-capture-and-local-engine.md`
-for the script contract and color-parity limits.
-
-## Local Engine source iteration
-
-A game uses its exact registry dependency unless an explicit local Engine binding is
-present. The binding is development state and does not rewrite `forge.json` or the
-game's package manifest.
-
-```sh
-pnpm exec forgeax project engine status --json
-pnpm exec forgeax project engine use-local --path /absolute/path/to/forgeax-engine --json
-pnpm exec forgeax project engine check --json
-pnpm exec forgeax project engine unlink --json
-```
-
-`use-local` requires built Engine package entry points. `unlink` removes the sole
-override and returns the game to normal SDK/registry resolution.
-
-## Report
-
-Report the selected channel, Engine/View/SDK and actual user-machine pnpm versions, absolute SDK/game paths,
-every command, structured verification output, and the first error. A successful new
-game has the SDK and game `AGENTS.md` read, SDK-root `project init`,
-`project skill verify --json`, `project check --json`, tests, typecheck, and build all passing.
-Game delivery additionally requires all authored-game acceptance gates above. Report
-the tested source/dependency identity, host/backend, startup and error results, viewed
-screenshot paths, exercised interactions and outcomes, built-preview results, and any
-blocked or failed gates. Keep regression baseline and post-fix evidence separate.
+Report the selected channel, resolved Engine/View/SDK identities, actual Node/pnpm
+versions, absolute SDK/game paths, executed installation and initialization commands,
+`project skill verify` / `project check` results, the local documents read, and the
+first error or next required reading. Bootstrap completion establishes tool readiness;
+game development and delivery follow the installed game guide's acceptance contract.
