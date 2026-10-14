@@ -5,7 +5,8 @@ URLs, packages, or recovery steps.
 
 ## Release and installation surface
 
-The stable release is **0.4.1**. Engine, View, and SDK use the same exact version.
+Resolve the selected npm tag below at execution time. Engine, View, and SDK must
+resolve to the same exact release; record and pin that result.
 
 | Channel | npm tag | Source | Intended use |
 |:--|:--|:--|:--|
@@ -117,7 +118,6 @@ pnpm exec forgeax project check --json
 pnpm test
 pnpm run typecheck
 pnpm build
-pnpm dev
 ```
 
 For development, set `RELEASE_CHANNEL=next` before executing the bootstrap. For a
@@ -142,18 +142,60 @@ not OK, run `project skill install --json`, verify again, and stop on any remain
 ## Existing ForgeAX game
 
 If the target already contains `forge.json`, `package.json`, and its entry module, do
-not run `new` or install the SDK carrier into the game. Read its `AGENTS.md`, then use:
+not run `new` or install the SDK carrier into the game. Read its `AGENTS.md` and
+record the installed Engine identity and lockfile before changing dependencies.
+Reproduce failures on the original pinned Engine first. Do not automatically upgrade
+an existing game as part of inspection. Run its checks and the acceptance below.
+
+When migrating to another release, resolve and match the selected channel as above,
+review its release notes, update exact dependencies and project-local skills through
+the matching SDK's documented commands, and rerun the same reproduction and acceptance
+in a fresh session. Keep old-release, new-release, and post-fix results distinct;
+an upgrade or successful install alone is not a fix.
+
+## Verify the authored game before delivery
+
+After every gameplay, UI, asset, plugin, or dependency change, run acceptance on the
+actual authored game. Initial scaffold checks and SDK canonical-template tests do not
+accept later game edits. Complete this before saying the game is finished or handing
+its preview to the user; publication is not required to trigger verification.
+
+| Gate | Required evidence |
+|:--|:--|
+| Source and build | `project check --json`, relevant tests, typecheck, and build succeed on the final source. Add the smallest regression test for a reproduced defect. |
+| Startup and runtime | Start the real game, wait for readiness, inspect diagnostics and native startup descendants, and fail on page, console, App, GPU, and failed-resource errors. |
+| Appearance | Capture the actual game including UI. Open and inspect the screenshot for expected content, readable layout, and absence of blank output or error overlays. |
+| Play | Drive at least one representative gameplay interaction and assert its visible result; exercise restart or reload and repeat the affected path. |
+| Built output | Serve final `dist` over HTTP(S) with `project preview`, open that URL, and repeat startup, appearance, and key interaction checks. A source-dev pass does not accept the built artifact. |
+
+Discover the installed command contracts first; older games may expose different inputs:
 
 ```sh
-ENGINE_VERSION="$(npm view @forgeax/engine dist-tags.latest --registry=https://registry.npmjs.org/)"
-pnpm add --save-exact "@forgeax/engine@$ENGINE_VERSION" --registry=https://registry.npmjs.org/
-pnpm exec forgeax project init --json
-pnpm exec forgeax project skill verify --json
-pnpm exec forgeax project check --json
-pnpm test
-pnpm run typecheck
-pnpm build
+pnpm exec forgeax help dev --tree --json
+pnpm exec forgeax dev start --headless false --json
+pnpm exec forgeax dev status --json
+pnpm exec forgeax dev capture --output artifacts/capture/game-ui.png --json
 ```
+
+Inspect the returned status and capture report, including errors; `ok`, a job ID,
+a URL, HTTP 200, or a root Fiber marked active alone does not establish game readiness.
+`plugin-startup-failed` is a failed gate even when the root is active: inspect the
+failed descendant and its source origin. Never swallow the exception, disable the
+plugin, or bypass an SDK guard to make verification green. Fix the owning dependency,
+then start a fresh session and repeat the failing path and all affected gates.
+Use `dev reload` for ordinary iteration, `dev stop` for owned-session cleanup, and the
+Browser capture section below for multi-step input and screenshots. If a browser or
+target host is unavailable, report the blocked gate and preserved diagnostics; do not
+report the game as verified or ask the user to perform the Agent's unfinished checks.
+
+For third-party platform SDKs, read the currently installed SDK's contract. Await its
+initialization in the browser/frontend owner before any dependent API or UI starts.
+Separate consumer plugins declare native `inject` dependencies on the service published
+only after initialization succeeds; plugin array order is not an async readiness
+contract. Retain cleanup with that owner. Browser APIs stay outside Engine Workers;
+module evaluation and Pack `build()` must not initialize the platform. Verify platform
+features in the actual platform Preview/host too: a standalone development stub does
+not prove injected-host initialization, storage, or multiplayer behavior.
 
 ## Browser capture, including game UI
 
@@ -199,3 +241,7 @@ Report the selected channel, Engine/View/SDK and actual user-machine pnpm versio
 every command, structured verification output, and the first error. A successful new
 game has the SDK and game `AGENTS.md` read, SDK-root `project init`,
 `project skill verify --json`, `project check --json`, tests, typecheck, and build all passing.
+Game delivery additionally requires all authored-game acceptance gates above. Report
+the tested source/dependency identity, host/backend, startup and error results, viewed
+screenshot paths, exercised interactions and outcomes, built-preview results, and any
+blocked or failed gates. Keep regression baseline and post-fix evidence separate.
