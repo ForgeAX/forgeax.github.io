@@ -175,8 +175,8 @@ game development and delivery follow the installed game guide's acceptance contr
 
 ## Optional project and asset inspection in View
 
-When the user asks to inspect a game's assets or preview its current state, use the
-installed ForgeAX View as a delivery step. Finish the requested development and
+When the user intends to inspect a game's project directory, files, or assets,
+use the installed ForgeAX View as a delivery step. Finish the requested development and
 the game guide's required checks first. For an existing project requested only
 for inspection, check its readiness before opening View. Do not start View during
 development or merely to answer questions about View.
@@ -210,8 +210,8 @@ node "$SDK_CLI" backend start --root "$WORKSPACE_ROOT" --host-pack "$VIEW_HOST_P
 ```
 
 After backend readiness, start View for the requested project. Open the URL
-returned by the CLI and verify that the requested project and asset content
-actually appear in View.
+returned by the CLI and verify that the requested project directory, files, or
+assets are visible in View.
 
 ```sh
 node "$SDK_CLI" view start --root "$WORKSPACE_ROOT" --project "$GAME_ROOT" --json
