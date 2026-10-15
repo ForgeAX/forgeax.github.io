@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -273,13 +273,13 @@ bun fx start          # → http://localhost:18920</code></pre>
                 <p>角色之外，还有覆盖全链路的扩展页面：</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>3D 模型</strong></summary>
-                    <div class="doc-subbody"><p>方块人编辑器（<code>lowpoly-obj</code>，导出引擎中立 <code>.glb</code>）、连线节点低多边形（<code>3d-lowpoly</code>）、文字 / 图片 / 多视角转 3D（<code>gen3d</code>，接入多家生成服务、择优而用）。逐一详解见 <a href="#ch9">第 9 章 · 3D 建模与生成</a>。</p></div>
+                    <div class="doc-subbody"><p>方块人编辑器（<code>lowpoly-obj</code>，导出引擎中立 <code>.glb</code>）、连线节点低多边形（<code>3d-lowpoly</code>）、Gen3D 角色工坊（<code>gen3d</code>，从角色模型到骨骼、动作与游戏内交付）。逐一详解见 <a href="#ch9">第 9 章 · 3D 建模与生成</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>特效 / 场景 / UI / 道具</strong></summary>
-                    <div class="doc-subbody"><p>技能特效（<code>skill</code>）、场景生成与 2D 场景资产（<code>scene-generator</code> / <code>2d-scene-asset-generator</code>）、界面制作页（<code>ui</code>，出可点原型）、道具图标（<code>items</code>，图 + 数据一张表）。逐一详解见 <a href="#ch9">第 9 章 · 场景 / UI / 道具</a>。</p></div>
+                    <div class="doc-subbody"><p>特效工坊（<code>vfx</code>，把特效拆成可复用元素再组合导出）、场景生成器（<code>scene-generator</code>，一句话生成可编辑的 3D 场景）、2D 场景资产（<code>2d-scene-asset-generator</code>）、界面制作页（<code>ui</code>）和道具图标（<code>items</code>）。逐一详解见 <a href="#ch9">第 9 章</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>音乐 / 调色 / 剧情</strong></summary>
-                    <div class="doc-subbody"><p>音乐与音效（<code>bgm</code>，BGM 时间轴）、整体调色（<code>look</code>，调色板 + LUT + 后处理）、叙事（<code>narrative</code>，117 题材 × 9 模板）。逐一详解见 <a href="#ch9">第 9 章 · 叙事 / 音乐 / 调色 / 数值</a>。</p></div>
+                    <div class="doc-subbody"><p>声音工坊（<code>sound-workshop</code>，按场景制作配乐、音效和语音，试听调音后接入游戏）、整体调色（<code>look</code>）、叙事工坊（<code>narrative</code>，可审阅、可改、可追溯）。逐一详解见 <a href="#ch9">第 9 章 · 叙事 / 音乐 / 调色 / 数值</a>。</p></div>
                   </details>
                 </div>
                 <p>每个扩展页面的逐一介绍见 <a href="#ch9">第 9 章 · 创作工具</a>、<a href="/zh/tutorials/authoring extensions.html">扩展页面教程</a> 与 <a href="/zh/marketplace/">插件市场</a>。</p>
@@ -396,8 +396,8 @@ bun fx start          # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>动画</strong></summary>
                     <div class="doc-subbody"><p>把角色立绘当模板，变成会动的：<strong>像素四方向、载具动画、怪物 sprite、Spine 绑定、短视频生成</strong> —— 而且<strong>不串脸</strong>，动起来还是同一个角色。面板内嵌、带中央预览视口。3D 角色的骨骼动画走引擎原生链路，见 <a href="/zh/blog/skeletal-animation-milestone.html">骨骼动画里程碑</a> 与 <a href="#ch5">资产</a>。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>技能 / 特效</strong></summary>
-                    <div class="doc-subbody"><p>技能树编辑 + VFX 预览，集中列出技能与特效产出。关键是<strong>玩家手点与 AI 派活共用同一份技能规格</strong> —— 特效会自动挂到"出手那一刻"，不用手动对齐。</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>特效工坊</strong></summary>
+                    <div class="doc-subbody"><p>把完整特效拆成冲击、烟雾、碎片、拖尾等可复用元素，在同一套流程里组合、调参、用 WebGPU/WGSL 预览并导出。确认后的结果可交到 Engine 0.2.1 与 Game Plugin 0.3.9。它不是「一种特效一个插件」。</p></div>
                   </details>
                 </div>
               </div>
@@ -412,8 +412,8 @@ bun fx start          # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>3D 低多边形生成器</strong></summary>
                     <div class="doc-subbody"><p>用<strong>"连线搭积木"的节点式</strong>方式做 3D 道具 / 机械：把建模流程画成一张节点图，改一个参数，整套重新生成。适合需要批量、可复用、参数化的硬表面资产。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>3D 生成</strong></summary>
-                    <div class="doc-subbody"><p>3D 资产<strong>生成入口</strong>：选一个生成服务 + 给输入（文字 / 图片 / 多视角图），产出<strong>持久化、可直接进游戏</strong>的 3D 资产清单。接入多家最强生成服务，择优而用、不被单家绑死。</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Gen3D 角色工坊</strong></summary>
+                    <div class="doc-subbody"><p>天工引擎的角色制作插件。把<strong>模型生成或导入、骨骼绑定、Idle／移动动作、可玩角色配置、导出与引擎验证</strong>串成一条路径，让「得到一个 3D 模型」继续走到游戏内的 Idle 与移动切换。它面向原创游戏角色，物件制作是次要能力，也不和 2D 角色编辑器并成同一项。</p></div>
                   </details>
                 </div>
               </div>
@@ -423,7 +423,7 @@ bun fx start          # → http://localhost:18920</code></pre>
               <div class="doc-body">
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><code>scene-generator</code> · <strong>场景生成器</strong></summary>
-                    <div class="doc-subbody"><p>用<strong>节点式</strong>自动"搭"出一整张游戏场景：把组合、布局、贴图处理画成一张流程图;想改随时重跑，产出整套场景。场景与关卡如何组织见 <a href="#ch4">场景与编辑器</a>。</p></div>
+                    <div class="doc-subbody"><p>在 Codex 里选择 <strong>@Scene Generator</strong>，用一句话描述场景，例如西部牛仔小镇。创作页面会持续展示生成进展。它设计建筑、地形、道路和环境布景，也可以通过对话调整布局、配色和建筑风格。结果保留为可编辑项目，可预览并接入 ForgeaX Engine。场景与关卡如何组织见 <a href="#ch4">场景与编辑器</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>2D 场景资产生成器</strong></summary>
                     <div class="doc-subbody"><p>同样是节点式，<strong>批量生成</strong>场景里的小物件 —— 道具、贴图、装饰、UI 小图，生成完<strong>自动起名归档</strong>，资产不再乱成一团。</p></div>
@@ -441,11 +441,11 @@ bun fx start          # → http://localhost:18920</code></pre>
               <summary>叙事 / 音乐 / 调色 / 数值</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>叙事制作页</strong></summary>
-                    <div class="doc-subbody"><p>AI 驱动的叙事生成管线：从一句灵感写出整套剧情与世界观。覆盖 <strong>117 种题材 × 9 套管线模板</strong>，带 Tier/Mode 双层路由和动态 Planner —— AI 按你的题材自动选最合适的写法和步骤。</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>叙事工坊</strong></summary>
+                    <div class="doc-subbody"><p>把一句需求或一部已有作品，做成能进游戏的叙事。结构从<strong>游戏品类、叙事类型和题材</strong>推导，而不是套一个固定模板；已有的小说、漫画或视频可以先抽出人物关系和冲突，分阶段确认后再改编。改一处设定时，会指出哪些下游内容已经过期。产出是游戏工程能直接读取的文件。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>音乐 / BGM</strong></summary>
-                    <div class="doc-subbody"><p>管理游戏的<strong>背景音乐与音效</strong>：一条 BGM 时间轴排好整局什么时候放哪段，加上音效命名约定。把整局的配乐节奏排成一张清单。</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>声音工坊</strong></summary>
+                    <div class="doc-subbody"><p>按场景制作<strong>配乐、音效和语音</strong>，在制作页试听、调音并选择版本，再结合真实玩法接入游戏。原始素材、调音参数和版本历史一起保留。基础播放为 2D，当前接入目标为 Engine 0.2.1 与 0.3.3。</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>色彩 / Look</strong></summary>
                     <div class="doc-subbody"><p>统一全游戏的<strong>色调氛围</strong> —— 调色板 + LUT + 后处理栈，像给整部游戏套一层滤镜：黄昏暖色、冷峻夜色，一键切换，画面气质瞬间统一。</p></div>
@@ -784,7 +784,7 @@ bun fx start          # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

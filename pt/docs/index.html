@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -271,13 +271,13 @@ bun fx start # → http://localhost:18920</code></pre>
                 <p>Além dos personagens, existem extensões em todo o pipeline:</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>Modelos 3D</strong></summary>
-                    <div class="doc-subbody"><p>Editor de caracteres em bloco (<code>lowpoly-obj</code>, exporta motor neutro<code>.glb</code>), gráfico de nó baixo poli (<code>3d-lowpoly</code>) e texto/imagem/multivisualização para 3D (<code>gen3d</code>, independente de provedor). Detalhado em<a href="#ch9">Capítulo 9 · Modelagem e geração 3D</a>.</p></div>
+                    <div class="doc-subbody"><p>Editor de personagens em blocos (<code>lowpoly-obj</code>, <code>.glb</code> neutro), low-poly por nós (<code>3d-lowpoly</code>) e a oficina de personagens Gen3D (<code>gen3d</code>: do modelo ao rig, ao movimento e à entrega no jogo). Detalhe no <a href="#ch9">capítulo 9 · modelação e geração 3D</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX / cenas / UI / itens</strong></summary>
-                    <div class="doc-subbody"><p>Efeitos visuais de habilidade (<code>habilidade authoring</code>), geração de cena e recursos de cena 2D (<code>gerador de cena authoring</code>/<code>gerador de ativos de cena authoring-2d</code>), o workshop de UI (<code>ui</code>, protótipos clicáveis) e ícones de itens (<code>itens authoring</code>, arte + dados em uma tabela). Detalhado em<a href="#ch9">Capítulo 9 · Cenas/UI/itens</a>.</p></div>
+                    <div class="doc-subbody"><p>Oficina de efeitos (<code>vfx</code>, separar um efeito em elementos reutilizáveis e depois combinar e exportar), gerador de cenas (<code>scene-generator</code>, uma frase para uma cena 3D editável), ativos 2D (<code>2d-scene-asset-generator</code>), interface (<code>ui</code>) e itens (<code>items</code>). Detalhe no <a href="#ch9">capítulo 9</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>Música/olhar/narrativa</strong></summary>
-                    <div class="doc-subbody"><p>Música e SFX (<code>bgm</code>, uma linha do tempo BGM), classificação de cores (<code>olhar authoring</code>, paleta + LUT + pós-processamento) e narrativa (<code>narrativa authoring</code>, 117 gêneros × 9 modelos). Detalhado em<a href="#ch9">Capítulo 9 · Narrativa / música / visual / equilíbrio</a>.</p></div>
+                    <div class="doc-subbody"><p>Oficina de som (<code>sound-workshop</code>: música, efeitos e voz para uma cena, ouvidos e afinados, depois ligados ao jogo), cor (<code>look</code>) e oficina narrativa (<code>narrative</code>: dá para rever, alterar e rastrear). Detalhe no <a href="#ch9">capítulo 9 · narrativa / música / cor / equilíbrio</a>.</p></div>
                   </details>
                 </div>
                 <p>A cobertura item por item está em<a href="#ch9">Capítulo 9 · Ferramentas de criação</a>, o<a href="/pt/tutorials/authoring extensions.html">tutorial de extensões</a>, e o<a href="/pt/marketplace/">mercado</a>.</p>
@@ -394,8 +394,8 @@ bun fx start # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>animação</strong></summary>
                     <div class="doc-subbody"><p>Usa o retrato de um personagem como modelo e o faz se mover:<strong>pixel de quatro direções, animação de veículos, sprites de monstros, encadernação de coluna, geração de vídeos curtos</strong>-<strong>sem desvio de rosto</strong>, então permanece o mesmo caractere. Painel incorporado com uma janela de visualização central. Personagens 3D usam o pipeline esquelético nativo do mecanismo - veja o<a href="/pt/blog/skeletal-animation-milestone.html">marco da animação esquelética</a>e<a href="#ch5">Ativos</a>.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>habilidade / efeitos visuais</strong></summary>
-                    <div class="doc-subbody"><p>Edição de árvore de habilidades + visualização de efeitos visuais, listando suas habilidades e resultados de efeitos em um só lugar. A ideia chave:<strong>os cliques do jogador e o envio de IA compartilham uma especificação de habilidade</strong>— os efeitos são anexados automaticamente ao "momento do lançamento", sem alinhamento manual.</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>Oficina de efeitos</strong></summary>
+                    <div class="doc-subbody"><p>Separe um efeito pronto em elementos reutilizáveis, como impacto, fumo, fragmentos e rastos, e depois combine, afine, pré-visualize com WebGPU/WGSL e exporte. Um resultado confirmado pode ir para Engine 0.2.1 e Game Plugin 0.3.9. Não é um plugin por efeito.</p></div>
                   </details>
                 </div>
               </div>
@@ -410,8 +410,8 @@ bun fx start # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>gerador de baixo poli</strong></summary>
                     <div class="doc-subbody"><p>Crie adereços/ativos mecânicos 3D com<strong>programação de nós</strong>("wire up blocks"): modele o processo como um gráfico de nó, altere um parâmetro, regenere todo o conjunto. Ótimo para ativos de superfície rígida paramétricos, em lote e reutilizáveis.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Geração 3D</strong></summary>
-                    <div class="doc-subbody"><p>Um ativo 3D<strong>ponto de entrada de geração</strong>: escolha um serviço de geração e forneça uma entrada (texto/imagem/visualização múltipla) e obtenha um<strong>durável, pronto para jogos</strong>Manifesto de ativos 3D. Conectado a vários geradores de ponta para que você escolha o melhor - sem dependência de um único fornecedor.</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Oficina de personagens Gen3D</strong></summary>
+                    <div class="doc-subbody"><p>Plugin de produção de personagens da 天工引擎. Liga <strong>geração ou importação do modelo, rig, Idle e movimento, configuração jogável, exportação e verificação no motor</strong>. Obter um modelo 3D continua até à alternância entre Idle e movimento dentro do jogo. Serve para personagens originais. Fazer adereços é secundário, e fica separado do editor de personagens 2D.</p></div>
                   </details>
                 </div>
               </div>
@@ -420,8 +420,8 @@ bun fx start # → http://localhost:18920</code></pre>
               <summary>Cenas/IU/itens</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>gerador de cena</strong></summary>
-                    <div class="doc-subbody"><p>Monte uma cena de jogo inteira com<strong>programação de nós</strong>: traçar composição, posicionamento e texturização como um gráfico; execute novamente a qualquer momento para regenerar a cena completa. Para saber como as cenas/níveis são organizados, consulte<a href="#ch4">Cenas e editor</a>.</p></div>
+                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>Gerador de cenas</strong></summary>
+                    <div class="doc-subbody"><p>No Codex, escolha <strong>@Scene Generator</strong> e descreva a cena numa frase, por exemplo uma cidade do velho oeste. A vista de criação continua a mostrar o progresso. Desenha edifícios, terreno, estradas e adereços, e pode ajustar disposição, paleta e estilo arquitetónico na conversa. O resultado fica como um projeto editável, pode ser pré-visualizado e pode entrar no ForgeaX Engine. Como as cenas se organizam: <a href="#ch4">Cenas e editor</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>Recursos de cena 2D</strong></summary>
                     <div class="doc-subbody"><p>Também programação de nós, para<strong>geração em lote</strong>as pequenas coisas em uma cena – adereços, texturas, decorações, bits de UI – então<strong>nomeado automaticamente e arquivado</strong>para que os ativos não se transformem em uma bagunça.</p></div>
@@ -439,11 +439,11 @@ bun fx start # → http://localhost:18920</code></pre>
               <summary>Narrativa/música/olhar/equilíbrio</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>oficina de narrativa</strong></summary>
-                    <div class="doc-subbody"><p>Um pipeline narrativo baseado em IA: de uma faísca a uma história e um mundo completos. Cobre<strong>117 gêneros × 9 modelos de pipeline</strong>com roteamento de nível/modo e um planejador dinâmico — a IA escolhe a abordagem e as etapas adequadas ao seu gênero.</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>Oficina narrativa</strong></summary>
+                    <div class="doc-subbody"><p>Transforma um pedido, ou uma obra existente, em narrativa que o jogo pode usar. A estrutura sai do <strong>género de jogo, do tipo narrativo e do tema</strong>, não de um modelo fixo. Um romance, banda desenhada ou vídeo é primeiro lido quanto a relações e conflito, e adaptado depois de confirmar o âmbito por etapas. Mudar uma premissa mostra que material a jusante ficou desatualizado. A saída são ficheiros que o projeto lê diretamente.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>música / música de fundo</strong></summary>
-                    <div class="doc-subbody"><p>Gerencie o jogo<strong>música e efeitos sonoros</strong>: uma linha do tempo de música de fundo mostrando o que é reproduzido durante uma sessão, além de convenções de nomenclatura de efeitos sonoros - a partitura inteira sequenciada como uma lista.</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>Oficina de som</strong></summary>
+                    <div class="doc-subbody"><p>Faz <strong>música, efeitos e voz</strong> para uma cena, ouve, afina e escolhe uma versão, e depois liga ao jogo real. Os originais, os ajustes e o histórico ficam juntos. A reprodução base é 2D. Os alvos atuais são Engine 0.2.1 e 0.3.3.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>cor / look-dev</strong></summary>
                     <div class="doc-subbody"><p>Unifique todo o jogo<strong>humor de cor</strong>— paleta + LUT + uma pilha de pós-processamento, como um filtro sobre todo o jogo: crepúsculo quente, noite fria, alternados com um clique para que a sensação visual se encaixe em um só.</p></div>
@@ -782,7 +782,7 @@ bun fx start # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

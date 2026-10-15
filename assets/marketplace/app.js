@@ -666,7 +666,7 @@
       var stats = [
         { label: UI.statTools, value: String(c.tools || 0), pct: toolPct, ring: true },
         { label: UI.statSkills, value: String(c.skills || 0), pct: skillPct, ring: true },
-        { label: UI.statVersion, value: "v" + esc(d.version), pct: 100, ring: false },
+        { label: UI.statVersion, value: d.version ? "v" + esc(d.version) : "—", pct: 100, ring: false },
         { label: UI.statUpdated, value: esc(d.updated || d.created || "—"), pct: 72, ring: false },
       ];
       stats.forEach(function (s, i) {
@@ -693,7 +693,7 @@
       var idEl = $("mkmReadoutId");
       if (idEl) idEl.textContent = "ID · " + idShort.toUpperCase();
       var verEl = $("mkmReadoutVer");
-      if (verEl) verEl.textContent = d ? "VER · v" + d.version : "VER · —";
+      if (verEl) verEl.textContent = d && d.version ? "VER · v" + d.version : "VER · —";
       var kindEl = $("mkmReadoutKind");
       if (kindEl) kindEl.textContent = d ? String(d.kind || "plugin").replace("cli-provider", "CLI").replace("model-binding", "BIND").toUpperCase() : "PLUGIN";
     }

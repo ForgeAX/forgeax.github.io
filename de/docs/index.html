@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -271,13 +271,13 @@ bun fx start # → http://localhost:18920</code></pre>
                 <p>Über die Charaktere hinaus gibt es Erweiterungen in der gesamten Pipeline:</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>3D-Modelle</strong></summary>
-                    <div class="doc-subbody"><p>Editor für Blockzeichen (<code>lowpoly-obj</code>, exportiert motorneutral<code>.glb</code>), Knotengraph Low-Poly (<code>3d-lowpoly</code>) und Text/Bild/Multi-View-to-3D (<code>gen3d</code>, anbieterunabhängig). Ausführlich in<a href="#ch9">Kapitel 9 · 3D-Modellierung und -Generierung</a>.</p></div>
+                    <div class="doc-subbody"><p>Block-Charaktereditor (<code>lowpoly-obj</code>, engine-neutrales <code>.glb</code>), Node-Lowpoly (<code>3d-lowpoly</code>) und die Gen3D-Charakterwerkstatt (<code>gen3d</code>: vom Modell über Rig und Bewegung bis zur Übergabe im Spiel). Details in <a href="#ch9">Kapitel 9 · 3D-Modellierung und Generierung</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX / Szenen / UI / Elemente</strong></summary>
-                    <div class="doc-subbody"><p>Fertigkeits-VFX (<code>skill</code>), Szenengenerierung und 2D-Szenen-Assets (<code>authoring-szenengenerator</code>/<code>2d-scene-asset-generator</code>), der UI-Workshop (<code>ui</code>, anklickbare Prototypen) und Elementsymbole (<code>authoring-Artikel</code>, Kunst + Daten in einer Tabelle). Ausführlich in<a href="#ch9">Kapitel 9 · Szenen / Benutzeroberfläche / Elemente</a>.</p></div>
+                    <div class="doc-subbody"><p>Effektwerkstatt (<code>vfx</code>, Effekt in wiederverwendbare Elemente zerlegen, dann kombinieren und exportieren), Szenengenerator (<code>scene-generator</code>, ein Satz zu einer bearbeitbaren 3D-Szene), 2D-Szenenassets (<code>2d-scene-asset-generator</code>), Oberfläche (<code>ui</code>) und Gegenstände (<code>items</code>). Details in <a href="#ch9">Kapitel 9</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>Musik / Look / Erzählung</strong></summary>
-                    <div class="doc-subbody"><p>Musik und SFX (<code>bgm</code>, eine Hintergrundmusik-Zeitleiste), Farbkorrektur (<code>look</code>, Palette + LUT + Nachbearbeitung) und Erzählung (<code>authoring-Erzählung</code>, 117 Genres × 9 Vorlagen). Ausführlich in<a href="#ch9">Kapitel 9 · Erzählung / Musik / Aussehen / Balance</a>.</p></div>
+                    <div class="doc-subbody"><p>Klangwerkstatt (<code>sound-workshop</code>: Musik, Effekte und Sprache zu einer Szene, angehört und abgemischt, dann im Spiel), Farbe (<code>look</code>) und Erzählwerkstatt (<code>narrative</code>: prüfbar, änderbar, nachverfolgbar). Details in <a href="#ch9">Kapitel 9 · Erzählung / Musik / Farbe / Balance</a>.</p></div>
                   </details>
                 </div>
                 <p>Die Artikel-für-Artikel-Abdeckung ist verfügbar<a href="#ch9">Kapitel 9 · Erstellungstools</a>, Die<a href="/de/tutorials/authoring extensions.html">Erweiterungsseite-Tutorial</a>, und die<a href="/de/marketplace/">Marktplatz</a>.</p>
@@ -394,8 +394,8 @@ bun fx start # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>Animation</strong></summary>
                     <div class="doc-subbody"><p>Verwendet ein Charakterporträt als Vorlage und bringt es in Bewegung:<strong>Vier-Richtungs-Pixel, Fahrzeuganimation, Monster-Sprites, Spine-Bindung, Kurzvideo-Generierung</strong>—<strong>ohne Gesichtsdrift</strong>, also bleibt es derselbe Charakter. Eingebettetes Panel mit mittlerem Ansichtsfenster. 3D-Charaktere nutzen die native Skelett-Pipeline der Engine – siehe<a href="/de/blog/skeletal-animation-milestone.html">Meilenstein der Skelettanimation</a>Und<a href="#ch5">Vermögenswerte</a>.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>Fertigkeit / VFX</strong></summary>
-                    <div class="doc-subbody"><p>Skill-Tree-Bearbeitung + VFX-Vorschau, Auflistung Ihrer Skill- und Effektausgaben an einem Ort. Die Schlüsselidee:<strong>Die Klicks und der KI-Versand des Spielers teilen sich eine Fertigkeitsspezifikation</strong>– Effekte werden automatisch an den „Moment des Wirkens“ angehängt, keine manuelle Ausrichtung.</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>Effektwerkstatt</strong></summary>
+                    <div class="doc-subbody"><p>Ein fertiger Effekt wird in wiederverwendbare Elemente wie Einschlag, Rauch, Splitter und Schweif zerlegt, dann kombiniert, justiert, mit WebGPU/WGSL angesehen und exportiert. Ein bestätigtes Ergebnis kann an Engine 0.2.1 und Game Plugin 0.3.9 gehen. Es ist nicht ein Plugin pro Effekt.</p></div>
                   </details>
                 </div>
               </div>
@@ -410,8 +410,8 @@ bun fx start # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>Low-Poly-Generator</strong></summary>
                     <div class="doc-subbody"><p>Erstellen Sie 3D-Requisiten/mechanische Assets mit<strong>Knotenprogrammierung</strong>(„Blöcke verdrahten“): Modellieren Sie den Prozess als Knotendiagramm, ändern Sie einen Parameter und generieren Sie den gesamten Satz neu. Ideal für Batch-, wiederverwendbare, parametrische Assets mit harter Oberfläche.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>3D-Generierung</strong></summary>
-                    <div class="doc-subbody"><p>Ein 3D-Asset<strong>Einstiegspunkt der Generation</strong>: Wählen Sie einen Generierungsdienst aus, geben Sie eine Eingabe ein (Text/Bild/Mehrfachansicht) und erhalten Sie eine<strong>langlebig, spielbereit</strong>3D-Asset-Manifest. An mehrere Top-Generatoren angeschlossen, sodass Sie den besten auswählen können – keine Bindung an einen einzelnen Anbieter.</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Gen3D-Charakterwerkstatt</strong></summary>
+                    <div class="doc-subbody"><p>Das Charakter-Plugin von 天工引擎. Es verbindet <strong>Modellerzeugung oder Import, Rig, Idle und Bewegung, spielbare Einrichtung, Export und Engine-Prüfung</strong>. Ein 3D-Modell geht weiter bis zum Wechsel zwischen Idle und Bewegung im Spiel. Es ist für eigene Spielcharaktere. Requisiten sind nachrangig, und es bleibt getrennt vom 2D-Charaktereditor.</p></div>
                   </details>
                 </div>
               </div>
@@ -421,7 +421,7 @@ bun fx start # → http://localhost:18920</code></pre>
               <div class="doc-body">
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><code>scene-generator</code> · <strong>Szenengenerator</strong></summary>
-                    <div class="doc-subbody"><p>Stellen Sie eine ganze Spielszene zusammen<strong>Knotenprogrammierung</strong>: Komposition, Platzierung und Texturierung als Diagramm anordnen; Führen Sie es jederzeit erneut aus, um die gesamte Szene neu zu generieren. Informationen zur Organisation von Szenen/Levels finden Sie unter<a href="#ch4">Szenen & Schnitt</a>.</p></div>
+                    <div class="doc-subbody"><p>Wählen Sie in Codex <strong>@Scene Generator</strong> und beschreiben Sie die Szene in einem Satz, etwa eine Westernstadt. Die Erstellungsansicht zeigt den Fortschritt fortlaufend. Es gestaltet Gebäude, Gelände, Wege und Umgebung, und Layout, Farbpalette und Architekturstil lassen sich im Gespräch anpassen. Das Ergebnis bleibt ein bearbeitbares Projekt, kann angesehen werden und kann in ForgeaX Engine. Wie Szenen organisiert sind: <a href="#ch4">Szenen und Editor</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>2D-Szenen-Assets</strong></summary>
                     <div class="doc-subbody"><p>Auch Knotenprogrammierung, z<strong>Batch-generierend</strong>dann die kleinen Dinge in einer Szene – Requisiten, Texturen, Dekorationen, UI-Teile<strong>automatisch benannt und abgelegt</strong>damit Vermögenswerte nicht in Unordnung geraten.</p></div>
@@ -440,10 +440,10 @@ bun fx start # → http://localhost:18920</code></pre>
               <div class="doc-body">
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><code>narrative</code> · <strong>Erzählwerkstatt</strong></summary>
-                    <div class="doc-subbody"><p>Eine KI-gesteuerte Erzählpipeline: vom Funken zur vollständigen Geschichte und Welt. Es deckt ab<strong>117 Genres × 9 Pipeline-Vorlagen</strong>Mit Tier-/Modus-Routing und einem dynamischen Planer wählt die KI den passenden Ansatz und die passenden Schritte für Ihr Genre aus.</p></div>
+                    <div class="doc-subbody"><p>Macht aus einem Satz oder einem vorhandenen Werk Erzählung, die das Spiel verwenden kann. Die Struktur kommt aus <strong>Spielgenre, Erzähltyp und Stoff</strong>, nicht aus einer festen Vorlage. Roman, Comic oder Video werden zuerst auf Beziehungen und Konflikt gelesen und nach schrittweiser Bestätigung übertragen. Ändert sich eine Vorgabe, zeigt sich, welches nachgelagerte Material veraltet ist. Die Ausgabe sind Dateien, die das Projekt direkt lesen kann.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>Musik / Hintergrundmusik</strong></summary>
-                    <div class="doc-subbody"><p>Verwalte die Spiele<strong>Musik und Soundeffekte</strong>: eine Hintergrundmusik-Zeitleiste, die darlegt, was wann in einer Sitzung abgespielt wird, plus Benennungskonventionen für Soundeffekte – die gesamte Partitur als eine Liste sequenziert.</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>Klangwerkstatt</strong></summary>
+                    <div class="doc-subbody"><p>Erstellt <strong>Musik, Effekte und Sprache</strong> zu einer Szene, zum Anhören, Abmischen und Auswählen einer Version, und bindet sie dann an echtes Spiel. Ausgangsmaterial, Mixparameter und Versionsgeschichte bleiben zusammen. Die Basiswiedergabe ist 2D. Aktuelle Ziele sind Engine 0.2.1 und 0.3.3.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>Farbe / Look-Entw</strong></summary>
                     <div class="doc-subbody"><p>Vereinheitlichen Sie das gesamte Spiel<strong>Farbstimmung</strong>– Palette + LUT + ein Postprocessing-Stack, wie ein Filter über das gesamte Spiel: warme Dämmerung, kalte Nacht, mit einem Klick umgeschaltet, damit das visuelle Gefühl eins wird.</p></div>
@@ -782,7 +782,7 @@ bun fx start # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

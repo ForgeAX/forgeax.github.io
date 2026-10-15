@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -273,13 +273,13 @@ hits remove them and add score.</code></pre>
                 <p>Beyond characters, there are authoring extensions across the whole pipeline:</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>3D models</strong></summary>
-                    <div class="doc-subbody"><p>Blocky-character editor (<code>lowpoly-obj</code>, exports engine-neutral <code>.glb</code>), node-graph low-poly (<code>3d-lowpoly</code>), and text / image / multi-view-to-3D (<code>gen3d</code>, provider-agnostic). Detailed in <a href="#ch9">Chapter 9 · 3D modeling &amp; generation</a>.</p></div>
+                    <div class="doc-subbody"><p>Blocky-character editor (<code>lowpoly-obj</code>, exports engine-neutral <code>.glb</code>), node-graph low-poly (<code>3d-lowpoly</code>), and Gen3D Character Studio (<code>gen3d</code>: from a character model to rig, motion, and in-game delivery). Detailed in <a href="#ch9">Chapter 9 · 3D modeling &amp; generation</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX / scenes / UI / items</strong></summary>
-                    <div class="doc-subbody"><p>Skill VFX (<code>skill</code>), scene generation and 2D scene assets (<code>scene-generator</code> / <code>2d-scene-asset-generator</code>), the UI workshop (<code>ui</code>, clickable prototypes), and item icons (<code>items</code>, art + data in one table). Detailed in <a href="#ch9">Chapter 9 · Scenes / UI / items</a>.</p></div>
+                    <div class="doc-subbody"><p>Effects workshop (<code>vfx</code>, split an effect into reusable elements, then combine and export), Scene Generator (<code>scene-generator</code>, a sentence to an editable 3D scene), 2D scene assets (<code>2d-scene-asset-generator</code>), the UI workshop (<code>ui</code>), and item icons (<code>items</code>). Detailed in <a href="#ch9">Chapter 9</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>Music / look / narrative</strong></summary>
-                    <div class="doc-subbody"><p>Music and SFX (<code>bgm</code>, a BGM timeline), color grading (<code>look</code>, palette + LUT + postprocess), and narrative (<code>narrative</code>, 117 genres × 9 templates). Detailed in <a href="#ch9">Chapter 9 · Narrative / music / look / balance</a>.</p></div>
+                    <div class="doc-subbody"><p>Sound Workshop (<code>sound-workshop</code>: score, effects, and voice for a scene, auditioned and tuned, then wired into the game), color grading (<code>look</code>), and Narrative Studio (<code>narrative</code>: reviewable, revisable, and traceable). Detailed in <a href="#ch9">Chapter 9 · Narrative / music / look / balance</a>.</p></div>
                   </details>
                 </div>
                 <p>Item-by-item coverage is in <a href="#ch9">Chapter 9 · Creation tools</a>, the <a href="/tutorials/authoring extensions.html">authoring extensions tutorial</a>, and the <a href="/marketplace/">marketplace</a>.</p>
@@ -396,8 +396,8 @@ hits remove them and add score.</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>animation</strong></summary>
                     <div class="doc-subbody"><p>Uses a character portrait as a template and makes it move: <strong>four-direction pixel, vehicle animation, monster sprites, Spine binding, short-video generation</strong> — <strong>without face drift</strong>, so it stays the same character. Embedded panel with a center viewport. 3D characters use the engine's native skeletal pipeline — see the <a href="/blog/skeletal-animation-milestone.html">skeletal-animation milestone</a> and <a href="#ch5">Assets</a>.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>skill / VFX</strong></summary>
-                    <div class="doc-subbody"><p>Skill-tree editing + VFX preview, listing your skill and effect outputs in one place. The key idea: <strong>the player's clicks and AI dispatch share one skill spec</strong> — effects auto-attach to "the moment of cast", no manual alignment.</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>effects workshop</strong></summary>
+                    <div class="doc-subbody"><p>Split a finished effect into reusable elements such as impact, smoke, debris, and trails, then combine, tune, preview with WebGPU/WGSL, and export. A confirmed result can be delivered to Engine 0.2.1 and Game Plugin 0.3.9. It is one workshop for many effects.</p></div>
                   </details>
                 </div>
               </div>
@@ -412,8 +412,8 @@ hits remove them and add score.</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>low-poly generator</strong></summary>
                     <div class="doc-subbody"><p>Build 3D props / mechanical assets with <strong>node-programming</strong> ("wire up blocks"): model the process as a node graph, change one parameter, regenerate the whole set. Great for batch, reusable, parametric hard-surface assets.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>3D generation</strong></summary>
-                    <div class="doc-subbody"><p>A 3D asset <strong>generation entrypoint</strong>: pick a generation service and give an input (text / image / multi-view), and get a <strong>durable, game-ready</strong> 3D asset manifest. Plugged into several top generators so you pick whichever's best — no single-vendor lock-in.</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Gen3D Character Studio</strong></summary>
+                    <div class="doc-subbody"><p>The character-production plugin from 天工引擎. It runs <strong>model generation or import, rigging, idle and movement, playable setup, export, and engine checks</strong> as one path, so getting a 3D model continues on to idle and movement inside the game. It is for original game characters. Prop making is secondary, and it stays separate from the 2D character editor.</p></div>
                   </details>
                 </div>
               </div>
@@ -422,8 +422,8 @@ hits remove them and add score.</code></pre>
               <summary>Scenes / UI / items</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>scene generator</strong></summary>
-                    <div class="doc-subbody"><p>Assemble a whole game scene with <strong>node-programming</strong>: lay out composition, placement and texturing as a graph; re-run anytime to regenerate the full scene. For how scenes / levels are organized, see <a href="#ch4">Scenes &amp; editor</a>.</p></div>
+                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>Scene Generator</strong></summary>
+                    <div class="doc-subbody"><p>In Codex, choose <strong>@Scene Generator</strong> and describe a scene in one sentence, such as a western frontier town. The creation view keeps showing progress. It designs buildings, terrain, roads, and set dressing, and you can adjust layout, palette, and architectural style in conversation. The result stays an editable project, can be previewed, and can enter ForgeaX Engine. How scenes and levels are organized: <a href="#ch4">Scenes &amp; editor</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>2D scene assets</strong></summary>
                     <div class="doc-subbody"><p>Also node-programming, for <strong>batch-generating</strong> the small things in a scene — props, textures, decorations, UI bits — then <strong>auto-named and filed</strong> so assets don't turn into a mess.</p></div>
@@ -441,11 +441,11 @@ hits remove them and add score.</code></pre>
               <summary>Narrative / music / look / balance</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>narrative workshop</strong></summary>
-                    <div class="doc-subbody"><p>An AI-driven narrative pipeline: from a spark to a full story and world. It covers <strong>117 genres × 9 pipeline templates</strong> with tier/mode routing and a dynamic planner — the AI picks the fitting approach and steps for your genre.</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>Narrative Studio</strong></summary>
+                    <div class="doc-subbody"><p>Turn one request, or an existing work, into narrative the game can use. Structure is derived from <strong>game genre, narrative type, and subject matter</strong> instead of one fixed template. A novel, comic, or video can be read for character relationships and conflict, then adapted after you confirm the scope in stages. Changing one setting shows which downstream material is out of date. The output is files the game project can read directly.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>music / BGM</strong></summary>
-                    <div class="doc-subbody"><p>Manage the game's <strong>music and sound effects</strong>: a BGM timeline laying out what plays when across a session, plus sound-effect naming conventions — the whole score sequenced as one list.</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>Sound Workshop</strong></summary>
+                    <div class="doc-subbody"><p>Make <strong>score, effects, and voice</strong> for a scene, audition and tune them, pick a version, then wire it into real gameplay. Source files, mix settings, and version history stay together. Playback is 2D. Current integration targets are Engine 0.2.1 and 0.3.3.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>color / look-dev</strong></summary>
                     <div class="doc-subbody"><p>Unify the whole game's <strong>color mood</strong> — palette + LUT + a postprocess stack, like a filter over the entire game: warm dusk, cold night, switched in one click so the visual feel snaps into one.</p></div>
@@ -784,7 +784,7 @@ hits remove them and add score.</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -271,13 +271,13 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
                 <p>Au-delà des personnages, il existe des ateliers tout au long du pipeline :</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>Modèles 3D</strong></summary>
-                    <div class="doc-subbody"><p>Éditeur de caractères en blocs (<code>lowpoly-obj</code>, exporte sans moteur<code>.glb</code>), graphe de nœuds low-poly (<code>3d-lowpoly</code>), et texte/image/multi-vue en 3D (<code>gen3d</code>, indépendant du fournisseur). Détaillé dans<a href="#ch9">Chapitre 9 · Modélisation et génération 3D</a>.</p></div>
+                    <div class="doc-subbody"><p>Éditeur de personnages en blocs (<code>lowpoly-obj</code>, <code>.glb</code> neutre), low-poly nodal (<code>3d-lowpoly</code>) et l'atelier de personnages Gen3D (<code>gen3d</code> : du modèle au rig, au mouvement et à l'intégration). Détail au <a href="#ch9">chapitre 9 · modélisation et génération 3D</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX / scènes / UI / éléments</strong></summary>
-                    <div class="doc-subbody"><p>VFX de compétence (<code>authoring-compétence</code>), la génération de scènes et les ressources de scène 2D (<code>générateur de scène authoring</code>/<code>authoring-2d-scene-asset-générateur</code>), l'atelier UI (<code>ui</code>, prototypes cliquables) et icônes d'éléments (<code>articles authoring</code>, art + données dans un seul tableau). Détaillé dans<a href="#ch9">Chapitre 9 · Scènes / UI / éléments</a>.</p></div>
+                    <div class="doc-subbody"><p>Atelier d'effets (<code>vfx</code>, décomposer un effet en éléments réutilisables puis combiner et exporter), générateur de scènes (<code>scene-generator</code>, une phrase pour une scène 3D modifiable), assets 2D (<code>2d-scene-asset-generator</code>), interface (<code>ui</code>) et objets (<code>items</code>). Détail au <a href="#ch9">chapitre 9</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>Musique / look / narration</strong></summary>
-                    <div class="doc-subbody"><p>Musique et SFX (<code>bgm</code>, une chronologie BGM), l'étalonnage des couleurs (<code>look</code>, palette + LUT + post-traitement) et narration (<code>authoring-récit</code>, 117 genres × 9 modèles). Détaillé dans<a href="#ch9">Chapitre 9 · Récit / musique / look / équilibre</a>.</p></div>
+                    <div class="doc-subbody"><p>Atelier sonore (<code>sound-workshop</code> : musique, effets et voix pour une scène, écoutés et réglés, puis reliés au jeu), couleur (<code>look</code>) et atelier narratif (<code>narrative</code> : relisible, modifiable, traçable). Détail au <a href="#ch9">chapitre 9 · narration / musique / couleur / équilibre</a>.</p></div>
                   </details>
                 </div>
                 <p>La couverture article par article est en cours<a href="#ch9">Chapitre 9 · Outils de création</a>, le<a href="/fr/tutorials/authoring extensions.html">tutoriel sur les extensions</a>, et le<a href="/fr/marketplace/">marché</a>.</p>
@@ -394,8 +394,8 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>animation</strong></summary>
                     <div class="doc-subbody"><p>Utilise un portrait de personnage comme modèle et le fait bouger :<strong>pixel à quatre directions, animation de véhicules, sprites de monstres, reliure au dos, génération de courtes vidéos</strong>—<strong>sans dérive du visage</strong>, donc ça reste le même caractère. Panneau intégré avec une fenêtre centrale. Les personnages 3D utilisent le pipeline squelettique natif du moteur — voir le<a href="/fr/blog/skeletal-animation-milestone.html">jalon de l'animation squelettique</a>et<a href="#ch5">Actifs</a>.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>compétence / VFX</strong></summary>
-                    <div class="doc-subbody"><p>Édition de l'arbre de compétences + aperçu VFX, répertoriant vos compétences et vos effets en un seul endroit. L'idée clé :<strong>les clics du joueur et l'envoi de l'IA partagent une spécification de compétence</strong>— les effets s'attachent automatiquement au "moment du lancement", pas d'alignement manuel.</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>Atelier d'effets</strong></summary>
+                    <div class="doc-subbody"><p>Décomposez un effet fini en éléments réutilisables — impact, fumée, débris, traînées — puis combinez, réglez, prévisualisez en WebGPU/WGSL et exportez. Un résultat confirmé peut aller vers Engine 0.2.1 et Game Plugin 0.3.9. Ce n'est pas un plugin par effet.</p></div>
                   </details>
                 </div>
               </div>
@@ -410,8 +410,8 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>générateur low-poly</strong></summary>
                     <div class="doc-subbody"><p>Construisez des accessoires/actifs mécaniques 3D avec<strong>programmation de nœuds</strong>("wire up block") : modélisez le processus sous forme de graphe de nœuds, modifiez un paramètre, régénérez l'ensemble. Idéal pour les actifs à surface dure paramétriques, réutilisables et par lots.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Génération 3D</strong></summary>
-                    <div class="doc-subbody"><p>Un atout 3D<strong>point d'entrée de génération</strong>: choisissez un service de génération et donnez une entrée (texte / image / multi-vue), et obtenez un<strong>durable, prêt pour le jeu</strong>Manifeste d’actifs 3D. Branché sur plusieurs générateurs de premier plan pour que vous choisissiez celui qui est le meilleur – pas de dépendance à un seul fournisseur.</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Atelier de personnages Gen3D</strong></summary>
+                    <div class="doc-subbody"><p>Plugin de production de personnages de 天工引擎. Il enchaîne <strong>génération ou import du modèle, rig, Idle et déplacement, configuration jouable, export et vérification moteur</strong>. Obtenir un modèle 3D continue jusqu'au basculement Idle / déplacement dans le jeu. Il vise les personnages originaux. La fabrication d'objets reste secondaire, et il reste distinct de l'éditeur de personnages 2D.</p></div>
                   </details>
                 </div>
               </div>
@@ -420,8 +420,8 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
               <summary>Scènes/interface utilisateur/éléments</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>générateur de scène</strong></summary>
-                    <div class="doc-subbody"><p>Assemblez une scène de jeu entière avec<strong>programmation de nœuds</strong>: présenter la composition, le placement et la texturation sous forme de graphique ; réexécutez à tout moment pour régénérer la scène complète. Pour savoir comment les scènes/niveaux sont organisés, voir<a href="#ch4">Scènes et éditeur</a>.</p></div>
+                  <details class="doc-sub"><summary><code>scene-generator</code> · <strong>Générateur de scènes</strong></summary>
+                    <div class="doc-subbody"><p>Dans Codex, choisissez <strong>@Scene Generator</strong> et décrivez la scène en une phrase, par exemple une ville de western. La vue de création affiche la progression. Il conçoit bâtiments, terrain, routes et habillage, et vous pouvez ajuster disposition, palette et style architectural dans la conversation. Le résultat reste un projet modifiable, peut être prévisualisé et peut entrer dans ForgeaX Engine. Organisation des scènes : <a href="#ch4">Scènes et éditeur</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>Ressources de scène 2D</strong></summary>
                     <div class="doc-subbody"><p>Également la programmation de nœuds, pour<strong>génération par lots</strong>les petites choses dans une scène - accessoires, textures, décorations, éléments d'interface utilisateur - puis<strong>automatiquement nommé et classé</strong>afin que les actifs ne se transforment pas en désordre.</p></div>
@@ -439,11 +439,11 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
               <summary>Récit / musique / look / équilibre</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>atelier narratif</strong></summary>
-                    <div class="doc-subbody"><p>Un pipeline narratif basé sur l'IA : d'une étincelle à une histoire et un monde complets. Il couvre<strong>117 genres × 9 modèles de pipeline</strong>avec un routage par niveau/mode et un planificateur dynamique — l'IA choisit l'approche et les étapes adaptées à votre genre.</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>Atelier narratif</strong></summary>
+                    <div class="doc-subbody"><p>Transforme une demande, ou une œuvre existante, en narration que le jeu peut utiliser. La structure vient du <strong>genre de jeu, du type narratif et du sujet</strong>, pas d'un modèle fixe. Un roman, une bande dessinée ou une vidéo sont d'abord lus pour les relations et le conflit, puis adaptés après confirmation du périmètre par étapes. Changer un élément montre quel contenu en aval est périmé. La sortie est faite de fichiers que le projet peut lire directement.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>musique / musique de fond</strong></summary>
-                    <div class="doc-subbody"><p>Gérer le jeu<strong>musique et effets sonores</strong>: une chronologie de musique de fond présentant ce qui est joué au cours d'une session, ainsi que les conventions de dénomination des effets sonores - la partition entière séquencée sous forme d'une seule liste.</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>Atelier sonore</strong></summary>
+                    <div class="doc-subbody"><p>Produit <strong>musique, effets et voix</strong> pour une scène, à écouter, régler et choisir, puis à relier au jeu réel. Les sources, les réglages et l'historique restent ensemble. La lecture de base est en 2D. Les cibles actuelles sont Engine 0.2.1 et 0.3.3.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>couleur / look-dev</strong></summary>
                     <div class="doc-subbody"><p>Unifiez l'ensemble du jeu<strong>ambiance de couleur</strong>— palette + LUT + une pile de post-traitement, comme un filtre sur l'ensemble du jeu : crépuscule chaud, nuit froide, commutés en un clic pour que l'ambiance visuelle s'enclenche en une seule.</p></div>
@@ -782,7 +782,7 @@ chignon fx démarrer # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

@@ -1306,6 +1306,10 @@
   color: var(--text-secondary);
   text-align: center;
 }
+.home-v2 .publish-item.is-unsupported .publish-item__icon img {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
 .home-v2 .publish-item.is-unsupported .publish-item__name {
   color: var(--text-tertiary);
 }

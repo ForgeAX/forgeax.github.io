@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -271,13 +271,13 @@ bun fx 시작 # → http://localhost:18920</code></pre>
                 <p>캐릭터 외에도 전체 파이프라인에 걸쳐 확장 페이지가 있습니다.</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>3D 모델</strong></summary>
-                    <div class="doc-subbody"><p>블록 문자 편집기(<code>lowpoly-obj</code>, 엔진 중립 수출<code>.glb</code>), 노드 그래프 로우 폴리(<code>authoring-3d-저폴리</code>), 텍스트/이미지/멀티뷰-3D(<code>gen3d</code>, 공급자에 구애받지 않음). 자세히<a href="#ch9">9장 · 3D 모델링 및 생성</a>.</p></div>
+                    <div class="doc-subbody"><p>블록 캐릭터 편집기(<code>lowpoly-obj</code>, 엔진 중립 <code>.glb</code>), 노드 로우폴리(<code>3d-lowpoly</code>), Gen3D 캐릭터 공방(<code>gen3d</code>: 모델에서 리그, 동작, 게임 안 전달까지). 자세한 내용은 <a href="#ch9">9장 · 3D 모델링과 생성</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX/장면/UI/아이템</strong></summary>
-                    <div class="doc-subbody"><p>스킬 VFX(<code>authoring-스킬</code>), 장면 생성 및 2D 장면 자산(<code>Extension 장면 생성기</code>/<code>authoring-2d-장면-자산 생성기</code>), UI 워크숍(<code>ui</code>, 클릭 가능한 프로토타입) 및 항목 아이콘(<code>authoring-항목</code>, 아트 + 데이터가 하나의 테이블에 있음). 자세히<a href="#ch9">9장 · 장면/UI/아이템</a>.</p></div>
+                    <div class="doc-subbody"><p>이펙트 공방(<code>vfx</code>, 효과를 재사용 요소로 나눈 뒤 조합하고 내보내기), 장면 생성기(<code>scene-generator</code>, 한 문장으로 편집 가능한 3D 장면), 2D 장면 자산(<code>2d-scene-asset-generator</code>), UI(<code>ui</code>), 아이템(<code>items</code>). 자세한 내용은 <a href="#ch9">9장</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>음악 / 외모 / 서사</strong></summary>
-                    <div class="doc-subbody"><p>음악 및 SFX(<code>bgm</code>, BGM 타임라인), 컬러 그레이딩(<code>Extension 모양</code>, 팔레트 + LUT + 포스트프로세스) 및 내러티브(<code>authoring-서사</code>, 117개 장르 × 9개 템플릿). 자세히<a href="#ch9">9장 · 서사 / 음악 / 외모 / 밸런스</a>.</p></div>
+                    <div class="doc-subbody"><p>사운드 공방(<code>sound-workshop</code>: 장면에 맞춰 음악, 효과음, 음성을 만들고 들어 본 뒤 게임에 연결), 색 보정(<code>look</code>), 내러티브 공방(<code>narrative</code>: 검토, 수정, 추적). 자세한 내용은 <a href="#ch9">9장 · 서사 / 음악 / 색 / 수치</a>.</p></div>
                   </details>
                 </div>
                 <p>품목별 적용 범위는 다음과 같습니다.<a href="#ch9">9장 · 생성 도구</a>,<a href="/ko/tutorials/authoring extensions.html">확장 페이지 튜토리얼</a>, 그리고<a href="/ko/marketplace/">시장</a>.</p>
@@ -394,8 +394,8 @@ bun fx 시작 # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>생기</strong></summary>
                     <div class="doc-subbody"><p>캐릭터 초상화를 템플릿으로 사용하여 움직이게 만듭니다.<strong>4방향 픽셀, 차량 애니메이션, 몬스터 스프라이트, 스파인 바인딩, 짧은 비디오 생성</strong>—<strong>얼굴 드리프트 없이</strong>이므로 동일한 문자가 유지됩니다. 중앙 뷰포트가 포함된 패널입니다. 3D 캐릭터는 엔진의 기본 골격 파이프라인을 사용합니다.<a href="/ko/blog/skeletal-animation-milestone.html">골격 애니메이션 이정표</a>그리고<a href="#ch5">자산</a>.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>스킬 / VFX</strong></summary>
-                    <div class="doc-subbody"><p>스킬 트리 편집 + VFX 미리보기로 스킬과 효과 출력을 한 곳에 나열합니다. 핵심 아이디어:<strong>플레이어의 클릭과 AI 파견은 하나의 기술 사양을 공유합니다.</strong>— 효과는 "시전 순간"에 자동으로 적용되며 수동 정렬은 없습니다.</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>이펙트 공방</strong></summary>
+                    <div class="doc-subbody"><p>완성된 효과를 충격, 연기, 파편, 꼬리 같은 재사용 요소로 나누고, 같은 흐름에서 조합하고, 조절하고, WebGPU/WGSL로 미리 본 뒤 내보냅니다. 확인한 결과는 Engine 0.2.1과 Game Plugin 0.3.9로 전달할 수 있습니다. 이펙트 하나당 플러그인 하나가 아닙니다.</p></div>
                   </details>
                 </div>
               </div>
@@ -410,8 +410,8 @@ bun fx 시작 # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>로우 폴리 생성기</strong></summary>
                     <div class="doc-subbody"><p>3D 소품/기계 자산 구축<strong>노드 프로그래밍</strong>("블록 연결"): 프로세스를 노드 그래프로 모델링하고, 하나의 매개변수를 변경하고, 전체 세트를 재생성합니다. 일괄, 재사용 가능, 파라메트릭 하드 표면 자산에 적합합니다.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>3D 생성</strong></summary>
-                    <div class="doc-subbody"><p>3D 자산<strong>세대 진입점</strong>: 생성 서비스를 선택하여 입력(텍스트/이미지/멀티뷰)을 주고,<strong>내구성, 게임 준비</strong>3D 자산 매니페스트. 여러 최고의 발전기에 연결되어 있어 가장 좋은 것을 선택할 수 있습니다. 단일 공급업체에 종속되지 않습니다.</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Gen3D 캐릭터 공방</strong></summary>
+                    <div class="doc-subbody"><p>天工引擎의 캐릭터 제작 플러그인입니다. <strong>모델 생성 또는 가져오기, 리그, Idle／이동, 플레이 가능한 설정, 내보내기, 엔진 검증</strong>을 한 경로로 잇습니다. 3D 모델을 얻은 뒤에도 게임 안의 Idle과 이동 전환까지 이어집니다. 오리지널 게임 캐릭터를 위한 도구이고, 소품 제작은 부차적이며, 2D 캐릭터 편집기와 같은 항목이 아닙니다.</p></div>
                   </details>
                 </div>
               </div>
@@ -421,7 +421,7 @@ bun fx 시작 # → http://localhost:18920</code></pre>
               <div class="doc-body">
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><code>scene-generator</code> · <strong>장면 생성기</strong></summary>
-                    <div class="doc-subbody"><p>전체 게임 장면을 조립합니다.<strong>노드 프로그래밍</strong>: 구성, 배치 및 텍스처링을 그래프로 배치합니다. 전체 장면을 재생성하려면 언제든지 다시 실행하세요. 장면/레벨 구성 방법은 다음을 참조하세요.<a href="#ch4">장면 및 편집기</a>.</p></div>
+                    <div class="doc-subbody"><p>Codex에서 <strong>@Scene Generator</strong>를 고르고, 서부 마을처럼 장면을 한 문장으로 설명합니다. 제작 화면은 생성 진행을 계속 보여 줍니다. 건물, 지형, 도로, 환경 배치를 설계하고, 대화로 배치, 색, 건축 양식을 조정할 수 있습니다. 결과는 편집 가능한 프로젝트로 남고, 미리 볼 수 있으며 ForgeaX Engine에 연결됩니다. 장면과 레벨 구성은 <a href="#ch4">장면과 편집기</a>.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>2D 장면 자산</strong></summary>
                     <div class="doc-subbody"><p>또한 노드 프로그래밍<strong>일괄 생성</strong>장면의 작은 것(소품, 텍스처, 장식, UI 비트)<strong>자동 이름 지정 및 제출</strong>그래야 자산이 엉망이 되지 않습니다.</p></div>
@@ -439,11 +439,11 @@ bun fx 시작 # → http://localhost:18920</code></pre>
               <summary>서사/음악/외모/밸런스</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>서사 워크숍</strong></summary>
-                    <div class="doc-subbody"><p>AI 기반 내러티브 파이프라인: 스파크부터 전체 스토리 및 세계까지. 그것은 커버<strong>117개 장르 × 9개 파이프라인 템플릿</strong>계층/모드 라우팅 및 동적 플래너를 통해 AI는 장르에 적합한 접근 방식과 단계를 선택합니다.</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>내러티브 공방</strong></summary>
+                    <div class="doc-subbody"><p>한 줄 요청이나 기존 작품을 게임에 들어가는 서사로 만듭니다. 구조는 고정 틀이 아니라 <strong>게임 장르, 서사 유형, 소재</strong>에서 나옵니다. 소설, 만화, 영상은 인물 관계와 갈등을 먼저 뽑고, 범위를 단계별로 확인한 뒤 각색합니다. 설정 한 곳을 고치면 어떤 하류가 오래됐는지 알려 줍니다. 출력은 게임 프로젝트가 바로 읽는 파일입니다.</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>음악/BGM</strong></summary>
-                    <div class="doc-subbody"><p>게임의 관리<strong>음악과 음향 효과</strong>: 세션 전반에 걸쳐 재생되는 내용을 배치하는 BGM 타임라인과 음향 효과 명명 규칙 — 전체 점수가 하나의 목록으로 배열됩니다.</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>사운드 공방</strong></summary>
+                    <div class="doc-subbody"><p>장면에 맞춰 <strong>음악, 효과음, 음성</strong>을 만들고, 제작 화면에서 들어 보고 조절하고 버전을 고른 뒤 실제 플레이에 연결합니다. 원본, 조정 값, 버전 기록이 함께 남습니다. 기본 재생은 2D이고, 현재 연결 대상은 Engine 0.2.1과 0.3.3입니다.</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>색상/룩디벨롭</strong></summary>
                     <div class="doc-subbody"><p>게임 전체를 통일하다<strong>색상 분위기</strong>— 팔레트 + LUT + 전체 게임에 대한 필터와 같은 후처리 스택: 따뜻한 황혼, 추운 밤, 한 번의 클릭으로 전환되므로 시각적인 느낌이 한 번에 스냅됩니다.</p></div>
@@ -782,7 +782,7 @@ bun fx 시작 # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>

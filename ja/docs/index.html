@@ -26,7 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=6f161f8a" />
+<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -271,13 +271,13 @@ bun fx スタート # → http://localhost:18920</code></pre>
                 <p>キャラクター以外にも、パイプライン全体に拡張ページがあります。</p>
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><strong>3Dモデル</strong></summary>
-                    <div class="doc-subbody"><p>ブロック状の文字エディタ (<code>authoring-ローポリ-オブジェクト</code>、エンジンに依存しないエクスポート<code>.glb</code>)、ノードグラフの低ポリゴン (<code>authoring-3d-ローポリ</code>)、テキスト/画像/マルチビューから 3D (<code>gen3d</code>、プロバイダーに依存しない）。詳細については、<a href="#ch9">第 9 章 · 3D モデリングと生成</a>。</p></div>
+                    <div class="doc-subbody"><p>ブロック状キャラクター編集（<code>lowpoly-obj</code>、エンジン中立の <code>.glb</code>）、ノード式ローポリ（<code>3d-lowpoly</code>）、Gen3D キャラクター工房（<code>gen3d</code>：モデルから骨格、動作、ゲーム内納品まで）。詳しくは <a href="#ch9">第9章 · 3D モデリングと生成</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>VFX / シーン / UI / アイテム</strong></summary>
-                    <div class="doc-subbody"><p>スキルVFX（<code>Extensionスキル</code>)、シーン生成および 2D シーン アセット (<code>authoring-シーンジェネレーター</code>/<code>2d-scene-asset-generator</code>)、UIワークショップ(<code>ui</code>、クリック可能なプロトタイプ)、アイテム アイコン (<code>Extensionアイテム</code>、アート + データを 1 つのテーブルにまとめます)。詳細については、<a href="#ch9">第9章・シーン/UI/アイテム</a>。</p></div>
+                    <div class="doc-subbody"><p>エフェクト工房（<code>vfx</code>、効果を再利用できる要素に分解して組み合わせ書き出し）、シーンジェネレーター（<code>scene-generator</code>、一文から編集できる 3D シーン）、2D シーン資産（<code>2d-scene-asset-generator</code>）、UI（<code>ui</code>）、アイテム（<code>items</code>）。詳しくは <a href="#ch9">第9章</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><strong>音楽 / 見た目 / 物語</strong></summary>
-                    <div class="doc-subbody"><p>音楽と特撮 (<code>BGM</code>、BGMタイムライン）、カラーグレーディング（<code>Extensionルック</code>、パレット + LUT + ポストプロセス)、およびナラティブ (<code>extension-ナラティブ</code>、117ジャンル×9テンプレート）。詳細については、<a href="#ch9">第9章・物語/音楽/見た目/バランス</a>。</p></div>
+                    <div class="doc-subbody"><p>サウンド工房（<code>sound-workshop</code>：場面に合わせて楽曲、効果音、音声を作り、試聴と調整のあとゲームへ）、色調（<code>look</code>）、ナラティブ工房（<code>narrative</code>：確認、修正、追跡ができる）。詳しくは <a href="#ch9">第9章 · 叙事 / 音楽 / 色調 / 数値</a>。</p></div>
                   </details>
                 </div>
                 <p>アイテムごとの補償範囲は次のとおりです<a href="#ch9">第 9 章 · 作成ツール</a>、<a href="/ja/tutorials/authoring extensions.html">拡張ページのチュートリアル</a>、そして<a href="/ja/marketplace/">市場</a>。</p>
@@ -394,8 +394,8 @@ bun fx スタート # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>anim</code> · <strong>アニメーション</strong></summary>
                     <div class="doc-subbody"><p>キャラクターの肖像画をテンプレートとして使用し、それを動かします。<strong>4方向ピクセル、車両アニメーション、モンスタースプライト、スパインバインディング、ショートビデオ生成</strong>—<strong>顔のドリフトなし</strong>, したがって、同じ文字のままです。中央のビューポートを備えた埋め込みパネル。 3D キャラクターはエンジンのネイティブ スケルトン パイプラインを使用します。<a href="/ja/blog/skeletal-animation-milestone.html">スケルトンアニメーションのマイルストーン</a>そして<a href="#ch5">資産</a>。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>skill</code> · <strong>スキル / VFX</strong></summary>
-                    <div class="doc-subbody"><p>スキルツリー編集 + VFX プレビュー。スキルとエフェクトの出力を 1 か所にリストします。重要なアイデア:<strong>プレイヤーのクリックと AI ディスパッチは 1 つのスキル仕様を共有します</strong>— エフェクトは「キャストの瞬間」に自動的に適用され、手動での調整は必要ありません。</p></div>
+                  <details class="doc-sub"><summary><code>vfx</code> · <strong>エフェクト工房</strong></summary>
+                    <div class="doc-subbody"><p>完成した効果を衝撃、煙、破片、軌跡などの再利用できる要素に分解し、同じ流れで組み合わせ、調整し、WebGPU/WGSL でプレビューして書き出します。確認した結果は Engine 0.2.1 と Game Plugin 0.3.9 に渡せます。効果ひとつにつきプラグインひとつ、ではありません。</p></div>
                   </details>
                 </div>
               </div>
@@ -410,8 +410,8 @@ bun fx スタート # → http://localhost:18920</code></pre>
                   <details class="doc-sub"><summary><code>3d-lowpoly</code> · <strong>ローポリジェネレータ</strong></summary>
                     <div class="doc-subbody"><p>3D プロップ/メカニカル アセットを構築する<strong>ノードプログラミング</strong>(「ブロックを接続する」): プロセスをノード グラフとしてモデル化し、1 つのパラメーターを変更し、セット全体を再生成します。バッチ、再利用可能なパラメトリックなハードサーフェス アセットに最適です。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>3D生成</strong></summary>
-                    <div class="doc-subbody"><p>3D アセット<strong>世代エントリポイント</strong>: 生成サービスを選択し、入力 (テキスト / 画像 / マルチビュー) を与えると、<strong>耐久性があり、ゲームの準備ができています</strong>3D アセット マニフェスト。複数のトップジェネレーターに接続されているため、単一ベンダーのロックインがなく、最適なものを選択できます。</p></div>
+                  <details class="doc-sub"><summary><code>gen3d</code> · <strong>Gen3D キャラクター工房</strong></summary>
+                    <div class="doc-subbody"><p>天工引擎のキャラクター制作プラグインです。<strong>モデルの生成または取り込み、リグ、Idle／移動、操作できる設定、書き出し、エンジン検証</strong>を一本の経路にします。「3D モデルが手に入った」あと、ゲーム内の Idle と移動の切り替えまで続きます。対象はオリジナルのゲームキャラクターで、小物制作は副次的です。2D のキャラクター編集とは別の項目です。</p></div>
                   </details>
                 </div>
               </div>
@@ -421,7 +421,7 @@ bun fx スタート # → http://localhost:18920</code></pre>
               <div class="doc-body">
                 <div class="doc-subs">
                   <details class="doc-sub"><summary><code>scene-generator</code> · <strong>シーンジェネレーター</strong></summary>
-                    <div class="doc-subbody"><p>ゲームシーン全体を組み立てる<strong>ノードプログラミング</strong>: 構成、配置、テクスチャリングをグラフとしてレイアウトします。いつでも再実行してシーン全体を再生成できます。シーン/レベルの構成方法については、を参照してください。<a href="#ch4">シーンとエディター</a>。</p></div>
+                    <div class="doc-subbody"><p>Codex で <strong>@Scene Generator</strong> を選び、西部の町のように場面を一文で説明します。創作画面は生成の進み具合を継続して表示します。建物、地形、道路、環境の配置を設計し、対話でレイアウト、配色、建築様式を調整できます。結果は編集できるプロジェクトとして残り、プレビューでき、ForgeaX Engine に接続できます。シーンとレベルの整理は <a href="#ch4">シーンとエディター</a>。</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>2d-scene-asset-generator</code> · <strong>2D シーン アセット</strong></summary>
                     <div class="doc-subbody"><p>ノードプログラミングにも対応<strong>バッチ生成</strong>シーン内の小さなもの (小道具、テクスチャ、装飾、UI ビット)<strong>自動的に名前が付けられてファイルされる</strong>資産が混乱しないように。</p></div>
@@ -439,11 +439,11 @@ bun fx スタート # → http://localhost:18920</code></pre>
               <summary>物語/音楽/見た目/バランス</summary>
               <div class="doc-body">
                 <div class="doc-subs">
-                  <details class="doc-sub"><summary><code>narrative</code> · <strong>物語ワークショップ</strong></summary>
-                    <div class="doc-subbody"><p>AI 主導のナラティブ パイプライン: 火花から完全なストーリーと世界まで。カバーします<strong>117ジャンル×9パイプラインテンプレート</strong>階層/モード ルーティングと動的プランナーを備え、AI がジャンルに適したアプローチとステップを選択します。</p></div>
+                  <details class="doc-sub"><summary><code>narrative</code> · <strong>ナラティブ工房</strong></summary>
+                    <div class="doc-subbody"><p>一文の要望でも既存作品でも、ゲームに入る叙事にします。構造は固定テンプレートではなく、<strong>ゲームのジャンル、叙事の類型、題材</strong>から導きます。小説、漫画、動画は人物関係と衝突を先に抽出し、範囲を段階確認してから翻案します。設定を一箇所変えると、どの下流が古くなったかを示します。出力はゲーム工程が直接読めるファイルです。</p></div>
                   </details>
-                  <details class="doc-sub"><summary><code>bgm</code> · <strong>音楽・BGM</strong></summary>
-                    <div class="doc-subbody"><p>ゲームの管理<strong>音楽と効果音</strong>: セッション全体で何が再生されるかをレイアウトする BGM タイムラインと効果音の命名規則。スコア全体が 1 つのリストとして配列されます。</p></div>
+                  <details class="doc-sub"><summary><code>sound-workshop</code> · <strong>サウンド工房</strong></summary>
+                    <div class="doc-subbody"><p>場面に合わせて<strong>楽曲、効果音、音声</strong>を作り、制作画面で試聴、調整、版の選択をしてから、実際の遊びに接続します。元素材、調整パラメータ、版の履歴は一緒に残ります。基本再生は 2D で、現在の接続対象は Engine 0.2.1 と 0.3.3 です。</p></div>
                   </details>
                   <details class="doc-sub"><summary><code>look</code> · <strong>カラー / ルックデベロップメント</strong></summary>
                     <div class="doc-subbody"><p>ゲーム全体を統一する<strong>色の雰囲気</strong>— パレット + LUT + ポストプロセス スタック。ゲーム全体のフィルターのようなものです。暖かい夕暮れと寒い夜をワンクリックで切り替えられるため、視覚的な感覚が 1 つに収まります。</p></div>
@@ -782,7 +782,7 @@ bun fx スタート # → http://localhost:18920</code></pre>
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeaX-Games</div>
 </footer>
 
-<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.31","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.31","mac":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_aarch64.dmg","win":"","linux":"https://github.com/ForgeaX-Games/forgeax-studio/releases/download/v0.3.31/ForgeaX-Studio_0.3.31_amd64.deb"}});</script>
+<script>window.FX_EXPERIENCE=Object.assign(window.FX_EXPERIENCE||{},{"downloadUrl":"https://github.com/ForgeaX-Games/forgeax-studio/releases/latest","downloads":{"tag":"v0.3.30","page":"https://github.com/ForgeaX-Games/forgeax-studio/releases/tag/v0.3.30","mac":"","win":"","linux":""}});</script>
 <script src="/assets/site.js?v=01759541"></script>
 </body>
 </html>
