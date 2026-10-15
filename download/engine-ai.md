@@ -172,3 +172,50 @@ versions, absolute SDK/game paths, executed installation and initialization comm
 `project skill verify` / `project check` results, the local documents read, and the
 first error or next required reading. Bootstrap completion establishes tool readiness;
 game development and delivery follow the installed game guide's acceptance contract.
+
+## Optional project and asset inspection in View
+
+When the user asks to inspect a game's assets or preview its current state, use the
+installed ForgeAX View as a delivery step. Finish the requested development and
+the game guide's required checks first. For an existing project requested only
+for inspection, check its readiness before opening View. Do not start View during
+development or merely to answer questions about View.
+
+Use the same installed SDK CLI for backend and View status. Set `WORKSPACE_ROOT`
+to the absolute backend workspace path and `GAME_ROOT` to the absolute project
+path; they may be the same directory. Resolve the Host Pack from the View package
+installed in the SDK CLI runtime, not from the SDK's bare `packages/view`
+directory. The npm SDK already contains built Engine and View outputs; do not
+build them for inspection.
+
+```sh
+SDK_CLI="$SDK_ROOT/bin/forgeax.mjs"
+VIEW_HOST_PACK="$(node -e '
+  const { createRequire } = require("node:module");
+  const { join } = require("node:path");
+  const sdkRequire = createRequire(join(process.argv[1], ".forgeax/cli-runtime/package.json"));
+  console.log(sdkRequire.resolve("@forgeax/view/host.pack.json"));
+' "$SDK_ROOT")"
+
+node "$SDK_CLI" backend status --root "$WORKSPACE_ROOT" --json
+node "$SDK_CLI" view status --root "$WORKSPACE_ROOT" --json
+```
+
+Reuse a compatible backend. If none is ready, start one with the resolved Host
+Pack. Check how an existing backend is being used before replacing one owned by
+another workflow.
+
+```sh
+node "$SDK_CLI" backend start --root "$WORKSPACE_ROOT" --host-pack "$VIEW_HOST_PACK" --json
+```
+
+After backend readiness, start View for the requested project. Open the URL
+returned by the CLI and verify that the requested project and asset content
+actually appear in View.
+
+```sh
+node "$SDK_CLI" view start --root "$WORKSPACE_ROOT" --project "$GAME_ROOT" --json
+```
+
+If startup fails, inspect the selected Host Pack, package resolution, backend
+logs, and View and project status before retrying.
