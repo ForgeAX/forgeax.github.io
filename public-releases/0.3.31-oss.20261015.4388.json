@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "snapshotVersion": "0.3.31-oss.20261015.4388",
+  "productVersion": "0.3.31",
+  "publishedAt": "2026-10-15T01:35:00.043Z",
+  "studioCommit": "c3bdeee4843cb75f6c82ccaee343443c81947bc7",
+  "repositories": [
+    {
+      "repository": "ForgeaX-Games/forgeax-agent-host",
+      "commit": "19d899c3e70ffcf804b19c813be426146550c3fb"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-agents",
+      "commit": "aad75e7a55725f8a31a31a68f31701431c60a7cb"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-app-shell",
+      "commit": "0357e07b62c3adaa71e10d93bdbd44a2293b0959"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-build",
+      "commit": "e502d5e9a37f43cb19f1aacd0013b19952c4f584"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-chat",
+      "commit": "e45c9bbcdee4ccbc77f48d3afb4132ec31902eab"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-cli",
+      "commit": "542bf5217f185f2669ba7324a58bc36f22b6229b"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-contracts",
+      "commit": "dd6c48a30e65b3305a027459c6ea191ca7b867d4"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-dashboard",
+      "commit": "9fbe283f680aaa8db32b7f0e58a8446d03f3a44d"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-editor",
+      "commit": "7594851c75e35119607d5a539e029e87face97a9"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-engine",
+      "commit": "4d0d58e4954a1fb7f09ac0c54871b7e9d417becc"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-asset-production",
+      "commit": "4b97a300d6da256f9d5c907ee3208c36eff55bff"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-defaults",
+      "commit": "a83e86aede5aacb37d6e7898d29ec42285e28a1e"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-game-production",
+      "commit": "cd218fdd2bc31c631ba49ab6cc1d2f1b1a329577"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-monitor",
+      "commit": "d64b28e660eff8bb4de4c3025ecb098b4b57e5cb"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-programming-personas",
+      "commit": "6d4b91d08e7439244631b012b3f89a506834b640"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-agent-scene-media",
+      "commit": "b28e97afeaad0ced30a9956aa1fd2c742c746004"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-ai-asset",
+      "commit": "05af2478516894fb7e52eb98afcb666f33ce2d30"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-animation",
+      "commit": "62c70ea7c01e218c45eb35a499f7362f0f7e2814"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-asset-canvas",
+      "commit": "b6cb2c9f89430350f6f139154c8b6c3564062e8c"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-automation-packs",
+      "commit": "26b9f3d66f56b3ab387b114ae5865f0b441d93f1"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-bgm",
+      "commit": "e2a8112a8e4a83a5cd8a17c3c8282470d1eca61b"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-character",
+      "commit": "feac43b2a613d1cd486d125b35f1730b2fa814bd"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-character-3d",
+      "commit": "1141726245661d9b962fa178770178cf8155b5a1"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-cli-providers",
+      "commit": "dbe9ad68b0671132a020bda0bc1eb217facb75af"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-diffusion-renderer",
+      "commit": "618bfda316dd1ff8262028cbeb3eeb3228d681dc"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-item-catalog",
+      "commit": "2c58acab6b20d7ec880c4d99cf620d3f06cb2cd1"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-material",
+      "commit": "08275d6c529b0c8962ccd23f2ab8f28161150bb4"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-narrative",
+      "commit": "47d477f5db4394ef49ca2de2d1eb064e12098c1b"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-node-core",
+      "commit": "90f0f72b8a94427f179b7a98e3deaeb9122a5395"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-plugin-author",
+      "commit": "9c03b99958f422065bb7c4794622fb9911f32ea0"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-reel",
+      "commit": "282b35ff6fff122d88a66f588955db7e531b27c3"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-scene-generator",
+      "commit": "efe7118b74efe48262c9ef089f27f0922b94053c"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-skill-effects",
+      "commit": "21260510214fddb48d62c722a77fbd3d82a71b51"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-ui",
+      "commit": "5e72a5f5e3dc3012179318242d691438687871c1"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-utilities",
+      "commit": "cf6fdd126091022b2fa1268534584f87e7be99e2"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ex-video-game",
+      "commit": "f8553dcc819a64aa37c690229e0a7cafa7b52e68"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-extension-platform",
+      "commit": "26199a138db1ebf48d17cfe0db44a92bb3f3cfad"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-games",
+      "commit": "7e25fa6bb108c48f2bbc2c7953e9c56ee857bfe3"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-ide",
+      "commit": "06078e5700ab7dab97d6149708879b9b3a55ddcc"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-interface",
+      "commit": "c32065f672260e9c58b02fa231469989f86f584f"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-kino-video-provider",
+      "commit": "1ecd880e933fcf22f93a36869321d668ae5a4786"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-marketplace",
+      "commit": "db57494ed762b88081e4f46e3411869e9f65f014"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-orchestrator",
+      "commit": "44fb4a86813d048356905c8bf13149a0094a738b"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-platform-io",
+      "commit": "cf93fb6b5a9e885d74650b216a8d4ef9f508cf64"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-server",
+      "commit": "8f0201ec51e7e7032fa51a1566dfde8aae7c14ae"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-settings",
+      "commit": "a79d310be09e806f12e38795d487d13831b6fcc5"
+    },
+    {
+      "repository": "ForgeaX-Games/forgeax-studio",
+      "commit": "c3bdeee4843cb75f6c82ccaee343443c81947bc7"
+    }
+  ],
+  "baselineSnapshotVersion": "0.3.31-oss.20261012.4387",
+  "baselinePublishedAt": "2026-10-12T02:07:05.676Z",
+  "slug": "2026-10-15",
+  "changes": [
+    {
+      "repository": "ForgeaX-Games/forgeax-studio",
+      "kind": "updated",
+      "base": "66f5b0e516f7b171b4e82e3c47a634dbbd8558af",
+      "head": "c3bdeee4843cb75f6c82ccaee343443c81947bc7",
+      "files": [
+        {
+          "status": "M",
+          "path": ".packages"
+        }
+      ],
+      "commits": [
+        {
+          "sha": "c3bdeee4843cb75f6c82ccaee343443c81947bc7",
+          "subject": "Release v0.3.31-oss.20261015.4388 — ForgeaX Studio superproject (#304)"
+        }
+      ],
+      "highlights": []
+    }
+  ],
+  "highlights": [],
+  "title": {
+    "en": "Product components updates",
+    "zh": "产品组件更新",
+    "ja": "製品コンポーネントの更新",
+    "ko": "제품 구성 요소 업데이트",
+    "es": "Actualizaciones de componentes del producto",
+    "de": "Updates für Produktkomponenten",
+    "fr": "Mises à jour : composants du produit",
+    "pt": "Atualizações de componentes do produto"
+  },
+  "standfirst": {
+    "en": "This snapshot updates 1 public product modules, including Studio. Updated code for product components.",
+    "zh": "本次快照更新了 1 个公开产品模块，包括 Studio 等。 更新了产品组件相关代码。",
+    "ja": "このスナップショットでは、Studio を含む 1 個の公開製品モジュールを更新しました。 製品コンポーネントに関するコードを更新しました。",
+    "ko": "이 스냅샷은 Studio 등을 포함한 1개의 공개 제품 모듈을 업데이트합니다. 제품 구성 요소 관련 코드를 업데이트했습니다.",
+    "es": "Esta instantánea actualiza 1 módulos públicos del producto, incluidos Studio. Se actualizó el código de componentes del producto.",
+    "de": "Dieser Snapshot aktualisiert 1 öffentliche Produktmodule, darunter Studio. Der Code für Produktkomponenten wurde aktualisiert.",
+    "fr": "Cet instantané met à jour 1 modules publics du produit, dont Studio. Le code lié à composants du produit a été mis à jour.",
+    "pt": "Este snapshot atualiza 1 módulos públicos do produto, incluindo Studio. O código de componentes do produto foi atualizado."
+  }
+}
