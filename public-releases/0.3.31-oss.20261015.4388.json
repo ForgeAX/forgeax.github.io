@@ -196,47 +196,6 @@
   ],
   "baselineSnapshotVersion": "0.3.31-oss.20261012.4387",
   "baselinePublishedAt": "2026-10-12T02:07:05.676Z",
-  "slug": "2026-10-15",
-  "changes": [
-    {
-      "repository": "ForgeaX-Games/forgeax-studio",
-      "kind": "updated",
-      "base": "66f5b0e516f7b171b4e82e3c47a634dbbd8558af",
-      "head": "c3bdeee4843cb75f6c82ccaee343443c81947bc7",
-      "files": [
-        {
-          "status": "M",
-          "path": ".packages"
-        }
-      ],
-      "commits": [
-        {
-          "sha": "c3bdeee4843cb75f6c82ccaee343443c81947bc7",
-          "subject": "Release v0.3.31-oss.20261015.4388 — ForgeaX Studio superproject (#304)"
-        }
-      ],
-      "highlights": []
-    }
-  ],
-  "highlights": [],
-  "title": {
-    "en": "Product components updates",
-    "zh": "产品组件更新",
-    "ja": "製品コンポーネントの更新",
-    "ko": "제품 구성 요소 업데이트",
-    "es": "Actualizaciones de componentes del producto",
-    "de": "Updates für Produktkomponenten",
-    "fr": "Mises à jour : composants du produit",
-    "pt": "Atualizações de componentes do produto"
-  },
-  "standfirst": {
-    "en": "This snapshot updates 1 public product modules, including Studio. Updated code for product components.",
-    "zh": "本次快照更新了 1 个公开产品模块，包括 Studio 等。 更新了产品组件相关代码。",
-    "ja": "このスナップショットでは、Studio を含む 1 個の公開製品モジュールを更新しました。 製品コンポーネントに関するコードを更新しました。",
-    "ko": "이 스냅샷은 Studio 등을 포함한 1개의 공개 제품 모듈을 업데이트합니다. 제품 구성 요소 관련 코드를 업데이트했습니다.",
-    "es": "Esta instantánea actualiza 1 módulos públicos del producto, incluidos Studio. Se actualizó el código de componentes del producto.",
-    "de": "Dieser Snapshot aktualisiert 1 öffentliche Produktmodule, darunter Studio. Der Code für Produktkomponenten wurde aktualisiert.",
-    "fr": "Cet instantané met à jour 1 modules publics du produit, dont Studio. Le code lié à composants du produit a été mis à jour.",
-    "pt": "Este snapshot atualiza 1 módulos públicos do produto, incluindo Studio. O código de componentes do produto foi atualizado."
-  }
+  "changes": [],
+  "highlights": []
 }
