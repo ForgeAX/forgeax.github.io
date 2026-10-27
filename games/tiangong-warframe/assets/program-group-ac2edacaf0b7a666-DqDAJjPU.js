@@ -1,0 +1,1 @@
+import{definePackageId as e}from"./source-pYc5KnfQ.js";var t=e(`1fcfe3c9-330e-4416-8b7f-57b65384f7c8`);export{t};

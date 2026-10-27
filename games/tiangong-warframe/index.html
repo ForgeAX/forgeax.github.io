@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script id="tg-boot-early">/* U164 开局载入画面的早期部分：由 scripts/startup-diag/inject.mjs 内联进发布版 index.html 的 <head>。
+ * 前端插件（assets/ui/boot-screen.ts）要等引擎根插件激活之后才挂载（负载高时 7 s+），那之前页面上只有引擎自带的「Loading…」。
+ * 这里在 DOMContentLoaded 就画出同一套层（同一份 BOOT_CSS / BOOT_MARKUP，inject.mjs 从 assets/ui/boot-view.ts 填进来），
+ * 进度先只按时间校准曲线走（localStorage tg.loadBootMs），阶段字固定「启动引擎」；前端挂载后接管（window.__tgBoot.stop / shown）。
+ * 测试 / 截图入口（?mode= / ?shot= / ?scenario= / ?hud=0 / ?tgboot=0）和编辑器工作区页面不画，同前端。 */
+(function () {
+  'use strict';
+  var g = window;
+  if (g.__tgBoot) return;
+  var q = new URLSearchParams(location.search);
+  if (q.has('mode') || q.has('shot') || q.has('scenario') || q.get('hud') === '0' || q.get('tgboot') === '0') return;
+  if (q.has('forgeaxWorkspace') && q.get('forgeaxWorkspace') !== 'game') return;
+  if (q.has('forgeax-tool-recipe') || q.has('forgeax-tool-replay')) return;
+  var CSS = "\n#tg-boot{position:absolute;inset:0;z-index:2147483645;pointer-events:none;overflow:hidden;color:#f1e2c6;font:500 14px/1.5 \"PingFang SC\",\"Hiragino Sans\",\"Yu Gothic\",system-ui,sans-serif;opacity:1;transition:opacity .8s ease}\n#tg-boot.out{opacity:0}\n#tg-boot .bd{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#16120d 0%,#0a0907 46%,#05070b 78%);transition:opacity 1.1s ease}\n#tg-boot .bd::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,190,120,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}\n#tg-boot.scene .bd{opacity:0}\n#tg-boot .vg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 52%,rgba(3,4,6,.62) 100%),linear-gradient(180deg,rgba(5,6,8,.72) 0%,transparent 16%,transparent 66%,rgba(5,6,8,.9) 100%)}\n#tg-boot .foot{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(40px,9vh,100px);display:flex;flex-direction:column;gap:clamp(14px,2.6vh,28px)}\n#tg-boot .ttl{display:flex;flex-direction:column;gap:6px}\n#tg-boot .name{font:900 clamp(30px,4.6vw,56px)/1.1 \"Songti SC\",\"STKaiti\",\"Hiragino Mincho ProN\",\"Yu Mincho\",serif;letter-spacing:.3em;color:#f6e7c9;text-shadow:0 0 26px rgba(255,150,70,.45)}\n#tg-boot .sub{font-size:clamp(11px,1.2vw,13px);letter-spacing:.2em;color:#c8a46e}\n#tg-boot .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}\n#tg-boot .stage{font-size:clamp(12px,1.25vw,14px);letter-spacing:.14em;color:#ead9bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n#tg-boot .stage::before{content:\"\";display:inline-block;width:7px;height:7px;margin-right:10px;vertical-align:1px;background:#ff9a4a;box-shadow:0 0 8px #ff8a3a;transform:rotate(45deg);animation:tgb-blink 1.2s ease-in-out infinite}\n#tg-boot .pct{font:700 clamp(18px,2vw,24px)/1 ui-monospace,Menlo,Consolas,monospace;color:#fff1d6;letter-spacing:.04em;text-shadow:0 0 12px rgba(255,150,70,.5);flex:none}\n#tg-boot .pct small{font-size:.6em;margin-left:2px;color:#c8a46e}\n#tg-boot .track{position:relative;height:4px;background:rgba(255,190,120,.12);box-shadow:inset 0 0 0 1px rgba(255,190,120,.22)}\n#tg-boot .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#8a3e16,#ff8a3a 70%,#ffd39a);box-shadow:0 0 10px rgba(255,140,60,.75);transition:width .2s linear}\n#tg-boot .fill::after{content:\"\";position:absolute;right:-1px;top:-4px;width:2px;height:12px;background:#fff3dc;box-shadow:0 0 10px 2px rgba(255,200,140,.9)}\n#tg-boot .fill::before{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,240,210,.55),transparent);background-size:120px 100%;background-repeat:no-repeat;animation:tgb-sheen 1.6s linear infinite}\n#tg-boot .ticks{position:absolute;inset:0}\n#tg-boot .ticks i{position:absolute;top:-3px;width:1px;height:10px;background:rgba(255,190,120,.35)}\n#tg-boot .hint{margin-top:10px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.08em;color:rgba(234,217,189,.62)}\n#tg-boot.fail .fill{background:linear-gradient(90deg,#5a1a12,#d0503a);box-shadow:0 0 10px rgba(220,80,60,.7)}\n#tg-boot.fail .stage{color:#ffb4a0}\n#tg-boot.fail .stage::before{background:#e05a40;box-shadow:0 0 8px #e05a40;animation:none}\n@keyframes tgb-blink{50%{opacity:.35}}\n@keyframes tgb-sheen{from{background-position:-120px 0}to{background-position:calc(100% + 120px) 0}}\n@media (max-width:600px){#tg-boot .name{letter-spacing:.18em}#tg-boot .hint{display:none}}\n@media (prefers-reduced-motion:reduce){#tg-boot,#tg-boot .bd,#tg-boot .fill{transition:none}#tg-boot .stage::before,#tg-boot .fill::before{animation:none}}\n#forgeax-loading{background:transparent!important}\n#forgeax-loading-title,#forgeax-loading-spinner,#forgeax-loading-status{visibility:hidden}\n";
+  var MARKUP = "<div class=\"bd\"></div><div class=\"vg\"></div><div class=\"foot\"><div class=\"ttl\"><div class=\"name\"></div><div class=\"sub\"></div></div><div class=\"bar\"><div class=\"row\"><div class=\"stage\"></div><div class=\"pct\">0<small>%</small></div></div><div class=\"track\"><div class=\"ticks\"></div><div class=\"fill\"></div></div><div class=\"hint\"></div></div></div>";
+  var TICKS = [30,89.5,93.6,96.5];
+  var TEXT = {"zh":{"title":"天工战甲","sub":"作战「开物」 · 人类工匠的变形战甲","engine":"启动引擎","hint":"首次载入需要一些时间；全部就绪后，出击与章节即刻开始"},"en":{"title":"TIANGONG","sub":"Operation Kaiwu · A transforming mech built by human hands","engine":"Starting engine","hint":"The first load takes a moment. Once everything is ready, sorties and chapters start instantly."},"ja":{"title":"天工戦甲","sub":"作戦「開物」 · 人の手が造った変形戦甲","engine":"エンジン起動中","hint":"初回の読み込みには少し時間がかかります。準備が整えば、出撃も章選択もすぐに始まります。"}};
+  var KEY = "tg.loadBootMs";
+  if (!CSS || !MARKUP) return;
+  // 语言：?lang= > 设置存档 tg.settings.v1 的 locale > 浏览器语言（同 assets/i18n/index.ts initialLocale）
+  var parse = function (v) { if (typeof v !== 'string') return null; v = v.trim().toLowerCase(); return v.indexOf('zh') === 0 ? 'zh' : v.indexOf('en') === 0 ? 'en' : v.indexOf('ja') === 0 || v === 'jp' ? 'ja' : null; };
+  var lng = parse(q.get('lang'));
+  if (!lng) { try { var raw = localStorage.getItem('tg.settings.v1'); lng = parse(raw ? JSON.parse(raw).locale : null); } catch (e) { /* 隐私窗口 / 坏存档 */ } }
+  if (!lng) { var list = (navigator.languages && navigator.languages.length) ? navigator.languages : navigator.language ? [navigator.language] : []; for (var i = 0; i < list.length && !lng; i++) lng = parse(list[i]); if (!lng) lng = list.length ? 'en' : 'zh'; }
+  var T = TEXT[lng] || TEXT.zh || {};
+  var lastMs = 45000;
+  try { var v = Number(localStorage.getItem(KEY)); if (v > 3000 && v < 600000) lastMs = v; } catch (e) { /* 禁用存储 */ }
+  var B = g.__tgBoot = { shown: 0, stop: null };
+  var mount = function () {
+    var shell = document.getElementById('app-shell');
+    if (!shell || document.getElementById('tg-boot')) return;
+    var st = document.createElement('style'); st.id = 'tg-boot-css'; st.textContent = CSS; document.head.appendChild(st);
+    var L = document.createElement('div'); L.id = 'tg-boot'; L.setAttribute('aria-live', 'polite'); L.innerHTML = MARKUP; shell.appendChild(L);
+    var $ = function (c) { return L.querySelector(c); };
+    $('.name').textContent = T.title || ''; $('.sub').textContent = T.sub || ''; $('.stage').textContent = T.engine || ''; $('.hint').textContent = T.hint || '';
+    var ticks = $('.ticks');
+    for (var k = 0; k < TICKS.length; k++) { var e = document.createElement('i'); e.style.left = TICKS[k] + '%'; ticks.appendChild(e); }
+    var pct = $('.pct'), fill = $('.fill'), last = -1;
+    var tick = function () {
+      var p = Math.min(99, 95 * (1 - Math.exp(-performance.now() / (lastMs * 0.52))));
+      if (p > B.shown) B.shown = p;
+      var f = Math.floor(B.shown);
+      if (f !== last) { last = f; pct.firstChild.textContent = String(f); fill.style.width = B.shown.toFixed(1) + '%'; }
+    };
+    tick();
+    var timer = setInterval(tick, 100);
+    B.stop = function () { clearInterval(timer); };
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+})();
+</script>
+    <script id="tg-startup-diag">/* 启动诊断（[win] 10-24）：Windows 打不开的排查用。由 scripts/startup-diag/inject.mjs 内联进 index.html，并生成独立页 tg-diag.html。
+ * - 游戏页：记录启动时间线（加载提示文字变化 / 首帧 / 致命错误）、页面报错、console.error/warn；
+ *   启动失败页出现时自动弹出诊断面板（适配器 / 限额 / 缺的特性 / 报错原文），一键复制；加载中右下角有「诊断」按钮；?tgdiag 直接弹出。
+ * - tg-diag.html：不启动游戏，只做 WebGPU 能力检查，并可把主菜单那一档管线库在「引擎同款设备」上完整编一遍，
+ *   列出失败的管线和报错、编译耗时（Windows D3D12 冷编译是否会超过启动期限）。
+ * __TG_DIAG_REQ__ 由 inject.mjs 按构建时的管线库算出（库里最苛刻的一条管线要的限额）。 */
+(function () {
+  'use strict';
+  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":30,"maxSamplersPerShaderStage":16,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":3,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":4,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":14,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
+  var g = window;
+  if (g.__tgDiag) return;
+  var t0 = performance.now();
+  var D = { events: [], errors: [], logs: [], fatalText: '', firstFrameMs: null };
+  var now = function () { return Math.round(performance.now() - t0); };
+  var cut = function (s, n) { s = String(s); return s.length > n ? s.slice(0, n) + '…' : s; };
+  var ev = function (kind, text) { if (D.events.length < 80) D.events.push({ t: now(), kind: kind, text: cut(text == null ? '' : text, 300) }); };
+  var errText = function (e) { try { if (e && (e.stack || e.message)) return String(e.stack || e.message); return typeof e === 'object' ? JSON.stringify(e) : String(e); } catch (x) { return String(e); } };
+  g.addEventListener('error', function (e) { if (D.errors.length < 30) D.errors.push(now() + 'ms ' + cut((e.message || '') + ' @ ' + (e.filename || '') + ':' + (e.lineno || '') + (e.error ? '\n' + errText(e.error) : ''), 800)); }, true);
+  g.addEventListener('unhandledrejection', function (e) { if (D.errors.length < 30) D.errors.push(now() + 'ms unhandledrejection ' + cut(errText(e.reason), 800)); });
+  ['error', 'warn'].forEach(function (k) {
+    var orig = console[k];
+    console[k] = function () {
+      try { if (D.logs.length < 40) D.logs.push(now() + 'ms [' + k + '] ' + cut(Array.prototype.map.call(arguments, errText).join(' '), 600)); } catch (x) { /* 忽略 */ }
+      return orig.apply(console, arguments);
+    };
+  });
+  // [plfault] 引擎补丁 D：启动预编译管线库时编不过而被跳过的条目（渲染器可能在 Worker 里，所以同时听 BroadcastChannel）
+  D.plSkipped = null;
+  var plSkip = function (r) { if (r && typeof r.count === 'number') { D.plSkipped = r; ev('pipeline-library', '跳过 ' + r.count + ' 条 / ' + r.total + (r.count ? '：' + r.skipped.map(function (s) { return s.label; }).join(', ') : '')); } };
+  try { if (typeof BroadcastChannel === 'function') new BroadcastChannel('forgeax-pipeline-library').onmessage = function (e) { plSkip(e.data); }; } catch (e) { /* 忽略 */ }
+  g.addEventListener('forgeax:frame-completed', function () { if (D.firstFrameMs === null) { D.firstFrameMs = now(); ev('first-frame', ''); } }, true);
+
+  // [win2] 集成显卡判定（Chrome 的 adapter.info：Iris Xe = intel / gen-12lp；Intel Arc 独显 = xe-hpg 不算；AMD 核显 description 带 Graphics 无型号）
+  function isIgpu(desc) { return /intel|uhd|iris|radeon\(tm\) graphics|amd radeon graphics/i.test(desc) && !/nvidia|xe-hpg|arc\b|rdna/i.test(desc); }
+  // ---------- 能力检查 ----------
+  var LIMIT_KEYS = ['maxSampledTexturesPerShaderStage', 'maxSamplersPerShaderStage', 'maxStorageBuffersPerShaderStage', 'maxStorageTexturesPerShaderStage', 'maxUniformBuffersPerShaderStage', 'maxBindGroups', 'maxBindingsPerBindGroup', 'maxColorAttachments', 'maxColorAttachmentBytesPerSample', 'maxComputeWorkgroupStorageSize', 'maxComputeInvocationsPerWorkgroup', 'maxBufferSize', 'maxStorageBufferBindingSize', 'maxUniformBufferBindingSize', 'maxTextureDimension2D', 'maxTextureDimension3D', 'maxTextureArrayLayers', 'maxVertexAttributes', 'maxInterStageShaderVariables', 'maxDynamicUniformBuffersPerPipelineLayout', 'maxDynamicStorageBuffersPerPipelineLayout', 'maxStorageBuffersInFragmentStage', 'maxStorageBuffersInVertexStage'];
+  var FEATURE_KEYS = ['depth32float-stencil8', 'float32-filterable', 'float32-blendable', 'timestamp-query', 'indirect-first-instance', 'primitive-index', 'texture-compression-bc', 'texture-compression-etc2', 'texture-compression-astc', 'shader-f16', 'subgroups', 'rg11b10ufloat-renderable', 'bgra8unorm-storage', 'dual-source-blending', 'clip-distances'];
+  /** 与引擎 engine-render/assembly/device-feature-admission.ts（0.5.0-dev.15093）同一套推导：引擎实际向 requestDevice 要的东西 */
+  function engineDeviceDescriptor(a) {
+    var L = a.limits, F = a.features;
+    var f = ['depth32float-stencil8'];
+    ['texture-compression-bc', 'texture-compression-etc2', 'texture-compression-astc', 'indirect-first-instance', 'timestamp-query', 'float32-filterable', 'float32-blendable'].forEach(function (k) { if (F.has(k)) f.push(k); });
+    var visible = F.has('primitive-index') && (L.maxColorAttachments || 0) >= 7 && (L.maxColorAttachmentBytesPerSample || 0) >= 52;
+    if (visible) f.push('primitive-index');
+    var cb = L.maxColorAttachmentBytesPerSample || 0;
+    var color = visible ? Math.min(cb, 72) : cb >= 36 ? Math.min(cb, 56) : undefined;
+    var s = L.maxSampledTexturesPerShaderStage || 0;
+    var sampled = s >= 32 ? 32 : s >= 27 ? 27 : s >= 25 ? 25 : s >= 21 ? 21 : undefined;
+    var lim = {};
+    if (sampled !== undefined) lim.maxSampledTexturesPerShaderStage = sampled;
+    if (color !== undefined) lim.maxColorAttachmentBytesPerSample = color;
+    if ((L.maxComputeWorkgroupStorageSize || 0) >= 32768) lim.maxComputeWorkgroupStorageSize = 32768;
+    return { requiredFeatures: f, requiredLimits: lim };
+  }
+  // WebGPU 规范缺省值（引擎不额外要的限额，设备就只有这么多）
+  var DEFAULTS = { maxSampledTexturesPerShaderStage: 16, maxSamplersPerShaderStage: 16, maxStorageBuffersPerShaderStage: 8, maxStorageTexturesPerShaderStage: 4, maxUniformBuffersPerShaderStage: 12, maxBindGroups: 4, maxBindingsPerBindGroup: 1000, maxColorAttachments: 8, maxColorAttachmentBytesPerSample: 32, maxComputeWorkgroupStorageSize: 16384, maxComputeInvocationsPerWorkgroup: 256, maxVertexAttributes: 16, maxDynamicUniformBuffersPerPipelineLayout: 8, maxDynamicStorageBuffersPerPipelineLayout: 4 };
+  function checkAgainst(a, desc) {
+    var out = [];
+    Object.keys(REQ.limits).forEach(function (k) {
+      var need = REQ.limits[k], have = a.limits[k], dev = desc.requiredLimits[k] !== undefined ? desc.requiredLimits[k] : DEFAULTS[k];
+      if (typeof have === 'number' && have < need) out.push('适配器 ' + k + ' = ' + have + ' < 管线库需要 ' + need);
+      else if (typeof dev === 'number' && dev < need) out.push('引擎设备 ' + k + ' = ' + dev + '（适配器 ' + have + '）< 管线库需要 ' + need);
+    });
+    (REQ.features || []).forEach(function (k) { if (!a.features.has(k)) out.push('缺少特性 ' + k); });
+    return out;
+  }
+  function adapterReport(a) {
+    var info = a.info || {};
+    var L = {}; LIMIT_KEYS.forEach(function (k) { if (typeof a.limits[k] === 'number') L[k] = a.limits[k]; });
+    var feats = []; a.features.forEach(function (f) { feats.push(f); });
+    return { vendor: info.vendor, architecture: info.architecture, device: info.device, description: info.description, backend: info.backend, isFallbackAdapter: a.isFallbackAdapter || info.isFallbackAdapter, featureLevel: a.featureLevel, limits: L, features: feats.sort(), missingWanted: FEATURE_KEYS.filter(function (f) { return !a.features.has(f); }) };
+  }
+  async function probeGpu(full) {
+    var gpu = navigator.gpu, out = { available: !!gpu };
+    if (!gpu) return out;
+    try { out.preferredCanvasFormat = gpu.getPreferredCanvasFormat(); } catch (e) { out.preferredCanvasFormat = 'error ' + e; }
+    try { out.wgslFeatures = gpu.wgslLanguageFeatures ? Array.from(gpu.wgslLanguageFeatures).sort() : undefined; } catch (e) { /* 忽略 */ }
+    var prefs = full ? [undefined, 'high-performance', 'low-power'] : [undefined];
+    out.adapters = [];
+    for (var i = 0; i < prefs.length; i++) {
+      var r = { powerPreference: prefs[i] || '(缺省，引擎用这个)' };
+      try {
+        var a = await gpu.requestAdapter(prefs[i] ? { powerPreference: prefs[i] } : undefined);
+        if (!a) { r.adapter = null; out.adapters.push(r); continue; }
+        r.adapter = adapterReport(a);
+        var desc = engineDeviceDescriptor(a);
+        r.engineDevice = desc;
+        r.problems = checkAgainst(a, desc);
+        if (i === 0) {
+          var t = performance.now();
+          try { var d = await a.requestDevice(desc); r.requestDevice = 'ok ' + Math.round(performance.now() - t) + 'ms'; d.destroy(); } catch (e) { r.requestDevice = 'FAILED: ' + errText(e); }
+        }
+      } catch (e) { r.error = errText(e); }
+      out.adapters.push(r);
+    }
+    return out;
+  }
+  async function collect(full) {
+    var R = { tool: 'tg-diag v1', at: new Date().toISOString(), url: location.href, sinceLoadMs: now() };
+    var main = document.querySelector('script[type=module][src]');
+    R.build = { bundle: main ? main.getAttribute('src') : '(none)', lastModified: document.lastModified };
+    R.ua = navigator.userAgent;
+    try { if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) R.uaData = await navigator.userAgentData.getHighEntropyValues(['platform', 'platformVersion', 'architecture', 'bitness', 'fullVersionList', 'model']); } catch (e) { /* 忽略 */ }
+    R.env = { crossOriginIsolated: g.crossOriginIsolated, sharedArrayBuffer: typeof SharedArrayBuffer, offscreenCanvas: typeof OffscreenCanvas, cores: navigator.hardwareConcurrency, deviceMemoryGB: navigator.deviceMemory, dpr: g.devicePixelRatio, screen: screen.width + 'x' + screen.height, viewport: innerWidth + 'x' + innerHeight, lang: navigator.language, visibility: document.visibilityState };
+    try { var pm = performance.memory; if (pm) R.env.jsHeapMB = { used: Math.round(pm.usedJSHeapSize / 1048576), limit: Math.round(pm.jsHeapSizeLimit / 1048576) }; } catch (e) { /* 忽略 */ }
+    try {
+      R.serviceWorker = { supported: 'serviceWorker' in navigator, controller: !!(navigator.serviceWorker && navigator.serviceWorker.controller) };
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { var regs = await navigator.serviceWorker.getRegistrations(); R.serviceWorker.registrations = regs.map(function (x) { return x.scope + ' active=' + !!x.active; }); }
+      if (g.caches) R.serviceWorker.caches = await caches.keys();
+    } catch (e) { R.serviceWorker = { error: errText(e) }; }
+    try {
+      var res = performance.getEntriesByType('resource'), bytes = 0;
+      res.forEach(function (x) { bytes += x.transferSize || 0; });
+      R.network = { requests: res.length, transferMB: Math.round(bytes / 104857.6) / 10, slowest: res.slice().sort(function (a, b) { return b.duration - a.duration; }).slice(0, 8).map(function (x) { return Math.round(x.duration) + 'ms ' + Math.round((x.transferSize || 0) / 1024) + 'KB ' + x.name.replace(location.origin, ''); }) };
+    } catch (e) { /* 忽略 */ }
+    R.gpu = await probeGpu(full);
+    R.libraryNeeds = REQ;
+    R.timeline = D.events.slice();
+    R.firstFrameMs = D.firstFrameMs;
+    R.pipelineSkipped = g.__forgeaxPipelineLibrarySkipped || D.plSkipped || null;
+    var fatalBox = document.getElementById('forgeax-fatal');
+    R.fatalVisible = !!(fatalBox && getComputedStyle(fatalBox).display !== 'none');
+    var fd = document.getElementById('forgeax-fatal-details'), fm = document.getElementById('forgeax-fatal-message');
+    R.fatal = (fm && R.fatalVisible ? fm.textContent + '\n' : '') + (fd ? fd.textContent : '');
+    var st = document.getElementById('forgeax-loading-status');
+    R.loadingStatus = st ? st.textContent : undefined;
+    R.pageErrors = D.errors.slice();
+    R.consoleErrors = D.logs.slice();
+    return R;
+  }
+  /** 白话结论（给 lock 直接看）：最可能的原因 + 下一步 */
+  function verdict(R) {
+    var V = [], gp = R.gpu || {}, a0 = (gp.adapters || [])[0] || {}, a = a0.adapter;
+    var m = /Chrome\/(\d+)/.exec(R.ua || ''), chrome = m ? +m[1] : 0, edge = /Edg\//.test(R.ua || '');
+    var needTex = (REQ.limits || {}).maxSampledTexturesPerShaderStage || 30;
+    if (!gp.available) V.push('浏览器没有 WebGPU（navigator.gpu 不存在）：请用最新版 Chrome；打开 chrome://gpu 看「WebGPU」一栏是否为 Hardware accelerated，公司策略可能禁用了它。');
+    else if (a0.error) V.push('申请显卡出错：' + a0.error);
+    else if (a === null) V.push('Chrome 拿不到显卡（requestAdapter 返回 null）：更新 NVIDIA 驱动后重开 Chrome；远程桌面下通常没有 GPU；chrome://gpu 截图发回。');
+    if (a) {
+      var tex = a.limits.maxSampledTexturesPerShaderStage;
+      if (typeof tex === 'number' && tex < needTex) V.push('Chrome 版本太旧 / 显卡限额不够：每个着色器阶段的采样纹理上限只有 ' + tex + '，游戏需要 ' + needTex + '。请把 Chrome 升级到 146 或更新（chrome://settings/help），升级后重开浏览器再试。');
+      if (a.isFallbackAdapter) V.push('当前是软件渲染（fallback adapter），没有用上独立显卡：检查 chrome://gpu，确认硬件加速开着。');
+      var desc = [a.vendor, a.architecture, a.description].join(' ');
+      if (isIgpu(desc)) V.push('Chrome 用的是集成显卡（' + (a.description || [a.vendor, a.architecture].join(' ')) + '）：显存从内存里划，游戏可能极慢或把整机内存吃光卡死。电脑有独立显卡（NVIDIA / AMD）时：Windows 设置 → 系统 → 屏幕 → 显示卡（图形）里把 Google Chrome 设为「高性能」（或 NVIDIA 控制面板给 chrome.exe 选高性能处理器），然后完全退出 Chrome（含后台）再打开。网页里的 powerPreference 在 Windows Chrome 上不起作用，只能这样改。没有独立显卡时：设置 →「渲染缩放」调到 70–80%（档位本身不再降分辨率）。');
+      (a0.problems || []).forEach(function (x) { if (!/maxSampledTexturesPerShaderStage/.test(x)) V.push('限额 / 特性不够：' + x); });
+      if (a0.requestDevice && /^FAILED/.test(a0.requestDevice)) V.push('用引擎同样的参数创建 GPU 设备失败：' + a0.requestDevice);
+    }
+    if (chrome && chrome < 146 && !edge) V.push('Chrome 主版本 ' + chrome + ' < 146：旧版 Windows Chrome 的 WebGPU 限额偏低，请先升级 Chrome。');
+    if (R.env && R.env.crossOriginIsolated === false) V.push('页面没有跨源隔离（COOP/COEP 响应头丢了，可能被代理 / iOA 改写）：SharedArrayBuffer 不可用。请换网络或直连再试，并把这段发回。');
+    var f = R.fatal || '';
+    if (/deadline-exceeded|timed out|did not complete within/i.test(f)) V.push('启动超时：第一次打开时显卡驱动要现编几百条着色器（Windows D3D12 比 Mac 慢很多）。请直接再刷新一次（第二次有缓存会快很多）；还不行就打开 tg-diag.html 点「完整编译测试」，把结果发回。');
+    if (/device.?lost|DeviceLost|GPU process|lost/i.test(f)) V.push('GPU 设备丢失：可能是显存不足或驱动崩溃 / 超时重置（TDR）。请关掉其他占显存的程序再试，并更新显卡驱动。');
+    if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline/i.test(f)) V.push('资源下载 / 投递出错：可能是公司网络或代理拦截。请换网络再试，或按 Ctrl+Shift+R 强制刷新。');
+    var ps = R.pipelineSkipped;
+    if (ps && ps.count) { var pp = ps.skipped.filter(function (s) { return s.kind !== 'shader'; }), sh = ps.count - ps.pipelines; V.push('启动时预编译管线库有 ' + ps.pipelines + ' 条管线' + (sh ? '（' + sh + ' 个着色器）' : '') + '在这台机器上编不过，已跳过（游戏照常启动，用到时再现编；若对应画面缺失或报错，把整段发回）：' + (pp.length ? pp : ps.skipped).slice(0, 8).map(function (s) { return s.label; }).join(', ') + ((pp.length || ps.count) > 8 ? ' …' : '') + '。'); }
+    if (R.compile && R.compile.failed) V.push('完整编译测试里有 ' + R.compile.failed + ' 条管线在这台机器上编不过（见下方「失败」行）——这是 Windows 专属问题，请把整段发回。');
+    if (R.compile && R.compile.state === 'done' && !R.compile.failed) V.push('完整编译测试全部通过，用时 ' + Math.round(R.compile.ms / 1000) + ' s' + (R.compile.ms > 90000 ? '（超过 90 s，接近游戏 120 s 的启动期限，第一次打开很可能超时）' : '') + '。');
+    if (!V.length) V.push(R.fatal ? '没有识别出已知原因，请把整段发回。' : '显卡能力检查通过，没有发现缺的限额 / 特性。');
+    return V;
+  }
+  function toText(R) {
+    var L = [];
+    var p = function (s) { L.push(s); };
+    p('== 天工战甲 启动诊断 ' + R.tool + ' ' + R.at);
+    p('url: ' + R.url + '   build: ' + (R.build && R.build.bundle) + '   页面已开 ' + R.sinceLoadMs + 'ms   首帧: ' + (R.firstFrameMs == null ? '无' : R.firstFrameMs + 'ms'));
+    p('ua: ' + R.ua);
+    if (R.uaData) p('uaData: ' + R.uaData.platform + ' ' + R.uaData.platformVersion + ' ' + R.uaData.architecture + '/' + R.uaData.bitness + ' ' + (R.uaData.fullVersionList || []).map(function (b) { return b.brand + ' ' + b.version; }).join(', '));
+    p('env: ' + JSON.stringify(R.env));
+    try { var ca = g.__tgCanvasAdapt; if (ca) p('画布上限（极致自适应）/ canvas cap: ' + (isFinite(ca.cap) ? ca.cap : 'native') + '  原因 / reason: ' + ca.reason + '  帧间隔 ' + ca.intervalMs + ' ms, 提交→完成 ' + ca.s2cMs + ' ms, GPU 估计 ' + ca.estGpuMs + ' ms' + (ca.available ? '' : '（拿不到 GPU 时间）')); if (g.__tgCanvasLimit) p('画布实际上限 / effective canvas limit: ' + g.__tgCanvasLimit); } catch (e) { /* 忽略 */ }
+    p('\n== 结论（最可能的原因 → 怎么办）');
+    verdict(R).forEach(function (x, i) { p((i + 1) + '. ' + x); });
+    if (R.fatal) p('\n== 致命错误原文\n' + R.fatal.trim());
+    if (R.loadingStatus && !R.fatalVisible) p('加载提示: ' + R.loadingStatus);
+    var gp = R.gpu || {};
+    p('\n== WebGPU: ' + (gp.available ? '有 navigator.gpu' : '没有 navigator.gpu（浏览器关了 WebGPU / 被策略禁用 / 非安全上下文）') + (gp.preferredCanvasFormat ? '  canvas=' + gp.preferredCanvasFormat : ''));
+    (gp.adapters || []).forEach(function (r) {
+      p('-- powerPreference ' + r.powerPreference + ': ' + (r.error ? 'ERROR ' + r.error : r.adapter === null ? 'requestAdapter 返回 null（GPU 被拉黑 / 驱动太旧 / 远程桌面）' : ''));
+      if (!r.adapter) return;
+      var a = r.adapter;
+      p('   GPU: ' + [a.vendor, a.architecture, a.device, a.description].filter(Boolean).join(' / ') + (a.isFallbackAdapter ? '  [软件回退适配器]' : '') + (a.featureLevel ? '  featureLevel=' + a.featureLevel : ''));
+      if (r.problems) p('   不满足: ' + (r.problems.length ? r.problems.join('；') : '无（限额 / 特性都够）'));
+      if (r.requestDevice) p('   引擎同款 requestDevice: ' + r.requestDevice + '  ' + JSON.stringify(r.engineDevice));
+      p('   limits: ' + JSON.stringify(a.limits));
+      p('   features: ' + a.features.join(','));
+      p('   缺(常用): ' + a.missingWanted.join(','));
+    });
+    var ps2 = R.pipelineSkipped;
+    p('\n== 管线库预编译跳过（引擎补丁 D）: ' + (ps2 ? '跳过 ' + ps2.pipelines + ' 条 / 共 ' + ps2.total + ' 条管线' + (ps2.count - ps2.pipelines ? '（另有 ' + (ps2.count - ps2.pipelines) + ' 个着色器编不过）' : '') : '还没收到（管线库尚未预编译完，或这次没用管线库）'));
+    if (ps2) (ps2.skipped || []).forEach(function (s) { p('   跳过 [' + s.kind + '] ' + s.label + ' — ' + cut(s.error, 300)); });
+    if (R.compile) {
+      var c = R.compile;
+      p('\n== 管线库编译测试（' + c.library + '）: ' + c.state + '  ' + c.ok + '/' + c.total + ' 成功, ' + c.failed + ' 失败, 用时 ' + c.ms + 'ms（着色器模块 ' + c.moduleMs + 'ms，4 路并发，与引擎相同）');
+      if (c.pct) p('   单条耗时 p50/p95/max: ' + c.pct.join(' / ') + ' ms');
+      (c.slowest || []).forEach(function (s) { p('   慢: ' + s); });
+      (c.shaderErrors || []).forEach(function (s) { p('   着色器: ' + s); });
+      (c.failures || []).forEach(function (s) { p('   失败: ' + s); });
+      if (c.error) p('   错误: ' + c.error);
+    }
+    p('\n== 启动时间线');
+    (R.timeline || []).forEach(function (e) { p('  ' + e.t + 'ms ' + e.kind + ' ' + e.text); });
+    if (R.pageErrors && R.pageErrors.length) { p('\n== 页面错误'); R.pageErrors.forEach(function (s) { p('  ' + s); }); }
+    if (R.consoleErrors && R.consoleErrors.length) { p('\n== console.error / warn（主线程）'); R.consoleErrors.forEach(function (s) { p('  ' + s); }); }
+    p('\n== 网络: ' + JSON.stringify(R.network || {}));
+    p('== ServiceWorker: ' + JSON.stringify(R.serviceWorker || {}));
+    p('== 管线库需要: ' + JSON.stringify(R.libraryNeeds));
+    return L.join('\n');
+  }
+
+  // ---------- 管线库编译测试（只在 tg-diag.html 里点按钮时跑） ----------
+  async function compileTest(url, onProgress) {
+    var C = { library: url, state: 'loading', total: 0, ok: 0, failed: 0, ms: 0, moduleMs: 0, failures: [], shaderErrors: [] };
+    try {
+      var m = await (await fetch(url)).json();
+      var a = await navigator.gpu.requestAdapter();
+      var desc = engineDeviceDescriptor(a);
+      var dev = await a.requestDevice(desc);
+      var lost = null; dev.lost.then(function (i) { lost = i.reason + ' ' + i.message; });
+      var uncaptured = [];
+      dev.onuncapturederror = function (e) { if (uncaptured.length < 20) uncaptured.push(cut(e.error && e.error.message, 600)); };
+      var tM = performance.now();
+      var shaders = m.shaders.map(function (s) { return dev.createShaderModule({ code: s.code }); });
+      var infos = await Promise.all(shaders.map(function (s) { return s.getCompilationInfo ? s.getCompilationInfo().catch(function () { return null; }) : null; }));
+      infos.forEach(function (inf, i) { if (inf) inf.messages.forEach(function (msg) { if (msg.type === 'error' && C.shaderErrors.length < 10) C.shaderErrors.push('#' + i + ' ' + msg.lineNum + ':' + msg.linePos + ' ' + cut(msg.message, 300)); }); });
+      C.moduleMs = Math.round(performance.now() - tM);
+      dev.pushErrorScope('validation');
+      var groups = m.bindGroupLayouts.map(function (x) { return dev.createBindGroupLayout(x); });
+      var layouts = m.pipelineLayouts.map(function (ids) { return dev.createPipelineLayout({ bindGroupLayouts: ids.map(function (i) { return groups[i]; }) }); });
+      var layErr = await dev.popErrorScope();
+      if (layErr) C.failures.push('bind group / pipeline layout: ' + cut(layErr.message, 600));
+      var lay = function (l) { return l === 'auto' ? 'auto' : layouts[l]; };
+      var reqs = [];
+      m.renderPipelines.forEach(function (p) { reqs.push({ label: p.label, run: function () { var d = Object.assign({}, p, { layout: lay(p.layout), vertex: Object.assign({}, p.vertex, { module: shaders[p.vertex.module] }) }); if (p.fragment) d.fragment = Object.assign({}, p.fragment, { module: shaders[p.fragment.module] }); return dev.createRenderPipelineAsync(d); } }); });
+      m.computePipelines.forEach(function (p) { reqs.push({ label: p.label, run: function () { return dev.createComputePipelineAsync(Object.assign({}, p, { layout: lay(p.layout), compute: Object.assign({}, p.compute, { module: shaders[p.compute.module] }) })); } }); });
+      C.total = reqs.length; C.state = 'compiling';
+      var times = [], cursor = 0, t1 = performance.now();
+      await Promise.all([0, 1, 2, 3].map(async function () {
+        while (cursor < reqs.length && !lost) {
+          var r = reqs[cursor++], s = performance.now();
+          try { await r.run(); C.ok++; } catch (e) { C.failed++; if (C.failures.length < 15) C.failures.push(cut(r.label, 120) + ' → ' + cut(errText(e), 600)); }
+          times.push([performance.now() - s, r.label]);
+          if (onProgress && (C.ok + C.failed) % 10 === 0) onProgress(C, Math.round(performance.now() - t1));
+        }
+      }));
+      C.ms = Math.round(performance.now() - t1);
+      times.sort(function (x, y) { return x[0] - y[0]; });
+      var at = function (q) { return times.length ? Math.round(times[Math.min(times.length - 1, Math.floor(q * times.length))][0]) : 0; };
+      C.pct = [at(0.5), at(0.95), at(1)];
+      C.slowest = times.slice(-5).reverse().map(function (x) { return Math.round(x[0]) + 'ms ' + cut(x[1], 100); });
+      if (uncaptured.length) C.failures = C.failures.concat(uncaptured.map(function (s) { return 'uncaptured: ' + s; }));
+      C.state = lost ? 'DEVICE LOST: ' + lost : 'done';
+      try { dev.destroy(); } catch (e) { /* 忽略 */ }
+    } catch (e) { C.state = 'error'; C.error = errText(e); }
+    return C;
+  }
+
+  // ---------- 面板 ----------
+  var panel = null;
+  function showPanel(text, extra) {
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'tg-diag-panel';
+      panel.setAttribute('style', 'position:fixed;inset:4vh 4vw;z-index:2147483647;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:8px;display:flex;flex-direction:column;text-align:left;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;box-shadow:0 8px 40px #000a');
+      panel.innerHTML = '<div style="display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid #30363d;font:14px system-ui,sans-serif"><b style="flex:1">启动诊断 / Startup diagnostics</b>' +
+        '<button data-a="copy" style="padding:6px 14px;font-size:14px;cursor:pointer">复制全部 Copy</button>' +
+        '<a data-a="deep" target="_blank" style="color:#58a6ff">完整 GPU 测试 →</a>' +
+        '<button data-a="close" style="padding:6px 10px;cursor:pointer">✕</button></div>' +
+        '<div style="padding:6px 12px;color:#8b949e;font:13px system-ui,sans-serif">请点「复制全部」把内容发回给开发者（也可截图）。Click “Copy” and send the text back.</div>' +
+        '<pre style="flex:1;overflow:auto;margin:0;padding:10px 12px;white-space:pre-wrap;word-break:break-all;user-select:text"></pre>';
+      panel.querySelector('[data-a=close]').onclick = function () { panel.style.display = 'none'; };
+      panel.querySelector('[data-a=deep]').href = new URL('tg-diag.html', location.href).href;
+      panel.querySelector('[data-a=copy]').onclick = function (ev2) {
+        var txt = panel.querySelector('pre').textContent, btn = ev2.currentTarget;
+        var done = function (ok) { btn.textContent = ok ? '已复制 Copied ✓' : '复制失败，请手动全选'; };
+        var fallback = function () { try { var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); ta.remove(); done(ok); } catch (e) { done(false); } };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function () { done(true); }, fallback); else fallback();
+      };
+      if (extra) extra(panel);
+    }
+    // 启动期间引擎在 window 捕获阶段拦掉一切不在加载层 / 失败层里的点击，所以面板挂在当前可见的那一层里
+    var vis = function (id) { var n = document.getElementById(id); return n && getComputedStyle(n).display !== 'none' ? n : null; };
+    var host = vis('forgeax-fatal') || vis('forgeax-loading') || document.body || document.documentElement;
+    if (panel.parentNode !== host) host.appendChild(panel);
+    panel.style.display = 'flex';
+    panel.querySelector('pre').textContent = text;
+    return panel;
+  }
+  var opening = false;
+  async function open(full) {
+    if (opening) return; opening = true;
+    try { showPanel('收集中… / collecting…'); var R = await collect(full); g.__tgDiagLast = R; showPanel(toText(R)); }
+    catch (e) { showPanel('诊断本身出错: ' + errText(e)); }
+    finally { opening = false; }
+  }
+  g.__tgDiag = { collect: collect, toText: toText, verdict: verdict, open: open, compileTest: compileTest, showPanel: showPanel, data: D, req: REQ };
+
+  // ---------- 游戏页挂钩 ----------
+  function hookGamePage() {
+    var st = document.getElementById('forgeax-loading-status');
+    var fatal = document.getElementById('forgeax-fatal');
+    if (!st && !fatal) return false;
+    var lastText = '';
+    var check = function () {
+      if (st && st.textContent !== lastText) { lastText = st.textContent; ev('status', lastText); }
+      if (fatal && getComputedStyle(fatal).display !== 'none' && !D.fatalText) {
+        var fd = document.getElementById('forgeax-fatal-details');
+        D.fatalText = fd ? fd.textContent || '(empty)' : '(no details)';
+        ev('fatal', D.fatalText);
+        open(true);
+      }
+    };
+    var mo = new MutationObserver(check);
+    [st, fatal, document.getElementById('forgeax-fatal-details'), document.getElementById('forgeax-loading')].forEach(function (n) { if (n) mo.observe(n, { attributes: true, childList: true, characterData: true, subtree: true }); });
+    check();
+    // 加载中右下角小按钮（首帧后自动隐藏）；?tgdiag 直接打开
+    var btn = document.createElement('button');
+    btn.textContent = '诊断 Diagnostics';
+    btn.setAttribute('style', 'position:fixed;right:12px;bottom:12px;z-index:2147483646;padding:6px 12px;font:13px system-ui,sans-serif;background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;opacity:.85');
+    btn.onclick = function (e) { e.stopPropagation(); open(true); };
+    (document.getElementById('forgeax-loading') || document.body).appendChild(btn);
+    var hideBtn = function () { if (D.firstFrameMs !== null && !/[?&]tgdiag/.test(location.search)) btn.style.display = 'none'; else setTimeout(hideBtn, 1000); };
+    hideBtn();
+    if (/[?&](tgdiag|forgeax-diag)/.test(location.search)) setTimeout(function () { open(true); }, 1500);
+    // [win2] 开局先看一眼适配器：Windows 双显卡笔记本上 Chrome 默认跑集成显卡（10-24 实机：lock 的 Chrome 在 Iris Xe 上，开游戏整机卡死），给出明确提示
+    try {
+      if (navigator.gpu) navigator.gpu.requestAdapter({ powerPreference: 'high-performance' }).then(function (a) {
+        var i = (a && a.info) || {}, s = [i.vendor, i.architecture, i.description].join(' ').trim();
+        ev('adapter', s || (a ? '(no info)' : 'null'));
+        if (!a || !isIgpu(s) || /[?&]igpu=ok/.test(location.search)) return;
+        var b = document.createElement('div');
+        b.id = 'tg-igpu-warning';
+        b.setAttribute('style', 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:2147483646;max-width:min(760px,92vw);padding:12px 40px 12px 16px;background:#3d2a00;color:#ffe9b0;border:1px solid #d29922;border-radius:8px;font:14px/1.5 system-ui,sans-serif;box-shadow:0 6px 30px #000a');
+        b.innerHTML = '<b>Chrome 正在用集成显卡（' + s.replace(/[<>&]/g, '') + '）</b><br>游戏会很卡，还可能把内存吃光导致整机卡死。如果电脑有独立显卡：Windows 设置 → 系统 → 屏幕 → 显示卡，把 Google Chrome 设为「高性能」，然后完全退出 Chrome 再打开。' +
+          '<br><span style="opacity:.8">Chrome is running on the integrated GPU. Set Google Chrome to “High performance” in Windows Settings → System → Display → Graphics, then fully restart Chrome.</span>' +
+          '<br>没有独立显卡：设置 →「渲染缩放」调到 70–80% 可以减轻显卡负担。<span style="opacity:.8"> No discrete GPU: lower Settings → Render scale to 70–80%. / 専用 GPU がない場合：設定 →「レンダースケール」を 70–80% に下げてください。</span>' + /* [overlap] 档位不再固定降分辨率 */
+          '<button style="position:absolute;right:8px;top:8px;background:none;border:0;color:inherit;font-size:16px;cursor:pointer" aria-label="close">✕</button>';
+        b.querySelector('button').onclick = function (e) { e.stopPropagation(); b.remove(); };
+        document.body.appendChild(b);
+      }, function () { /* 忽略 */ });
+    } catch (e) { /* 忽略 */ }
+    return true;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hookGamePage); else hookGamePage();
+  ev('diag-installed', '');
+})();
+</script>
+    <script id="tg-render-capacity">(function(){var c="3",g="",s="auto";try{var p=localStorage.getItem("tg.pacing");if(p==="3"){s="off";}else if(p==="low"){c="2";g="0";s="off";}else if(p==="s30")s="on";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);if(g&&!u.searchParams.has("tgoverlap"))u.searchParams.set("tgoverlap",g);}if(!u.searchParams.has("tgpace30"))u.searchParams.set("tgpace30",s);history.replaceState(history.state,"",u.href);}catch(e){}})();</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>天工战甲</title>
+    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-fps{box-sizing:border-box;z-index:2147483645;color:#ffe17b;text-align:center;pointer-events:none;background:#050c16e0;border:1px solid #e6ebf54d;border-radius:6px;width:92px;margin-left:-46px;padding:5px 8px;font:600 13px/18px system-ui,sans-serif;display:none;position:absolute;top:12px;left:50%}@media (width<=600px){#forgeax-fps{top:auto;bottom:12px}}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#05070b;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{justify-items:center;gap:12px;max-width:min(480px,100%);display:grid}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.02em;margin:0;font-size:clamp(20px,4vw,30px);font-weight:500}#forgeax-loading-spinner{border:2px solid #e6ebf533;border-top-color:#e6ebf5c7;border-radius:50%;width:22px;height:22px;animation:.9s linear infinite forgeax-loading-spin}#forgeax-loading-status{color:#e6ebf5b8;margin:0}#forgeax-loading-progress{background:#e6ebf524;border-radius:2px;width:min(360px,80vw);height:4px;overflow:hidden}#forgeax-loading-fill{background:#e6ebf5c7;width:0;height:100%;transition:width .2s linear}#forgeax-loading-detail,#forgeax-loading-meta{color:#e6ebf585;max-width:100%;min-height:1.5em;margin:0;font-size:13px;overflow:hidden}#forgeax-loading-slow,#forgeax-loading-reload{display:none}#forgeax-loading-reload,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-details{white-space:pre-wrap;max-height:45vh;overflow:auto}@keyframes forgeax-loading-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}#forgeax-loading-spinner{animation:none}}</style>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-GZeBgXrr.js"></script>
+  </head>
+  <body>
+    <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
+    <div id="forgeax-fps" aria-label="Completed game frames per second">FPS --</div>
+    <div id="forgeax-loading" role="status" aria-live="polite" aria-atomic="true">
+      <div id="forgeax-loading-content">
+        <h1 id="forgeax-loading-title">天工战甲</h1>
+        <div id="forgeax-loading-spinner" aria-hidden="true"></div>
+        <p id="forgeax-loading-status">Downloading engine code</p>
+        <div id="forgeax-loading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="forgeax-loading-status"><div id="forgeax-loading-fill"></div></div>
+        <p id="forgeax-loading-detail"></p>
+        <p id="forgeax-loading-meta">0%</p>
+        <p id="forgeax-loading-slow">Still loading. You can keep waiting or reload.</p>
+        <button id="forgeax-loading-reload" type="button">Reload</button>
+      </div>
+    </div>
+    <div id="forgeax-fatal" role="alert">
+      <div id="forgeax-fatal-content">
+        <p id="forgeax-fatal-message">Unable to start the game.</p>
+        <details><summary>Diagnostics</summary><pre id="forgeax-fatal-details"></pre></details>
+        <button id="forgeax-fatal-reload" type="button">Reload</button>
+      </div>
+    </div>
+    </div>
+    <noscript>JavaScript is required to start this game. Please enable JavaScript and reload.</noscript>
+    <script>
+      ((host) => {
+        const document = host?.document ?? globalThis.document;
+        const window = host?.events ?? globalThis.window;
+        const currentCanvas = () => host?.surface?.() ?? document.querySelector('#app');
+        const isElement = (node) => host === undefined ? node instanceof HTMLElement : node?.nodeType === 1;
+        const isNode = (node) => host === undefined ? node instanceof Node : node !== null && typeof node === 'object';
+        const startupEnabled = true;
+        const loading = document.querySelector('#forgeax-loading');
+        const loadingStatus = document.querySelector('#forgeax-loading-status');
+        const loadingSlow = document.querySelector('#forgeax-loading-slow');
+        const loadingReload = document.querySelector('#forgeax-loading-reload');
+        const loadingDetail = document.querySelector('#forgeax-loading-detail');
+        const loadingProgress = document.querySelector('#forgeax-loading-progress');
+        const loadingFill = document.querySelector('#forgeax-loading-fill');
+        const loadingMeta = document.querySelector('#forgeax-loading-meta');
+        const labels = {"lang":"en","phases":{"engine-code":"Downloading engine code","workers":"Starting workers","downloads":"Downloading assets","assets":"Loading assets","pipelines":"Preparing shaders and pipelines","scene":"Building the scene","first-frame":"Waiting for the first frame"},"loading":"Loading…","elapsed":"{seconds} s","slow":"Still loading. You can keep waiting or reload.","reload":"Reload"};
+        const fatal = document.querySelector('#forgeax-fatal');
+        const fatalMessage = document.querySelector('#forgeax-fatal-message');
+        const fatalDetails = document.querySelector('#forgeax-fatal-details');
+        const fatalReload = document.querySelector('#forgeax-fatal-reload');
+        const gameUi = document.querySelector('#game-ui');
+        const QueryParams = typeof URLSearchParams === 'function'
+          ? URLSearchParams
+          : class {
+              has() {
+                return false;
+              }
+              get() {
+                return null;
+              }
+            };
+        const query = typeof location === 'object' && location !== null
+          ? new QueryParams(location.search)
+          : new QueryParams();
+        const gamePage = startupEnabled && (!query.has('forgeaxWorkspace') || query.get('forgeaxWorkspace') === 'game') &&
+          !query.has('forgeax-tool-recipe') && !query.has('forgeax-tool-replay');
+        // Editor workspace/resource/tool pages omit the game loading overlay.
+        // Editor Play uses it and waits for a completed game frame. Every page
+        // retains the fatal diagnostic surface and Reload action.
+        const fatalEnabled = true;
+        let phase = gamePage ? 'loading' : 'disabled';
+        let slowTimer;
+        let fadeTimer;
+        let slowRemainingMs = 15000;
+        let slowVisibleSince;
+        // Progress view: the Engine model drives it once the game module runs;
+        // before that, the cover counts the page's downloaded script bytes.
+        let elapsedTimer;
+        let progressBound = false;
+        let shownPercent = 0;
+        let shownElapsed = '';
+        let lastView;
+        let enteredCallbacks = [];
+        let latestSubmitted;
+        // A completion may legally lag behind a later submission. Keep the
+        // submitted frame identities for the active device generation so a
+        // successful receipt remains tied to a real frame without requiring
+        // the queue to drain to the newest submission.
+        let submittedFrames = new Set();
+        const submissionKey = (worldIdentity, deviceGeneration, frameId) =>
+          JSON.stringify([worldIdentity, deviceGeneration, frameId]);
+        let expectedSession;
+        let inputBinding;
+        let inputEnabled = false;
+        let sessionGeneration = 0;
+        const reducedMotion =
+          host?.reducedMotion ?? (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+        const fadeDurationMs = reducedMotion ? 0 : 150;
+        const setStartupTimeout = typeof setTimeout === 'function' ? setTimeout : () => undefined;
+        const clearStartupTimeout = (timer) => {
+          if (timer !== undefined && typeof clearTimeout === 'function') clearTimeout(timer);
+        };
+        const reload = () => {
+          if (phase === 'destroyed') return;
+          destroy();
+          if (host !== undefined) host.reload();
+          else if (typeof location?.reload === 'function') location.reload();
+        };
+        const setText = (node, text) => {
+          if (node !== null && isElement(node)) node.textContent = text;
+        };
+        const setDisplay = (node, display) => {
+          if (node !== null && isElement(node)) node.style.display = display;
+        };
+        const setAttribute = (node, name, value) => {
+          if (node !== null && isElement(node) && typeof node.setAttribute === 'function') {
+            node.setAttribute(name, value);
+          }
+        };
+        const isStartupControlTarget = (target) => {
+          if (!(isNode(target))) return false;
+          const owns = (node) =>
+            node !== null &&
+            node !== undefined &&
+            (node === target || (typeof node.contains === 'function' && node.contains(target)));
+          return owns(loading) || owns(fatal);
+        };
+        const onStartupInputCapture = (event) => {
+          if (inputEnabled || isStartupControlTarget(event?.target)) return;
+          // Preserve native Tab navigation into startup controls. The game UI
+          // is inert while this owner blocks gameplay, until the first ready frame.
+          if (event?.key !== 'Tab') event?.preventDefault?.();
+          event?.stopImmediatePropagation?.();
+          event?.stopPropagation?.();
+        };
+        const onStartupControlKey = (event) => {
+          // Let the focused Reload button receive its default Enter/Space
+          // activation, but stop the key event before it bubbles to the
+          // gameplay producer while the startup surface owns the page.
+          if (!inputEnabled) event?.stopPropagation?.();
+        };
+        const startupInputKinds = [
+          'keydown',
+          'keyup',
+          'pointerdown',
+          'pointerup',
+          'pointermove',
+          'pointercancel',
+          'mousedown',
+          'mouseup',
+          'mousemove',
+          'wheel',
+          'click',
+        ];
+        const bindStartupInputCapture = () => {
+          if (!gamePage || typeof window.addEventListener !== 'function') return;
+          for (const kind of startupInputKinds) {
+            window.addEventListener(kind, onStartupInputCapture, { capture: true });
+          }
+        };
+        const removeStartupInputCapture = () => {
+          if (typeof window.removeEventListener !== 'function') return;
+          for (const kind of startupInputKinds) {
+            window.removeEventListener(kind, onStartupInputCapture, { capture: true });
+          }
+        };
+        const setInputEnabled = (enabled) => {
+          inputEnabled = enabled;
+          if (gamePage && isElement(gameUi)) gameUi.inert = !enabled;
+          // The one readiness signal for scripted real input: it is open only
+          // while this owner admits gameplay input, never on the fatal path.
+          const documentRoot = document.documentElement;
+          if (gamePage && typeof documentRoot?.setAttribute === 'function') {
+            documentRoot.setAttribute('data-forgeax-input', enabled ? 'open' : 'closed');
+          }
+          try {
+            inputBinding?.(enabled);
+          } catch {
+            // Input is an observational startup bridge; it must not change the
+            // fatal error path when an App-owned callback is already disposed.
+          }
+        };
+        const bindInput = (callback) => {
+          if (typeof callback !== 'function') return () => {};
+          const previous = inputBinding;
+          if (previous !== undefined) {
+            try {
+              previous(false);
+            } catch {
+              // Continue replacing an already-bound input bridge.
+            }
+          }
+          inputBinding = callback;
+          setInputEnabled(false);
+          return () => {
+            if (inputBinding !== callback) return;
+            setInputEnabled(false);
+            inputBinding = undefined;
+          };
+        };
+        let fadeCanvasWatch;
+        const stopFadeCanvasWatch = () => {
+          fadeCanvasWatch?.disconnect();
+          fadeCanvasWatch = undefined;
+        };
+        // While the overlay fades, the presenting canvas already receives
+        // input. A Render Worker recovery that replaces it must close input at
+        // once, before the replacement can take a click or a pointer lock.
+        const watchFadeCanvas = (fadeCanvas) => {
+          const parent = fadeCanvas?.parentNode;
+          const Observer = document.defaultView?.MutationObserver;
+          if (typeof Observer !== 'function' || parent === null || parent === undefined) return;
+          fadeCanvasWatch = new Observer(() => {
+            if (phase === 'fading' && currentCanvas() !== fadeCanvas) prepare();
+          });
+          fadeCanvasWatch.observe(parent, { childList: true });
+        };
+        const clearStartupWork = () => {
+          stopFadeCanvasWatch();
+          clearStartupTimeout(slowTimer);
+          clearStartupTimeout(fadeTimer);
+          clearStartupTimeout(elapsedTimer);
+          slowTimer = undefined;
+          fadeTimer = undefined;
+          elapsedTimer = undefined;
+          slowVisibleSince = undefined;
+          submittedFrames = new Set();
+        };
+        const clockNow = () => {
+          if (host !== undefined) return host.now();
+          if (typeof performance === 'object' && performance !== null && typeof performance.now === 'function') {
+            return performance.now();
+          }
+          return Date.now();
+        };
+        const isForeground = () => host?.visible?.() ?? (
+          typeof document !== 'object' || document === null || document.visibilityState !== 'hidden');
+        const startedAt = host === undefined ? 0 : clockNow();
+        const showText = (node, text) => {
+          if (node !== null && isElement(node) && node.textContent !== text) node.textContent = text;
+        };
+        const megabytes = (bytes) => (bytes / 1048576).toFixed(1) + ' MB';
+        const scriptBytes = () => {
+          if (typeof performance !== 'object' || performance === null || typeof performance.getEntriesByType !== 'function') return 0;
+          let bytes = 0;
+          for (const entry of performance.getEntriesByType('resource')) {
+            if (entry.initiatorType === 'script' || /\.m?js(\?|$)/.test(entry.name)) bytes += entry.transferSize || entry.encodedBodySize || 0;
+          }
+          return bytes;
+        };
+        const showMeta = () => showText(loadingMeta, shownPercent + '%' + (shownElapsed === '' ? '' : ' · ' + shownElapsed));
+        const showPercent = (percent) => {
+          shownPercent = Math.max(shownPercent, percent);
+          showMeta();
+          if (loadingFill !== null && isElement(loadingFill)) loadingFill.style.width = shownPercent + '%';
+          setAttribute(loadingProgress, 'aria-valuenow', String(shownPercent));
+        };
+        const tickElapsed = () => {
+          elapsedTimer = undefined;
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing')) return;
+          const seconds = Math.max(0, Math.floor((clockNow() - startedAt) / 1000));
+          shownElapsed = String(labels.elapsed).replace('{seconds}', String(seconds));
+          showMeta();
+          if (!progressBound) {
+            const bytes = scriptBytes();
+            if (bytes > 0) showText(loadingDetail, megabytes(bytes));
+          }
+          elapsedTimer = setStartupTimeout(tickElapsed, 500);
+        };
+        const progress = (view) => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing')) return;
+          if (view === null || typeof view !== 'object') return;
+          progressBound = true;
+          lastView = view;
+          showText(loadingStatus, typeof view.activity === 'string' ? view.activity : labels.loading);
+          showText(loadingDetail, typeof view.detail === 'string' ? view.detail : '');
+          if (Number.isFinite(view.percent)) showPercent(Math.max(0, Math.min(100, Math.floor(view.percent))));
+        };
+        const onEntered = (callback) => {
+          if (typeof callback === 'function') enteredCallbacks.push(callback);
+        };
+        const runEntered = () => {
+          const callbacks = enteredCallbacks;
+          enteredCallbacks = [];
+          for (const callback of callbacks) {
+            try {
+              callback();
+            } catch {
+              // An App progress owner must not block entering the game.
+            }
+          }
+        };
+        // Receipt observation outlives the loading overlay. It does not request
+        // render frames or sample rAF; one timer updates text only when changed.
+        // Browser pages opt in with ?fps=1 so capture, play and release frames
+        // stay free of developer chrome; URL-less native hosts keep the badge.
+        const frameRate = (() => {
+          const node = document.querySelector('#forgeax-fps');
+          let closed = !gamePage || node?.id !== 'forgeax-fps' || (host === undefined && query.get('fps') !== '1');
+          let session, surface, deviceGeneration = -1, lastFrame = -1;
+          let since, count = 0, timer;
+          const text = value => {
+            if (node?.textContent !== value) setText(node, value);
+          };
+          const reset = () => {
+            clearStartupTimeout(timer); timer = undefined;
+            since = undefined; count = 0;
+            text('FPS --'); setDisplay(node, 'none');
+          };
+          const tick = () => {
+            if (closed || !isForeground()) { reset(); return; }
+            const now = clockNow();
+            const elapsed = now - since;
+            if (Number.isFinite(elapsed) && elapsed > 0) {
+              text('FPS ' + (count * 1000 / elapsed).toFixed(1));
+              count = 0; since = now;
+            }
+            timer = setStartupTimeout(tick, 1000);
+          };
+          const completed = detail => {
+            const canvas = currentCanvas();
+            if (closed || (phase !== 'fading' && phase !== 'entered') || !isForeground() || session === undefined ||
+                detail?.worldIdentity !== session || detail.presentation !== 'ready' ||
+                !Number.isSafeInteger(detail.frameId) || detail.frameId < 0 ||
+                !Number.isSafeInteger(detail.deviceGeneration) || detail.deviceGeneration < 0 ||
+                (canvas === surface && detail.deviceGeneration < deviceGeneration)) return;
+            if (canvas !== surface || detail.deviceGeneration !== deviceGeneration) {
+              reset(); surface = canvas; deviceGeneration = detail.deviceGeneration; lastFrame = -1;
+            }
+            if (detail.frameId <= lastFrame) return;
+            lastFrame = detail.frameId;
+            if (since === undefined) {
+              since = clockNow();
+              setDisplay(node, 'block');
+              timer = setStartupTimeout(tick, 1000);
+            } else count += 1;
+          };
+          const onReceipt = event => { if (event.target === currentCanvas()) completed(event.detail); };
+          const visibilityChanged = () => reset();
+          const pageHidden = event => { if (event.persisted) reset(); else destroy(); };
+          const destroy = () => {
+            if (closed) return;
+            closed = true; reset();
+            if (host === undefined) {
+              window.removeEventListener('forgeax:frame-completed', onReceipt, { capture: true });
+              window.removeEventListener('visibilitychange', visibilityChanged);
+              window.removeEventListener('pagehide', pageHidden);
+            }
+          };
+          if (!closed && host === undefined) {
+            window.addEventListener('forgeax:frame-completed', onReceipt, { capture: true });
+            window.addEventListener('visibilitychange', visibilityChanged);
+            window.addEventListener('pagehide', pageHidden);
+          }
+          return { completed, visibilityChanged, destroy, bindSession(value) {
+            if (session === value || closed) return;
+            reset(); session = value; surface = undefined; deviceGeneration = -1; lastFrame = -1;
+          } };
+        })();
+        const accountForegroundTime = () => {
+          if (slowVisibleSince === undefined) return;
+          slowRemainingMs = Math.max(0, slowRemainingMs - Math.max(0, clockNow() - slowVisibleSince));
+          slowVisibleSince = undefined;
+        };
+        const showSlow = () => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing') || !isForeground()) return;
+          accountForegroundTime();
+          if (slowRemainingMs > 0) {
+            slowVisibleSince = clockNow();
+            slowTimer = setStartupTimeout(showSlow, slowRemainingMs);
+            return;
+          }
+          slowTimer = undefined;
+          slowVisibleSince = undefined;
+          setDisplay(loadingSlow, 'block');
+          setDisplay(loadingReload, 'inline-block');
+        };
+        const armSlowTimer = () => {
+          if (gamePage && elapsedTimer === undefined) tickElapsed();
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing') || !isForeground()) return;
+          accountForegroundTime();
+          clearStartupTimeout(slowTimer);
+          if (slowRemainingMs <= 0) {
+            showSlow();
+            return;
+          }
+          slowVisibleSince = clockNow();
+          slowTimer = setStartupTimeout(showSlow, slowRemainingMs);
+        };
+        const appendStructuredFailure = (value, prefix, seen, lines) => {
+          const formatValue = (candidate) => {
+            if (typeof candidate === 'string') return candidate;
+            try {
+              const encoded = JSON.stringify(candidate);
+              if (encoded !== undefined) return encoded;
+            } catch {
+              // Fall through to String for unserializable diagnostics.
+            }
+            return String(candidate);
+          };
+          if (value === null || typeof value !== 'object') {
+            if (prefix && value !== undefined) lines.push(prefix + ': ' + formatValue(value));
+            return;
+          }
+          if (seen.size >= 64) {
+            lines.push((prefix || 'cause') + ': [diagnostic node limit]');
+            return;
+          }
+          if (seen.has(value)) {
+            lines.push((prefix || 'cause') + ': [circular]');
+            return;
+          }
+          seen.add(value);
+          if (Array.isArray(value)) {
+            value.forEach((nested, index) =>
+              appendStructuredFailure(nested, (prefix || 'cause') + '[' + index + ']', seen, lines),
+            );
+            return;
+          }
+          const record = value;
+          const name = typeof record.name === 'string' && record.name.length > 0
+            ? record.name
+            : undefined;
+          const code = typeof record.code === 'string' && record.code.length > 0
+            ? record.code
+            : undefined;
+          const message = typeof record.message === 'string' && record.message.length > 0
+            ? record.message
+            : undefined;
+          if (name !== undefined || code !== undefined || message !== undefined) {
+            const identity = [name || 'Error', code].filter(Boolean).join(' ');
+            lines.push((prefix ? prefix + ': ' : '') + identity + (message ? ': ' + message : ''));
+          }
+          for (const key of ['expected', 'hint', 'reason']) {
+            if (record[key] !== undefined && record[key] !== null) {
+              lines.push((prefix ? prefix + '.' : '') + key + ': ' + formatValue(record[key]));
+            }
+          }
+          for (const key of ['cause', 'detail', 'failure', 'webgpuError', 'wgpuError', 'error']) {
+            const nested = record[key];
+            const nestedPrefix = (prefix ? prefix + '.' : '') + key;
+            if (nested !== undefined && nested !== null && typeof nested === 'object') {
+              appendStructuredFailure(nested, nestedPrefix, seen, lines);
+            } else if (nested !== undefined && nested !== null) {
+              lines.push(nestedPrefix + ': ' + formatValue(nested));
+            }
+          }
+          const knownKeys = new Set([
+            'name',
+            'code',
+            'message',
+            'expected',
+            'hint',
+            'reason',
+            'cause',
+            'detail',
+            'failure',
+            'webgpuError',
+            'wgpuError',
+            'error',
+          ]);
+          for (const key of Object.keys(record)) {
+            if (knownKeys.has(key)) continue;
+            const nested = record[key];
+            const nestedPrefix = (prefix ? prefix + '.' : '') + key;
+            if (nested !== null && typeof nested === 'object') {
+              appendStructuredFailure(nested, nestedPrefix, seen, lines);
+            } else if (nested !== undefined) {
+              lines.push(nestedPrefix + ': ' + formatValue(nested));
+            }
+          }
+        };
+        const formatStartupFailure = (reason) => {
+          if (reason !== null && typeof reason === 'object') {
+            const lines = [];
+            appendStructuredFailure(reason, '', new Set(), lines);
+            if (lines.length > 0) return lines.join('\n');
+            try {
+              return JSON.stringify(reason) || 'Unknown structured startup failure';
+            } catch {
+              return 'Unserializable structured startup failure';
+            }
+          }
+          return String(reason ?? 'Unknown startup failure');
+        };
+        const show = (reason, execution) => {
+          const runtimeFailure = execution?.fault !== undefined && execution.fault !== null;
+          if (!fatalEnabled || phase === 'failed' || phase === 'destroyed' ||
+              (phase === 'entered' && !runtimeFailure)) return;
+          phase = 'failed';
+          frameRate.destroy();
+          setInputEnabled(false);
+          clearStartupWork();
+          // Retain the first cause through teardown and keep Reload alive.
+          cleanupStartupListeners();
+          bindStartupInputCapture();
+          bindFatalReload();
+          let details = formatStartupFailure(reason);
+          const notice = fatal;
+          if (!(isElement(notice))) return;
+          const message = runtimeFailure ? 'The game stopped because execution failed.' : 'Unable to start the game.';
+          if (/webgpu|adapter-unavailable|no usable (rendering )?backend/i.test(details)) {
+            details += '\n\nRenderer diagnosis: ForgeaX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.';
+          }
+          // Keep the existing plain-text diagnostic fallback for hosts that
+          // provide only one synthetic HTMLElement in a test harness.
+          if (fatalMessage === notice) {
+            notice.textContent = (runtimeFailure ? 'ForgeaX game stopped.\n' : 'ForgeaX game failed to start.\n') + message + '\n' + details;
+          } else {
+            setText(fatalMessage, message);
+            setText(fatalDetails, details);
+          }
+          setDisplay(loading, 'none');
+          setDisplay(notice, 'grid');
+          setDisplay(fatalReload, 'inline-block');
+          setAttribute(loading, 'aria-hidden', 'true');
+          setAttribute(loading, 'data-fading', 'false');
+          if (gamePage && fatalReload !== null && isElement(fatalReload)) fatalReload.focus?.();
+        };
+        const prepare = () => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'fading')) return;
+          if (phase === 'fading') {
+            stopFadeCanvasWatch();
+            clearStartupTimeout(fadeTimer);
+            fadeTimer = undefined;
+            setInputEnabled(false);
+            setLoadingControls(true);
+            setAttribute(loading, 'aria-hidden', 'false');
+            setAttribute(loading, 'data-fading', 'false');
+          }
+          phase = 'preparing';
+          latestSubmitted = undefined;
+          submittedFrames = new Set();
+          setText(loadingStatus, labels.phases['first-frame'] ?? labels.loading);
+          armSlowTimer();
+        };
+        const enter = (event) => {
+          if (host !== undefined) frameRate.completed(event);
+          if (!gamePage || phase !== 'preparing') return;
+          if (event === null || typeof event !== 'object') return;
+          if (expectedSession === undefined || event.worldIdentity !== expectedSession) return;
+          if (
+            !Number.isSafeInteger(event.frameId) ||
+            event.frameId < 0 ||
+            !Number.isSafeInteger(event.deviceGeneration) ||
+            event.deviceGeneration < 0
+          ) return;
+          if (
+            latestSubmitted === undefined ||
+            latestSubmitted.canvas !== currentCanvas() ||
+            event.deviceGeneration !== latestSubmitted.deviceGeneration ||
+            (latestSubmitted.worldIdentity !== undefined &&
+              event.worldIdentity !== latestSubmitted.worldIdentity) ||
+            !submittedFrames.has(
+              submissionKey(event.worldIdentity, event.deviceGeneration, event.frameId),
+            )
+          ) return;
+          submittedFrames.delete(
+            submissionKey(event.worldIdentity, event.deviceGeneration, event.frameId),
+          );
+          // A pending completion is still a terminal receipt for this
+          // submitted candidate. Retire it before checking presentation so a
+          // later forged/replayed ready event cannot reuse the same frame.
+          if (event.presentation !== 'ready') return;
+          if (phase === 'fading') return;
+          phase = 'fading';
+          frameRate.completed(event);
+          clearStartupWork();
+          // The game is presentable now; the fade is cosmetic and must not
+          // swallow the first player or scripted input.
+          setInputEnabled(true);
+          runEntered();
+          const fadeGeneration = sessionGeneration;
+          const fadeCanvas = latestSubmitted.canvas;
+          // The hidden overlay keeps neither focus nor its Reload activation:
+          // Enter/Space during the fade belong to the game alone.
+          setLoadingControls(false);
+          showPercent(100);
+          setAttribute(loading, 'data-fading', 'true');
+          setAttribute(loading, 'aria-hidden', 'true');
+          watchFadeCanvas(fadeCanvas);
+          fadeTimer = setStartupTimeout(() => {
+            if (phase !== 'fading' || fadeGeneration !== sessionGeneration) return;
+            if (fadeCanvas !== currentCanvas()) {
+              prepare();
+              return;
+            }
+            stopFadeCanvasWatch();
+            phase = 'entered';
+            setDisplay(loading, 'none');
+            setAttribute(loading, 'data-fading', 'false');
+            cleanupStartupListeners();
+          }, fadeDurationMs);
+        };
+        const destroy = () => {
+          if (phase === 'destroyed') return;
+          sessionGeneration += 1;
+          phase = 'destroyed';
+          frameRate.destroy();
+          setInputEnabled(false);
+          clearStartupWork();
+          cleanupStartupListeners();
+        };
+        const onSubmitted = (event) => {
+          if (phase === 'entered' || phase === 'failed' || phase === 'destroyed') return;
+          if (event?.target !== currentCanvas()) return;
+          const detail = event?.detail;
+          if (
+            detail !== null &&
+            typeof detail === 'object' &&
+            Number.isSafeInteger(detail.frameId) &&
+            detail.frameId >= 0 &&
+            Number.isSafeInteger(detail.deviceGeneration) &&
+            detail.deviceGeneration >= 0 &&
+            expectedSession !== undefined &&
+            detail.worldIdentity === expectedSession
+          ) {
+            if (
+              latestSubmitted !== undefined &&
+              (detail.deviceGeneration !== latestSubmitted.deviceGeneration ||
+                event.target !== latestSubmitted.canvas)
+            ) {
+              if (phase === 'fading') prepare();
+              else submittedFrames = new Set();
+            }
+            latestSubmitted = {
+              canvas: event.target,
+              frameId: detail.frameId,
+              deviceGeneration: detail.deviceGeneration,
+              worldIdentity: detail.worldIdentity,
+            };
+            submittedFrames.add(
+              submissionKey(detail.worldIdentity, detail.deviceGeneration, detail.frameId),
+            );
+          }
+        };
+        const onCompleted = (event) => {
+          if (event?.target === currentCanvas()) enter(event?.detail);
+        };
+        const onVisibilityChange = () => {
+          frameRate.visibilityChanged();
+          if (isForeground()) {
+            armSlowTimer();
+          } else {
+            accountForegroundTime();
+            clearStartupTimeout(slowTimer);
+            slowTimer = undefined;
+          }
+        };
+        const onPageHide = () => destroy();
+        const onError = (event) => {
+          if (event?.error !== undefined) {
+            show(event.error);
+            return;
+          }
+          const target = event?.target;
+          const source =
+            target !== null &&
+            target !== undefined &&
+            (typeof target.src === 'string' || typeof target.href === 'string')
+              ? target.src ?? target.href
+              : undefined;
+          if (source !== undefined || event?.message !== undefined) {
+            show({
+              name: 'ScriptResourceError',
+              message: event?.message ?? 'startup resource failed to load',
+              ...(source === undefined ? {} : { detail: { source } }),
+            });
+            return;
+          }
+          show(event);
+        };
+        const onUnhandledRejection = (event) => show(event?.reason ?? event);
+        const setLoadingControls = (active) => {
+          if (loading !== null && isElement(loading)) {
+            loading.inert = !active;
+            const focused = document.activeElement;
+            if (!active && focused !== null && focused !== undefined && typeof loading.contains === 'function' && loading.contains(focused)) {
+              focused.blur?.();
+            }
+          }
+          if (
+            loadingReload === null ||
+            !isElement(loadingReload) ||
+            typeof loadingReload.addEventListener !== 'function'
+          ) return;
+          const listen = active ? 'addEventListener' : 'removeEventListener';
+          loadingReload[listen]('click', reload);
+          loadingReload[listen]('keydown', onStartupControlKey);
+          loadingReload[listen]('keyup', onStartupControlKey);
+        };
+        const cleanupStartupListeners = () => {
+          if (typeof window.removeEventListener === 'function') {
+            window.removeEventListener('forgeax:frame-submitted', onSubmitted, { capture: true });
+            window.removeEventListener('forgeax:frame-completed', onCompleted, { capture: true });
+            window.removeEventListener('visibilitychange', onVisibilityChange);
+            window.removeEventListener('pagehide', onPageHide);
+            window.removeEventListener('error', onError, { capture: true });
+            window.removeEventListener('unhandledrejection', onUnhandledRejection);
+          }
+          removeStartupInputCapture();
+          if (loadingReload !== null && typeof loadingReload.removeEventListener === 'function') {
+            loadingReload.removeEventListener('click', reload);
+            loadingReload.removeEventListener('keydown', onStartupControlKey);
+            loadingReload.removeEventListener('keyup', onStartupControlKey);
+          }
+          if (
+            fatalReload !== null &&
+            typeof fatalReload.removeEventListener === 'function'
+          ) {
+            fatalReload.removeEventListener('click', reload);
+            fatalReload.removeEventListener('keydown', onStartupControlKey);
+            fatalReload.removeEventListener('keyup', onStartupControlKey);
+          }
+        };
+        setLoadingControls(true);
+        const bindFatalReload = () => {
+          if (
+            fatalReload === null ||
+            !isElement(fatalReload) ||
+            typeof fatalReload.addEventListener !== 'function'
+          ) return;
+          fatalReload.addEventListener('click', reload);
+          fatalReload.addEventListener('keydown', onStartupControlKey);
+          fatalReload.addEventListener('keyup', onStartupControlKey);
+        };
+        if (gamePage) {
+          // Render Worker recovery replaces its transferred canvas. Capture
+          // nonbubbling receipts on the stable page and admit only its current
+          // canvas; retired or unrelated surfaces cannot enter this game.
+          window.addEventListener('forgeax:frame-submitted', onSubmitted, { capture: true });
+          window.addEventListener('forgeax:frame-completed', onCompleted, { capture: true });
+          window.addEventListener('visibilitychange', onVisibilityChange);
+          window.addEventListener('pagehide', onPageHide);
+          bindStartupInputCapture();
+        }
+        if (fatalEnabled) {
+          // Keep module/resource errors observable even when a workspace or
+          // preview page intentionally starts with no loading overlay.
+          window.addEventListener('error', onError, { capture: true });
+          window.addEventListener('unhandledrejection', onUnhandledRejection);
+        }
+        if (gamePage) {
+          setInputEnabled(false);
+          armSlowTimer();
+        } else {
+          setDisplay(loading, 'none');
+        }
+        const bindSession = (session) => {
+          if (typeof session !== 'string' || session.length === 0) return;
+          frameRate.bindSession(session);
+          if (phase === 'entered' || phase === 'failed' || phase === 'destroyed') return;
+          if (expectedSession === session) return;
+          expectedSession = session;
+          sessionGeneration += 1;
+          latestSubmitted = undefined;
+          submittedFrames = new Set();
+          if (phase === 'loading' || phase === 'preparing' || phase === 'fading') {
+            accountForegroundTime();
+            clearStartupWork();
+            if (phase === 'fading') setLoadingControls(true);
+            phase = 'loading';
+            setInputEnabled(false);
+            setDisplay(loading, 'grid');
+            setDisplay(fatal, 'none');
+            setAttribute(loading, 'aria-hidden', 'false');
+            setAttribute(loading, 'data-fading', 'false');
+            // A rebound session keeps showing the latest measured work.
+            if (lastView === undefined) setText(loadingStatus, labels.loading);
+            else progress(lastView);
+            armSlowTimer();
+          }
+        };
+        const startup = Object.freeze({
+          prepare,
+          enter,
+          fail: show,
+          destroy,
+          bindInput,
+          bindSession,
+          submitted: (detail) => onSubmitted({ target: currentCanvas(), detail }),
+          visibilityChanged: onVisibilityChange,
+          progress,
+          onEntered,
+        });
+        if (host === undefined) globalThis.__forgeaxStartup = startup;
+        return startup;
+      })(undefined);
+</script>
+    <script>
+      (() => {
+        // This inert marker keeps generated pages inspectable by older hosts
+        // that only parse the fatal diagnostic hook.
+        const startupFailureText = 'ForgeaX game failed to start.\n' + 'Unable to start the game.';
+        void startupFailureText;
+      })();
+    </script>
+  </body>
+</html>

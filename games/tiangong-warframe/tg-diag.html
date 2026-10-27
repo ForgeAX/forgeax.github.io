@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天工战甲 · GPU 诊断</title>
+<style>body{margin:0;background:#0d1117;color:#e6edf3;font:14px/1.5 system-ui,sans-serif}main{max-width:980px;margin:0 auto;padding:16px}
+button,select{font:14px system-ui,sans-serif;padding:6px 14px;margin:4px 6px 4px 0;cursor:pointer}#bar{position:sticky;top:0;background:#0d1117;padding:8px 0;border-bottom:1px solid #30363d}
+pre{white-space:pre-wrap;word-break:break-all;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;background:#161b22;padding:12px;border-radius:6px;user-select:text}</style>
+<script>/* 启动诊断（[win] 10-24）：Windows 打不开的排查用。由 scripts/startup-diag/inject.mjs 内联进 index.html，并生成独立页 tg-diag.html。
+ * - 游戏页：记录启动时间线（加载提示文字变化 / 首帧 / 致命错误）、页面报错、console.error/warn；
+ *   启动失败页出现时自动弹出诊断面板（适配器 / 限额 / 缺的特性 / 报错原文），一键复制；加载中右下角有「诊断」按钮；?tgdiag 直接弹出。
+ * - tg-diag.html：不启动游戏，只做 WebGPU 能力检查，并可把主菜单那一档管线库在「引擎同款设备」上完整编一遍，
+ *   列出失败的管线和报错、编译耗时（Windows D3D12 冷编译是否会超过启动期限）。
+ * __TG_DIAG_REQ__ 由 inject.mjs 按构建时的管线库算出（库里最苛刻的一条管线要的限额）。 */
+(function () {
+  'use strict';
+  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":30,"maxSamplersPerShaderStage":16,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":3,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":4,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":14,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
+  var g = window;
+  if (g.__tgDiag) return;
+  var t0 = performance.now();
+  var D = { events: [], errors: [], logs: [], fatalText: '', firstFrameMs: null };
+  var now = function () { return Math.round(performance.now() - t0); };
+  var cut = function (s, n) { s = String(s); return s.length > n ? s.slice(0, n) + '…' : s; };
+  var ev = function (kind, text) { if (D.events.length < 80) D.events.push({ t: now(), kind: kind, text: cut(text == null ? '' : text, 300) }); };
+  var errText = function (e) { try { if (e && (e.stack || e.message)) return String(e.stack || e.message); return typeof e === 'object' ? JSON.stringify(e) : String(e); } catch (x) { return String(e); } };
+  g.addEventListener('error', function (e) { if (D.errors.length < 30) D.errors.push(now() + 'ms ' + cut((e.message || '') + ' @ ' + (e.filename || '') + ':' + (e.lineno || '') + (e.error ? '\n' + errText(e.error) : ''), 800)); }, true);
+  g.addEventListener('unhandledrejection', function (e) { if (D.errors.length < 30) D.errors.push(now() + 'ms unhandledrejection ' + cut(errText(e.reason), 800)); });
+  ['error', 'warn'].forEach(function (k) {
+    var orig = console[k];
+    console[k] = function () {
+      try { if (D.logs.length < 40) D.logs.push(now() + 'ms [' + k + '] ' + cut(Array.prototype.map.call(arguments, errText).join(' '), 600)); } catch (x) { /* 忽略 */ }
+      return orig.apply(console, arguments);
+    };
+  });
+  // [plfault] 引擎补丁 D：启动预编译管线库时编不过而被跳过的条目（渲染器可能在 Worker 里，所以同时听 BroadcastChannel）
+  D.plSkipped = null;
+  var plSkip = function (r) { if (r && typeof r.count === 'number') { D.plSkipped = r; ev('pipeline-library', '跳过 ' + r.count + ' 条 / ' + r.total + (r.count ? '：' + r.skipped.map(function (s) { return s.label; }).join(', ') : '')); } };
+  try { if (typeof BroadcastChannel === 'function') new BroadcastChannel('forgeax-pipeline-library').onmessage = function (e) { plSkip(e.data); }; } catch (e) { /* 忽略 */ }
+  g.addEventListener('forgeax:frame-completed', function () { if (D.firstFrameMs === null) { D.firstFrameMs = now(); ev('first-frame', ''); } }, true);
+
+  // [win2] 集成显卡判定（Chrome 的 adapter.info：Iris Xe = intel / gen-12lp；Intel Arc 独显 = xe-hpg 不算；AMD 核显 description 带 Graphics 无型号）
+  function isIgpu(desc) { return /intel|uhd|iris|radeon\(tm\) graphics|amd radeon graphics/i.test(desc) && !/nvidia|xe-hpg|arc\b|rdna/i.test(desc); }
+  // ---------- 能力检查 ----------
+  var LIMIT_KEYS = ['maxSampledTexturesPerShaderStage', 'maxSamplersPerShaderStage', 'maxStorageBuffersPerShaderStage', 'maxStorageTexturesPerShaderStage', 'maxUniformBuffersPerShaderStage', 'maxBindGroups', 'maxBindingsPerBindGroup', 'maxColorAttachments', 'maxColorAttachmentBytesPerSample', 'maxComputeWorkgroupStorageSize', 'maxComputeInvocationsPerWorkgroup', 'maxBufferSize', 'maxStorageBufferBindingSize', 'maxUniformBufferBindingSize', 'maxTextureDimension2D', 'maxTextureDimension3D', 'maxTextureArrayLayers', 'maxVertexAttributes', 'maxInterStageShaderVariables', 'maxDynamicUniformBuffersPerPipelineLayout', 'maxDynamicStorageBuffersPerPipelineLayout', 'maxStorageBuffersInFragmentStage', 'maxStorageBuffersInVertexStage'];
+  var FEATURE_KEYS = ['depth32float-stencil8', 'float32-filterable', 'float32-blendable', 'timestamp-query', 'indirect-first-instance', 'primitive-index', 'texture-compression-bc', 'texture-compression-etc2', 'texture-compression-astc', 'shader-f16', 'subgroups', 'rg11b10ufloat-renderable', 'bgra8unorm-storage', 'dual-source-blending', 'clip-distances'];
+  /** 与引擎 engine-render/assembly/device-feature-admission.ts（0.5.0-dev.15093）同一套推导：引擎实际向 requestDevice 要的东西 */
+  function engineDeviceDescriptor(a) {
+    var L = a.limits, F = a.features;
+    var f = ['depth32float-stencil8'];
+    ['texture-compression-bc', 'texture-compression-etc2', 'texture-compression-astc', 'indirect-first-instance', 'timestamp-query', 'float32-filterable', 'float32-blendable'].forEach(function (k) { if (F.has(k)) f.push(k); });
+    var visible = F.has('primitive-index') && (L.maxColorAttachments || 0) >= 7 && (L.maxColorAttachmentBytesPerSample || 0) >= 52;
+    if (visible) f.push('primitive-index');
+    var cb = L.maxColorAttachmentBytesPerSample || 0;
+    var color = visible ? Math.min(cb, 72) : cb >= 36 ? Math.min(cb, 56) : undefined;
+    var s = L.maxSampledTexturesPerShaderStage || 0;
+    var sampled = s >= 32 ? 32 : s >= 27 ? 27 : s >= 25 ? 25 : s >= 21 ? 21 : undefined;
+    var lim = {};
+    if (sampled !== undefined) lim.maxSampledTexturesPerShaderStage = sampled;
+    if (color !== undefined) lim.maxColorAttachmentBytesPerSample = color;
+    if ((L.maxComputeWorkgroupStorageSize || 0) >= 32768) lim.maxComputeWorkgroupStorageSize = 32768;
+    return { requiredFeatures: f, requiredLimits: lim };
+  }
+  // WebGPU 规范缺省值（引擎不额外要的限额，设备就只有这么多）
+  var DEFAULTS = { maxSampledTexturesPerShaderStage: 16, maxSamplersPerShaderStage: 16, maxStorageBuffersPerShaderStage: 8, maxStorageTexturesPerShaderStage: 4, maxUniformBuffersPerShaderStage: 12, maxBindGroups: 4, maxBindingsPerBindGroup: 1000, maxColorAttachments: 8, maxColorAttachmentBytesPerSample: 32, maxComputeWorkgroupStorageSize: 16384, maxComputeInvocationsPerWorkgroup: 256, maxVertexAttributes: 16, maxDynamicUniformBuffersPerPipelineLayout: 8, maxDynamicStorageBuffersPerPipelineLayout: 4 };
+  function checkAgainst(a, desc) {
+    var out = [];
+    Object.keys(REQ.limits).forEach(function (k) {
+      var need = REQ.limits[k], have = a.limits[k], dev = desc.requiredLimits[k] !== undefined ? desc.requiredLimits[k] : DEFAULTS[k];
+      if (typeof have === 'number' && have < need) out.push('适配器 ' + k + ' = ' + have + ' < 管线库需要 ' + need);
+      else if (typeof dev === 'number' && dev < need) out.push('引擎设备 ' + k + ' = ' + dev + '（适配器 ' + have + '）< 管线库需要 ' + need);
+    });
+    (REQ.features || []).forEach(function (k) { if (!a.features.has(k)) out.push('缺少特性 ' + k); });
+    return out;
+  }
+  function adapterReport(a) {
+    var info = a.info || {};
+    var L = {}; LIMIT_KEYS.forEach(function (k) { if (typeof a.limits[k] === 'number') L[k] = a.limits[k]; });
+    var feats = []; a.features.forEach(function (f) { feats.push(f); });
+    return { vendor: info.vendor, architecture: info.architecture, device: info.device, description: info.description, backend: info.backend, isFallbackAdapter: a.isFallbackAdapter || info.isFallbackAdapter, featureLevel: a.featureLevel, limits: L, features: feats.sort(), missingWanted: FEATURE_KEYS.filter(function (f) { return !a.features.has(f); }) };
+  }
+  async function probeGpu(full) {
+    var gpu = navigator.gpu, out = { available: !!gpu };
+    if (!gpu) return out;
+    try { out.preferredCanvasFormat = gpu.getPreferredCanvasFormat(); } catch (e) { out.preferredCanvasFormat = 'error ' + e; }
+    try { out.wgslFeatures = gpu.wgslLanguageFeatures ? Array.from(gpu.wgslLanguageFeatures).sort() : undefined; } catch (e) { /* 忽略 */ }
+    var prefs = full ? [undefined, 'high-performance', 'low-power'] : [undefined];
+    out.adapters = [];
+    for (var i = 0; i < prefs.length; i++) {
+      var r = { powerPreference: prefs[i] || '(缺省，引擎用这个)' };
+      try {
+        var a = await gpu.requestAdapter(prefs[i] ? { powerPreference: prefs[i] } : undefined);
+        if (!a) { r.adapter = null; out.adapters.push(r); continue; }
+        r.adapter = adapterReport(a);
+        var desc = engineDeviceDescriptor(a);
+        r.engineDevice = desc;
+        r.problems = checkAgainst(a, desc);
+        if (i === 0) {
+          var t = performance.now();
+          try { var d = await a.requestDevice(desc); r.requestDevice = 'ok ' + Math.round(performance.now() - t) + 'ms'; d.destroy(); } catch (e) { r.requestDevice = 'FAILED: ' + errText(e); }
+        }
+      } catch (e) { r.error = errText(e); }
+      out.adapters.push(r);
+    }
+    return out;
+  }
+  async function collect(full) {
+    var R = { tool: 'tg-diag v1', at: new Date().toISOString(), url: location.href, sinceLoadMs: now() };
+    var main = document.querySelector('script[type=module][src]');
+    R.build = { bundle: main ? main.getAttribute('src') : '(none)', lastModified: document.lastModified };
+    R.ua = navigator.userAgent;
+    try { if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) R.uaData = await navigator.userAgentData.getHighEntropyValues(['platform', 'platformVersion', 'architecture', 'bitness', 'fullVersionList', 'model']); } catch (e) { /* 忽略 */ }
+    R.env = { crossOriginIsolated: g.crossOriginIsolated, sharedArrayBuffer: typeof SharedArrayBuffer, offscreenCanvas: typeof OffscreenCanvas, cores: navigator.hardwareConcurrency, deviceMemoryGB: navigator.deviceMemory, dpr: g.devicePixelRatio, screen: screen.width + 'x' + screen.height, viewport: innerWidth + 'x' + innerHeight, lang: navigator.language, visibility: document.visibilityState };
+    try { var pm = performance.memory; if (pm) R.env.jsHeapMB = { used: Math.round(pm.usedJSHeapSize / 1048576), limit: Math.round(pm.jsHeapSizeLimit / 1048576) }; } catch (e) { /* 忽略 */ }
+    try {
+      R.serviceWorker = { supported: 'serviceWorker' in navigator, controller: !!(navigator.serviceWorker && navigator.serviceWorker.controller) };
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { var regs = await navigator.serviceWorker.getRegistrations(); R.serviceWorker.registrations = regs.map(function (x) { return x.scope + ' active=' + !!x.active; }); }
+      if (g.caches) R.serviceWorker.caches = await caches.keys();
+    } catch (e) { R.serviceWorker = { error: errText(e) }; }
+    try {
+      var res = performance.getEntriesByType('resource'), bytes = 0;
+      res.forEach(function (x) { bytes += x.transferSize || 0; });
+      R.network = { requests: res.length, transferMB: Math.round(bytes / 104857.6) / 10, slowest: res.slice().sort(function (a, b) { return b.duration - a.duration; }).slice(0, 8).map(function (x) { return Math.round(x.duration) + 'ms ' + Math.round((x.transferSize || 0) / 1024) + 'KB ' + x.name.replace(location.origin, ''); }) };
+    } catch (e) { /* 忽略 */ }
+    R.gpu = await probeGpu(full);
+    R.libraryNeeds = REQ;
+    R.timeline = D.events.slice();
+    R.firstFrameMs = D.firstFrameMs;
+    R.pipelineSkipped = g.__forgeaxPipelineLibrarySkipped || D.plSkipped || null;
+    var fatalBox = document.getElementById('forgeax-fatal');
+    R.fatalVisible = !!(fatalBox && getComputedStyle(fatalBox).display !== 'none');
+    var fd = document.getElementById('forgeax-fatal-details'), fm = document.getElementById('forgeax-fatal-message');
+    R.fatal = (fm && R.fatalVisible ? fm.textContent + '\n' : '') + (fd ? fd.textContent : '');
+    var st = document.getElementById('forgeax-loading-status');
+    R.loadingStatus = st ? st.textContent : undefined;
+    R.pageErrors = D.errors.slice();
+    R.consoleErrors = D.logs.slice();
+    return R;
+  }
+  /** 白话结论（给 lock 直接看）：最可能的原因 + 下一步 */
+  function verdict(R) {
+    var V = [], gp = R.gpu || {}, a0 = (gp.adapters || [])[0] || {}, a = a0.adapter;
+    var m = /Chrome\/(\d+)/.exec(R.ua || ''), chrome = m ? +m[1] : 0, edge = /Edg\//.test(R.ua || '');
+    var needTex = (REQ.limits || {}).maxSampledTexturesPerShaderStage || 30;
+    if (!gp.available) V.push('浏览器没有 WebGPU（navigator.gpu 不存在）：请用最新版 Chrome；打开 chrome://gpu 看「WebGPU」一栏是否为 Hardware accelerated，公司策略可能禁用了它。');
+    else if (a0.error) V.push('申请显卡出错：' + a0.error);
+    else if (a === null) V.push('Chrome 拿不到显卡（requestAdapter 返回 null）：更新 NVIDIA 驱动后重开 Chrome；远程桌面下通常没有 GPU；chrome://gpu 截图发回。');
+    if (a) {
+      var tex = a.limits.maxSampledTexturesPerShaderStage;
+      if (typeof tex === 'number' && tex < needTex) V.push('Chrome 版本太旧 / 显卡限额不够：每个着色器阶段的采样纹理上限只有 ' + tex + '，游戏需要 ' + needTex + '。请把 Chrome 升级到 146 或更新（chrome://settings/help），升级后重开浏览器再试。');
+      if (a.isFallbackAdapter) V.push('当前是软件渲染（fallback adapter），没有用上独立显卡：检查 chrome://gpu，确认硬件加速开着。');
+      var desc = [a.vendor, a.architecture, a.description].join(' ');
+      if (isIgpu(desc)) V.push('Chrome 用的是集成显卡（' + (a.description || [a.vendor, a.architecture].join(' ')) + '）：显存从内存里划，游戏可能极慢或把整机内存吃光卡死。电脑有独立显卡（NVIDIA / AMD）时：Windows 设置 → 系统 → 屏幕 → 显示卡（图形）里把 Google Chrome 设为「高性能」（或 NVIDIA 控制面板给 chrome.exe 选高性能处理器），然后完全退出 Chrome（含后台）再打开。网页里的 powerPreference 在 Windows Chrome 上不起作用，只能这样改。没有独立显卡时：设置 →「渲染缩放」调到 70–80%（档位本身不再降分辨率）。');
+      (a0.problems || []).forEach(function (x) { if (!/maxSampledTexturesPerShaderStage/.test(x)) V.push('限额 / 特性不够：' + x); });
+      if (a0.requestDevice && /^FAILED/.test(a0.requestDevice)) V.push('用引擎同样的参数创建 GPU 设备失败：' + a0.requestDevice);
+    }
+    if (chrome && chrome < 146 && !edge) V.push('Chrome 主版本 ' + chrome + ' < 146：旧版 Windows Chrome 的 WebGPU 限额偏低，请先升级 Chrome。');
+    if (R.env && R.env.crossOriginIsolated === false) V.push('页面没有跨源隔离（COOP/COEP 响应头丢了，可能被代理 / iOA 改写）：SharedArrayBuffer 不可用。请换网络或直连再试，并把这段发回。');
+    var f = R.fatal || '';
+    if (/deadline-exceeded|timed out|did not complete within/i.test(f)) V.push('启动超时：第一次打开时显卡驱动要现编几百条着色器（Windows D3D12 比 Mac 慢很多）。请直接再刷新一次（第二次有缓存会快很多）；还不行就打开 tg-diag.html 点「完整编译测试」，把结果发回。');
+    if (/device.?lost|DeviceLost|GPU process|lost/i.test(f)) V.push('GPU 设备丢失：可能是显存不足或驱动崩溃 / 超时重置（TDR）。请关掉其他占显存的程序再试，并更新显卡驱动。');
+    if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline/i.test(f)) V.push('资源下载 / 投递出错：可能是公司网络或代理拦截。请换网络再试，或按 Ctrl+Shift+R 强制刷新。');
+    var ps = R.pipelineSkipped;
+    if (ps && ps.count) { var pp = ps.skipped.filter(function (s) { return s.kind !== 'shader'; }), sh = ps.count - ps.pipelines; V.push('启动时预编译管线库有 ' + ps.pipelines + ' 条管线' + (sh ? '（' + sh + ' 个着色器）' : '') + '在这台机器上编不过，已跳过（游戏照常启动，用到时再现编；若对应画面缺失或报错，把整段发回）：' + (pp.length ? pp : ps.skipped).slice(0, 8).map(function (s) { return s.label; }).join(', ') + ((pp.length || ps.count) > 8 ? ' …' : '') + '。'); }
+    if (R.compile && R.compile.failed) V.push('完整编译测试里有 ' + R.compile.failed + ' 条管线在这台机器上编不过（见下方「失败」行）——这是 Windows 专属问题，请把整段发回。');
+    if (R.compile && R.compile.state === 'done' && !R.compile.failed) V.push('完整编译测试全部通过，用时 ' + Math.round(R.compile.ms / 1000) + ' s' + (R.compile.ms > 90000 ? '（超过 90 s，接近游戏 120 s 的启动期限，第一次打开很可能超时）' : '') + '。');
+    if (!V.length) V.push(R.fatal ? '没有识别出已知原因，请把整段发回。' : '显卡能力检查通过，没有发现缺的限额 / 特性。');
+    return V;
+  }
+  function toText(R) {
+    var L = [];
+    var p = function (s) { L.push(s); };
+    p('== 天工战甲 启动诊断 ' + R.tool + ' ' + R.at);
+    p('url: ' + R.url + '   build: ' + (R.build && R.build.bundle) + '   页面已开 ' + R.sinceLoadMs + 'ms   首帧: ' + (R.firstFrameMs == null ? '无' : R.firstFrameMs + 'ms'));
+    p('ua: ' + R.ua);
+    if (R.uaData) p('uaData: ' + R.uaData.platform + ' ' + R.uaData.platformVersion + ' ' + R.uaData.architecture + '/' + R.uaData.bitness + ' ' + (R.uaData.fullVersionList || []).map(function (b) { return b.brand + ' ' + b.version; }).join(', '));
+    p('env: ' + JSON.stringify(R.env));
+    try { var ca = g.__tgCanvasAdapt; if (ca) p('画布上限（极致自适应）/ canvas cap: ' + (isFinite(ca.cap) ? ca.cap : 'native') + '  原因 / reason: ' + ca.reason + '  帧间隔 ' + ca.intervalMs + ' ms, 提交→完成 ' + ca.s2cMs + ' ms, GPU 估计 ' + ca.estGpuMs + ' ms' + (ca.available ? '' : '（拿不到 GPU 时间）')); if (g.__tgCanvasLimit) p('画布实际上限 / effective canvas limit: ' + g.__tgCanvasLimit); } catch (e) { /* 忽略 */ }
+    p('\n== 结论（最可能的原因 → 怎么办）');
+    verdict(R).forEach(function (x, i) { p((i + 1) + '. ' + x); });
+    if (R.fatal) p('\n== 致命错误原文\n' + R.fatal.trim());
+    if (R.loadingStatus && !R.fatalVisible) p('加载提示: ' + R.loadingStatus);
+    var gp = R.gpu || {};
+    p('\n== WebGPU: ' + (gp.available ? '有 navigator.gpu' : '没有 navigator.gpu（浏览器关了 WebGPU / 被策略禁用 / 非安全上下文）') + (gp.preferredCanvasFormat ? '  canvas=' + gp.preferredCanvasFormat : ''));
+    (gp.adapters || []).forEach(function (r) {
+      p('-- powerPreference ' + r.powerPreference + ': ' + (r.error ? 'ERROR ' + r.error : r.adapter === null ? 'requestAdapter 返回 null（GPU 被拉黑 / 驱动太旧 / 远程桌面）' : ''));
+      if (!r.adapter) return;
+      var a = r.adapter;
+      p('   GPU: ' + [a.vendor, a.architecture, a.device, a.description].filter(Boolean).join(' / ') + (a.isFallbackAdapter ? '  [软件回退适配器]' : '') + (a.featureLevel ? '  featureLevel=' + a.featureLevel : ''));
+      if (r.problems) p('   不满足: ' + (r.problems.length ? r.problems.join('；') : '无（限额 / 特性都够）'));
+      if (r.requestDevice) p('   引擎同款 requestDevice: ' + r.requestDevice + '  ' + JSON.stringify(r.engineDevice));
+      p('   limits: ' + JSON.stringify(a.limits));
+      p('   features: ' + a.features.join(','));
+      p('   缺(常用): ' + a.missingWanted.join(','));
+    });
+    var ps2 = R.pipelineSkipped;
+    p('\n== 管线库预编译跳过（引擎补丁 D）: ' + (ps2 ? '跳过 ' + ps2.pipelines + ' 条 / 共 ' + ps2.total + ' 条管线' + (ps2.count - ps2.pipelines ? '（另有 ' + (ps2.count - ps2.pipelines) + ' 个着色器编不过）' : '') : '还没收到（管线库尚未预编译完，或这次没用管线库）'));
+    if (ps2) (ps2.skipped || []).forEach(function (s) { p('   跳过 [' + s.kind + '] ' + s.label + ' — ' + cut(s.error, 300)); });
+    if (R.compile) {
+      var c = R.compile;
+      p('\n== 管线库编译测试（' + c.library + '）: ' + c.state + '  ' + c.ok + '/' + c.total + ' 成功, ' + c.failed + ' 失败, 用时 ' + c.ms + 'ms（着色器模块 ' + c.moduleMs + 'ms，4 路并发，与引擎相同）');
+      if (c.pct) p('   单条耗时 p50/p95/max: ' + c.pct.join(' / ') + ' ms');
+      (c.slowest || []).forEach(function (s) { p('   慢: ' + s); });
+      (c.shaderErrors || []).forEach(function (s) { p('   着色器: ' + s); });
+      (c.failures || []).forEach(function (s) { p('   失败: ' + s); });
+      if (c.error) p('   错误: ' + c.error);
+    }
+    p('\n== 启动时间线');
+    (R.timeline || []).forEach(function (e) { p('  ' + e.t + 'ms ' + e.kind + ' ' + e.text); });
+    if (R.pageErrors && R.pageErrors.length) { p('\n== 页面错误'); R.pageErrors.forEach(function (s) { p('  ' + s); }); }
+    if (R.consoleErrors && R.consoleErrors.length) { p('\n== console.error / warn（主线程）'); R.consoleErrors.forEach(function (s) { p('  ' + s); }); }
+    p('\n== 网络: ' + JSON.stringify(R.network || {}));
+    p('== ServiceWorker: ' + JSON.stringify(R.serviceWorker || {}));
+    p('== 管线库需要: ' + JSON.stringify(R.libraryNeeds));
+    return L.join('\n');
+  }
+
+  // ---------- 管线库编译测试（只在 tg-diag.html 里点按钮时跑） ----------
+  async function compileTest(url, onProgress) {
+    var C = { library: url, state: 'loading', total: 0, ok: 0, failed: 0, ms: 0, moduleMs: 0, failures: [], shaderErrors: [] };
+    try {
+      var m = await (await fetch(url)).json();
+      var a = await navigator.gpu.requestAdapter();
+      var desc = engineDeviceDescriptor(a);
+      var dev = await a.requestDevice(desc);
+      var lost = null; dev.lost.then(function (i) { lost = i.reason + ' ' + i.message; });
+      var uncaptured = [];
+      dev.onuncapturederror = function (e) { if (uncaptured.length < 20) uncaptured.push(cut(e.error && e.error.message, 600)); };
+      var tM = performance.now();
+      var shaders = m.shaders.map(function (s) { return dev.createShaderModule({ code: s.code }); });
+      var infos = await Promise.all(shaders.map(function (s) { return s.getCompilationInfo ? s.getCompilationInfo().catch(function () { return null; }) : null; }));
+      infos.forEach(function (inf, i) { if (inf) inf.messages.forEach(function (msg) { if (msg.type === 'error' && C.shaderErrors.length < 10) C.shaderErrors.push('#' + i + ' ' + msg.lineNum + ':' + msg.linePos + ' ' + cut(msg.message, 300)); }); });
+      C.moduleMs = Math.round(performance.now() - tM);
+      dev.pushErrorScope('validation');
+      var groups = m.bindGroupLayouts.map(function (x) { return dev.createBindGroupLayout(x); });
+      var layouts = m.pipelineLayouts.map(function (ids) { return dev.createPipelineLayout({ bindGroupLayouts: ids.map(function (i) { return groups[i]; }) }); });
+      var layErr = await dev.popErrorScope();
+      if (layErr) C.failures.push('bind group / pipeline layout: ' + cut(layErr.message, 600));
+      var lay = function (l) { return l === 'auto' ? 'auto' : layouts[l]; };
+      var reqs = [];
+      m.renderPipelines.forEach(function (p) { reqs.push({ label: p.label, run: function () { var d = Object.assign({}, p, { layout: lay(p.layout), vertex: Object.assign({}, p.vertex, { module: shaders[p.vertex.module] }) }); if (p.fragment) d.fragment = Object.assign({}, p.fragment, { module: shaders[p.fragment.module] }); return dev.createRenderPipelineAsync(d); } }); });
+      m.computePipelines.forEach(function (p) { reqs.push({ label: p.label, run: function () { return dev.createComputePipelineAsync(Object.assign({}, p, { layout: lay(p.layout), compute: Object.assign({}, p.compute, { module: shaders[p.compute.module] }) })); } }); });
+      C.total = reqs.length; C.state = 'compiling';
+      var times = [], cursor = 0, t1 = performance.now();
+      await Promise.all([0, 1, 2, 3].map(async function () {
+        while (cursor < reqs.length && !lost) {
+          var r = reqs[cursor++], s = performance.now();
+          try { await r.run(); C.ok++; } catch (e) { C.failed++; if (C.failures.length < 15) C.failures.push(cut(r.label, 120) + ' → ' + cut(errText(e), 600)); }
+          times.push([performance.now() - s, r.label]);
+          if (onProgress && (C.ok + C.failed) % 10 === 0) onProgress(C, Math.round(performance.now() - t1));
+        }
+      }));
+      C.ms = Math.round(performance.now() - t1);
+      times.sort(function (x, y) { return x[0] - y[0]; });
+      var at = function (q) { return times.length ? Math.round(times[Math.min(times.length - 1, Math.floor(q * times.length))][0]) : 0; };
+      C.pct = [at(0.5), at(0.95), at(1)];
+      C.slowest = times.slice(-5).reverse().map(function (x) { return Math.round(x[0]) + 'ms ' + cut(x[1], 100); });
+      if (uncaptured.length) C.failures = C.failures.concat(uncaptured.map(function (s) { return 'uncaptured: ' + s; }));
+      C.state = lost ? 'DEVICE LOST: ' + lost : 'done';
+      try { dev.destroy(); } catch (e) { /* 忽略 */ }
+    } catch (e) { C.state = 'error'; C.error = errText(e); }
+    return C;
+  }
+
+  // ---------- 面板 ----------
+  var panel = null;
+  function showPanel(text, extra) {
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'tg-diag-panel';
+      panel.setAttribute('style', 'position:fixed;inset:4vh 4vw;z-index:2147483647;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:8px;display:flex;flex-direction:column;text-align:left;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;box-shadow:0 8px 40px #000a');
+      panel.innerHTML = '<div style="display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid #30363d;font:14px system-ui,sans-serif"><b style="flex:1">启动诊断 / Startup diagnostics</b>' +
+        '<button data-a="copy" style="padding:6px 14px;font-size:14px;cursor:pointer">复制全部 Copy</button>' +
+        '<a data-a="deep" target="_blank" style="color:#58a6ff">完整 GPU 测试 →</a>' +
+        '<button data-a="close" style="padding:6px 10px;cursor:pointer">✕</button></div>' +
+        '<div style="padding:6px 12px;color:#8b949e;font:13px system-ui,sans-serif">请点「复制全部」把内容发回给开发者（也可截图）。Click “Copy” and send the text back.</div>' +
+        '<pre style="flex:1;overflow:auto;margin:0;padding:10px 12px;white-space:pre-wrap;word-break:break-all;user-select:text"></pre>';
+      panel.querySelector('[data-a=close]').onclick = function () { panel.style.display = 'none'; };
+      panel.querySelector('[data-a=deep]').href = new URL('tg-diag.html', location.href).href;
+      panel.querySelector('[data-a=copy]').onclick = function (ev2) {
+        var txt = panel.querySelector('pre').textContent, btn = ev2.currentTarget;
+        var done = function (ok) { btn.textContent = ok ? '已复制 Copied ✓' : '复制失败，请手动全选'; };
+        var fallback = function () { try { var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); ta.remove(); done(ok); } catch (e) { done(false); } };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function () { done(true); }, fallback); else fallback();
+      };
+      if (extra) extra(panel);
+    }
+    // 启动期间引擎在 window 捕获阶段拦掉一切不在加载层 / 失败层里的点击，所以面板挂在当前可见的那一层里
+    var vis = function (id) { var n = document.getElementById(id); return n && getComputedStyle(n).display !== 'none' ? n : null; };
+    var host = vis('forgeax-fatal') || vis('forgeax-loading') || document.body || document.documentElement;
+    if (panel.parentNode !== host) host.appendChild(panel);
+    panel.style.display = 'flex';
+    panel.querySelector('pre').textContent = text;
+    return panel;
+  }
+  var opening = false;
+  async function open(full) {
+    if (opening) return; opening = true;
+    try { showPanel('收集中… / collecting…'); var R = await collect(full); g.__tgDiagLast = R; showPanel(toText(R)); }
+    catch (e) { showPanel('诊断本身出错: ' + errText(e)); }
+    finally { opening = false; }
+  }
+  g.__tgDiag = { collect: collect, toText: toText, verdict: verdict, open: open, compileTest: compileTest, showPanel: showPanel, data: D, req: REQ };
+
+  // ---------- 游戏页挂钩 ----------
+  function hookGamePage() {
+    var st = document.getElementById('forgeax-loading-status');
+    var fatal = document.getElementById('forgeax-fatal');
+    if (!st && !fatal) return false;
+    var lastText = '';
+    var check = function () {
+      if (st && st.textContent !== lastText) { lastText = st.textContent; ev('status', lastText); }
+      if (fatal && getComputedStyle(fatal).display !== 'none' && !D.fatalText) {
+        var fd = document.getElementById('forgeax-fatal-details');
+        D.fatalText = fd ? fd.textContent || '(empty)' : '(no details)';
+        ev('fatal', D.fatalText);
+        open(true);
+      }
+    };
+    var mo = new MutationObserver(check);
+    [st, fatal, document.getElementById('forgeax-fatal-details'), document.getElementById('forgeax-loading')].forEach(function (n) { if (n) mo.observe(n, { attributes: true, childList: true, characterData: true, subtree: true }); });
+    check();
+    // 加载中右下角小按钮（首帧后自动隐藏）；?tgdiag 直接打开
+    var btn = document.createElement('button');
+    btn.textContent = '诊断 Diagnostics';
+    btn.setAttribute('style', 'position:fixed;right:12px;bottom:12px;z-index:2147483646;padding:6px 12px;font:13px system-ui,sans-serif;background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;opacity:.85');
+    btn.onclick = function (e) { e.stopPropagation(); open(true); };
+    (document.getElementById('forgeax-loading') || document.body).appendChild(btn);
+    var hideBtn = function () { if (D.firstFrameMs !== null && !/[?&]tgdiag/.test(location.search)) btn.style.display = 'none'; else setTimeout(hideBtn, 1000); };
+    hideBtn();
+    if (/[?&](tgdiag|forgeax-diag)/.test(location.search)) setTimeout(function () { open(true); }, 1500);
+    // [win2] 开局先看一眼适配器：Windows 双显卡笔记本上 Chrome 默认跑集成显卡（10-24 实机：lock 的 Chrome 在 Iris Xe 上，开游戏整机卡死），给出明确提示
+    try {
+      if (navigator.gpu) navigator.gpu.requestAdapter({ powerPreference: 'high-performance' }).then(function (a) {
+        var i = (a && a.info) || {}, s = [i.vendor, i.architecture, i.description].join(' ').trim();
+        ev('adapter', s || (a ? '(no info)' : 'null'));
+        if (!a || !isIgpu(s) || /[?&]igpu=ok/.test(location.search)) return;
+        var b = document.createElement('div');
+        b.id = 'tg-igpu-warning';
+        b.setAttribute('style', 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:2147483646;max-width:min(760px,92vw);padding:12px 40px 12px 16px;background:#3d2a00;color:#ffe9b0;border:1px solid #d29922;border-radius:8px;font:14px/1.5 system-ui,sans-serif;box-shadow:0 6px 30px #000a');
+        b.innerHTML = '<b>Chrome 正在用集成显卡（' + s.replace(/[<>&]/g, '') + '）</b><br>游戏会很卡，还可能把内存吃光导致整机卡死。如果电脑有独立显卡：Windows 设置 → 系统 → 屏幕 → 显示卡，把 Google Chrome 设为「高性能」，然后完全退出 Chrome 再打开。' +
+          '<br><span style="opacity:.8">Chrome is running on the integrated GPU. Set Google Chrome to “High performance” in Windows Settings → System → Display → Graphics, then fully restart Chrome.</span>' +
+          '<br>没有独立显卡：设置 →「渲染缩放」调到 70–80% 可以减轻显卡负担。<span style="opacity:.8"> No discrete GPU: lower Settings → Render scale to 70–80%. / 専用 GPU がない場合：設定 →「レンダースケール」を 70–80% に下げてください。</span>' + /* [overlap] 档位不再固定降分辨率 */
+          '<button style="position:absolute;right:8px;top:8px;background:none;border:0;color:inherit;font-size:16px;cursor:pointer" aria-label="close">✕</button>';
+        b.querySelector('button').onclick = function (e) { e.stopPropagation(); b.remove(); };
+        document.body.appendChild(b);
+      }, function () { /* 忽略 */ });
+    } catch (e) { /* 忽略 */ }
+    return true;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hookGamePage); else hookGamePage();
+  ev('diag-installed', '');
+})();
+</script></head>
+<body><main>
+<h2>天工战甲 · GPU 诊断（不会启动游戏）</h2>
+<p>① 页面打开后自动检查显卡能力。② 点「完整编译测试」会把游戏启动时要编的着色器管线全部编一遍（首次可能要 1–3 分钟，期间浏览器会比较卡），能直接看出 Windows 上哪一条编不过、总共要多久。③ 点「复制全部」把结果发回来。</p>
+<div id="bar"><button id="copy">复制全部 Copy</button><button id="run">完整编译测试（主菜单档）</button><select id="lib"><option value="tg-diag/pipeline-library-menu.json">pipeline-library-menu.json</option><option value="tg-diag/pipeline-library.json">pipeline-library.json</option></select><span id="prog"></span></div>
+<pre id="out">检查中…</pre>
+<script>
+(async function () {
+  var D = window.__tgDiag, out = document.getElementById('out'), prog = document.getElementById('prog'), R = null;
+  var render = function () { out.textContent = D.toText(R); };
+  try { R = await D.collect(true); render(); } catch (e) { out.textContent = '诊断出错: ' + (e && e.stack || e); }
+  document.getElementById('copy').onclick = function (e) {
+    var b = e.currentTarget, t = out.textContent;
+    var fb = function () { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); ta.remove(); b.textContent = ok ? '已复制 ✓' : '复制失败，请手动全选'; };
+    navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t).then(function () { b.textContent = '已复制 ✓'; }, fb) : fb();
+  };
+  document.getElementById('run').onclick = async function (e) {
+    var b = e.currentTarget; b.disabled = true; prog.textContent = ' 编译中…';
+    var lib = document.getElementById('lib').value;
+    R = R || {}; R.compile = await D.compileTest(lib, function (c, ms) { prog.textContent = ' ' + (c.ok + c.failed) + '/' + c.total + '  ' + Math.round(ms / 1000) + ' s' + (c.failed ? '  失败 ' + c.failed : ''); });
+    prog.textContent = ' 完成'; b.disabled = false; render();
+  };
+  if (/[?&]run/.test(location.search)) document.getElementById('run').click();
+})();
+</script></main></body></html>
