@@ -1,4 +1,4 @@
-# ForgeAX Engine + SDK: AI bootstrap contract
+# ForgeAX Engine + SDK: stable AI bootstrap contract
 
 You are an AI coding Agent. Execute this contract exactly. Do not guess versions,
 URLs, packages, or recovery steps. This page installs and initializes the tools, then
@@ -6,21 +6,27 @@ hands off to their installed local documentation.
 
 ## Release and installation surface
 
-Resolve the selected npm tag below at execution time. Engine, View, and SDK must
-resolve to the same exact release; record and pin that result.
+This is the **stable** entrypoint and always selects `latest`. To use another
+channel, open its guide below; do not override this page's channel with an
+environment variable. Resolve Engine and SDK from the same channel at execution
+time, require the same exact release, and pin that result. These pages track
+channels; the installed SDK's local documents describe the resolved version.
 
-| Channel | npm tag | Source | Intended use |
+| Guide | npm tag | Source | Intended use |
 |:--|:--|:--|:--|
-| Stable | `latest` | `stable` | Deliberate releases and small compatible patch fixes |
-| Development | `next` | `main` | Frequent development builds; gameplay and API stability are not promised |
+| [Stable](https://forgeax.github.io/download/engine-ai.md) | `latest` | `stable` | Default for ordinary game development and stable releases |
+| [Test / release candidate](https://forgeax.github.io/download/engine-ai-rc.md) | `rc` | `rc` | Test the next stable release and reproduce test-team issues |
+| [Development](https://forgeax.github.io/download/engine-ai-next.md) | `next` | `main` | Try ongoing changes; gameplay and API stability are not promised |
 
 `@forgeax/engine` is one complete npm tarball containing all Engine modules,
 locked common dependencies, declarations, WASM, and CLI. Unpatched third-party
 platform binaries are exact-version optional dependencies selected for the
 consumer machine. Import focused capabilities from Engine subpaths such as
 `@forgeax/engine/ecs`; do not install `@forgeax/engine-*` packages
-individually. `@forgeax/view` remains an independent tool with an exact Engine
-dependency. The SDK carrier adds templates, skills, and public Engine source.
+individually. The SDK carrier adds templates, skills, and public Engine source.
+View is a development tool selected by the exact SDK's CLI-runtime manifest and
+lockfile. SDK releases may embed it under `tools/view/`; do not require the
+independent View npm channel tag to match Engine/SDK or add View to a game.
 
 ```ts
 import { createRenderer } from '@forgeax/engine';
@@ -28,10 +34,10 @@ import { World } from '@forgeax/engine/ecs';
 ```
 
 > [!IMPORTANT]
-> Stable is the default. Development requires explicit `next` selection and a
-> matching Engine, View, and SDK version. If the selected channel is unavailable
-> or mismatched, stop; never mix channels or silently fall back. Pin the resolved
-> version and keep the lockfile. Changing a channel tag does not update a pinned game.
+> This page selects **stable (`latest`)**. If that channel is unavailable or
+> Engine and SDK versions differ, stop and report; never mix channels or silently
+> fall back. Pin the resolved version and keep the lockfile. Changing a channel
+> tag does not update a pinned game.
 
 ## Mandatory rules
 
@@ -68,11 +74,7 @@ empty parent directory.
 ```sh
 set -eu
 
-RELEASE_CHANNEL="${RELEASE_CHANNEL:-latest}"
-case "$RELEASE_CHANNEL" in
-  latest|next) ;;
-  *) echo "Select latest or next explicitly." >&2; exit 18 ;;
-esac
+RELEASE_CHANNEL="latest"
 REGISTRY="https://registry.npmjs.org/"
 
 PNPM_VERSION="$(pnpm --version 2>/dev/null || true)"
@@ -86,7 +88,6 @@ if ! node -e '
 fi
 
 ENGINE_VERSION="$(npm view @forgeax/engine "dist-tags.$RELEASE_CHANNEL" --registry="$REGISTRY" 2>/dev/null || true)"
-VIEW_VERSION="$(npm view @forgeax/view "dist-tags.$RELEASE_CHANNEL" --registry="$REGISTRY" 2>/dev/null || true)"
 SDK_VERSION="$(npm view @forgeax/engine-sdk "dist-tags.$RELEASE_CHANNEL" --registry="$REGISTRY" 2>/dev/null || true)"
 
 if [ -z "$ENGINE_VERSION" ]; then
@@ -97,8 +98,8 @@ if [ -z "$SDK_VERSION" ]; then
   echo "@forgeax/engine-sdk is not published on public npm; stop and report." >&2
   exit 21
 fi
-if [ "$ENGINE_VERSION" != "$SDK_VERSION" ] || [ "$ENGINE_VERSION" != "$VIEW_VERSION" ]; then
-  echo "Engine/View/SDK channel mismatch: $ENGINE_VERSION / ${VIEW_VERSION:-unavailable} / $SDK_VERSION" >&2
+if [ "$ENGINE_VERSION" != "$SDK_VERSION" ]; then
+  echo "Engine/SDK channel mismatch ($RELEASE_CHANNEL): $ENGINE_VERSION / $SDK_VERSION" >&2
   exit 22
 fi
 
@@ -118,12 +119,20 @@ pnpm exec forgeax project skill verify --json
 pnpm exec forgeax project check --json
 ```
 
-For development, set `RELEASE_CHANNEL=next` before executing the bootstrap. For a
-3D game, select `--template game-3d` in its `project new` command.
+For testing, use [the rc guide](https://forgeax.github.io/download/engine-ai-rc.md).
+For development, use [the next guide](https://forgeax.github.io/download/engine-ai-next.md).
+For a 3D game, select `--template game-3d` in the `project new` command.
 
 The npm carrier intentionally omits the offline `store/pnpm`; its lockfile installs
-the matching Engine dependencies from npm. The SDK-root `forgeax project init` is mandatory
-after download: it checks the user's Node/pnpm/platform tuple and prepares native
+the matching Engine dependencies from npm. `sdk install` assembles a complete SDK
+from the carrier and matching Engine; shared source-workspace build outputs and
+WASM may be materialized from Engine rather than duplicated in the carrier.
+Do not hand a raw carrier `.tgz` extraction to a game author as an installed SDK,
+or manually overlay the two npm tarballs. Use the assembled directory. For an
+offline handoff, use the matching full SDK ZIP with its offline store; each target
+machine still runs initialization for its own platform.
+
+The SDK-root `forgeax project init` is mandatory after download: it checks the user's Node/pnpm/platform tuple and prepares native
 dependencies before `new`.
 
 > [!IMPORTANT]
@@ -167,8 +176,8 @@ paths. Keep SDK installations separate from game directories.
 
 ## Bootstrap report
 
-Report the selected channel, resolved Engine/View/SDK identities, actual Node/pnpm
-versions, absolute SDK/game paths, executed installation and initialization commands,
+Report the selected channel, resolved Engine/SDK identities, the View identity from
+its installed manifest when View is used, actual Node/pnpm versions, absolute SDK/game paths, executed installation and initialization commands,
 `project skill verify` / `project check` results, the local documents read, and the
 first error or next required reading. Bootstrap completion establishes tool readiness;
 game development and delivery follow the installed game guide's acceptance contract.

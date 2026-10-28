@@ -14,7 +14,9 @@ Key facts:
 
 ## Docs & tutorials
 - [Tutorials](https://forgeax.github.io/tutorials/): install, Studio, and CLI in one place. Step-by-step guides plus the Studio outline and CLI reference at the bottom of the page.
-- [Engine + SDK setup for AI](https://forgeax.github.io/download/engine-ai.md): bare Markdown, machine-readable, fail-closed instructions for probing `@forgeax/engine` and the version-matched `@forgeax/engine-sdk`, then creating or initializing a game.
+- [Engine + SDK setup for AI — stable](https://forgeax.github.io/download/engine-ai.md): `latest` channel; default bootstrap with matching Engine/SDK versions.
+- [Engine + SDK setup for AI — test](https://forgeax.github.io/download/engine-ai-rc.md): `rc` channel; test the next stable release with matching Engine/SDK versions.
+- [Engine + SDK setup for AI — development](https://forgeax.github.io/download/engine-ai-next.md): `next` channel; try ongoing development with matching Engine/SDK versions.
 - [Have your AI CLI clone & launch it](https://forgeax.github.io/tutorials/cli-setup.html): hand the repo to a coding CLI (Claude Code / Codex / Cursor / forgeax) and let it clone, install and start ForgeAX.
 - [Quick start: your first game](https://forgeax.github.io/tutorials/getting-started.html): the describe → generate → play → describe loop.
 - [Generate art with the authoring extensions](https://forgeax.github.io/tutorials/authoring extensions.html): the creation authoring extensions — characters, animation, 3D, VFX, scenes, UI, music, narrative, balance.

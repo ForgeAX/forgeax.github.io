@@ -92,7 +92,16 @@ User-facing guide; chapters are being filled in:
 
 ## Engine + SDK setup for AI
 
-The complete machine-readable setup contract is [the Engine + SDK AI guide](https://forgeax.github.io/download/engine-ai.md).
+Choose the machine-readable Engine + SDK setup contract for your channel:
+
+| Channel | npm tag | AI guide |
+|:--|:--|:--|
+| Stable (default) | `latest` | [Stable setup](https://forgeax.github.io/download/engine-ai.md) |
+| Test / release candidate | `rc` | [Test setup](https://forgeax.github.io/download/engine-ai-rc.md) |
+| Development | `next` | [Development setup](https://forgeax.github.io/download/engine-ai-next.md) |
+
+Each guide resolves and pins matching Engine/SDK versions, installs the SDK, and
+hands ongoing game work to the installed local documentation.
 
 > [!IMPORTANT]
 > Probe npm before changing files. If `@forgeax/engine-sdk` returns 404, stop and report that the SDK carrier is not published; never guess a version or use a private GitHub Release.
