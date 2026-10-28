@@ -78,7 +78,7 @@
 }
 
 .forgeax-site .mk-tab[data-kind="authoring"] .mk-tab-ico {
-  color: #c8dc88;
+  color: var(--fx-color-brand-accent);
 }
 
 .forgeax-site .mk-tab[data-kind="backend"] .mk-tab-ico {

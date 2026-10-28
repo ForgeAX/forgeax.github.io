@@ -112,20 +112,20 @@
   }
   if (!window.__forgeParticlesBoot && (detectForgePage() === "home" || document.body.classList.contains("has-immersive"))) {
     window.__forgeParticlesBoot = true;
-    loadScript("/assets/forge-scenes.js?v=d68c9bf0", function () {
+    loadScript("/assets/forge-scenes.js?v=c986772f", function () {
       loadScript("/assets/forge-particles.js?v=4e6877b8", function () {
         loadScript("/assets/light-field.js?v=c9f175de");
       });
     });
   }
   if (document.querySelector(".page-head--cinema, .page-head")) {
-    loadScript("/assets/page-head-hero.js?v=8ae68f6f", function () {
+    loadScript("/assets/page-head-hero.js?v=70b5b855", function () {
       if (window.forgeaxInitPageHeadHero) window.forgeaxInitPageHeadHero();
     });
   }
 
   if (document.querySelector(".manifest-line")) {
-    loadScript("/assets/manifest-particles.js?v=351022b3");
+    loadScript("/assets/manifest-particles.js?v=0a18dd61");
   }
 
   if (!window.__forgeLucideBoot) {
@@ -138,7 +138,7 @@
     loadScript("/assets/motion-scroll.js?v=e4bed4f7");
   }
   if (document.querySelector(".spotlight-section, .stat--display, .docs-chapter h2")) {
-    loadScript("/assets/spotlight-surface.js?v=bda96c6c");
+    loadScript("/assets/spotlight-surface.js?v=209938b0");
   }
   if (document.querySelector(".post-list")) {
     loadScript("/assets/blog-list-motion.js?v=2ba005cd");

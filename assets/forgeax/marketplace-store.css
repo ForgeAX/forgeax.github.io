@@ -139,7 +139,7 @@
   stroke-width: 2;
 }
 
-.forgeax-site .store-ri[data-kind="authoring"] .store-ri-ico { color: #c8dc88; }
+.forgeax-site .store-ri[data-kind="authoring"] .store-ri-ico { color: var(--fx-color-brand-accent); }
 .forgeax-site .store-ri[data-kind="agent"] .store-ri-ico { color: #c4a3ff; }
 .forgeax-site .store-ri[data-kind="backend"] .store-ri-ico { color: #8eb0e8; }
 

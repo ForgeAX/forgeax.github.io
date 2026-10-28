@@ -30,11 +30,11 @@
   --glass-highlight: color-mix(in srgb, var(--fx-ref-color-neutral-0) 70%, transparent);
   --glass-frost: var(--fx-color-surface-inset);
 
-  /* Codex brand lime — muted, no neon teal morph */
-  --theme-cool-a: 197, 221, 120;   /* #C5DD78 brand-400 */
-  --theme-cool-b: 80, 99, 31;      /* #50631F brand-700 */
-  --theme-cool-c: 239, 245, 219;   /* #EFF5DB brand-50 */
-  --theme-cool-veil: 80, 99, 31;
+  /* Codex brand warm orange — muted, no neon teal morph */
+  --theme-cool-a: 252, 112, 39;    /* #FC7027 brand-700 主橙 */
+  --theme-cool-b: 252, 149, 88;    /* #FC9558 brand-400 沙橙 */
+  --theme-cool-c: 253, 213, 151;   /* #FDD597 brand-50  暖杏 */
+  --theme-cool-veil: 252, 112, 39;
   --glass-shadow: var(--fx-shadow-subtle);
   --glass-shadow-hover: var(--fx-shadow-floating);
 }

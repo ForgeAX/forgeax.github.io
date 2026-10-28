@@ -143,7 +143,7 @@
   font-weight: 800;
 }
 .forgeax-site .hero h1 .grad {
-  background: linear-gradient(100deg, var(--fx-color-text-primary) 0%, var(--fx-color-brand-text) 72%, var(--fx-color-brand-accent) 100%);
+  background: linear-gradient(100deg, var(--fx-color-text-primary) 0%, var(--fx-color-brand-text) 72%, var(--fx-ref-color-brand-400) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

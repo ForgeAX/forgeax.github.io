@@ -9,10 +9,10 @@
   --border-strong: var(--color-border-strong);
   --text-on-bright: var(--color-text-on-bright-primary);
   --brand: var(--fx-color-brand-text);
-  --brand-light: var(--fx-color-brand-text);
+  --brand-light: var(--fx-ref-color-brand-400);
   --brand-hover: var(--fx-ref-color-brand-700);
   --brand-soft: var(--fx-color-brand-soft);
-  --teal: var(--fx-color-brand-accent);
+  --teal: var(--fx-ref-color-brand-400);
   --orange: var(--color-accent-orange-default);
   --blue: var(--color-accent-blue-default);
   --purple: var(--color-accent-purple-default);
@@ -23,7 +23,7 @@
   --focus-ring: var(--color-overlay-focus);
   --shadow-menu: var(--fx-shadow-floating);
   --shadow-card: var(--fx-shadow-subtle);
-  --grad: linear-gradient(96deg, var(--fx-color-brand-accent) 0%, var(--fx-color-brand-text) 100%);
+  --grad: linear-gradient(96deg, var(--fx-ref-color-brand-400) 0%, var(--fx-ref-color-brand-700) 100%);
   --ease-out: var(--fx-motion-ease);
   --dur-fast: var(--fx-motion-hover);
   --dur-smooth: var(--fx-motion-expand);

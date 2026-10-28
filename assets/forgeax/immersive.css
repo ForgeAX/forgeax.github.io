@@ -2,9 +2,9 @@
 
 .forgeax-site.has-immersive,
 .forgeax-site[data-forge-page] {
-  --particle-a: 197, 221, 120;
-  --particle-b: 80, 99, 31;
-  --particle-veil: 239, 245, 219;
+  --particle-a: 252, 112, 39;
+  --particle-b: 252, 149, 88;
+  --particle-veil: 253, 213, 151;
 }
 
 .forgeax-site[data-forge-page]::after,

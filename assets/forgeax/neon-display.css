@@ -6,9 +6,9 @@
 
 /* locked brand neon lime — never follows scroll theme morph */
 .forgeax-site .stat--display {
-  --stat-neon-teal: 197, 221, 120;
-  --stat-neon-cyan: 80, 99, 31;
-  --stat-neon-ice: 197, 221, 120;
+  --stat-neon-teal: 252, 112, 39;
+  --stat-neon-cyan: 252, 149, 88;
+  --stat-neon-ice: 253, 213, 151;
 
   position: relative;
   isolation: isolate;

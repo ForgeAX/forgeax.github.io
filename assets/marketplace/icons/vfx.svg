@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256" fill="none">
   <title>ForgeaX VFX Generation</title>
   <desc>ForgeaX VFX Generation icon using the ForgeaX neutral and brand design tokens.</desc>
-  <rect width="256" height="256" rx="48" fill="#1A1C1F"/>
+  <rect width="256" height="256" rx="48" fill="#232323"/>
   <path d="M48 168C78 168 82 88 128 88C174 88 178 168 208 168" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
-  <path d="M76 154C94 154 101 113 128 113C155 113 162 154 180 154" stroke="#C5DD78" stroke-width="14" stroke-linecap="round"/>
-  <circle cx="128" cy="88" r="14" fill="#C5DD78"/>
-  <path d="M128 40V62M103 49L114 68M153 49L142 68" stroke="#C5DD78" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="48" cy="168" r="8" fill="#C5DD78"/>
-  <circle cx="208" cy="168" r="8" fill="#C5DD78"/>
+  <path d="M76 154C94 154 101 113 128 113C155 113 162 154 180 154" stroke="#FC9558" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="128" cy="88" r="14" fill="#FC7027"/>
+  <path d="M128 40V62M103 49L114 68M153 49L142 68" stroke="#FC9558" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="48" cy="168" r="8" fill="#FC9558"/>
+  <circle cx="208" cy="168" r="8" fill="#FC9558"/>
 </svg>

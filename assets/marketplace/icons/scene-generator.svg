@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title description">
   <title id="title">Scene Generator</title>
-  <desc id="description">An isometric landscape tile with two buildings, a faceted hill, and a generation spark, in lime green and charcoal.</desc>
-  <g stroke="#25312B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M64 304 256 415 448 304V340L256 451 64 340Z" fill="#344A37"/>
+  <desc id="description">An isometric landscape tile with two buildings, a faceted hill, and a generation spark, in warm orange and ink black.</desc>
+  <g stroke="#232323" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 304 256 415 448 304V340L256 451 64 340Z" fill="#FC7027"/>
     <path d="M256 415V451"/>
-    <path d="M256 193 448 304 256 415 64 304Z" fill="#CBF541"/>
-    <path d="m214 91 65 38v139l-65 38-65-38V129Z" fill="#F5F7E9"/>
-    <path d="m214 167 65-38v139l-65 38Z" fill="#6D8C60"/>
-    <path d="m149 129 65-38 65 38-65 38Z" fill="#F5F7E9"/>
+    <path d="M256 193 448 304 256 415 64 304Z" fill="#FDD597"/>
+    <path d="m214 91 65 38v139l-65 38-65-38V129Z" fill="#FFFFFF"/>
+    <path d="m214 167 65-38v139l-65 38Z" fill="#FC9558"/>
+    <path d="m149 129 65-38 65 38-65 38Z" fill="#FFFFFF"/>
     <path d="M214 167V306"/>
     <path d="m171 181 21 12m-21 29 21 12" stroke-width="10"/>
-    <path d="m322 178 58 34v79l-58 34-58-34v-79Z" fill="#F5F7E9"/>
-    <path d="m322 246 58-34v79l-58 34Z" fill="#8DB665"/>
-    <path d="m264 212 58-34 58 34-58 34Z" fill="#F5F7E9"/>
+    <path d="m322 178 58 34v79l-58 34-58-34v-79Z" fill="#FFFFFF"/>
+    <path d="m322 246 58-34v79l-58 34Z" fill="#FDD597"/>
+    <path d="m264 212 58-34 58 34-58 34Z" fill="#FFFFFF"/>
     <path d="M322 246V325"/>
     <path d="m286 261 14 8" stroke-width="10"/>
-    <path d="m104 307 45-49 47 49-47 27Z" fill="#8DB665"/>
-    <path d="m149 258 47 49-47 27Z" fill="#577A48"/>
+    <path d="m104 307 45-49 47 49-47 27Z" fill="#FC9558"/>
+    <path d="m149 258 47 49-47 27Z" fill="#FC7027"/>
     <path d="m238 365 26-15" stroke-width="10"/>
-    <path d="m367 62 12 29 29 13-29 12-12 30-13-30-29-12 29-13Z" fill="#CBF541" stroke-width="10"/>
+    <path d="m367 62 12 29 29 13-29 12-12 30-13-30-29-12 29-13Z" fill="#FC7027" stroke-width="10"/>
   </g>
 </svg>

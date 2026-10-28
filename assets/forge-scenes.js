@@ -1,10 +1,10 @@
-/* ForgeAX scene profiles — fixed brand neon lime palette (no section morph) */
-var LIME = {
-  a: [212, 255, 72],
-  b: [72, 255, 207],
-  c: [185, 255, 100],
-  veil: [106, 127, 36],
-  warmth: 0.08,
+/* ForgeAX scene profiles — fixed brand warm orange palette (no section morph) */
+var BRAND = {
+  a: [252, 112, 39],
+  b: [252, 149, 88],
+  c: [253, 213, 151],
+  veil: [252, 112, 39],
+  warmth: 0.12,
   drift: 0.32,
   curl: 0.42,
   lift: 0.1,
@@ -12,12 +12,12 @@ var LIME = {
 };
 
 window.FORGE_SCENES = {
-  hero: LIME,
-  features: LIME,
-  ai: LIME,
-  blog: LIME,
-  start: LIME,
-  docs: LIME,
-  examples: LIME,
-  studio: LIME,
+  hero: BRAND,
+  features: BRAND,
+  ai: BRAND,
+  blog: BRAND,
+  start: BRAND,
+  docs: BRAND,
+  examples: BRAND,
+  studio: BRAND,
 };

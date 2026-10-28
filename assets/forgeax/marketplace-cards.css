@@ -48,8 +48,8 @@
 
 /* category tints — frosted but readable */
 .forgeax-site .mk-item[data-kind="authoring"] {
-  --mk-accent-a: 178, 198, 98;
-  --mk-accent-b: 98, 208, 168;
+  --mk-accent-a: 252, 112, 39;
+  --mk-accent-b: 252, 149, 88;
 }
 
 .forgeax-site .mk-item[data-kind="skill"] {
@@ -221,8 +221,8 @@
 }
 
 .forgeax-site #mkModal[data-kind="authoring"] {
-  --mk-accent-a: 178, 198, 98;
-  --mk-accent-b: 98, 208, 168;
+  --mk-accent-a: 252, 112, 39;
+  --mk-accent-b: 252, 149, 88;
 }
 
 .forgeax-site #mkModal[data-kind="skill"] {
@@ -304,8 +304,8 @@
 }
 
 .forgeax-site .mk-modal-card[data-kind="authoring"] {
-  --mk-accent-a: 178, 198, 98;
-  --mk-accent-b: 98, 208, 168;
+  --mk-accent-a: 252, 112, 39;
+  --mk-accent-b: 252, 149, 88;
 }
 
 .forgeax-site .mk-modal-card[data-kind="skill"] {
@@ -3049,9 +3049,9 @@ body.mk-preview-lightbox-open {
   letter-spacing: 0.04em;
   padding: 2px 8px;
   border-radius: 999px;
-  background: rgba(212, 255, 72, 0.14);
-  border: 1px solid rgba(212, 255, 72, 0.32);
-  color: #d4ff48;
+  background: rgba(252, 112, 39, 0.14);
+  border: 1px solid rgba(252, 112, 39, 0.32);
+  color: var(--fx-color-brand-accent);
 }
 .forgeax-site .mk-agent-block .mk-agent-desc {
   margin: 0;

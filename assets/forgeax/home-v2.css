@@ -110,6 +110,14 @@
   background: var(--fx-ref-color-neutral-950);
   filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--fx-ref-color-neutral-950) 12%, transparent));
 }
+:lang(zh) .home-v2 .hero-mark {
+  width: clamp(140px, 22vw, 220px);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  image-rendering: auto;
+  filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--fx-ref-color-neutral-950) 10%, transparent));
+}
 .home-v2 .hero-wordmark {
   font-size: clamp(38px, 5vw, 60px);
   font-weight: 900;
@@ -124,9 +132,7 @@
   color: transparent;
 }
 :lang(zh) .home-v2 .hero-wordmark {
-  font-family: "Hiragino Sans", "PingFang SC", sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.04em;
+  display: none;
 }
 /* 创/戏 are simplified-only. Hiragino Sans (JP) has no glyphs for them,
    so those two characters fell back to a lighter face. GB W6 covers all four. */
@@ -1828,6 +1834,11 @@
     width: 48px;
     padding: 8px;
     border-radius: 12px;
+  }
+  :lang(zh) .home-v2 .hero-mark {
+    width: clamp(120px, 42vw, 180px);
+    padding: 0;
+    border-radius: 0;
   }
   .home-v2 .hero-wordmark { font-size: clamp(28px, 9vw, 40px); }
   .home-v2 .hero-cmd,

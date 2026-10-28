@@ -183,8 +183,8 @@
       var s = isNum ? 0.55 : 0.75;
       return [
         (ox * 0.1 * s).toFixed(2) + "px " + (oy * 0.1 * s).toFixed(2) + "px " + (0.5 + core * 2).toFixed(2) + "px rgba(255,255,255," + (core * 0.95).toFixed(3) + ")",
-        (ox * 0.18 * s).toFixed(2) + "px " + (oy * 0.18 * s).toFixed(2) + "px " + (1.2 + rim * 4).toFixed(2) + "px rgba(220,255,120," + (rim * 0.62).toFixed(3) + ")",
-        (ox * 0.28 * s).toFixed(2) + "px " + (oy * 0.28 * s).toFixed(2) + "px " + (2.5 + rim * 7).toFixed(2) + "px rgba(180,255,80," + (rim * 0.22).toFixed(3) + ")",
+        (ox * 0.18 * s).toFixed(2) + "px " + (oy * 0.18 * s).toFixed(2) + "px " + (1.2 + rim * 4).toFixed(2) + "px rgba(252,149,88," + (rim * 0.62).toFixed(3) + ")",
+        (ox * 0.28 * s).toFixed(2) + "px " + (oy * 0.28 * s).toFixed(2) + "px " + (2.5 + rim * 7).toFixed(2) + "px rgba(252,112,39," + (rim * 0.22).toFixed(3) + ")",
       ].join(", ");
     }
 

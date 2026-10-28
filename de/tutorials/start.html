@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>开始做第一个游戏 — 天工引擎</title>
-<link rel="stylesheet" href="/assets/styles.css?v=65186780" />
+<link rel="stylesheet" href="/assets/styles.css?v=b18b03e3" />
 <style>
 /* Generated from tokens.json by build_tokens.py. Edit the JSON source. */
 :root {
@@ -21,7 +21,7 @@
   --fx-ref-color-neutral-800: #333438;
   --fx-ref-color-neutral-850: #292A2D;
   --fx-ref-color-neutral-900: #222326;
-  --fx-ref-color-neutral-950: #1A1C1F;
+  --fx-ref-color-neutral-950: #232323;
   --fx-ref-color-neutral-1000: #111214;
   --fx-ref-color-blue-50: #F0F5FB;
   --fx-ref-color-blue-300: #8CB7E8;
@@ -30,10 +30,10 @@
   --fx-ref-color-blue-950: #1C2A3A;
   --fx-ref-color-blue-500: #007AFF;
   --fx-ref-color-blue-400: #0A84FF;
-  --fx-ref-color-brand-50: #EFF5DB;
-  --fx-ref-color-brand-400: #C5DD78;
-  --fx-ref-color-brand-700: #50631F;
-  --fx-ref-color-brand-950: #29351D;
+  --fx-ref-color-brand-50: #FDD597;
+  --fx-ref-color-brand-400: #FC9558;
+  --fx-ref-color-brand-700: #FC7027;
+  --fx-ref-color-brand-950: #232323;
   --fx-ref-color-green-50: #EAF5EE;
   --fx-ref-color-green-300: #8ED6A7;
   --fx-ref-color-green-700: #246444;
@@ -208,10 +208,11 @@
   --fx-color-selection-bg: var(--fx-ref-color-neutral-50);
   --fx-color-selection-fg: var(--fx-ref-color-neutral-950);
   --fx-color-selection-indicator: var(--fx-ref-color-neutral-600);
-  --fx-color-brand-accent: var(--fx-ref-color-brand-400);
+  --fx-color-brand-accent: var(--fx-ref-color-brand-700);
+  --fx-color-brand-secondary: var(--fx-ref-color-brand-400);
   --fx-color-brand-text: var(--fx-ref-color-brand-700);
   --fx-color-brand-soft: var(--fx-ref-color-brand-50);
-  --fx-color-brand-on-accent: var(--fx-ref-color-neutral-950);
+  --fx-color-brand-on-accent: var(--fx-ref-color-neutral-0);
   --fx-color-status-success-fg: var(--fx-ref-color-green-700);
   --fx-color-status-success-bg: var(--fx-ref-color-green-50);
   --fx-color-status-warning-fg: var(--fx-ref-color-amber-800);
@@ -261,10 +262,11 @@
   --fx-color-selection-bg: var(--fx-ref-color-neutral-800);
   --fx-color-selection-fg: var(--fx-ref-color-neutral-100);
   --fx-color-selection-indicator: var(--fx-ref-color-neutral-300);
-  --fx-color-brand-accent: var(--fx-ref-color-brand-400);
+  --fx-color-brand-accent: var(--fx-ref-color-brand-700);
+  --fx-color-brand-secondary: var(--fx-ref-color-brand-400);
   --fx-color-brand-text: var(--fx-ref-color-brand-400);
   --fx-color-brand-soft: var(--fx-ref-color-brand-950);
-  --fx-color-brand-on-accent: var(--fx-ref-color-neutral-950);
+  --fx-color-brand-on-accent: var(--fx-ref-color-neutral-0);
   --fx-color-status-success-fg: var(--fx-ref-color-green-300);
   --fx-color-status-success-bg: var(--fx-ref-color-green-950);
   --fx-color-status-warning-fg: var(--fx-ref-color-amber-300);
@@ -1948,7 +1950,7 @@ dialog::backdrop { background: var(--fx-color-scrim); }
 <body class="lang-de forgeax-site">
 <!--
 THESIS: 安装后第一页是一台可操作的天工引擎客户端。引擎画面、五步闭环和发布目标是同一件仪器的三层刻度。
-OWN-WORLD: Codex 设计系统：白画布、炭黑主操作、品牌柠绿 #C5DD78、系统中文无衬线、胶囊按钮、12px 卡片、24px 输入圆角。
+OWN-WORLD: Codex 设计系统：白画布、墨黑主操作、品牌主橙 #FC7027、系统中文无衬线、胶囊按钮、12px 卡片、24px 输入圆角。
 STORY: 访客看见引擎能画什么，亲手点完新建→描述→试玩→迭代→发布，并知道游戏能发到哪些平台。
 FIRST VIEWPORT: 52px 顶栏；主张；能力图卡；其下是同一仪器：左 Codex、右天工引擎 View，底栏五步（新建→说出→试玩→迭代→发布）驱动两边。
 FORM: Codex 对话流 × 天工引擎 View，同一操作面。种子：user-specified-codex-tokens。
@@ -2254,7 +2256,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 </dialog>
 
-<script src="/assets/tutorials/start-demo.js?v=ccba65b1"></script>
+<script src="/assets/tutorials/start-demo.js?v=e59862d2"></script>
 
 
 

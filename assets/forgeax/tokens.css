@@ -40,7 +40,7 @@
 
   /* ── brand ──────────────────────────────────────────────────────────────── */
   --color-brand-primary:       var(--fx-color-brand-accent);
-  --color-brand-primary-light: var(--fx-color-brand-accent);
+  --color-brand-primary-light: var(--fx-ref-color-brand-400);
   --color-brand-primary-soft:  var(--fx-color-brand-soft);
 
   /* ── accent ─────────────────────────────────────────────────────────────── */

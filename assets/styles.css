@@ -3,17 +3,17 @@
    SSOT: forgeax-studio/packages/interface/src/styles/
    ============================================================================= */
 @import url('/assets/forgeax/primitive.css?v=fab25607');
-@import url('/assets/forgeax/codex-tokens.css?v=1c6958cb');
-@import url('/assets/forgeax/tokens.css?v=4108b961');
-@import url('/assets/forgeax/site-aliases.css?v=7a8b7fa0');
-@import url('/assets/forgeax/glass-tokens.css?v=9217e3d8');
+@import url('/assets/forgeax/codex-tokens.css?v=acc97d92');
+@import url('/assets/forgeax/tokens.css?v=754b2be8');
+@import url('/assets/forgeax/site-aliases.css?v=d2e6fa14');
+@import url('/assets/forgeax/glass-tokens.css?v=649f68f1');
 @import url('/assets/forgeax/glass-surfaces.css?v=0d6d04b3');
 @import url('/assets/forgeax/motion-site.css?v=df8261b7');
-@import url('/assets/forgeax/linear-premium.css?v=24ba94ef');
+@import url('/assets/forgeax/linear-premium.css?v=0279a4f5');
 @import url('/assets/forgeax/linear-light-system.css?v=98b1ed9d');
-@import url('/assets/forgeax/neon-display.css?v=981c8a0b');
+@import url('/assets/forgeax/neon-display.css?v=62341203');
 @import url('/assets/forgeax/spotlight-surface.css?v=765cc905');
-@import url('/assets/forgeax/immersive.css?v=04a33ba5');
+@import url('/assets/forgeax/immersive.css?v=d410e2db');
 @import url('/assets/forgeax/visual-guide.css?v=2b5d19bf');
 @import url('/assets/forgeax/hero-cta.css?v=b1b1609c');
 @import url('/assets/forgeax/link-action.css?v=3f8c9333');
@@ -22,17 +22,17 @@
 @import url('/assets/forgeax/blog-list.css?v=8e7b59c6');
 @import url('/assets/forgeax/icon-system.css?v=ce03754d');
 @import url('/assets/forgeax/neon-cta.css?v=3da73855');
-@import url('/assets/forgeax/marketplace-bar.css?v=9f719240');
-@import url('/assets/forgeax/marketplace-cards.css?v=1c9f18b0');
-@import url('/assets/forgeax/marketplace-store.css?v=2cc4331e');
+@import url('/assets/forgeax/marketplace-bar.css?v=270459ad');
+@import url('/assets/forgeax/marketplace-cards.css?v=c16ae013');
+@import url('/assets/forgeax/marketplace-store.css?v=d2ca4f84');
 @import url('/assets/forgeax/games-premium.css?v=745bd429');
 @import url('/assets/forgeax/marketplace-agents.css?v=c87e9203');
 @import url('/assets/forgeax/docs-premium.css?v=6cb2b4d6');
 @import url('/assets/forgeax/tutorials-list.css?v=8d8d3426');
-@import url('/assets/forgeax/tutorials-graft.css?v=1c25a01b');
+@import url('/assets/forgeax/tutorials-graft.css?v=82343263');
 @import url('/assets/forgeax/about-read.css?v=659f1b76');
 @import url('/assets/forgeax/nav-premium.css?v=b3974b45');
-@import url('/assets/forgeax/home-v2.css?v=dd830913');
+@import url('/assets/forgeax/home-v2.css?v=161ca2fa');
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;color-scheme:light}
@@ -79,8 +79,12 @@ img{max-width:100%}
   background:var(--fx-ref-color-neutral-950);border-radius:7px;padding:4px;box-sizing:border-box}
 .nav-brand img{width:26px;height:26px;display:block;padding:3px}
 .nav-brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-:lang(zh) .nav-brand span,:lang(zh) .foot-brand span{letter-spacing:.04em}
-:lang(zh) .nav-brand span,:lang(zh) .foot-brand span{font-family:"Hiragino Sans","PingFang SC",sans-serif;font-weight:900}
+/* zh: geometric mark already contains 天工引擎 — keep logo only, hide text wordmark */
+:lang(zh) .nav-brand span,:lang(zh) .foot-brand span{display:none}
+:lang(zh) .nav-brand img,:lang(zh) .foot-brand img{
+  background:transparent;padding:0;border-radius:0}
+:lang(zh) .nav-brand img{width:32px;height:32px}
+:lang(zh) .foot-brand img{width:28px;height:28px}
 .nav-links{display:flex;align-items:center;gap:4px;margin-left:0}
 .nav-links a{color:var(--text-secondary);font-size:14.5px;font-weight:500;padding:8px 12px;border-radius:var(--radius-md);
   transition:color var(--dur-fast) var(--ease-out),background var(--dur-fast) var(--ease-out)}

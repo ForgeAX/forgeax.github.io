@@ -2,8 +2,8 @@
 (function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var LIME = [212, 255, 72];
-  var TEAL = [72, 255, 207];
+  var LIME = [252, 112, 39];
+  var TEAL = [252, 149, 88];
   var WHITE = [255, 255, 255];
   var PALETTE = [WHITE, WHITE, WHITE, LIME, TEAL];
   var HERO_V = "92";
