@@ -407,7 +407,7 @@ details.doc-sub > summary strong{color:var(--text-primary);font-weight:600}
 .foot{border-top:1px solid var(--border-subtle);margin-top:52px;background:var(--bg-base)}
 .foot-inner{max-width:var(--maxw);margin:0 auto;padding:22px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px}
 .foot-brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px}
-.foot-brand img{width:21px;height:21px;padding:3px;border-radius:6px}
+.foot-brand img{width:28px;height:28px;padding:0;border-radius:0}
 .foot-brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .foot-brand-col{flex:0 1 auto}
 .foot p{color:var(--text-tertiary);font-size:13px;margin-top:5px;white-space:nowrap;max-width:100%}
