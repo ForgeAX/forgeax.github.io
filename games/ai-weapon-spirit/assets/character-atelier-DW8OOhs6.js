@@ -1,0 +1,1 @@
+export{n as startCharacterAtelier}from"./program-group-a870e4ea46eae20e-Cl-1BNEI.js";

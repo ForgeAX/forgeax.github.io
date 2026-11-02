@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="92" viewBox="0 0 210 92" preserveAspectRatio="none">
+<defs>
+  <linearGradient id="frost" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#1a4d38" stop-opacity="0.58"/>
+    <stop offset="50%" stop-color="#0d2f22" stop-opacity="0.52"/>
+    <stop offset="100%" stop-color="#03120c" stop-opacity="0.70"/>
+  </linearGradient>
+  <radialGradient id="bodyGlow" cx="26%" cy="26%" r="72%">
+    <stop offset="0%" stop-color="#e8d4a8" stop-opacity="0.075"/>
+    <stop offset="100%" stop-color="#e8d4a8" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="bandVert" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#e8c888" stop-opacity="0.25"/>
+    <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="anchorVert" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#c8a868" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#c8a868" stop-opacity="0.17"/>
+  </linearGradient>
+  <linearGradient id="grooveShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#01100a" stop-opacity="0.45"/>
+    <stop offset="100%" stop-color="#01100a" stop-opacity="0"/>
+  </linearGradient>
+
+  <linearGradient id="gGoldH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="22" y2="0">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0.55"/>
+    <stop offset="35%" stop-color="#d4b878" stop-opacity="0.34"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gGoldV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="16">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0.55"/>
+    <stop offset="35%" stop-color="#d4b878" stop-opacity="0.34"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gJadeH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="22" y2="0">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gJadeV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="16">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+
+  <linearGradient id="edgeFade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="210" y2="0">
+    <stop offset="0%" stop-color="#e8c888" stop-opacity="0"/>
+    <stop offset="8%" stop-color="#e8c888" stop-opacity="0.28"/>
+    <stop offset="34%" stop-color="#e8c888" stop-opacity="0.22"/>
+    <stop offset="70%" stop-color="#e8c888" stop-opacity="0.09"/>
+    <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="bandW" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="210" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="7%" stop-color="#fff" stop-opacity="0.85"/>
+    <stop offset="20%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="45%" stop-color="#fff" stop-opacity="0.62"/>
+    <stop offset="75%" stop-color="#fff" stop-opacity="0.26"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="bottomW" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="210" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="12%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="42%" stop-color="#fff" stop-opacity="0.45"/>
+    <stop offset="78%" stop-color="#fff" stop-opacity="0.10"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="grooveW" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="200" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="9%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="91%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+
+  <filter id="fFeather" x="-12%" y="-25%" width="124%" height="150%"><feGaussianBlur stdDeviation="2.5"/></filter>
+  <filter id="fHalo" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="1.2"/></filter>
+  <filter id="fSoft" x="-50%" y="-300%" width="200%" height="700%"><feGaussianBlur stdDeviation="1.2"/></filter>
+
+  <mask id="mFeather" maskUnits="userSpaceOnUse" x="0" y="0" width="210" height="92">
+    <rect x="3" y="5" width="204" height="84" fill="#fff" filter="url(#fFeather)"/>
+  </mask>
+  <mask id="mBand" maskUnits="userSpaceOnUse" x="0" y="0" width="210" height="14">
+    <rect x="0" y="0" width="210" height="14" fill="url(#bandW)"/>
+  </mask>
+  <mask id="mBottom" maskUnits="userSpaceOnUse" x="0" y="70" width="210" height="22">
+    <rect x="0" y="70" width="210" height="22" fill="url(#bottomW)"/>
+  </mask>
+  <mask id="mGroove" maskUnits="userSpaceOnUse" x="6" y="52" width="198" height="36">
+    <rect x="10" y="56" width="190" height="28" rx="14" fill="url(#grooveW)"/>
+  </mask>
+</defs>
+
+<!-- ===== frost body (feathered) ===== -->
+<g mask="url(#mFeather)">
+  <rect x="0" y="2" width="210" height="90" fill="url(#frost)"/>
+  <rect x="0" y="0" width="210" height="92" fill="url(#bodyGlow)"/>
+  <g mask="url(#mBand)">
+    <rect x="0" y="2" width="210" height="11" fill="url(#bandVert)"/>
+    <rect x="0" y="2" width="210" height="11" fill="url(#bandVert)" filter="url(#fSoft)" opacity="0.5"/>
+  </g>
+  <rect x="0" y="70" width="210" height="22" fill="url(#anchorVert)" mask="url(#mBottom)"/>
+</g>
+
+<!-- ===== warm hairline along the top edge ===== -->
+<path d="M3,2.4 H207" fill="none" stroke="url(#edgeFade)" stroke-width="0.8"/>
+
+<!-- ===== stats groove (recessed jade channel) ===== -->
+<g mask="url(#mGroove)">
+  <rect x="10" y="56" width="190" height="28" rx="14" fill="#06241a" opacity="0.55"/>
+  <rect x="10" y="56" width="190" height="16" rx="8" fill="url(#grooveShadow)"/>
+  <path d="M14,57.1 H196" fill="none" stroke="#2f7a5c" stroke-width="0.6" opacity="0.30"/>
+  <path d="M16,83.1 H194" fill="none" stroke="#e8c888" stroke-width="0.6" opacity="0.26"/>
+  <path d="M16,83.1 H194" fill="none" stroke="#e8c888" stroke-width="0.6" opacity="0.12" filter="url(#fSoft)"/>
+</g>
+
+<!-- ===== corner L-bracket fragments with 菱花 ===== -->
+<g transform="translate(5,7)">
+  <line x1="0" y1="0" x2="22" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="16" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="2.6" y1="2.2" x2="21" y2="2.2" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.2" y1="2.6" x2="2.2" y2="15" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(205,7) scale(-1,1)">
+  <line x1="0" y1="0" x2="22" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="16" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="2.6" y1="2.2" x2="21" y2="2.2" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.2" y1="2.6" x2="2.2" y2="15" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(5,87) scale(1,-1)">
+  <line x1="0" y1="0" x2="22" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="16" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="2.6" y1="2.2" x2="21" y2="2.2" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.2" y1="2.6" x2="2.2" y2="15" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(205,87) scale(-1,-1)">
+  <line x1="0" y1="0" x2="22" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="16" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="2.6" y1="2.2" x2="21" y2="2.2" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.2" y1="2.6" x2="2.2" y2="15" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+</svg>

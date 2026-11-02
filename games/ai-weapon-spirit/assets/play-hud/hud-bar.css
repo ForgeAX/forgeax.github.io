@@ -1,0 +1,992 @@
+/*
+ * HUD-BAR v1.7 · 境界、波次横匾、本局资源、翻滚就绪辅读、右上系统按钮、底部武位栏
+ * 规范见 SPEC.md §9。线框统一：金色外线 + 委角 + 淡玉内线 + 金菱。
+ */
+
+:where(:root) {
+  --ui-font-title: "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", serif;
+  --ui-font-number: Georgia, "Times New Roman", tabular-nums, serif;
+  --ui-text: #eff0df;
+  --ui-muted: #b8cbc6;
+  --ui-jade: #a8e1d6;
+  --ui-bronze: #6e9392;
+  --ui-qi: #207f7d;
+  --ui-qi-deep: #0b353c;
+  --ui-gold-1: #c9a227;
+  --ui-gold-2: #f0d78c;
+}
+
+/* —— 右上系统按钮：全屏方钮 + 菜单（含 Esc 键帽），线框语言同境界 / 横匾。 —— */
+.play-hud-sys {
+  --sys-h: 44px;
+  --sys-font: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-hud-sys--desktop {
+  --sys-h: 36px;
+  --sys-font: 14px;
+  gap: 16px;
+}
+
+:where(.play-hud-sys) button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: var(--sys-h);
+  margin: 0;
+  padding: 0;
+  border: 0 solid transparent;
+  background: none;
+  color: rgb(255 251 238 / 94%);
+  font-family: var(--ui-font-title);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 65%), 0 0 6px rgb(0 0 0 / 35%);
+  white-space: nowrap;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 45%));
+  transition: filter 120ms ease, transform 120ms ease;
+}
+
+:where(.play-hud-sys) button:hover {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 45%)) brightness(1.14);
+}
+
+:where(.play-hud-sys) button:active {
+  transform: translateY(1px);
+}
+
+:where(.play-hud-sys) button:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--ui-jade) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.play-hud-sys svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 60%));
+}
+
+.play-hud-sys__icon {
+  width: var(--sys-h);
+  background: url("./png/hud-btn-square.svg") center / 100% 100% no-repeat;
+}
+
+.play-hud-sys__icon svg {
+  width: calc(var(--sys-h) * 0.42);
+  height: calc(var(--sys-h) * 0.42);
+}
+
+.play-hud-sys__menu {
+  --sys-cap: calc(var(--sys-h) * 0.5);
+  min-width: calc(var(--sys-h) * 2);
+  gap: calc(var(--sys-font) * 0.4);
+  padding: 0 calc(var(--sys-cap) * 0.8);
+  border-image: url("./png/hud-btn-frame.svg") 0 18 fill / 0 var(--sys-cap) stretch;
+  font-size: var(--sys-font);
+  letter-spacing: 0.14em;
+}
+
+.play-hud-sys__menu > span {
+  margin-right: -0.14em;
+}
+
+.play-hud-sys__menu svg {
+  width: var(--sys-font);
+  height: var(--sys-font);
+  stroke: var(--ui-gold-2);
+}
+
+.play-hud-sys__key {
+  margin-left: calc(var(--sys-font) * 0.3);
+  padding: 3px 5px 2px;
+  border: 1px solid color-mix(in srgb, var(--ui-jade) 55%, transparent);
+  border-radius: 3px;
+  background: rgb(0 0 0 / 22%);
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--ui-gold-2) 35%, transparent);
+  color: var(--ui-muted);
+  font-family: var(--ui-font-number);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* 触屏不显示键位；iPhone 不支持全屏，去掉方钮。 */
+.play-hud-sys--touch .play-hud-sys__key,
+.play-hud-sys--no-fullscreen .play-hud-sys__icon {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .play-hud-sys__key {
+    display: none;
+  }
+}
+
+/* —— 境界：无框漂浮。玉器只用在细进度条金角上。 —— */
+.play-hud-realm {
+  --realm-w: 200px;
+  --realm-title: 26px;
+  --realm-grade: 15px;
+  --realm-foot: 10px;
+  --realm-bar-h: 8px;
+  --realm-cap: 7.8%;
+  --realm-progress: 0.48;
+  --realm-bleed: calc(var(--realm-w) * 0.2);
+  position: relative;
+  box-sizing: content-box;
+  width: var(--realm-w);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: calc(8px + var(--realm-bleed)) 2px 2px calc(2px + var(--realm-bleed));
+  overflow: visible;
+  color: var(--ui-text);
+}
+
+.play-hud-realm--desktop {
+  --realm-w: 252px;
+  --realm-title: 30px;
+  --realm-grade: 17px;
+  --realm-foot: 11px;
+  --realm-bar-h: 10px;
+}
+
+.play-hud-realm__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.play-hud-realm__name {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: baseline;
+  gap: 0.22em;
+  min-width: 0;
+  padding: 0.22em 0.12em 0.08em 0.42em;
+}
+
+.play-hud-realm__mark {
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: calc(var(--realm-w) * 0.38);
+  max-width: calc(var(--realm-w) * 0.38);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  opacity: 0.46;
+  -webkit-mask-image: radial-gradient(circle at 34% 34%, #000 38%, transparent 74%);
+  mask-image: radial-gradient(circle at 34% 34%, #000 38%, transparent 74%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.play-hud-realm__rule {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 82%;
+  height: 92%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.play-hud-realm__rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 12%;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ui-gold-2) 72%, transparent) 0%,
+    color-mix(in srgb, var(--ui-gold-2) 34%, transparent) 60%,
+    color-mix(in srgb, var(--ui-gold-2) 14%, transparent) 100%
+  );
+}
+
+.play-hud-realm__rule::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ui-gold-2) 72%, transparent) 0%,
+    color-mix(in srgb, var(--ui-gold-2) 30%, transparent) 64%,
+    color-mix(in srgb, var(--ui-gold-2) 12%, transparent) 100%
+  );
+}
+
+.play-hud-realm__rule-inner {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 40%;
+  height: 48%;
+  border-left: 1px solid color-mix(in srgb, var(--ui-jade) 34%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--ui-jade) 34%, transparent);
+  -webkit-mask-image: linear-gradient(135deg, #000 25%, transparent 85%);
+  mask-image: linear-gradient(135deg, #000 25%, transparent 85%);
+}
+
+.play-hud-realm__rule-grid {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 26%;
+  height: 56%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M3.5 2.2v2.6M2.2 3.5h2.6' stroke='%23f0d78c' stroke-width='.7' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 7px 7px;
+  opacity: 0.42;
+  -webkit-mask-image: radial-gradient(110% 110% at 0 0, #000 0 18%, transparent 72%);
+  mask-image: radial-gradient(110% 110% at 0 0, #000 0 18%, transparent 72%);
+}
+
+.play-hud-realm__rule-corner {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--ui-gold-2) 40%, transparent));
+}
+
+.play-hud-realm__rule-corner .gem {
+  fill: var(--ui-gold-2);
+  stroke: var(--ui-gold-1);
+  stroke-width: 0.6;
+}
+
+.play-hud-realm__rule-corner .curl {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ui-gold-2) 75%, transparent);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+.play-hud-realm__rule-end {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--ui-gold-2);
+  opacity: 0.5;
+  transform: rotate(45deg);
+}
+
+.play-hud-realm__rule-end--x {
+  left: calc(100% - 1px);
+  top: -1px;
+}
+
+.play-hud-realm__rule-end--y {
+  left: -1px;
+  top: calc(88% - 1px);
+}
+
+.play-hud-realm__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--ui-font-title);
+  font-size: var(--realm-title);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--ui-text) 90%, var(--ui-jade));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 70%), 0 0 12px color-mix(in srgb, var(--ui-jade) 22%, transparent);
+}
+
+.play-hud-realm__grade {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  font-family: var(--ui-font-title);
+  font-size: calc(var(--realm-title) * 0.62);
+  letter-spacing: 0.14em;
+  color: color-mix(in srgb, var(--ui-gold-2) 72%, var(--ui-muted));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 65%);
+}
+
+.play-hud-realm__lv {
+  flex: none;
+  font-family: var(--ui-font-number);
+  font-size: calc(var(--realm-title) * 0.56);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--ui-text) 88%, var(--ui-jade));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 70%);
+  white-space: nowrap;
+}
+
+.play-hud-realm__lv span {
+  font-size: 0.78em;
+  color: var(--ui-muted);
+}
+
+.play-hud-realm__bar {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: var(--realm-bar-h);
+  overflow: hidden;
+  background: url("./png/hud-realm-track.png") center / 100% 100% no-repeat;
+}
+
+.play-hud-realm__bar-fill {
+  position: absolute;
+  left: var(--realm-cap);
+  top: 24%;
+  height: 52%;
+  width: calc((100% - 2 * var(--realm-cap)) * var(--realm-progress));
+  max-width: calc(100% - 2 * var(--realm-cap));
+  border-radius: 99px;
+  background: url("./png/hud-realm-fill.png") left center / auto 160% no-repeat;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 30%),
+    inset 0 -1px 1px rgb(8 28 24 / 42%);
+  pointer-events: none;
+}
+
+.play-hud-realm__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  font-size: var(--realm-foot);
+  letter-spacing: 0.16em;
+  color: var(--ui-muted);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 70%);
+  white-space: nowrap;
+}
+
+.play-hud-realm__foot b {
+  font-family: var(--ui-font-number);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ui-text) 82%, var(--ui-muted));
+}
+
+/* —— 波次：镂空横匾，线条语言同境界框线；中间透空。 —— */
+.play-hud-wave {
+  --wave-w: 200px;
+  --wave-h: 34px;
+  --wave-cap: var(--wave-h);
+  --wave-label: calc(var(--wave-h) * 0.3);
+  --wave-state: calc(var(--wave-h) * 0.4);
+  position: relative;
+  box-sizing: border-box;
+  width: var(--wave-w);
+  height: var(--wave-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding: 0 calc(var(--wave-cap) * 0.62);
+  line-height: 1;
+  border: 0 solid transparent;
+  border-image: url("./png/hud-wave-frame.svg") 0 36 fill / 0 var(--wave-cap) stretch;
+  color: var(--ui-text);
+  font-family: var(--ui-font-title);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 70%), 0 0 6px rgb(0 0 0 / 35%);
+  white-space: nowrap;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 45%));
+}
+
+.play-hud-wave::before {
+  content: "";
+  position: absolute;
+  inset: 26% calc(var(--wave-cap) * 0.5);
+  background: radial-gradient(closest-side, rgb(6 20 18 / 42%), transparent);
+  pointer-events: none;
+}
+
+.play-hud-wave > * {
+  position: relative;
+}
+
+.play-hud-wave__crest {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--wave-h) * 6 / 36);
+  width: calc(var(--wave-h) * 0.83);
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.play-hud-wave__label {
+  font-size: var(--wave-label);
+  letter-spacing: 0.12em;
+  color: var(--ui-muted);
+}
+
+.play-hud-wave__state {
+  font-size: var(--wave-state);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  margin-right: -0.14em;
+  color: var(--ui-gold-2);
+}
+
+.play-hud-wave--battle {
+  --wave-h: 28px;
+  --wave-label: 10px;
+  --wave-state: 12px;
+}
+
+.play-hud-wave--battle .play-hud-wave__crest {
+  display: none;
+}
+
+.play-hud-wave--battle .play-hud-wave__state {
+  font-family: var(--ui-font-number);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  margin-right: 0;
+  color: var(--ui-text);
+}
+
+.play-hud-wave--desktop {
+  --wave-w: 260px;
+  --wave-h: 44px;
+}
+
+/* —— 本局资源：镂空条带 2×2，左脊与境界框线、横匾金菱同一竖线。 —— */
+.play-hud-run {
+  --run-w: 200px;
+  --run-row: 20px;
+  --run-label: 10px;
+  --run-value: 12px;
+  position: relative;
+  box-sizing: border-box;
+  width: var(--run-w);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0 4px 10px;
+  color: var(--ui-text);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 70%), 0 0 6px rgb(0 0 0 / 35%);
+  white-space: nowrap;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 45%));
+}
+
+.play-hud-run__spine {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ui-gold-2) 80%, transparent),
+    color-mix(in srgb, var(--ui-gold-2) 46%, transparent) 50%,
+    color-mix(in srgb, var(--ui-gold-2) 80%, transparent)
+  );
+}
+
+.play-hud-run__spine::before,
+.play-hud-run__spine::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: var(--ui-gold-2);
+  border: 0.5px solid var(--ui-gold-1);
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 0 0 3px color-mix(in srgb, var(--ui-gold-2) 55%, transparent);
+}
+
+.play-hud-run__spine::before {
+  top: 0;
+}
+
+.play-hud-run__spine::after {
+  top: 100%;
+  width: 3.5px;
+  height: 3.5px;
+}
+
+.play-hud-run__curl {
+  position: absolute;
+  left: 1px;
+  top: -1px;
+  width: 14px;
+  height: 10px;
+  overflow: visible;
+  fill: none;
+  stroke: color-mix(in srgb, var(--ui-gold-2) 75%, transparent);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+.play-hud-run__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--run-row);
+  padding: 0 4px 0 6px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ui-jade) 20%, transparent),
+    color-mix(in srgb, var(--ui-jade) 7%, transparent) 72%,
+    transparent
+  );
+}
+
+.play-hud-run__row::before,
+.play-hud-run__row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+.play-hud-run__row::before {
+  top: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ui-jade) 42%, transparent), transparent 60%);
+}
+
+.play-hud-run__row::after {
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ui-gold-2) 78%, transparent),
+    color-mix(in srgb, var(--ui-gold-2) 30%, transparent) 70%,
+    transparent
+  );
+}
+
+.play-hud-run__cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  line-height: 1;
+}
+
+.play-hud-run__cell span {
+  font-family: var(--ui-font-title);
+  font-size: var(--run-label);
+  letter-spacing: 0.12em;
+  color: var(--ui-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.play-hud-run__cell b {
+  font-family: var(--ui-font-number);
+  font-size: var(--run-value);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--ui-text);
+}
+
+.play-hud-run__cell--gold b {
+  color: var(--ui-gold-2);
+}
+
+.play-hud-run__sep {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  margin: 0 8px;
+  background: color-mix(in srgb, var(--ui-gold-2) 85%, transparent);
+  transform: rotate(45deg);
+}
+
+.play-hud-run--desktop {
+  --run-w: 252px;
+  --run-row: 24px;
+  --run-label: 11px;
+  --run-value: 14px;
+}
+
+/* 竖屏左上竖排：WAVE / RUN 与 REALM 内容同宽、同左缘。 */
+.play-hud-stack {
+  --realm-w: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.play-hud-stack > .play-hud-wave,
+.play-hud-stack > .play-hud-run {
+  --wave-w: var(--realm-w);
+  --run-w: var(--realm-w);
+  margin-left: calc(2px + var(--realm-w) * 0.2);
+}
+
+.play-hud-stack > .play-hud-dash {
+  margin-left: calc(2px + var(--realm-w) * 0.2);
+}
+
+/* —— 翻滚就绪：紧凑辅读条（最低层级）。轻量委角框；横屏左下小块，不抢 RUN/REALM。 —— */
+.play-hud-dash {
+  --dash-row: 22px;
+  --dash-cap: calc(var(--dash-row) * 0.45);
+  --dash-key: 9px;
+  --dash-label: 9px;
+  --dash-state: 10px;
+  position: relative;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: 156px;
+  font-family: var(--ui-font-title);
+  line-height: 1;
+  color: color-mix(in srgb, var(--ui-text) 76%, var(--ui-muted));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 55%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.86;
+}
+
+.play-hud-stack > .play-hud-dash {
+  margin-top: 2px;
+}
+
+.play-hud-dash-anchor {
+  position: relative;
+  width: 280px;
+  height: 84px;
+  background: linear-gradient(180deg, rgb(217 138 120 / 55%), rgb(58 44 58 / 85%) 65%);
+}
+
+.play-hud-dash-anchor > .play-hud-dash {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+}
+
+.play-hud-dash__plate {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--dash-row);
+  padding: 0 calc(var(--dash-cap) * 0.65) 0 calc(var(--dash-cap) * 0.55);
+  border: 0 solid transparent;
+  border-image: url("./png/hud-dash-frame.svg") 0 10 fill / 0 var(--dash-cap) stretch;
+}
+
+.play-hud-dash__plate::before {
+  content: "";
+  position: absolute;
+  inset: 22% calc(var(--dash-cap) * 0.55) 22% calc(var(--dash-cap) * 0.5);
+  background: radial-gradient(closest-side, rgb(168 225 214 / 8%), transparent 78%);
+  pointer-events: none;
+}
+
+.play-hud-dash__lead {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.play-hud-dash__key {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  padding: 1px 5px 0;
+  border: 1px solid color-mix(in srgb, var(--ui-jade) 48%, transparent);
+  border-radius: 3px;
+  background: rgb(0 0 0 / 20%);
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--ui-gold-2) 28%, transparent);
+  color: color-mix(in srgb, var(--ui-text) 70%, var(--ui-muted));
+  font-family: var(--ui-font-number);
+  font-size: var(--dash-key);
+  letter-spacing: 0.04em;
+}
+
+.play-hud-dash__label {
+  font-size: var(--dash-label);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--ui-muted) 92%, transparent);
+}
+
+.play-hud-dash__sep {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 3px;
+  height: 3px;
+  transform: rotate(45deg);
+  background: color-mix(in srgb, var(--ui-gold-2) 62%, var(--ui-muted));
+  box-shadow: 0 0 0 0.5px rgb(201 162 39 / 35%);
+}
+
+.play-hud-dash__tail {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.play-hud-dash__state {
+  flex: none;
+  font-size: var(--dash-state);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-right: -0.04em;
+  color: color-mix(in srgb, var(--ui-gold-2) 72%, var(--ui-muted));
+}
+
+.play-hud-dash--cd .play-hud-dash__state {
+  font-family: var(--ui-font-number);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  margin-right: 0;
+  color: color-mix(in srgb, var(--ui-muted) 95%, transparent);
+}
+
+/* —— 底部武位栏：一整块玉器底版（玉管 + 金框玉底 + 6 块委角玉片），修为写在玉管里。 —— */
+.play-hud-dock {
+  --dock-w: 374px;
+  --xp-font: 10px;
+  --wpn-font: 11px;
+  --ink: rgb(20 52 45 / 88%);
+  position: relative;
+  width: var(--dock-w);
+  aspect-ratio: 4.1468;
+  background: url("./png/hud-wpn-dock.png") center / 100% 100% no-repeat;
+  font-family: var(--ui-font-title);
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 38%));
+}
+
+.play-hud-dock--desktop {
+  --dock-w: 520px;
+  --xp-font: 13px;
+  --wpn-font: 14px;
+}
+
+.play-hud-dock__xp {
+  position: absolute;
+  left: 5.6%;
+  right: 5.6%;
+  top: 4.4%;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.6%;
+  overflow: hidden;
+  border-radius: 99px;
+  font-size: var(--xp-font);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #ffe7a0;
+  white-space: nowrap;
+}
+
+.play-hud-dock__xp::before,
+.play-hud-dock__xp::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.play-hud-dock__xp::before {
+  left: 0;
+  width: calc(var(--xp-progress, 0) * 100%);
+  background: linear-gradient(90deg, rgb(18 72 64 / 22%), rgb(22 88 76 / 32%));
+  mix-blend-mode: multiply;
+}
+
+.play-hud-dock__xp::after {
+  left: calc(var(--xp-progress, 0) * 100%);
+  right: 0;
+  background: rgb(12 44 38 / 20%);
+  box-shadow: inset 1px 0 0 rgb(176 136 58 / 90%), -1px 0 3px rgb(240 215 140 / 70%);
+}
+
+.play-hud-dock__xp > * {
+  position: relative;
+  z-index: 1;
+  padding: 0.08em 0.42em 0.16em;
+  border-radius: 99px;
+  background: rgb(8 28 24 / 18%);
+  box-shadow: 0 1px 2px rgb(8 28 24 / 12%);
+}
+
+.play-hud-dock__xp > span {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.play-hud-dock__xp > b {
+  font-family: var(--ui-font-number);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.play-hud-dock__xp > b small {
+  font-size: 0.86em;
+  opacity: 0.88;
+}
+
+.play-hud-dock__lit {
+  --col: 15.223%;
+  --gap: 0.926%;
+  --x: calc(2.02% + var(--wpn-current, 0) * (var(--col) + var(--gap)) - var(--gap) / 2);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("./png/hud-wpn-dock-lit.png") center / 100% 100% no-repeat;
+  clip-path: inset(19% calc(100% - var(--x) - var(--col) - var(--gap)) 0 var(--x));
+  transition: clip-path 0.18s ease-out;
+}
+
+.play-hud-dock__slots {
+  position: absolute;
+  left: 2.02%;
+  right: 2.02%;
+  top: 20.2%;
+  bottom: 1.2%;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: calc(var(--dock-w) * 0.00926);
+}
+
+.play-hud-wpn {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  padding: 12% 7% 10%;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--wpn-font);
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 0 1px rgb(255 255 255 / 60%), 0 0 6px rgb(255 255 255 / 45%);
+  cursor: pointer;
+}
+
+.play-hud-wpn::before {
+  content: "";
+  position: absolute;
+  inset: 8% 10%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(closest-side, rgb(255 255 245 / 36%), transparent);
+  transition: opacity 0.15s;
+}
+
+.play-hud-wpn:hover::before {
+  opacity: 1;
+}
+
+.play-hud-wpn:focus-visible {
+  outline: none;
+}
+
+.play-hud-wpn:focus-visible::before {
+  opacity: 1;
+}
+
+.play-hud-wpn__ring {
+  --wpn-charge: 0;
+  position: relative;
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.92em;
+  font-weight: 600;
+  color: rgb(112 80 24);
+  text-shadow: 0 0 1px rgb(255 250 225 / 80%);
+  background: radial-gradient(circle at 50% 38%, rgb(255 255 250 / 55%), rgb(255 255 255 / 14%) 62%, rgb(22 56 48 / 10%));
+  box-shadow:
+    inset 0 0 0 0.5px rgb(22 56 48 / 22%),
+    0 1px 2px rgb(22 56 48 / 22%);
+}
+
+.play-hud-wpn__ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(rgb(186 142 56) calc(var(--wpn-charge) * 1turn), rgb(22 56 48 / 20%) 0);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+  mask: radial-gradient(closest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+}
+
+.play-hud-wpn__name {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  overflow: visible;
+  white-space: normal;
+  word-break: break-all;
+  line-height: 1.18;
+  font-size: calc(var(--wpn-font) * var(--wpn-name-scale, 1));
+  font-weight: 500;
+  letter-spacing: var(--wpn-name-track, 0.06em);
+  margin-right: calc(var(--wpn-name-track, 0.06em) * -1);
+}
+
+.play-hud-wpn--active .play-hud-wpn__name {
+  font-weight: 600;
+  color: rgb(14 44 37 / 94%);
+}
+
+.play-hud-wpn__gem {
+  width: 11%;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 1px solid rgb(160 122 52 / 60%);
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 30%);
+}
+
+.play-hud-wpn--empty .play-hud-wpn__name {
+  white-space: nowrap;
+  word-break: keep-all;
+  font-weight: 400;
+  color: rgb(20 52 45 / 56%);
+}

@@ -1,0 +1,1 @@
+function e(e){let t=0;for(let n of e.channels){if(t+=n.sampler.input.byteLength,n.property!==`property`){t+=n.sampler.output.byteLength;continue}let{output:e}=n.sampler;if(e instanceof Float32Array)t+=e.byteLength;else for(let n of e)t+=typeof n==`string`?n.length*2:1}return t}export{e as t};

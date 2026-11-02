@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="imBloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d8c08a" stop-opacity="0.11"/>
+      <stop offset="45%" stop-color="#d8c08a" stop-opacity="0.055"/>
+      <stop offset="100%" stop-color="#d8c08a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="imVig" cx="50%" cy="50%" r="72%">
+      <stop offset="0%" stop-color="#050c0b" stop-opacity="0"/>
+      <stop offset="52%" stop-color="#050c0b" stop-opacity="0.05"/>
+      <stop offset="75%" stop-color="#050c0b" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#050c0b" stop-opacity="0.72"/>
+    </radialGradient>
+    <linearGradient id="imFarFade" x1="0" y1="0" x2="1" y2="0.25">
+      <stop offset="0%" stop-color="#9ccfc3" stop-opacity="0.13"/>
+      <stop offset="55%" stop-color="#9ccfc3" stop-opacity="0.045"/>
+      <stop offset="100%" stop-color="#9ccfc3" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="imMidFade" x1="0" y1="0.1" x2="0.9" y2="0.4">
+      <stop offset="0%" stop-color="#15302c" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#15302c" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#15302c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="imNearFade" x1="0" y1="0.2" x2="0.85" y2="0.5">
+      <stop offset="0%" stop-color="#0b1a18" stop-opacity="0.78"/>
+      <stop offset="55%" stop-color="#0b1a18" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#0b1a18" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="imMistBand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#dfeee8" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#dfeee8" stop-opacity="0.045"/>
+      <stop offset="65%" stop-color="#dfeee8" stop-opacity="0.035"/>
+      <stop offset="100%" stop-color="#dfeee8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="imCornerInk" cx="100%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#0b1a18" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#0b1a18" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0b1a18" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="imB4" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="imB7" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="imB10" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="imB22" x="-40%" y="-120%" width="180%" height="340%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="imB34" x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="34"/></filter>
+  </defs>
+
+  <!-- warm light bloom behind title -->
+  <ellipse cx="800" cy="120" rx="430" ry="400" fill="url(#imBloom)"/>
+
+  <!-- far range -->
+  <g filter="url(#imB10)">
+    <path d="M-40 900 L-40 640 C0 610 40 560 90 520 C120 496 140 470 168 452 C186 470 200 500 226 520 C262 548 290 520 318 492 C334 476 344 462 360 468 C392 490 420 540 470 570 C530 606 600 640 700 668 C800 696 900 720 1000 740 L1000 900 Z" fill="url(#imFarFade)"/>
+  </g>
+
+  <!-- mid range -->
+  <g filter="url(#imB7)">
+    <path d="M-40 900 L-40 720 C20 690 70 640 120 596 C150 570 170 546 196 540 C222 560 240 600 272 626 C300 648 326 628 352 604 C370 588 384 578 400 584 C440 612 480 660 548 690 C620 722 720 752 860 780 L880 900 Z" fill="url(#imMidFade)"/>
+  </g>
+
+  <!-- near dark range -->
+  <g filter="url(#imB4)">
+    <path d="M-40 900 L-40 790 C30 770 80 730 126 690 C148 670 162 652 180 650 C204 672 222 706 252 726 C284 748 316 734 344 720 C380 704 410 712 450 736 C520 778 600 808 700 826 C760 836 800 846 830 862 L830 900 Z" fill="url(#imNearFade)"/>
+  </g>
+  <g filter="url(#imB10)" opacity="0.5">
+    <path d="M-60 900 L-60 848 C80 840 200 862 320 880 C400 892 460 896 520 900 Z" fill="#0b1a18"/>
+  </g>
+
+  <!-- top-right ink corner bloom -->
+  <rect x="1000" y="-60" width="660" height="520" fill="url(#imCornerInk)"/>
+  <g filter="url(#imB34)" opacity="0.5">
+    <ellipse cx="1560" cy="40" rx="300" ry="190" fill="#0b1a18"/>
+    <ellipse cx="1420" cy="-30" rx="230" ry="140" fill="#0b1a18"/>
+  </g>
+
+  <!-- drifting cloud wisps top-right -->
+  <g filter="url(#imB22)">
+    <path d="M1080 150 C1180 112 1300 104 1400 126 C1480 144 1540 134 1600 112 L1600 196 C1500 214 1380 212 1280 196 C1200 184 1130 182 1080 190 Z" fill="#dfeee8" opacity="0.07"/>
+    <path d="M1160 268 C1260 240 1380 246 1480 268 C1540 280 1572 276 1600 266 L1600 320 C1520 338 1400 338 1300 322 C1240 312 1190 300 1160 290 Z" fill="#dfeee8" opacity="0.05"/>
+    <path d="M1260 60 C1340 30 1460 26 1560 44 L1600 52 L1600 92 C1500 80 1390 82 1300 96 Z" fill="#dfeee8" opacity="0.06"/>
+    <path d="M1320 380 C1400 362 1500 364 1600 380 L1600 424 C1500 416 1400 414 1320 410 Z" fill="#dfeee8" opacity="0.04"/>
+  </g>
+
+  <!-- faint horizontal mist bands across middle -->
+  <g filter="url(#imB34)">
+    <path d="M120 400 C420 380 900 388 1480 372 L1500 410 C920 432 420 428 120 424 Z" fill="url(#imMistBand)"/>
+    <path d="M200 520 C560 500 980 512 1440 492 L1450 528 C1000 552 560 548 200 544 Z" fill="url(#imMistBand)" opacity="0.8"/>
+    <path d="M80 300 C480 288 960 296 1420 284 L1430 310 C980 328 480 324 80 320 Z" fill="url(#imMistBand)" opacity="0.6"/>
+  </g>
+
+  <!-- vignette -->
+  <rect width="1600" height="900" fill="url(#imVig)"/>
+</svg>

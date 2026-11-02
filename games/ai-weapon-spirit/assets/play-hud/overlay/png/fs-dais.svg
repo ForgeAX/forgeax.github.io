@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="56" viewBox="0 0 240 56">
+  <defs>
+    <radialGradient id="dsGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#9ccfc3" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#d8c08a" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#d8c08a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dsShadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#010505" stop-opacity="0.82"/>
+      <stop offset="0.55" stop-color="#020808" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#020808" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="dsArcGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d8c08a" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#ebd5a0" stop-opacity="0.38"/>
+      <stop offset="0.5" stop-color="#fff1cc" stop-opacity="0.58"/>
+      <stop offset="0.78" stop-color="#ebd5a0" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#d8c08a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="dsArcJade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9ccfc3" stop-opacity="0"/>
+      <stop offset="0.28" stop-color="#9ccfc3" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#d8f4ec" stop-opacity="0.44"/>
+      <stop offset="0.72" stop-color="#9ccfc3" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#9ccfc3" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 贴地柔光底座（位于鞋底正下方，不向上侵入脚踝） -->
+  <ellipse cx="120" cy="30" rx="108" ry="15" fill="url(#dsGlow)"/>
+
+  <!-- 角色双脚鞋底接地暗影（稳托双脚） -->
+  <ellipse cx="120" cy="26" rx="34" ry="6.5" fill="url(#dsShadow)"/>
+
+  <!-- 仅绘制下半圈前景托弧（绝不在上半部画闭合椭圆横切脚踝与小腿） -->
+  <path d="M 32 28 A 88 12 0 0 0 208 28" fill="none" stroke="url(#dsArcGold)" stroke-width="1.35" stroke-linecap="round"/>
+  <path d="M 62 26 A 58 8 0 0 0 178 26" fill="none" stroke="url(#dsArcJade)" stroke-width="1" stroke-linecap="round"/>
+</svg>

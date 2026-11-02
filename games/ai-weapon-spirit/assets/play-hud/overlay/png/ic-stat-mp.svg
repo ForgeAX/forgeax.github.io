@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 葫芦顶蒂与卷须 -->
+  <path fill="#e2dac7" stroke="none" d="M31 6 C33 6 35 8 34 12 L30 12 C29.5 9 30 6 31 6 Z"/>
+  <path fill="none" stroke="#e2dac7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M34 10 C40 8 45 11 44 16 C43 19 39 19 38 16"/>
+  <!-- 上下双肚饱满葫芦剪影 -->
+  <path fill="#e2dac7" stroke="none" d="M32 11.5 C38.5 11.5 43 16 42.5 21.5 C42 25.5 39 28.5 36.5 30 C44.5 33 49.5 40 48.5 48 C47.5 54.8 41 58.5 32 58.5 C23 58.5 16.5 54.8 15.5 48 C14.5 40 19.5 33 27.5 30 C25 28.5 22 25.5 21.5 21.5 C21 16 25.5 11.5 32 11.5 Z"/>
+  <!-- 束腰绳结阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M26 29.8 Q32 32 38 29.8"/>
+  <!-- 下腹浓墨灵气旋纹阴刻 -->
+  <path fill="#171512" stroke="none" d="M20 45 C23 41 29 41.5 33.5 44 C37.5 46.2 41.5 45.2 44.5 42.5 C45 48.5 41.5 53.5 35.5 54.5 C33 55 31 55 28.5 54.5 C22.5 53.5 19.2 49.5 20 45 Z"/>
+  <circle fill="#171512" stroke="none" cx="32" cy="21" r="2.8"/>
+</svg>

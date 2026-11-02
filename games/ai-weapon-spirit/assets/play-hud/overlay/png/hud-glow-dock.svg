@@ -1,0 +1,269 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="160" viewBox="0 0 520 160" preserveAspectRatio="none">
+<defs>
+  <linearGradient id="frost" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#1a4d38" stop-opacity="0.58"/>
+    <stop offset="50%" stop-color="#0d2f22" stop-opacity="0.52"/>
+    <stop offset="100%" stop-color="#03120c" stop-opacity="0.70"/>
+  </linearGradient>
+  <radialGradient id="bodyGlow" cx="50%" cy="28%" r="62%">
+    <stop offset="0%" stop-color="#e8d4a8" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="#e8d4a8" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="bandVert" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#e8c888" stop-opacity="0.24"/>
+    <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="anchorVert" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#c8a868" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#c8a868" stop-opacity="0.17"/>
+  </linearGradient>
+  <linearGradient id="grooveShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#01100a" stop-opacity="0.45"/>
+    <stop offset="100%" stop-color="#01100a" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient id="well">
+    <stop offset="0%" stop-color="#e8d4a8" stop-opacity="0.085"/>
+    <stop offset="60%" stop-color="#e8d4a8" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#e8d4a8" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="arcFade" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#e8c888" stop-opacity="0"/>
+    <stop offset="50%" stop-color="#e8c888" stop-opacity="0.30"/>
+    <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gGoldH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="40" y2="0">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0.55"/>
+    <stop offset="35%" stop-color="#d4b878" stop-opacity="0.34"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gGoldV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="40">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0.55"/>
+    <stop offset="35%" stop-color="#d4b878" stop-opacity="0.34"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gJadeH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="40" y2="0">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gJadeV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="40">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gCrestGold" gradientUnits="userSpaceOnUse" x1="12" y1="0" x2="58" y2="0">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0.50"/>
+    <stop offset="30%" stop-color="#d4b878" stop-opacity="0.42"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gCrestJade" gradientUnits="userSpaceOnUse" x1="12" y1="0" x2="54" y2="0">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0.50"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="tickFade" gradientUnits="userSpaceOnUse" x1="0" y1="56" x2="0" y2="140">
+    <stop offset="0%" stop-color="#d4b878" stop-opacity="0"/>
+    <stop offset="50%" stop-color="#d4b878" stop-opacity="0.35"/>
+    <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="edgeFade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="520" y2="0">
+    <stop offset="0%" stop-color="#e8c888" stop-opacity="0"/>
+    <stop offset="22%" stop-color="#e8c888" stop-opacity="0.18"/>
+    <stop offset="50%" stop-color="#e8c888" stop-opacity="0.26"/>
+    <stop offset="78%" stop-color="#e8c888" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="sepFade" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="470" y2="0">
+    <stop offset="0%" stop-color="#2f7a5c" stop-opacity="0"/>
+    <stop offset="50%" stop-color="#2f7a5c" stop-opacity="0.26"/>
+    <stop offset="100%" stop-color="#2f7a5c" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="grooveW" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="480" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="7%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="93%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="centreW" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="520" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="25%" stop-color="#fff" stop-opacity="0.30"/>
+    <stop offset="50%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="75%" stop-color="#fff" stop-opacity="0.30"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="bandW" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="520" y2="0">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="18%" stop-color="#fff" stop-opacity="0.65"/>
+    <stop offset="50%" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="82%" stop-color="#fff" stop-opacity="0.65"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+
+  <filter id="fFeather" x="-10%" y="-25%" width="120%" height="150%"><feGaussianBlur stdDeviation="2.5"/></filter>
+  <filter id="fHalo" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="1.2"/></filter>
+  <filter id="fHalo2" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="2.2"/></filter>
+  <filter id="fSoft" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="1.4"/></filter>
+
+  <mask id="mFeather" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="160">
+    <path d="M3,11 L128,11 C166,11 164,5 190,5 L330,5 C356,5 354,11 392,11 L517,11 L517,157 L3,157 Z" fill="#fff" filter="url(#fFeather)"/>
+  </mask>
+  <mask id="mBand" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="20">
+    <rect x="0" y="0" width="520" height="20" fill="url(#bandW)"/>
+  </mask>
+  <mask id="mGroove" maskUnits="userSpaceOnUse" x="24" y="10" width="472" height="32">
+    <rect x="40" y="16" width="440" height="18" rx="9" fill="url(#grooveW)"/>
+  </mask>
+  <mask id="mBottom" maskUnits="userSpaceOnUse" x="0" y="130" width="520" height="30">
+    <rect x="0" y="130" width="520" height="30" fill="url(#centreW)"/>
+  </mask>
+
+  <clipPath id="bandClip">
+    <path d="M0,8 L128,8 C166,8 164,2 190,2 L330,2 C356,2 354,8 392,8 L520,8 L520,17 L392,17 C354,17 356,11 330,11 L190,11 C164,11 166,17 128,17 L0,17 Z"/>
+  </clipPath>
+</defs>
+
+<!-- ===== frost body (feathered) ===== -->
+<g mask="url(#mFeather)">
+  <path d="M0,8 L128,8 C166,8 164,2 190,2 L330,2 C356,2 354,8 392,8 L520,8 L520,160 L0,160 Z" fill="url(#frost)"/>
+  <rect x="0" y="0" width="520" height="160" fill="url(#bodyGlow)"/>
+  <g clip-path="url(#bandClip)" mask="url(#mBand)">
+    <rect x="0" y="0" width="520" height="17" fill="url(#bandVert)"/>
+    <rect x="0" y="0" width="520" height="17" fill="url(#bandVert)" filter="url(#fSoft)" opacity="0.5"/>
+  </g>
+  <rect x="0" y="130" width="520" height="30" fill="url(#anchorVert)" mask="url(#mBottom)"/>
+</g>
+
+<!-- ===== warm hairline along the plaque shoulder ===== -->
+<path d="M4,8 L128,8 C166,8 164,2 190,2 L330,2 C356,2 354,8 392,8 L516,8" fill="none" stroke="url(#edgeFade)" stroke-width="0.8"/>
+
+<g transform="translate(0,5)">
+<!-- ===== cultivation groove ===== -->
+<g mask="url(#mGroove)">
+  <rect x="40" y="16" width="440" height="18" rx="9" fill="#06241a" opacity="0.55"/>
+  <rect x="40" y="16" width="440" height="11" rx="5.5" fill="url(#grooveShadow)"/>
+  <path d="M44,17.1 H476" fill="none" stroke="#2f7a5c" stroke-width="0.6" opacity="0.30"/>
+  <path d="M46,33.1 H474" fill="none" stroke="#e8c888" stroke-width="0.6" opacity="0.26"/>
+  <path d="M46,33.1 H474" fill="none" stroke="#e8c888" stroke-width="0.6" opacity="0.12" filter="url(#fSoft)"/>
+</g>
+<g transform="translate(32,25)">
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(488,25)">
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3 3,0 0,3 -3,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.1 1.1,0 0,1.1 -1.1,0" fill="#fff8e8"/>
+</g>
+
+</g>
+
+<!-- ===== separation hairline under groove ===== -->
+<path d="M50,44 H470" fill="none" stroke="url(#sepFade)" stroke-width="0.6"/>
+
+<!-- ===== six weapon light wells ===== -->
+<g>
+  <circle cx="60" cy="78" r="30" fill="url(#well)"/>
+  <path d="M38,47.4 Q60,44.2 82,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+  <circle cx="140" cy="78" r="30" fill="url(#well)"/>
+  <path d="M118,47.4 Q140,44.2 162,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+  <circle cx="220" cy="78" r="30" fill="url(#well)"/>
+  <path d="M198,47.4 Q220,44.2 242,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+  <circle cx="300" cy="78" r="30" fill="url(#well)"/>
+  <path d="M278,47.4 Q300,44.2 322,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+  <circle cx="380" cy="78" r="30" fill="url(#well)"/>
+  <path d="M358,47.4 Q380,44.2 402,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+  <circle cx="460" cy="78" r="30" fill="url(#well)"/>
+  <path d="M438,47.4 Q460,44.2 482,47.4" fill="none" stroke="url(#arcFade)" stroke-width="0.8"/>
+</g>
+
+<!-- ===== dividing ticks ===== -->
+<g>
+  <g transform="translate(100,0)">
+    <line x1="0" y1="56" x2="0" y2="140" stroke="url(#tickFade)" stroke-width="0.8"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#d4b878" opacity="0.55"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#e8c888" opacity="0.22" filter="url(#fHalo)"/>
+  </g>
+  <g transform="translate(180,0)">
+    <line x1="0" y1="56" x2="0" y2="140" stroke="url(#tickFade)" stroke-width="0.8"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#d4b878" opacity="0.55"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#e8c888" opacity="0.22" filter="url(#fHalo)"/>
+  </g>
+  <g transform="translate(260,0)">
+    <line x1="0" y1="56" x2="0" y2="140" stroke="url(#tickFade)" stroke-width="0.8"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#d4b878" opacity="0.55"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#e8c888" opacity="0.22" filter="url(#fHalo)"/>
+  </g>
+  <g transform="translate(340,0)">
+    <line x1="0" y1="56" x2="0" y2="140" stroke="url(#tickFade)" stroke-width="0.8"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#d4b878" opacity="0.55"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#e8c888" opacity="0.22" filter="url(#fHalo)"/>
+  </g>
+  <g transform="translate(420,0)">
+    <line x1="0" y1="56" x2="0" y2="140" stroke="url(#tickFade)" stroke-width="0.8"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#d4b878" opacity="0.55"/>
+    <polygon points="0,-1.8 1.8,0 0,1.8 -1.8,0" transform="translate(0,98)" fill="#e8c888" opacity="0.22" filter="url(#fHalo)"/>
+  </g>
+</g>
+
+<!-- ===== corner L-bracket fragments ===== -->
+<g transform="translate(6,14)">
+  <line x1="0" y1="0" x2="40" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="40" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="3" y1="2.5" x2="38" y2="2.5" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.5" y1="3" x2="2.5" y2="38" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.3 1.3,0 0,1.3 -1.3,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(514,14) scale(-1,1)">
+  <line x1="0" y1="0" x2="40" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="40" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="3" y1="2.5" x2="38" y2="2.5" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.5" y1="3" x2="2.5" y2="38" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.3 1.3,0 0,1.3 -1.3,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(6,154) scale(1,-1)">
+  <line x1="0" y1="0" x2="40" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="40" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="3" y1="2.5" x2="38" y2="2.5" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.5" y1="3" x2="2.5" y2="38" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.3 1.3,0 0,1.3 -1.3,0" fill="#fff8e8"/>
+</g>
+<g transform="translate(514,154) scale(-1,-1)">
+  <line x1="0" y1="0" x2="40" y2="0" stroke="url(#gGoldH)" stroke-width="0.9"/>
+  <line x1="0" y1="0" x2="0" y2="40" stroke="url(#gGoldV)" stroke-width="0.9"/>
+  <line x1="3" y1="2.5" x2="38" y2="2.5" stroke="url(#gJadeH)" stroke-width="0.6"/>
+  <line x1="2.5" y1="3" x2="2.5" y2="38" stroke="url(#gJadeV)" stroke-width="0.6"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#f3e8d0" opacity="0.22" filter="url(#fHalo)"/>
+  <polygon points="0,-3.5 3.5,0 0,3.5 -3.5,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+  <polygon points="0,-1.3 1.3,0 0,1.3 -1.3,0" fill="#fff8e8"/>
+</g>
+
+<!-- ===== top-centre crest ===== -->
+<g transform="translate(260,0)">
+  <g>
+    <line x1="12" y1="6" x2="56" y2="6" stroke="url(#gCrestGold)" stroke-width="0.9"/>
+    <line x1="13" y1="8" x2="52" y2="8" stroke="url(#gCrestJade)" stroke-width="0.6"/>
+    <g transform="translate(51,6) scale(0.8)">
+      <path d="M0,-3 C0.4,-1 1,-0.4 3,0 C1,0.4 0.4,1 0,3 C-0.4,1 -1,0.4 -3,0 C-1,-0.4 -0.4,-1 0,-3 Z" fill="#d4b878" opacity="0.6"/>
+      <path d="M0,-3 C0.4,-1 1,-0.4 3,0 C1,0.4 0.4,1 0,3 C-0.4,1 -1,0.4 -3,0 C-1,-0.4 -0.4,-1 0,-3 Z" fill="#e8c888" opacity="0.25" filter="url(#fHalo)"/>
+    </g>
+  </g>
+  <g transform="scale(-1,1)">
+    <line x1="12" y1="6" x2="56" y2="6" stroke="url(#gCrestGold)" stroke-width="0.9"/>
+    <line x1="13" y1="8" x2="52" y2="8" stroke="url(#gCrestJade)" stroke-width="0.6"/>
+    <g transform="translate(51,6) scale(0.8)">
+      <path d="M0,-3 C0.4,-1 1,-0.4 3,0 C1,0.4 0.4,1 0,3 C-0.4,1 -1,0.4 -3,0 C-1,-0.4 -0.4,-1 0,-3 Z" fill="#d4b878" opacity="0.6"/>
+      <path d="M0,-3 C0.4,-1 1,-0.4 3,0 C1,0.4 0.4,1 0,3 C-0.4,1 -1,0.4 -3,0 C-1,-0.4 -0.4,-1 0,-3 Z" fill="#e8c888" opacity="0.25" filter="url(#fHalo)"/>
+    </g>
+  </g>
+  <g transform="translate(0,6)">
+    <polygon points="0,-10 10,0 0,10 -10,0" fill="#e8c888" opacity="0.13" filter="url(#fHalo2)"/>
+    <polygon points="0,-6 6,0 0,6 -6,0" fill="#f3e8d0" opacity="0.24" filter="url(#fHalo)"/>
+    <polygon points="0,-6 6,0 0,6 -6,0" fill="#e8c888" stroke="#b89858" stroke-width="0.4"/>
+    <polygon points="0,-2.2 2.2,0 0,2.2 -2.2,0" fill="#fff8e8"/>
+  </g>
+</g>
+</svg>

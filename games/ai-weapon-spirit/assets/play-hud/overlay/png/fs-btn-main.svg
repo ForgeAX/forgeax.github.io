@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="48" viewBox="0 0 160 48">
+<defs>
+<linearGradient id="bmFill" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#3a2f1a" stop-opacity=".85"/>
+<stop offset="1" stop-color="#1a140a" stop-opacity=".92"/>
+</linearGradient>
+<radialGradient id="bmGlow">
+<stop offset="0" stop-color="#e6c987" stop-opacity=".75"/>
+<stop offset="1" stop-color="#e6c987" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<path d="M6.1 0.1H153.9L159.9 6.1V41.9L153.9 47.9H6.1L0.1 41.9V6.1Z" fill="none" stroke="#000" stroke-opacity=".4" stroke-width="1"/>
+<path d="M6.6 0.6H153.4L159.4 6.6V41.4L153.4 47.4H6.6L0.6 41.4V6.6Z" fill="url(#bmFill)" stroke="#e6c987" stroke-opacity=".85" stroke-width="1.2"/>
+<rect x="8" y="2.2" width="144" height="1.5" fill="#f3dca0" fill-opacity=".22"/>
+<path d="M9.4 3.6H150.6L156.4 9.4V38.6L150.6 44.4H9.4L3.6 38.6V9.4Z" fill="none" stroke="#e6c987" stroke-opacity=".35" stroke-width="1"/>
+<g>
+<circle cx="3.6" cy="3.6" r="5" fill="url(#bmGlow)"/>
+<circle cx="156.4" cy="3.6" r="5" fill="url(#bmGlow)"/>
+<circle cx="3.6" cy="44.4" r="5" fill="url(#bmGlow)"/>
+<circle cx="156.4" cy="44.4" r="5" fill="url(#bmGlow)"/>
+<path d="M3.6 1.6 5.6 3.6 3.6 5.6 1.6 3.6Z" fill="#f3dca0"/>
+<path d="M156.4 1.6 158.4 3.6 156.4 5.6 154.4 3.6Z" fill="#f3dca0"/>
+<path d="M3.6 42.4 5.6 44.4 3.6 46.4 1.6 44.4Z" fill="#f3dca0"/>
+<path d="M156.4 42.4 158.4 44.4 156.4 46.4 154.4 44.4Z" fill="#f3dca0"/>
+</g>
+</svg>

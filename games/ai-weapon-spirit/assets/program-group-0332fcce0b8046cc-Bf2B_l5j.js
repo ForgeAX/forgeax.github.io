@@ -1,0 +1,1 @@
+export{default as t}from"./rapier3d-Big6zn2i.js";

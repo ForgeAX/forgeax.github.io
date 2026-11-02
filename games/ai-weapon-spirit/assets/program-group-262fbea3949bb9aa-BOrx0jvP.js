@@ -1,0 +1,1 @@
+var e=`weapon-spirit.meadow-outline`,t=.035,n=.035,r=.5,i=.08;export{i as a,e as i,t as n,r,n as t};

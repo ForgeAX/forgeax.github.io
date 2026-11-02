@@ -1,0 +1,156 @@
+{
+  "package": "hud-orb",
+  "version": "1.8.0",
+  "spec": "SPEC.md",
+  "stylesheets": [
+    "hud-orb.css",
+    "hud-bar.css",
+    "hud-touch.css"
+  ],
+  "gem": "orb-gem.json",
+  "components": [
+    {
+      "id": "HUD-ORB-LIFE-01",
+      "name": "命球",
+      "file": "png/hud-orb-life-01-1x1.png",
+      "variant": "life",
+      "contentInset": "24% 20% 24% 20%"
+    },
+    {
+      "id": "HUD-ORB-QI-01",
+      "name": "灵球",
+      "file": "png/hud-orb-qi-01-1x1.png",
+      "variant": "qi",
+      "contentInset": "24% 20% 24% 20%"
+    },
+    {
+      "id": "HUD-REALM-01",
+      "name": "境界",
+      "file": "png/hud-realm-track.png",
+      "mark": "png/hud-realm-mark.svg",
+      "contentInset": "无框漂浮",
+      "size": {
+        "mobile": "200×63（占位 244×113）",
+        "desktop": "252×73（占位 306×133）"
+      },
+      "note": "无方框；菱花镜环纹 0.38W，圆心在框线转角；14/29 只写一次；--realm-progress 为 0–1",
+      "bleed": "0.2W 左/上"
+    },
+    {
+      "id": "HUD-WAVE-01",
+      "name": "波次",
+      "file": "png/hud-wave-frame.svg",
+      "crest": "png/hud-wave-crest.svg",
+      "contentInset": "镂空横匾 · 三宫格",
+      "slice": "0 36 fill / 0 var(--wave-cap)",
+      "size": {
+        "mobile": "休整 200×34 / 战斗 200×28",
+        "desktop": "休整 260×44 / 战斗 200×28"
+      },
+      "note": "中间透空；竖屏放进 .play-hud-stack，与 REALM 同宽同左缘；单行"
+    },
+    {
+      "id": "HUD-RUN-LIST-01",
+      "name": "本局资源",
+      "file": "CSS 镂空条带",
+      "contentInset": "2×2 · 标签左数值右",
+      "size": {
+        "mobile": "200×52",
+        "desktop": "252×60"
+      },
+      "note": "无图片；左脊与 REALM 框线、WAVE 金菱同一竖线；竖屏放进 .play-hud-stack"
+    },
+    {
+      "id": "HUD-BTN-ROLL-READY-01",
+      "name": "翻滚就绪辅读",
+      "file": "png/hud-dash-frame.svg",
+      "contentInset": "轻量委角框 · 单行",
+      "slice": "0 10 fill / 0 var(--dash-cap)",
+      "size": {
+        "ready": "约 105×22",
+        "cooldown": "约 121×22"
+      },
+      "note": "最低层级；只读 status；竖屏 RUN 下内容宽 / 横屏左下安全区；不是 RUN 玉条、不是按钮"
+    },
+    {
+      "id": "HUD-JOYSTICK-01",
+      "name": "虚拟摇杆",
+      "file": "png/hud-joystick-ring.svg + hud-joystick-knob.svg",
+      "contentInset": "外环 112 · 内盘 48 居中",
+      "note": "外环 annulus 暗底+内晕；内盘同 action 圆钮；内盘 transform 拖动"
+    },
+    {
+      "id": "HUD-BTN-JUMP-01",
+      "name": "跳跃",
+      "file": "png/hud-btn-action.svg",
+      "contentInset": "圆钮 · 文案居中",
+      "size": { "mobile": "64×64" },
+      "note": "暗底 ~48% + 淡玉内晕；弱于菜单方钮"
+    },
+    {
+      "id": "HUD-BTN-ROLL-01",
+      "name": "翻滚",
+      "file": "png/hud-btn-action.svg",
+      "contentInset": "圆钮 60 · 同 plate",
+      "size": { "mobile": "60×60" },
+      "note": "play-hud-touch-btn--roll 缩小尺寸"
+    },
+    {
+      "id": "HUD-BTN-SYS-ICON-01",
+      "name": "全屏",
+      "file": "png/hud-btn-square.svg",
+      "contentInset": "方钮 · 图标居中",
+      "size": {
+        "mobile": "44×44",
+        "desktop": "36×36"
+      },
+      "note": "独立放菜单左侧；iPhone 不显示"
+    },
+    {
+      "id": "HUD-BTN-LOADOUT-01",
+      "name": "菜单",
+      "file": "png/hud-btn-frame.svg",
+      "contentInset": "三宫格 · ☰ 菜单 + Esc",
+      "slice": "0 18 fill / 0 calc(var(--sys-h) * 0.5)",
+      "size": {
+        "mobile": "88×44（无 Esc）",
+        "desktop": "118×36（带 Esc）"
+      },
+      "note": "线框同境界 / 横匾"
+    },
+    {
+      "id": "HUD-BTN-ESC-01",
+      "name": "Esc 键帽",
+      "file": "CSS 键帽",
+      "contentInset": "菜单按钮右端",
+      "note": "键盘 / 手柄时显示，触屏隐藏"
+    },
+    {
+      "id": "HUD-WPN-DOCK-01",
+      "name": "底部武位栏",
+      "file": "png/hud-wpn-dock.png",
+      "lit": "png/hud-wpn-dock-lit.png",
+      "geom": "png/hud-wpn-dock.json",
+      "contentInset": "玉管 4.4%/5.6% · 格 20.2% 2.02% 1.2%",
+      "size": {
+        "mobile": "374×90",
+        "desktop": "520×125"
+      },
+      "note": "一整块玉器底版；--xp-progress / --wpn-current / --wpn-charge 为 0–1；名字禁止省略号"
+    },
+    {
+      "id": "HUD-WPN-SLOT-EMPTY",
+      "name": "空武位",
+      "file": "底版玉片 · 无叠层",
+      "contentInset": "12% 7% 10% 7%",
+      "note": "金菱 + 武N·空，完整显示"
+    },
+    {
+      "id": "HUD-WPN-SLOT-ACTIVE",
+      "name": "当前武位",
+      "file": "png/hud-wpn-dock-lit.png",
+      "contentInset": "12% 7% 10% 7%",
+      "note": "点亮版按格裁出 · 充能金环 + 武器名完整显示"
+    }
+  ]
+}

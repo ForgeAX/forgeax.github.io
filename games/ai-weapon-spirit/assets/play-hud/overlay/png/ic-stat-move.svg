@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 战靴后上方展翼与流线翘头履体 -->
+  <path fill="#e2dac7" stroke="none" d="M36 24 C41 15 49 10 57 9 C55 15 51 20 46 23 C51 21 55 20 58 21 C54 26 48 29 42 31 L38 41 C33 46 25 51 15 53 C10 54 6.5 51.5 7 47.5 C7.5 44 12 41.5 18 39.5 L28 31 L27 22 C31 20 34 21 36 24 Z"/>
+  <!-- 羽翼翎毛浓墨阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M34 29 C39 22 45 17 51 14 M36 33 C41 28 46 25 51 23"/>
+  <!-- 靴底与卷云阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M10.5 49.5 C19 48.5 28 44 35.5 38.5"/>
+  <circle fill="#171512" stroke="none" cx="28" cy="37" r="2.2"/>
+</svg>

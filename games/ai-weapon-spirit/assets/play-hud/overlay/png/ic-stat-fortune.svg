@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 瑞蟾饱满端坐剪影 -->
+  <path fill="#e2dac7" stroke="none" d="M23 11 C26 11 28.5 13 29.5 15 C31 14.5 33 14.5 34.5 15 C35.5 13 38 11 41 11 C44.5 11 47 14 46.5 17.5 C51.5 21.5 54.5 28 53.5 35.5 C56.5 38.5 57 44 54 48 L56 52 L45 53 L42 49 C38.5 51 25.5 51 22 49 L19 53 L8 52 L10 48 C7 44 7.5 38.5 10.5 35.5 C9.5 28 12.5 21.5 17.5 17.5 C17 14 19.5 11 23 11 Z"/>
+  <!-- 瑞蟾双目与背纹阴刻 -->
+  <circle fill="#171512" stroke="none" cx="23.5" cy="16" r="2.3"/>
+  <circle fill="#171512" stroke="none" cx="40.5" cy="16" r="2.3"/>
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M22 23.5 Q32 20.5 42 23.5"/>
+  <!-- 腹心所衔方孔古铜钱浓墨阴刻 -->
+  <circle fill="#171512" stroke="none" cx="32" cy="38.5" r="9.5"/>
+  <rect fill="#e2dac7" stroke="none" x="28.5" y="35" width="7" height="7" rx="1"/>
+  <!-- 左右前爪抱钱阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M15 35 C18 37 20 40 21 44 M49 35 C46 37 44 40 43 44"/>
+</svg>

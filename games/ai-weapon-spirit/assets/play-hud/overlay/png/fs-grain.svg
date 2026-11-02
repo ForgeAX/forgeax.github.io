@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+<defs>
+<filter id="pgGrain" x="0" y="0" width="240" height="240" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="17" stitchTiles="stitch" result="pgn"/>
+<feColorMatrix in="pgn" type="matrix" values="0 0 0 0 0.945 0 0 0 0 0.925 0 0 0 0 0.863 0.30 0.10 0.04 0 -0.095"/>
+</filter>
+<filter id="pgFibreA" x="0" y="0" width="240" height="240" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.012 0.7" numOctaves="3" seed="43" stitchTiles="stitch" result="pgf"/>
+<feColorMatrix in="pgf" type="matrix" values="0 0 0 0 0.945 0 0 0 0 0.925 0 0 0 0 0.863 0.26 0.08 0 0 -0.105"/>
+</filter>
+<filter id="pgFibreB" x="0" y="0" width="240" height="240" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.6 0.016" numOctaves="3" seed="91" stitchTiles="stitch" result="pgg"/>
+<feColorMatrix in="pgg" type="matrix" values="0 0 0 0 0.945 0 0 0 0 0.925 0 0 0 0 0.863 0.20 0.07 0 0 -0.095"/>
+</filter>
+<filter id="pgSpeck" x="0" y="0" width="240" height="240" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.33" numOctaves="2" seed="7" stitchTiles="stitch" result="pgs"/>
+<feColorMatrix in="pgs" type="matrix" values="0 0 0 0 0.945 0 0 0 0 0.925 0 0 0 0 0.863 0.34 0 0 0 -0.215"/>
+</filter>
+</defs>
+<rect width="240" height="240" fill="none"/>
+<rect width="240" height="240" fill="#000" filter="url(#pgGrain)" opacity="0.4"/>
+<rect width="240" height="240" fill="#000" filter="url(#pgSpeck)" opacity="0.5"/>
+</svg>

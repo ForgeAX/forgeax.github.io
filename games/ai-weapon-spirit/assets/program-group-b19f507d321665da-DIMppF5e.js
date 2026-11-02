@@ -1,0 +1,1 @@
+import{n as e,o as t,r as n}from"./program-group-212d6d769c76942c-B6sZBQLi.js";var r=(t,n,r=0)=>t?t[0]+(t[1]-t[0])*e(n):r;function i(e,t,n){let r=e[0]+(e[1]-e[0])*t;return e[0]>0&&e[1]>0?r*(e[1]/e[0])**(n*.35):r+(e[1]-e[0])*n*.35}function a(r,a){return t(a),i(r,e(a),n(a))}export{r as n,a as r,i as t};

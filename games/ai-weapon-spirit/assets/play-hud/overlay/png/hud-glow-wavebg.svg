@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="72" viewBox="0 0 360 72" preserveAspectRatio="none">
+  <defs>
+    <!-- dark jade frost, denser toward the bottom so the small timer reads -->
+    <linearGradient id="wtFrost" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#1a4d38" stop-opacity="0.54"/>
+      <stop offset="42%"  stop-color="#0d2f22" stop-opacity="0.58"/>
+      <stop offset="100%" stop-color="#03120c" stop-opacity="0.70"/>
+    </linearGradient>
+    <linearGradient id="wtLower" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="38%"  stop-color="#03120c" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#03120c" stop-opacity="0.17"/>
+    </linearGradient>
+
+    <!-- horizontal body falloff: solid 90..270, zero well before the canvas ends -->
+    <linearGradient id="wtH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0">
+      <stop offset="0"    stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.05" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.25" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.75" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.95" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1"    stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- vertical body falloff -->
+    <linearGradient id="wtV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="72">
+      <stop offset="0"     stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.153" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.306" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.750" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.875" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1"     stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- warm light band along the top edge -->
+    <linearGradient id="wtBandV" gradientUnits="userSpaceOnUse" x1="0" y1="11" x2="0" y2="31">
+      <stop offset="0%"   stop-color="#e8c888" stop-opacity="0.30"/>
+      <stop offset="45%"  stop-color="#e8c888" stop-opacity="0.17"/>
+      <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wtBandH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0">
+      <stop offset="0.083" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.306" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.694" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.917" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- faint gold anchor glow along the bottom centre -->
+    <linearGradient id="wtAnchorV" gradientUnits="userSpaceOnUse" x1="0" y1="44" x2="0" y2="63">
+      <stop offset="0%"   stop-color="#c8a868" stop-opacity="0"/>
+      <stop offset="70%"  stop-color="#c8a868" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#c8a868" stop-opacity="0.13"/>
+    </linearGradient>
+    <linearGradient id="wtAnchorH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0">
+      <stop offset="0.194" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.417" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.583" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.806" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- bottom warm hairline, fading at both ends -->
+    <linearGradient id="wtHair" gradientUnits="userSpaceOnUse" x1="110" y1="0" x2="250" y2="0">
+      <stop offset="0%"   stop-color="#d4b878" stop-opacity="0"/>
+      <stop offset="26%"  stop-color="#d4b878" stop-opacity="0.35"/>
+      <stop offset="74%"  stop-color="#d4b878" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#d4b878" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="wtFeather" x="-15%" y="-60%" width="130%" height="220%">
+      <feGaussianBlur stdDeviation="2.2 3"/>
+    </filter>
+    <filter id="wtSoft" x="-60%" y="-200%" width="220%" height="500%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+    <filter id="wtHalo" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+
+    <mask id="wtVMask" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="72">
+      <rect width="360" height="72" fill="url(#wtV)"/>
+    </mask>
+    <mask id="wtBody" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="72">
+      <g filter="url(#wtFeather)">
+        <g mask="url(#wtVMask)">
+          <rect width="360" height="72" fill="url(#wtH)"/>
+        </g>
+      </g>
+    </mask>
+    <mask id="wtBandMask" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="72">
+      <rect width="360" height="72" fill="url(#wtBandH)"/>
+    </mask>
+    <mask id="wtAnchorMask" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="72">
+      <rect width="360" height="72" fill="url(#wtAnchorH)"/>
+    </mask>
+  </defs>
+
+  <!-- feathered frost body + its light accents (all clipped to the soft body so no edge can appear) -->
+  <g mask="url(#wtBody)">
+    <rect width="360" height="72" fill="url(#wtFrost)"/>
+    <rect width="360" height="72" fill="url(#wtLower)"/>
+    <g mask="url(#wtBandMask)">
+      <rect x="0" y="11" width="360" height="20" fill="url(#wtBandV)"/>
+      <rect x="0" y="11" width="360" height="20" fill="url(#wtBandV)" opacity="0.5" filter="url(#wtSoft)"/>
+    </g>
+    <g mask="url(#wtAnchorMask)">
+      <rect x="0" y="44" width="360" height="19" fill="url(#wtAnchorV)"/>
+    </g>
+  </g>
+
+  <!-- bottom hairline -->
+  <rect x="110" y="65.7" width="140" height="0.6" fill="url(#wtHair)"/>
+  <rect x="110" y="65.7" width="140" height="0.6" fill="url(#wtHair)" opacity="0.35" filter="url(#wtSoft)"/>
+
+  <!-- 菱花 -->
+  <g transform="translate(180,66)">
+    <polygon points="0,-2.4 2.4,0 0,2.4 -2.4,0" fill="#f3e8d0" opacity="0.22" filter="url(#wtHalo)"/>
+    <polygon points="0,-2.4 2.4,0 0,2.4 -2.4,0" fill="#e8c888" stroke="#b89858" stroke-width="0.2"/>
+    <polygon points="0,-0.8 0.8,0 0,0.8 -0.8,0" fill="#fff8e8"/>
+  </g>
+</svg>

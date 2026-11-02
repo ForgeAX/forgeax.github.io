@@ -1,0 +1,1 @@
+import{r as e}from"./program-group-992dbda7bafa4d5e-DC0yQnnq.js";var t=e(`spell`);export{t};

@@ -1,0 +1,20 @@
+{
+  "size": [
+    1600,
+    386
+  ],
+  "aspect": 4.1468,
+  "slots": {
+    "left%": 2.016,
+    "right%": 2.016,
+    "top%": 20.222,
+    "bottom%": 1.195,
+    "gap%ofWidth": 0.926,
+    "col%ofWidth": 15.223
+  },
+  "tube": {
+    "top%": 2.56,
+    "height%": 15.87,
+    "capX%": 5.144
+  }
+}

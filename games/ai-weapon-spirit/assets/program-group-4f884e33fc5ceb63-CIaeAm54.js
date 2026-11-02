@@ -1,0 +1,1 @@
+var e=[260,105];function t(t,n){if(!Number.isFinite(t)||t<0)throw Error(`Scenic plant LOD: invalid projected height`);let r=t>=e[0]?0:t>=e[1]?1:2;return r<n&&r<2&&t<e[r===0?0:1]*1.12?r+1:r>n&&t>e[n]*.88?n:r}export{t};

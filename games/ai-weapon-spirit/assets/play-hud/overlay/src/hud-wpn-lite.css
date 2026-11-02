@@ -1,0 +1,242 @@
+/*
+ * HUD-WPN-LITE · 模型生成的光代框 SVG 整板（同右上按钮语言），无实格。
+ * 修为槽与六格位置对应 SVG 内的凹槽与槽位区。
+ */
+
+.play-hud .play-hud-dock--lite,
+.play-hud-dock--lite {
+  display: block !important;
+  position: relative !important;
+  aspect-ratio: 3.25 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.play-hud-dock--lite::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("./png/hud-glow-dock.svg?v=g3") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* 修为槽容器与天赋点：强制脱离上游 .play-hud .play-hud-progression 的 24px 网格布局，
+   直接绝对定位居中进 SVG 凹槽（y=21..39 / 160 => top: 13.125%, height: 11.25%），
+   彻底解决修为条与天赋眼睛图标下坠压线的问题。 */
+.play-hud .play-hud-dock--lite > .play-hud-progression,
+.play-hud-dock--lite > .play-hud-progression {
+  position: static !important;
+  display: contents !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+
+.play-hud .play-hud-dock--lite .play-hud-dock__xp,
+.play-hud-dock--lite .play-hud-dock__xp {
+  position: absolute !important;
+  left: 7.7% !important;
+  right: 7.7% !important;
+  top: 13.125% !important;
+  height: 11.25% !important;
+  min-height: 0 !important;
+  padding: 0 2.2% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+  border-radius: 99px !important;
+  font-size: calc(var(--dock-w) * 0.029) !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  color: rgb(255 251 238 / 96%) !important;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 75%) !important;
+  white-space: nowrap !important;
+}
+
+.play-hud .play-hud-dock--lite .play-hud-dock__xp::before,
+.play-hud-dock--lite .play-hud-dock__xp::before {
+  top: 18% !important;
+  bottom: 18% !important;
+  height: auto !important;
+  border-radius: 99px !important;
+  mix-blend-mode: normal !important;
+  background: linear-gradient(90deg, rgb(30 96 76 / 0%), rgb(52 132 104 / 62%) 18%, rgb(98 180 146 / 70%)) !important;
+  box-shadow: 0 0 6px rgb(127 214 180 / 30%) !important;
+}
+
+.play-hud .play-hud-dock--lite .play-hud-dock__xp::after,
+.play-hud-dock--lite .play-hud-dock__xp::after {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.play-hud .play-hud-dock--lite .play-hud-dock__xp > *,
+.play-hud-dock--lite .play-hud-dock__xp > * {
+  position: relative !important;
+  z-index: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+  font-size: 1em !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.play-hud-dock--lite .play-hud-dock__xp > span {
+  color: rgb(255 251 238 / 94%);
+  letter-spacing: 0.06em;
+}
+
+.play-hud-dock--lite .play-hud-dock__xp > b {
+  color: var(--ui-gold-2);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.play-hud-dock--lite .play-hud-dock__xp > b small {
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 1;
+}
+
+.play-hud .play-hud-dock--lite .play-hud-dock__slots,
+.play-hud-dock--lite .play-hud-dock__slots {
+  position: absolute !important;
+  left: 4.2% !important;
+  right: 4.2% !important;
+  top: 36.9% !important;
+  bottom: 0 !important;
+  column-gap: calc(var(--dock-w) * 0.0077) !important;
+}
+
+.play-hud-dock--lite .play-hud-dock__lit {
+  display: none;
+}
+
+.play-hud-dock--lite .play-hud-wpn {
+  --ink: rgb(255 251 238 / 96%);
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 0 2%;
+  gap: calc(var(--dock-w) * 0.012);
+  overflow: hidden;
+  color: var(--ink);
+  font-size: calc(var(--dock-w) * 0.025);
+  background: none;
+  box-shadow: none;
+  text-shadow: 0 0 6px rgb(255 255 255 / 28%), 0 1px 2px rgb(0 0 0 / 75%);
+}
+
+.play-hud-dock--lite .play-hud-wpn::after {
+  content: none;
+}
+
+.play-hud-dock--lite .play-hud-wpn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.play-hud-dock--lite .play-hud-wpn__ring {
+  width: calc(var(--dock-w) * 0.104);
+  height: auto;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  background: radial-gradient(circle at 50% 38%, rgb(255 236 220 / 24%), rgb(48 18 16 / 12%) 70%);
+  box-shadow: inset 0 0 0 1.5px rgb(236 214 160 / 85%);
+  color: var(--ui-gold-2);
+  font-size: 1em;
+}
+
+.play-hud-dock--lite .spirit-gym-hud__weapon-phase {
+  font-size: calc(var(--dock-w) * 0.03);
+  font-weight: 700;
+}
+
+.play-hud-dock--lite .play-hud-wpn__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(1.12em * 2);
+  white-space: normal;
+  word-break: break-all;
+  overflow: hidden;
+  line-height: 1.12;
+  letter-spacing: 0;
+  margin-right: 0;
+  font-size: calc(var(--dock-w) * 0.033);
+  font-weight: 700;
+  color: rgb(255 251 238 / 96%);
+}
+
+.play-hud-dock--lite .play-hud-wpn__name > span {
+  width: 100%;
+  text-align: center;
+}
+
+.play-hud-dock--lite .play-hud-wpn--active .play-hud-wpn__name {
+  color: var(--ui-gold-2);
+  font-weight: 700;
+}
+
+/* 空槽菱形占满与武器环同高的区域，名字和有武器的槽位对齐在同一条线上。 */
+.play-hud-dock--lite .play-hud-wpn__gem {
+  width: calc(var(--dock-w) * 0.036);
+  margin-block: calc(var(--dock-w) * 0.034);
+  border-color: var(--ui-gold-2);
+  background: rgb(240 215 140 / 28%);
+  box-shadow: none;
+}
+
+.play-hud-dock--lite .play-hud-wpn--empty {
+  justify-content: flex-start;
+}
+
+.play-hud-dock--lite .play-hud-wpn--empty .play-hud-wpn__name {
+  color: rgb(230 206 196 / 78%);
+  font-weight: 700;
+}
+
+.play-hud-dock--lite .play-hud-wpn--empty .play-hud-wpn__name > span {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* 天赋点：直接绝对定位居中进修为槽（top: 13.125%, height: 11.25%），不随 .play-hud-progression 的 24px 网格行高下坠压住下方分割线。 */
+.play-hud-dock--lite .play-hud-talents {
+  position: absolute !important;
+  top: 13.125% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  height: 11.25% !important;
+  min-height: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  border-radius: 99px;
+  font-size: calc(var(--dock-w) * 0.025);
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 75%);
+  z-index: 2 !important;
+}
+
+.play-hud-dock--lite .play-hud-talents svg {
+  width: calc(var(--dock-w) * 0.028) !important;
+  height: calc(var(--dock-w) * 0.028) !important;
+  flex: none !important;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 60%));
+}

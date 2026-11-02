@@ -1,0 +1,152 @@
+/*
+ * HUD-TOUCH v1.8 · 竖屏触控：摇杆 + 跳跃/翻滚圆钮
+ * 规范见 SPEC.md §9.8。轻量玉金线，暗底+内晕分绘，弱于菜单方钮。
+ */
+
+/* —— 虚拟摇杆 —— */
+.play-hud-joystick {
+  --joy-size: 112px;
+  --knob-size: 48px;
+  flex: none;
+  width: var(--joy-size);
+  height: var(--joy-size);
+  touch-action: none;
+  user-select: none;
+  filter: drop-shadow(0 2px 5px rgb(0 0 0 / 22%));
+}
+
+.play-hud-joystick__ring {
+  position: absolute;
+  inset: 0;
+  background: url("./png/hud-joystick-ring.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.play-hud-joystick__knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--knob-size);
+  height: var(--knob-size);
+  margin: calc(var(--knob-size) * -0.5) 0 0 calc(var(--knob-size) * -0.5);
+  background: url("./png/hud-joystick-knob.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+  transition: transform 48ms ease-out;
+}
+
+/* —— 跳跃 / 翻滚圆钮 —— */
+.play-hud-touch-btn {
+  --touch-size: 64px;
+  --touch-font: calc(var(--touch-size) * 0.156);
+  box-sizing: border-box;
+  flex: none;
+  width: var(--touch-size);
+  height: var(--touch-size);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.88;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
+  transition: transform 70ms ease, opacity 70ms ease;
+}
+
+.play-hud-touch-btn--roll {
+  --touch-size: 60px;
+}
+
+/* 翻滚沿右下角向左错开，跳跃留在右缘上方，对角线与上一版左右对调。 */
+.play-hud .play-hud-touch-btn--roll {
+  right: calc(var(--play-right, 12px) + 56px);
+}
+
+/* 竖屏两钮收拢：圆心距约 73px（两圆间隙约 11px），方形点击区横向只重叠 2px。 */
+@media (orientation: portrait) {
+  .play-hud .play-hud-touch-btn--roll {
+    right: calc(var(--play-right, 12px) + 62px);
+  }
+
+  .play-hud .play-hud-touch-btn:not(.play-hud-touch-btn--roll) {
+    bottom: calc(var(--play-bottom) + var(--play-dock-height, calc(var(--play-dock-w) / 4.1468 + 24px)) + 56px);
+  }
+}
+
+.play-hud-touch-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: url("./png/hud-btn-action.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.play-hud-touch-btn__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0 10%;
+  font-family: var(--ui-font-title);
+  font-size: var(--touch-font);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: color-mix(in srgb, var(--ui-text) 88%, var(--ui-muted));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 55%);
+  pointer-events: none;
+}
+
+.play-hud-touch-btn:hover {
+  opacity: 0.94;
+}
+
+.play-hud-touch-btn:active,
+.play-hud-touch-btn.play-hud-touch-btn--pressed {
+  transform: scale(0.94);
+  opacity: 1;
+}
+
+.play-hud-touch-btn:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--ui-jade) 55%, transparent);
+  outline-offset: 2px;
+}
+
+/* demo 用：竖屏操作区占位 */
+.play-hud-touch-scene {
+  position: relative;
+  width: 320px;
+  height: 204px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgb(120 168 152 / 35%), rgb(28 36 44 / 72%) 55%);
+}
+
+.play-hud-touch-scene__joy {
+  position: absolute;
+  left: 14px;
+  bottom: 22px;
+}
+
+.play-hud-touch-scene__actions {
+  position: absolute;
+  right: 16px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+/* 演示页没有游戏的 fixed 定位，圆钮和摇杆自己做定位包含块。游戏内不能写 position，否则会盖掉 fixed，整组被推出屏幕。 */
+.play-hud-touch-scene .play-hud-joystick,
+.play-hud-touch-scene .play-hud-touch-btn {
+  position: relative;
+}

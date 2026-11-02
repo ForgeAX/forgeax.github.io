@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 阔剑主体（斜向右上 45 度） -->
+  <path fill="#e2dac7" stroke="none" d="M55 9 C55.5 14 53 20 48 25 L29 44 L34 49 L30 53 L23 46 L15 54 C13.5 55.5 10.5 55.5 9 54 C7.5 52.5 7.5 49.5 9 48 L17 40 L10 33 L14 29 L19 34 L38 15 C43 10 49 7.5 55 9 Z"/>
+  <!-- 剑气新月弧光 -->
+  <path fill="#e2dac7" stroke="none" d="M46 33 C42 43 32 50 22 52 C29 47 36 40 40 31 Z"/>
+  <!-- 剑脊浓墨血槽阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M49 14 L25 38"/>
+  <circle fill="#171512" stroke="none" cx="21.5" cy="41.5" r="2.2"/>
+</svg>

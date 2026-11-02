@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 战靴一体饱满剪影 -->
+  <path fill="#e2dac7" stroke="none" d="M20 10 C27 12 36 12 42 10 L40 35 C44 38 50 40 54 39 C57 38.2 58.5 41 57 45 C54.5 51 47 54 36 54 L16 54 C13.5 54 12.5 51 13 47 L16 34 Z"/>
+  <!-- 靴口与护胫阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M21.5 16.5 Q31 18.5 39.5 16.5"/>
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M32 18 L30.5 37"/>
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M18.5 36 Q28 40 39 36.5"/>
+  <!-- 靴面卷云与厚底阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M15 48.5 L48 48.5 C51.5 48.5 53.5 46.5 54.5 43.5"/>
+  <path fill="#171512" stroke="none" d="M25 42.5 C25 39.8 28 38.2 31.5 39.2 C34 40 35 42.5 33 44 C31.5 45 29.2 44.2 29.5 42.5 C28 43.2 26.2 44.2 25 42.5 Z"/>
+</svg>

@@ -1,0 +1,293 @@
+/* Preserve the native portrait tab visibility beneath the supplied final skin. */
+@media (orientation: portrait) and (max-width: 900px) {
+  html:not(#__ui-skin) #game-ui .spirit-menu[data-page="arsenal"] section.reliquary[data-mobile-view="right"] > .reliquary__panels > .reliquary__left,
+  html:not(#__ui-skin) #game-ui .spirit-menu[data-page="arsenal"] section.reliquary[data-mobile-view="left"] > .reliquary__panels > .reliquary__right {
+    display: none !important;
+  }
+}
+
+/* Portrait story pages keep a readable column and one centred action row. */
+@media (orientation: portrait) and (max-width: 900px) {
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"]:not([hidden]) {
+    height: 100dvh !important;
+    padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) calc(104px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)) !important;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__card {
+    padding: 0 !important;
+    max-width: 100% !important;
+    max-height: calc(100dvh - 152px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__card > p {
+    width: 100% !important;
+    min-width: 0;
+    max-inline-size: min(26em, 100%) !important;
+    box-sizing: border-box;
+    font-size: clamp(18px, 4.5vw, 21px) !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.02em !important;
+    text-indent: 0 !important;
+    white-space: normal;
+    text-wrap: balance;
+    line-break: strict;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption__paragraph {
+    display: block;
+    text-wrap: balance;
+    white-space: normal;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption__paragraph + .journey-caption__paragraph {
+    margin-top: 1.3em;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__actions {
+    position: fixed !important;
+    top: auto !important;
+    right: auto !important;
+    left: 50% !important;
+    bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    transform: translateX(-50%) !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(360px, calc(100vw - 48px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+    margin: 0 !important;
+    gap: 12px;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__actions:has([data-narrative-next]) {
+    grid-template-columns: minmax(0, 1fr);
+    width: min(188px, calc(100vw - 48px)) !important;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__actions > small {
+    grid-column: 1 / -1;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__actions > small:empty {
+    display: none;
+  }
+  html:not(#__ui-skin) #game-ui .journey-caption[data-presentation="prologue"] .journey-caption__actions > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 44px !important;
+    height: auto !important;
+    box-sizing: border-box;
+    white-space: normal;
+  }
+  /* Entry loading shares the right HUD edge; keep its full-screen veil fixed. */
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) {
+    position: fixed !important;
+    top: auto !important;
+    left: auto !important;
+    right: max(var(--hud-edge-x, 12px), env(safe-area-inset-right)) !important;
+    bottom: max(40px, env(safe-area-inset-bottom)) !important;
+    margin: 0 !important;
+    transform: none !important;
+    width: min(224px, calc(100vw - 48px)) !important;
+    max-width: none !important;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) .game-loading-indicator__status {
+    width: 100%;
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+    text-align: right;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) [data-loading-label] {
+    padding-inline: 0 !important;
+    text-align: right !important;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) .game-loading-indicator__flight {
+    width: 150px !important;
+    height: 90px !important;
+  }
+}
+
+@media (orientation: landscape) {
+  html:not(#__ui-skin) #game-ui [data-first-play-opening] .journey-caption__actions {
+    position: fixed !important;
+    top: auto !important;
+    left: auto !important;
+    right: max(28px, env(safe-area-inset-right)) !important;
+    bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+}
+
+/* The teaching action sits above the actual occupied HUD area. Only its
+   button receives input; the surrounding section lets world/HUD clicks through. */
+html:not(#__ui-skin) #game-ui section[data-teaching-completion] {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: var(--teaching-action-bottom, calc(max(20px, env(safe-area-inset-bottom)) + 180px)) !important;
+  width: max-content !important;
+  max-width: min(520px, calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+  box-sizing: border-box;
+  pointer-events: none !important;
+  z-index: 60 !important;
+}
+html:not(#__ui-skin) #game-ui section[data-teaching-completion] > button[data-tutorial-enter-first] {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.45;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+}
+html:not(#__ui-skin) #game-ui section[data-teaching-completion] > [data-tutorial-transition-error]:empty {
+  display: none;
+}
+
+/* Toolbar itself lets world input through; the language control must remain interactive. */
+html:not(#__ui-skin) #game-ui .spirit-menu__toolbar > .ui-lang-toggle {
+  pointer-events: auto !important;
+}
+
+/* Keep background loading readable over bright terrain without adding a box.
+   Entry/error states and the skin's modal visibility rules retain ownership. */
+html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) {
+  max-width: min(360px, calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+  padding: 10px 14px 10px 8px !important;
+  isolation: isolate;
+  opacity: 1 !important;
+}
+html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure)::before {
+  content: '';
+  position: absolute;
+  inset: -4px -12px;
+  z-index: -1;
+  background: radial-gradient(ellipse at 42% 50%, rgb(5 22 21 / 96%) 0%, rgb(5 22 21 / 88%) 48%, rgb(5 22 21 / 50%) 70%, transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) .game-loading-indicator__status {
+  min-height: 44px !important;
+  gap: 10px !important;
+}
+html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) .game-loading-indicator__flight {
+  width: 68px !important;
+  height: 44px !important;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 85%)) drop-shadow(0 0 6px rgb(168 225 214 / 28%)) !important;
+}
+html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) [data-loading-label] {
+  min-width: 0;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0.04em !important;
+  color: #fff3d7 !important;
+  text-shadow: 0 2px 3px rgb(0 0 0 / 95%), 0 0 10px rgb(0 0 0 / 75%) !important;
+}
+/* The save explanation returns when loading ends; it shares this corner. */
+html:not(#__ui-skin)[data-forgeax-title="true"]:not([data-game-loading]):not([data-game-entry-loading]):has(#game-ui .game-loading-indicator[data-loading-state="loading"]:not([hidden])) #game-ui .title-menu__foot [data-title-save] {
+  visibility: hidden !important;
+}
+@media (max-width: 600px), (max-height: 500px) {
+  html:not(#__ui-skin):not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) .game-loading-indicator__flight {
+    width: 56px !important;
+    height: 36px !important;
+  }
+}
+
+
+@media (orientation: portrait) and (max-width: 600px) {
+  html:not(#__ui-skin)[data-forgeax-title="true"]:not([data-game-loading]):not([data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]):not(.game-startup-failure) {
+    max-width: calc(100vw - 176px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+  }
+}
+
+/* Readiness progress shares the approved right anchor; the overlay package stays intact. */
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) {
+  left: auto !important;
+  right: max(var(--hud-edge-x, 12px), env(safe-area-inset-right)) !important;
+  bottom: max(40px, env(safe-area-inset-bottom)) !important;
+  width: 264px !important;
+  max-width: calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+  transform: none !important;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__status {
+  align-items: flex-end !important;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator [data-loading-label] {
+  padding-inline: 0 !important;
+  text-align: right !important;
+}
+html:not(#__ui-skin) #game-ui .game-loading-indicator__progress {
+  box-sizing: border-box;
+  flex: none;
+  clear: both;
+  width: 100%;
+}
+@media (max-width: 600px), (max-height: 500px) {
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) {
+    width: 248px !important;
+  }
+}
+
+/* Jade sword progress shares the rider; caption and percentage form one row. */
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) {
+  width: 232px !important;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) .game-loading-indicator__status {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  align-items: center !important;
+  gap: 3px !important;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__flight {
+  width: 232px !important;
+  height: 139px !important;
+  margin-bottom: 0 !important;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__copy {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: center;
+  gap: 18px;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator [data-loading-label] {
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #d9cfab !important;
+  font: 600 15px/1.4 var(--ui-font-title, "Noto Serif CJK SC", "Songti SC", serif) !important;
+  letter-spacing: .1em !important;
+  white-space: nowrap;
+  text-shadow: 0 1px 5px #081711;
+}
+html:not(#__ui-skin) #game-ui .game-loading-indicator__progress {
+  width: auto;
+  margin: 0;
+  flex: none;
+  gap: 3px;
+}
+html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__progress [data-loading-percent] {
+  min-inline-size: 4ch;
+  text-align: right;
+}
+html:not(#__ui-skin) #game-ui .game-loading-indicator__meter {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  clip-path: inset(50%);
+  overflow: hidden;
+  border: 0 !important;
+  background: none !important;
+}
+@media (max-width: 600px), (max-height: 500px) {
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator:not([data-loading-state="error"]) {
+    width: 220px !important;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__flight {
+    width: 220px !important;
+    height: 132px !important;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator__copy {
+    gap: 16px;
+  }
+  html:not(#__ui-skin):is([data-game-loading], [data-game-entry-loading]) #game-ui .game-loading-indicator [data-loading-label] {
+    font-size: 14px !important;
+    letter-spacing: .06em !important;
+  }
+}

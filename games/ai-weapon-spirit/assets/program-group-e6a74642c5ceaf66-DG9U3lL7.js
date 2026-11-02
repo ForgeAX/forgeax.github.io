@@ -1,0 +1,1 @@
+function e(t){if(typeof t==`number`){if(!Number.isFinite(t))throw Error(`数学参考包含非有限数值。`);return Number(t.toPrecision(12))}return Array.isArray(t)?t.map(e):typeof t==`object`&&t?Object.fromEntries(Object.entries(t).map(([t,n])=>[t,e(n)])):t}export{e as t};

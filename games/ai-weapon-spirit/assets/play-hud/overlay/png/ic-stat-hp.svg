@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 瓶口舒展柳叶 -->
+  <path fill="#e2dac7" stroke="none" d="M34 11 C40 6 48 6 53 10 C47 14 40 15 34 13 Z"/>
+  <path fill="#e2dac7" stroke="none" d="M29 12 C24 8 18 8 14 11 C19 14 24 14.5 29 13.5 Z"/>
+  <!-- 玉净瓶主体饱满剪影 -->
+  <path fill="#e2dac7" stroke="none" d="M25 12 L39 12 C40 14 39.5 16.5 37.5 18 C36 20 36 25 38 28.5 C46 33.5 50 41.5 48.5 49.5 C47 55.5 41 58.5 32 58.5 C23 58.5 17 55.5 15.5 49.5 C14 41.5 18 33.5 26 28.5 C28 25 28 20 26.5 18 C24.5 16.5 24 14 25 12 Z"/>
+  <!-- 瓶颈束环阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" d="M26.5 16.5 L37.5 16.5 M27 24.5 L37 24.5"/>
+  <!-- 瓶腹下半腔浓墨灵液波浪阴刻（纯正浓墨，无彩色污斑） -->
+  <path fill="#171512" stroke="none" d="M19.5 43.5 C23.5 40.5 28 41.5 32 43.8 C36 46 40.5 46 44.5 43.5 C45 48.5 42.5 53.2 37.5 54.5 C34 55.4 30 55.4 26.5 54.5 C21.5 53.2 19 48.5 19.5 43.5 Z"/>
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M22 37.5 C25.5 35.5 29 36.2 32.5 38"/>
+</svg>

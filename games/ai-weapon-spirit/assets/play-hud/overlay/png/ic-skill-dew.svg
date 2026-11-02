@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 挺拔三节修竹主干 -->
+  <path fill="#e2dac7" stroke="none" d="M24 8 L32 8 L30 23 L31 25 L29 40 L30 42 L28 56 L20 56 L22 42 L21 40 L23 25 L22 23 Z"/>
+  <!-- 右侧舒展双竹叶 -->
+  <path fill="#e2dac7" stroke="none" d="M31 18 C39 15 48 17 55 23 C46 25 38 24 31 20 Z"/>
+  <path fill="#e2dac7" stroke="none" d="M30 29 C38 28 46 31 52 37 C44 37.5 36 35 30 31 Z"/>
+  <!-- 叶尖垂露宝珠 -->
+  <path fill="#e2dac7" stroke="none" d="M47 41 C47 41 53 48 51 53 C49.5 56.5 44.5 56.5 43 53 C41 48 47 41 47 41 Z"/>
+  <!-- 竹节与露珠阴刻 -->
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M20 24 L32 24 M19 41 L31 41"/>
+  <circle fill="#171512" stroke="none" cx="47" cy="51.5" r="2.2"/>
+</svg>

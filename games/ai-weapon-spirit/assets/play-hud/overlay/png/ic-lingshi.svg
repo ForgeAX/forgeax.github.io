@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <!-- Centered faceted spirit crystal (solid facets, never hollow like digit 0) -->
+  <!-- Top-left facet -->
+  <polygon fill="#f2eee0" points="12,1.6 4.6,8.8 11.3,8.8"/>
+  <!-- Top-right facet -->
+  <polygon fill="#f2eee0" fill-opacity="0.82" points="12,1.6 12.7,8.8 19.4,8.8"/>
+  <!-- Center-left main facet -->
+  <polygon fill="#f2eee0" fill-opacity="0.95" points="4.2,10.2 11.3,10.2 11.3,22.2"/>
+  <!-- Center-right main facet -->
+  <polygon fill="#f2eee0" fill-opacity="0.72" points="12.7,10.2 19.8,10.2 12.7,22.2"/>
+</svg>

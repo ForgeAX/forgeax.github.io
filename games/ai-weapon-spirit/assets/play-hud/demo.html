@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUD-ORB v1.8 · 命 / 灵 / 玉条 / 触控 / 武位</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./hud-orb.css" />
+    <link rel="stylesheet" href="./hud-bar.css" />
+    <link rel="stylesheet" href="./hud-touch.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        gap: 24px;
+        padding: 32px 16px;
+        background: #14282c;
+        color: #b8cbc6;
+        font: 13px/1.5 system-ui, sans-serif;
+      }
+      .row {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .compact .ui-art--hud-orb {
+        --hud-orb-size: 72px;
+      }
+      p {
+        margin: 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="ui-art ui-art--hud-orb">
+        <img class="ui-art__plate" src="./png/hud-orb-life-01-1x1.png" alt="命" />
+        <div class="play-hud-orb-gem play-hud-orb-gem--life">
+          <span class="play-hud-orb-gem__vfx" aria-hidden="true"></span>
+          <span class="play-hud-orb-gem__vfx play-hud-orb-gem__vfx--2" aria-hidden="true"></span>
+        </div>
+        <div class="ui-art__content">
+          <span class="play-hud-orb-char">命</span>
+          <strong class="play-hud-orb-value">124 / 124</strong>
+        </div>
+      </div>
+      <div class="ui-art ui-art--hud-orb">
+        <img class="ui-art__plate" src="./png/hud-orb-qi-01-1x1.png" alt="灵" />
+        <div class="play-hud-orb-gem play-hud-orb-gem--qi">
+          <span class="play-hud-orb-gem__vfx" aria-hidden="true"></span>
+          <span class="play-hud-orb-gem__vfx play-hud-orb-gem__vfx--2" aria-hidden="true"></span>
+        </div>
+        <div class="ui-art__content">
+          <span class="play-hud-orb-char">灵</span>
+          <strong class="play-hud-orb-value">360 / 360</strong>
+        </div>
+      </div>
+    </div>
+    <p>--hud-orb-size: 96px（默认）</p>
+    <div class="row compact">
+      <div class="ui-art ui-art--hud-orb">
+        <img class="ui-art__plate" src="./png/hud-orb-life-01-1x1.png" alt="命" />
+        <div class="play-hud-orb-gem play-hud-orb-gem--life">
+          <span class="play-hud-orb-gem__vfx" aria-hidden="true"></span>
+          <span class="play-hud-orb-gem__vfx play-hud-orb-gem__vfx--2" aria-hidden="true"></span>
+        </div>
+        <div class="ui-art__content">
+          <span class="play-hud-orb-char">命</span>
+          <strong class="play-hud-orb-value">124 / 124</strong>
+        </div>
+      </div>
+      <div class="ui-art ui-art--hud-orb">
+        <img class="ui-art__plate" src="./png/hud-orb-qi-01-1x1.png" alt="灵" />
+        <div class="play-hud-orb-gem play-hud-orb-gem--qi">
+          <span class="play-hud-orb-gem__vfx" aria-hidden="true"></span>
+          <span class="play-hud-orb-gem__vfx play-hud-orb-gem__vfx--2" aria-hidden="true"></span>
+        </div>
+        <div class="ui-art__content">
+          <span class="play-hud-orb-char">灵</span>
+          <strong class="play-hud-orb-value">360 / 360</strong>
+        </div>
+      </div>
+    </div>
+    <p>--hud-orb-size: 72px（数值可读的最小建议尺寸）</p>
+    <div class="row">
+      <div class="play-hud-realm">
+        <div class="play-hud-realm__head">
+          <div class="play-hud-realm__name">
+            <img class="play-hud-realm__mark" src="./png/hud-realm-mark.svg" alt="" />
+            <i class="play-hud-realm__rule" aria-hidden="true">
+              <i class="play-hud-realm__rule-grid"></i><i class="play-hud-realm__rule-inner"></i>
+              <svg class="play-hud-realm__rule-corner" viewBox="0 0 18 18"><path class="curl" d="M9.5 5h3.2a2.2 2.2 0 1 1-2.2 2.2M5 9.5v3.2a2.2 2.2 0 1 0 2.2-2.2"/><path class="gem" d="M5 1.5 8.5 5 5 8.5 1.5 5Z"/></svg>
+              <b class="play-hud-realm__rule-end play-hud-realm__rule-end--x"></b><b class="play-hud-realm__rule-end play-hud-realm__rule-end--y"></b>
+            </i>
+            <span class="play-hud-realm__title">炼体</span><span class="play-hud-realm__grade">· 上</span>
+          </div>
+          <span class="play-hud-realm__lv">14<span>/29</span></span>
+        </div>
+        <div class="play-hud-realm__bar" style="--realm-progress:0.48"><i class="play-hud-realm__bar-fill"></i></div>
+        <div class="play-hud-realm__foot"><span>此间修行</span></div>
+      </div>
+      <div class="play-hud-realm play-hud-realm--desktop">
+        <div class="play-hud-realm__head">
+          <div class="play-hud-realm__name">
+            <img class="play-hud-realm__mark" src="./png/hud-realm-mark.svg" alt="" />
+            <i class="play-hud-realm__rule" aria-hidden="true">
+              <i class="play-hud-realm__rule-grid"></i><i class="play-hud-realm__rule-inner"></i>
+              <svg class="play-hud-realm__rule-corner" viewBox="0 0 18 18"><path class="curl" d="M9.5 5h3.2a2.2 2.2 0 1 1-2.2 2.2M5 9.5v3.2a2.2 2.2 0 1 0 2.2-2.2"/><path class="gem" d="M5 1.5 8.5 5 5 8.5 1.5 5Z"/></svg>
+              <b class="play-hud-realm__rule-end play-hud-realm__rule-end--x"></b><b class="play-hud-realm__rule-end play-hud-realm__rule-end--y"></b>
+            </i>
+            <span class="play-hud-realm__title">炼体</span><span class="play-hud-realm__grade">· 上</span>
+          </div>
+          <span class="play-hud-realm__lv">14<span>/29</span></span>
+        </div>
+        <div class="play-hud-realm__bar" style="--realm-progress:0.48"><i class="play-hud-realm__bar-fill"></i></div>
+        <div class="play-hud-realm__foot"><span>此间修行</span></div>
+      </div>
+    </div>
+    <p>HUD-REALM-01 · 无框 200 / 252</p>
+    <div class="row">
+      <div class="play-hud-wave"><img class="play-hud-wave__crest" src="./png/hud-wave-crest.svg" alt="" /><small class="play-hud-wave__label">第 1 波结算</small><strong class="play-hud-wave__state">休整</strong></div>
+      <div class="play-hud-wave play-hud-wave--battle"><img class="play-hud-wave__crest" src="./png/hud-wave-crest.svg" alt="" /><small class="play-hud-wave__label">第 1 波</small><strong class="play-hud-wave__state">02:35</strong></div>
+      <div class="play-hud-wave play-hud-wave--desktop"><img class="play-hud-wave__crest" src="./png/hud-wave-crest.svg" alt="" /><small class="play-hud-wave__label">第 1 波结算</small><strong class="play-hud-wave__state">休整</strong></div>
+    </div>
+    <p>HUD-WAVE-01 · 镂空横匾 休整 200×34 / 战斗 200×28 / 横屏 260×44</p>
+    <div class="row">
+      <div class="play-hud-run">
+        <i class="play-hud-run__spine" aria-hidden="true"></i><svg class="play-hud-run__curl" viewBox="0 0 14 10" aria-hidden="true"><path d="M1.5 1.5h5.2a2.4 2.4 0 1 1-2.4 2.4"/></svg>
+        <div class="play-hud-run__row"><div class="play-hud-run__cell play-hud-run__cell--gold"><span>灵石</span><b>16500</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>击破</span><b>11</b></div></div>
+        <div class="play-hud-run__row"><div class="play-hud-run__cell"><span>敌影</span><b>0</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>器物</span><b>0/4</b></div></div>
+      </div>
+      <div class="play-hud-run play-hud-run--desktop">
+        <i class="play-hud-run__spine" aria-hidden="true"></i><svg class="play-hud-run__curl" viewBox="0 0 14 10" aria-hidden="true"><path d="M1.5 1.5h5.2a2.4 2.4 0 1 1-2.4 2.4"/></svg>
+        <div class="play-hud-run__row"><div class="play-hud-run__cell play-hud-run__cell--gold"><span>灵石</span><b>16500</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>击破</span><b>11</b></div></div>
+        <div class="play-hud-run__row"><div class="play-hud-run__cell"><span>敌影</span><b>0</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>遗蕴</span><b>0/4</b></div></div>
+      </div>
+    </div>
+    <p>HUD-RUN-LIST-01 · 镂空条带 200×52 / 252×60</p>
+    <div class="row">
+      <div class="play-hud-stack">
+        <div class="play-hud-realm">
+          <div class="play-hud-realm__head">
+            <div class="play-hud-realm__name">
+              <img class="play-hud-realm__mark" src="./png/hud-realm-mark.svg" alt="" />
+              <i class="play-hud-realm__rule" aria-hidden="true">
+                <i class="play-hud-realm__rule-grid"></i><i class="play-hud-realm__rule-inner"></i>
+                <svg class="play-hud-realm__rule-corner" viewBox="0 0 18 18"><path class="curl" d="M9.5 5h3.2a2.2 2.2 0 1 1-2.2 2.2M5 9.5v3.2a2.2 2.2 0 1 0 2.2-2.2"/><path class="gem" d="M5 1.5 8.5 5 5 8.5 1.5 5Z"/></svg>
+                <b class="play-hud-realm__rule-end play-hud-realm__rule-end--x"></b><b class="play-hud-realm__rule-end play-hud-realm__rule-end--y"></b>
+              </i>
+              <span class="play-hud-realm__title">炼体</span><span class="play-hud-realm__grade">· 上</span>
+            </div>
+            <span class="play-hud-realm__lv">14<span>/29</span></span>
+          </div>
+          <div class="play-hud-realm__bar" style="--realm-progress:0.48"><i class="play-hud-realm__bar-fill"></i></div>
+          <div class="play-hud-realm__foot"><span>此间修行</span></div>
+        </div>
+        <div class="play-hud-wave"><img class="play-hud-wave__crest" src="./png/hud-wave-crest.svg" alt="" /><small class="play-hud-wave__label">第 1 波结算</small><strong class="play-hud-wave__state">休整</strong></div>
+        <div class="play-hud-run">
+          <i class="play-hud-run__spine" aria-hidden="true"></i><svg class="play-hud-run__curl" viewBox="0 0 14 10" aria-hidden="true"><path d="M1.5 1.5h5.2a2.4 2.4 0 1 1-2.4 2.4"/></svg>
+          <div class="play-hud-run__row"><div class="play-hud-run__cell play-hud-run__cell--gold"><span>灵石</span><b>16500</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>击破</span><b>11</b></div></div>
+          <div class="play-hud-run__row"><div class="play-hud-run__cell"><span>敌影</span><b>0</b></div><i class="play-hud-run__sep" aria-hidden="true"></i><div class="play-hud-run__cell"><span>器物</span><b>0/4</b></div></div>
+        </div>
+        <div class="play-hud-dash" role="status">
+          <div class="play-hud-dash__plate">
+            <span class="play-hud-dash__lead"><kbd class="play-hud-dash__key">Shift</kbd><span class="play-hud-dash__label">翻滚</span></span>
+            <span class="play-hud-dash__tail"><i class="play-hud-dash__sep" aria-hidden="true"></i><strong class="play-hud-dash__state">就绪</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>竖屏左上：REALM + WAVE + RUN + 翻滚就绪（stack 第 4 块，内容宽）</p>
+    <div class="row">
+      <div class="play-hud-dash" role="status">
+        <div class="play-hud-dash__plate">
+          <span class="play-hud-dash__lead"><kbd class="play-hud-dash__key">Shift</kbd><span class="play-hud-dash__label">翻滚</span></span>
+          <span class="play-hud-dash__tail"><i class="play-hud-dash__sep" aria-hidden="true"></i><strong class="play-hud-dash__state">就绪</strong></span>
+        </div>
+      </div>
+      <div class="play-hud-dash play-hud-dash--cd" role="status">
+        <div class="play-hud-dash__plate">
+          <span class="play-hud-dash__lead"><kbd class="play-hud-dash__key">Shift</kbd><span class="play-hud-dash__label">翻滚</span></span>
+          <span class="play-hud-dash__tail"><i class="play-hud-dash__sep" aria-hidden="true"></i><strong class="play-hud-dash__state">冷却 1.2</strong></span>
+        </div>
+      </div>
+      <div class="play-hud-dash-anchor">
+        <div class="play-hud-dash" role="status">
+          <div class="play-hud-dash__plate">
+            <span class="play-hud-dash__lead"><kbd class="play-hud-dash__key">Shift</kbd><span class="play-hud-dash__label">翻滚</span></span>
+            <span class="play-hud-dash__tail"><i class="play-hud-dash__sep" aria-hidden="true"></i><strong class="play-hud-dash__state">就绪</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>HUD-BTN-ROLL-READY-01 · 就绪 / 冷却 · 横屏左下辅读（anchor 仅 demo 占位）</p>
+    <div class="row">
+      <div class="play-hud-joystick">
+        <div class="play-hud-joystick__ring" aria-hidden="true"></div>
+        <div class="play-hud-joystick__knob" aria-hidden="true"></div>
+      </div>
+      <div class="play-hud-joystick">
+        <div class="play-hud-joystick__ring" aria-hidden="true"></div>
+        <div class="play-hud-joystick__knob" aria-hidden="true" style="transform: translate(14px, -10px)"></div>
+      </div>
+      <button type="button" class="play-hud-touch-btn play-hud-touch-btn--jump"><span class="play-hud-touch-btn__label">跳跃</span></button>
+      <button type="button" class="play-hud-touch-btn play-hud-touch-btn--roll"><span class="play-hud-touch-btn__label">翻滚</span></button>
+    </div>
+    <p>HUD-JOYSTICK-01 · 112 居中 / 内盘偏移 · JUMP 64 / ROLL 60</p>
+    <div class="row">
+      <div class="play-hud-touch-scene">
+        <div class="play-hud-touch-scene__joy">
+          <div class="play-hud-joystick">
+            <div class="play-hud-joystick__ring" aria-hidden="true"></div>
+            <div class="play-hud-joystick__knob" aria-hidden="true" style="transform: translate(10px, 6px)"></div>
+          </div>
+        </div>
+        <div class="play-hud-touch-scene__actions">
+          <button type="button" class="play-hud-touch-btn play-hud-touch-btn--jump"><span class="play-hud-touch-btn__label">跳跃</span></button>
+          <button type="button" class="play-hud-touch-btn play-hud-touch-btn--roll"><span class="play-hud-touch-btn__label">翻滚</span></button>
+        </div>
+      </div>
+    </div>
+    <p>竖屏操作区 · 武位上方示意（scene 仅 demo）</p>
+    <div class="row">
+      <div class="play-hud-sys play-hud-sys--touch">
+        <button type="button" class="play-hud-sys__icon" aria-label="全屏"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+        <button type="button" class="play-hud-sys__menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>菜单</span><kbd class="play-hud-sys__key">Esc</kbd></button>
+      </div>
+      <div class="play-hud-sys play-hud-sys--desktop">
+        <button type="button" class="play-hud-sys__icon" aria-label="全屏"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+        <button type="button" class="play-hud-sys__menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>菜单</span><kbd class="play-hud-sys__key">Esc</kbd></button>
+      </div>
+      <div class="play-hud-sys play-hud-sys--touch play-hud-sys--no-fullscreen">
+        <button type="button" class="play-hud-sys__icon" aria-label="全屏"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+        <button type="button" class="play-hud-sys__menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>菜单</span><kbd class="play-hud-sys__key">Esc</kbd></button>
+      </div>
+    </div>
+    <p>右上系统按钮 · 竖屏触屏 44（无 Esc）/ 横屏键盘 36（带 Esc）/ iPhone 无全屏</p>
+    <div class="row" style="flex-direction:column;align-items:center;gap:16px">
+      <div class="play-hud-dock" style="--wpn-current:0">
+        <div class="play-hud-dock__xp" style="--xp-progress:0.7"><span>修为</span><b>14<small> / 20</small></b></div>
+        <i class="play-hud-dock__lit" aria-hidden="true"></i>
+        <div class="play-hud-dock__slots">
+          <button type="button" class="play-hud-wpn play-hud-wpn--active"><span class="play-hud-wpn__ring" style="--wpn-charge:0.72">充</span><span class="play-hud-wpn__name" style="--wpn-name-scale:1;--wpn-name-track:0.12em">鸣律</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武2·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武3·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武4·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武5·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武6·空</span></button>
+        </div>
+      </div>
+      <div class="play-hud-dock" style="--wpn-current:1">
+        <div class="play-hud-dock__xp" style="--xp-progress:0.7"><span>修为</span><b>14<small> / 20</small></b></div>
+        <i class="play-hud-dock__lit" aria-hidden="true"></i>
+        <div class="play-hud-dock__slots">
+          <button type="button" class="play-hud-wpn"><span class="play-hud-wpn__ring" style="--wpn-charge:1">充</span><span class="play-hud-wpn__name" style="--wpn-name-scale:1;--wpn-name-track:0.12em">鸣律</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--active"><span class="play-hud-wpn__ring" style="--wpn-charge:0.72">充</span><span class="play-hud-wpn__name" style="--wpn-name-scale:0.82;--wpn-name-track:0.02em">庚金飞剑·破军</span></button>
+          <button type="button" class="play-hud-wpn"><span class="play-hud-wpn__ring" style="--wpn-charge:1">充</span><span class="play-hud-wpn__name" style="--wpn-name-scale:0.96;--wpn-name-track:0.12em">玄冰</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武4·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武5·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武6·空</span></button>
+        </div>
+      </div>
+      <div class="play-hud-dock play-hud-dock--desktop" style="--wpn-current:0">
+        <div class="play-hud-dock__xp" style="--xp-progress:0.7"><span>修为</span><b>14<small> / 20</small></b></div>
+        <i class="play-hud-dock__lit" aria-hidden="true"></i>
+        <div class="play-hud-dock__slots">
+          <button type="button" class="play-hud-wpn play-hud-wpn--active"><span class="play-hud-wpn__ring" style="--wpn-charge:0.72">充</span><span class="play-hud-wpn__name" style="--wpn-name-scale:1;--wpn-name-track:0.12em">鸣律</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武2·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武3·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武4·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武5·空</span></button>
+          <button type="button" class="play-hud-wpn play-hud-wpn--empty"><i class="play-hud-wpn__gem" aria-hidden="true"></i><span class="play-hud-wpn__name" style="--wpn-name-scale:0.86;--wpn-name-track:0.02em">武6·空</span></button>
+        </div>
+      </div>
+    </div>
+    <p>HUD-WPN-DOCK-01 · 竖屏 374×90 / 三把武器 / 横屏 520×125</p>
+  </body>
+</html>

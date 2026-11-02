@@ -1,0 +1,1 @@
+import{defineComponent as e}from"./ecs-DkrPO0r-.js";var t=`ReturningSwordTrainingObstacle`,n=e(t,{halfExtentX:{type:`f32`,default:.75},halfExtentY:{type:`f32`,default:1.15},halfExtentZ:{type:`f32`,default:.18},centerOffsetY:{type:`f32`,default:1.15},materialCode:{type:`u32`,default:1},blocksNavigation:{type:`u32`,default:1}});export{t as n,n as t};

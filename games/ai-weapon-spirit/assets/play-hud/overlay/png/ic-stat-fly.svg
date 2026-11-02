@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- 主剑居中斜指右上 -->
+  <path fill="#e2dac7" stroke="none" d="M56 8 C56 13 53 18 49 22 L27 44 L31 48 L28 51 L22 45 L15 52 L12 49 L19 42 L13 36 L16 33 L20 37 L42 15 C46 11 51 8 56 8 Z"/>
+  <!-- 左翼副剑 -->
+  <path fill="#e2dac7" stroke="none" d="M39 10 C39 13.5 37 17 34 20 L18 36 L14 32 L30 16 C33 13 36 10.5 39 10 Z"/>
+  <!-- 右翼副剑 -->
+  <path fill="#e2dac7" stroke="none" d="M54 25 C54 28.5 52 32 49 35 L33 51 L29 47 L45 31 C48 28 51 25.5 54 25 Z"/>
+  <path fill="none" stroke="#171512" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M49 15 L25 39"/>
+</svg>

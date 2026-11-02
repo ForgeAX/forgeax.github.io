@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="20" viewBox="0 0 96 20">
+  <defs>
+    <linearGradient id="tfFade" gradientUnits="userSpaceOnUse" x1="6" y1="0" x2="71" y2="0">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="22%" stop-color="#fff" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#fff" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="tfFadeJade" gradientUnits="userSpaceOnUse" x1="6" y1="0" x2="68" y2="0">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#fff" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <mask id="tfMaskGold" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="20">
+      <rect x="4" y="0" width="70" height="20" fill="url(#tfFade)"/>
+    </mask>
+    <mask id="tfMaskJade" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="20">
+      <rect x="4" y="0" width="66" height="20" fill="url(#tfFadeJade)"/>
+    </mask>
+    <filter id="tfSoft" x="-40%" y="-300%" width="180%" height="700%">
+      <feGaussianBlur stdDeviation="0.9"/>
+    </filter>
+    <filter id="tfHalo" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+    <filter id="tfHaloS" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="0.7"/>
+    </filter>
+  </defs>
+
+  <!-- soft glow copies of the double hairline -->
+  <g mask="url(#tfMaskGold)" filter="url(#tfSoft)" opacity="0.30">
+    <rect x="6" y="8.55" width="65" height="0.9" fill="#e8c888"/>
+  </g>
+  <g mask="url(#tfMaskJade)" filter="url(#tfSoft)" opacity="0.26">
+    <rect x="6" y="11.25" width="62" height="0.6" fill="#2f7a5c"/>
+  </g>
+
+  <!-- jade hairline -->
+  <g mask="url(#tfMaskJade)">
+    <rect x="6" y="11.2" width="62" height="0.6" fill="#2f7a5c" opacity="0.75"/>
+  </g>
+
+  <!-- gold hairline + tiny 4-point stars -->
+  <g mask="url(#tfMaskGold)">
+    <rect x="6" y="8.55" width="65" height="0.9" fill="#d4b878" opacity="0.85"/>
+    <g transform="translate(52,9)">
+      <path d="M0,-1.2 Q0.26,-0.26 1.2,0 Q0.26,0.26 0,1.2 Q-0.26,0.26 -1.2,0 Q-0.26,-0.26 0,-1.2 Z" fill="#e8c888" opacity="0.28" filter="url(#tfHaloS)"/>
+      <path d="M0,-1.2 Q0.26,-0.26 1.2,0 Q0.26,0.26 0,1.2 Q-0.26,0.26 -1.2,0 Q-0.26,-0.26 0,-1.2 Z" fill="#e8c888" opacity="0.9"/>
+    </g>
+    <g transform="translate(30,9)">
+      <path d="M0,-1.2 Q0.26,-0.26 1.2,0 Q0.26,0.26 0,1.2 Q-0.26,0.26 -1.2,0 Q-0.26,-0.26 0,-1.2 Z" fill="#e8c888" opacity="0.26" filter="url(#tfHaloS)"/>
+      <path d="M0,-1.2 Q0.26,-0.26 1.2,0 Q0.26,0.26 0,1.2 Q-0.26,0.26 -1.2,0 Q-0.26,-0.26 0,-1.2 Z" fill="#e8c888" opacity="0.85"/>
+    </g>
+  </g>
+
+  <!-- small hollow rhombus -->
+  <g transform="translate(76,10)">
+    <polygon points="0,-2.2 2.2,0 0,2.2 -2.2,0" fill="#e8c888" opacity="0.16" filter="url(#tfHaloS)"/>
+    <polygon points="0,-2.2 2.2,0 0,2.2 -2.2,0" fill="none" stroke="#d4b878" stroke-width="0.6" opacity="0.8"/>
+  </g>
+
+  <!-- 菱花 ornament -->
+  <g transform="translate(86,10)">
+    <polygon points="0,-4.5 4.5,0 0,4.5 -4.5,0" fill="#f3e8d0" opacity="0.22" filter="url(#tfHalo)"/>
+    <polygon points="0,-4.5 4.5,0 0,4.5 -4.5,0" fill="#e8c888" stroke="#b89858" stroke-width="0.3"/>
+    <polygon points="0,-1.6 1.6,0 0,1.6 -1.6,0" fill="#fff8e8"/>
+  </g>
+</svg>
