@@ -1,0 +1,1 @@
+export{default as t}from"./rapier3d-CZBUNXq5.js";

@@ -78,10 +78,6 @@
       return orig.apply(console, arguments);
     };
   });
-  // [plfault] 引擎补丁 D：启动预编译管线库时编不过而被跳过的条目（渲染器可能在 Worker 里，所以同时听 BroadcastChannel）
-  D.plSkipped = null;
-  var plSkip = function (r) { if (r && typeof r.count === 'number') { D.plSkipped = r; ev('pipeline-library', '跳过 ' + r.count + ' 条 / ' + r.total + (r.count ? '：' + r.skipped.map(function (s) { return s.label; }).join(', ') : '')); } };
-  try { if (typeof BroadcastChannel === 'function') new BroadcastChannel('forgeax-pipeline-library').onmessage = function (e) { plSkip(e.data); }; } catch (e) { /* 忽略 */ }
   g.addEventListener('forgeax:frame-completed', function () { if (D.firstFrameMs === null) { D.firstFrameMs = now(); ev('first-frame', ''); } }, true);
 
   // [win2] 集成显卡判定（Chrome 的 adapter.info：Iris Xe = intel / gen-12lp；Intel Arc 独显 = xe-hpg 不算；AMD 核显 description 带 Graphics 无型号）
@@ -171,7 +167,6 @@
     R.libraryNeeds = REQ;
     R.timeline = D.events.slice();
     R.firstFrameMs = D.firstFrameMs;
-    R.pipelineSkipped = g.__forgeaxPipelineLibrarySkipped || D.plSkipped || null;
     var fatalBox = document.getElementById('forgeax-fatal');
     R.fatalVisible = !!(fatalBox && getComputedStyle(fatalBox).display !== 'none');
     var fd = document.getElementById('forgeax-fatal-details'), fm = document.getElementById('forgeax-fatal-message');
@@ -205,8 +200,6 @@
     if (/deadline-exceeded|timed out|did not complete within/i.test(f)) V.push('启动超时：第一次打开时显卡驱动要现编几百条着色器（Windows D3D12 比 Mac 慢很多）。请直接再刷新一次（第二次有缓存会快很多）；还不行就打开 tg-diag.html 点「完整编译测试」，把结果发回。');
     if (/device.?lost|DeviceLost|GPU process|lost/i.test(f)) V.push('GPU 设备丢失：可能是显存不足或驱动崩溃 / 超时重置（TDR）。请关掉其他占显存的程序再试，并更新显卡驱动。');
     if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline/i.test(f)) V.push('资源下载 / 投递出错：可能是公司网络或代理拦截。请换网络再试，或按 Ctrl+Shift+R 强制刷新。');
-    var ps = R.pipelineSkipped;
-    if (ps && ps.count) { var pp = ps.skipped.filter(function (s) { return s.kind !== 'shader'; }), sh = ps.count - ps.pipelines; V.push('启动时预编译管线库有 ' + ps.pipelines + ' 条管线' + (sh ? '（' + sh + ' 个着色器）' : '') + '在这台机器上编不过，已跳过（游戏照常启动，用到时再现编；若对应画面缺失或报错，把整段发回）：' + (pp.length ? pp : ps.skipped).slice(0, 8).map(function (s) { return s.label; }).join(', ') + ((pp.length || ps.count) > 8 ? ' …' : '') + '。'); }
     if (R.compile && R.compile.failed) V.push('完整编译测试里有 ' + R.compile.failed + ' 条管线在这台机器上编不过（见下方「失败」行）——这是 Windows 专属问题，请把整段发回。');
     if (R.compile && R.compile.state === 'done' && !R.compile.failed) V.push('完整编译测试全部通过，用时 ' + Math.round(R.compile.ms / 1000) + ' s' + (R.compile.ms > 90000 ? '（超过 90 s，接近游戏 120 s 的启动期限，第一次打开很可能超时）' : '') + '。');
     if (!V.length) V.push(R.fatal ? '没有识别出已知原因，请把整段发回。' : '显卡能力检查通过，没有发现缺的限额 / 特性。');
@@ -220,7 +213,6 @@
     p('ua: ' + R.ua);
     if (R.uaData) p('uaData: ' + R.uaData.platform + ' ' + R.uaData.platformVersion + ' ' + R.uaData.architecture + '/' + R.uaData.bitness + ' ' + (R.uaData.fullVersionList || []).map(function (b) { return b.brand + ' ' + b.version; }).join(', '));
     p('env: ' + JSON.stringify(R.env));
-    try { var ca = g.__tgCanvasAdapt; if (ca) p('画布上限（极致自适应）/ canvas cap: ' + (isFinite(ca.cap) ? ca.cap : 'native') + '  原因 / reason: ' + ca.reason + '  帧间隔 ' + ca.intervalMs + ' ms, 提交→完成 ' + ca.s2cMs + ' ms, GPU 估计 ' + ca.estGpuMs + ' ms' + (ca.available ? '' : '（拿不到 GPU 时间）')); if (g.__tgCanvasLimit) p('画布实际上限 / effective canvas limit: ' + g.__tgCanvasLimit); } catch (e) { /* 忽略 */ }
     p('\n== 结论（最可能的原因 → 怎么办）');
     verdict(R).forEach(function (x, i) { p((i + 1) + '. ' + x); });
     if (R.fatal) p('\n== 致命错误原文\n' + R.fatal.trim());
@@ -238,9 +230,6 @@
       p('   features: ' + a.features.join(','));
       p('   缺(常用): ' + a.missingWanted.join(','));
     });
-    var ps2 = R.pipelineSkipped;
-    p('\n== 管线库预编译跳过（引擎补丁 D）: ' + (ps2 ? '跳过 ' + ps2.pipelines + ' 条 / 共 ' + ps2.total + ' 条管线' + (ps2.count - ps2.pipelines ? '（另有 ' + (ps2.count - ps2.pipelines) + ' 个着色器编不过）' : '') : '还没收到（管线库尚未预编译完，或这次没用管线库）'));
-    if (ps2) (ps2.skipped || []).forEach(function (s) { p('   跳过 [' + s.kind + '] ' + s.label + ' — ' + cut(s.error, 300)); });
     if (R.compile) {
       var c = R.compile;
       p('\n== 管线库编译测试（' + c.library + '）: ' + c.state + '  ' + c.ok + '/' + c.total + ' 成功, ' + c.failed + ' 失败, 用时 ' + c.ms + 'ms（着色器模块 ' + c.moduleMs + 'ms，4 路并发，与引擎相同）');
@@ -397,13 +386,13 @@
   ev('diag-installed', '');
 })();
 </script>
-    <script id="tg-render-capacity">(function(){var c="3",g="",s="auto";try{var p=localStorage.getItem("tg.pacing");if(p==="3"){s="off";}else if(p==="low"){c="2";g="0";s="off";}else if(p==="s30")s="on";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);if(g&&!u.searchParams.has("tgoverlap"))u.searchParams.set("tgoverlap",g);}if(!u.searchParams.has("tgpace30"))u.searchParams.set("tgpace30",s);history.replaceState(history.state,"",u.href);}catch(e){}})();</script>
+    <script id="tg-render-capacity">(function(){var c="3";try{if(localStorage.getItem("tg.pacing")==="low")c="2";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);history.replaceState(history.state,"",u.href);}}catch(e){}})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
     <title>天工战甲</title>
     <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-fps{box-sizing:border-box;z-index:2147483645;color:#ffe17b;text-align:center;pointer-events:none;background:#050c16e0;border:1px solid #e6ebf54d;border-radius:6px;width:92px;margin-left:-46px;padding:5px 8px;font:600 13px/18px system-ui,sans-serif;display:none;position:absolute;top:12px;left:50%}@media (width<=600px){#forgeax-fps{top:auto;bottom:12px}}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#05070b;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{justify-items:center;gap:12px;max-width:min(480px,100%);display:grid}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.02em;margin:0;font-size:clamp(20px,4vw,30px);font-weight:500}#forgeax-loading-spinner{border:2px solid #e6ebf533;border-top-color:#e6ebf5c7;border-radius:50%;width:22px;height:22px;animation:.9s linear infinite forgeax-loading-spin}#forgeax-loading-status{color:#e6ebf5b8;margin:0}#forgeax-loading-progress{background:#e6ebf524;border-radius:2px;width:min(360px,80vw);height:4px;overflow:hidden}#forgeax-loading-fill{background:#e6ebf5c7;width:0;height:100%;transition:width .2s linear}#forgeax-loading-detail,#forgeax-loading-meta{color:#e6ebf585;max-width:100%;min-height:1.5em;margin:0;font-size:13px;overflow:hidden}#forgeax-loading-slow,#forgeax-loading-reload{display:none}#forgeax-loading-reload,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-details{white-space:pre-wrap;max-height:45vh;overflow:auto}@keyframes forgeax-loading-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}#forgeax-loading-spinner{animation:none}}</style>
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-GZeBgXrr.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-B8OAjtH-.js"></script>
   </head>
   <body>
     <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
