@@ -344,8 +344,6 @@ color-scheme: dark;
 
   width: 24px;
   height: 24px;
-  background: var(--fx-ref-color-neutral-950);
-  border-radius: 7px;
 }
 
 .tut-graft .btn {
@@ -930,7 +928,6 @@ color-scheme: dark;
 
   width: 18px;
   height: 18px;
-  border-radius: 5px;
   flex: 0 0 auto;
 }
 

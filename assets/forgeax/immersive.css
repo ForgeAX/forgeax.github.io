@@ -72,7 +72,6 @@
 }
 
 .forgeax-site.has-immersive .hero-logo {
-  image-rendering: pixelated;
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.35));
 }
 

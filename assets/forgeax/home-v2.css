@@ -104,10 +104,6 @@
   width: clamp(60px, 5.6vw, 80px);
   height: auto;
   margin: 0;
-  image-rendering: pixelated;
-  padding: 10px;
-  border-radius: 16px;
-  background: var(--fx-ref-color-neutral-950);
   filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--fx-ref-color-neutral-950) 12%, transparent));
 }
 :lang(zh) .home-v2 .hero-mark {
@@ -1832,8 +1828,6 @@
   .home-v2 .hero-brand { gap: 10px; }
   .home-v2 .hero-mark {
     width: 48px;
-    padding: 8px;
-    border-radius: 12px;
   }
   :lang(zh) .home-v2 .hero-mark {
     width: clamp(120px, 42vw, 180px);

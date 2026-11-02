@@ -13,7 +13,7 @@
 @import url('/assets/forgeax/linear-light-system.css?v=98b1ed9d');
 @import url('/assets/forgeax/neon-display.css?v=62341203');
 @import url('/assets/forgeax/spotlight-surface.css?v=765cc905');
-@import url('/assets/forgeax/immersive.css?v=d410e2db');
+@import url('/assets/forgeax/immersive.css?v=1eafa172');
 @import url('/assets/forgeax/visual-guide.css?v=2b5d19bf');
 @import url('/assets/forgeax/hero-cta.css?v=b1b1609c');
 @import url('/assets/forgeax/link-action.css?v=3f8c9333');
@@ -29,10 +29,10 @@
 @import url('/assets/forgeax/marketplace-agents.css?v=c87e9203');
 @import url('/assets/forgeax/docs-premium.css?v=6cb2b4d6');
 @import url('/assets/forgeax/tutorials-list.css?v=8d8d3426');
-@import url('/assets/forgeax/tutorials-graft.css?v=82343263');
+@import url('/assets/forgeax/tutorials-graft.css?v=02d15c01');
 @import url('/assets/forgeax/about-read.css?v=659f1b76');
 @import url('/assets/forgeax/nav-premium.css?v=b3974b45');
-@import url('/assets/forgeax/home-v2.css?v=161ca2fa');
+@import url('/assets/forgeax/home-v2.css?v=17dce78d');
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;color-scheme:light}
@@ -76,8 +76,8 @@ img{max-width:100%}
 .nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px;height:var(--nav-h);display:flex;align-items:center;gap:18px;min-width:0;width:100%;box-sizing:border-box}
 .nav-brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:17px;letter-spacing:-.2px;flex-shrink:0}
 .nav-brand img,.foot-brand img,.hero-mark,.hero-logo{
-  background:var(--fx-ref-color-neutral-950);border-radius:7px;padding:4px;box-sizing:border-box}
-.nav-brand img{width:26px;height:26px;display:block;padding:3px}
+  background:transparent;border-radius:0;padding:0;box-sizing:border-box}
+.nav-brand img{width:26px;height:26px;display:block}
 .nav-brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 /* zh: geometric mark already contains 天工引擎 — keep logo only, hide text wordmark */
 :lang(zh) .nav-brand span,:lang(zh) .foot-brand span{display:none}
