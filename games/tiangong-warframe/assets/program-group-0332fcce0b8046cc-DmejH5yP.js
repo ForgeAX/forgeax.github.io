@@ -1,1 +1,0 @@
-export{default as t}from"./rapier3d-CtxfsrcB.js";

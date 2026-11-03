@@ -1,0 +1,1 @@
+import{t as e}from"./program-group-efdffc36f100a70c-Dr6mmJoJ.js";try{await e(()=>import(`./main-Dvvb7rqs.js`),[])}catch(e){globalThis.__forgeaxStartup?.fail?.(e)}

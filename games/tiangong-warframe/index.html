@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script id="tg-render-capacity">(function(){var c="3";try{if(localStorage.getItem("tg.pacing")==="low")c="2";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);history.replaceState(history.state,"",u.href);}}catch(e){}})();</script>
     <script id="tg-boot-early">/* U164 开局载入画面的早期部分：由 scripts/startup-diag/inject.mjs 内联进发布版 index.html 的 <head>。
  * 前端插件（assets/ui/boot-screen.ts）要等引擎根插件激活之后才挂载（负载高时 7 s+），那之前页面上只有引擎自带的「Loading…」。
  * 这里在 DOMContentLoaded 就画出同一套层（同一份 BOOT_CSS / BOOT_MARKUP，inject.mjs 从 assets/ui/boot-view.ts 填进来），
@@ -14,12 +15,14 @@
   if (q.has('mode') || q.has('shot') || q.has('scenario') || q.get('hud') === '0' || q.get('tgboot') === '0') return;
   if (q.has('forgeaxWorkspace') && q.get('forgeaxWorkspace') !== 'game') return;
   if (q.has('forgeax-tool-recipe') || q.has('forgeax-tool-replay')) return;
-  var CSS = "\n#tg-boot{position:absolute;inset:0;z-index:2147483645;pointer-events:none;overflow:hidden;color:#f1e2c6;font:500 14px/1.5 \"PingFang SC\",\"Hiragino Sans\",\"Yu Gothic\",system-ui,sans-serif;opacity:1;transition:opacity .8s ease}\n#tg-boot.out{opacity:0}\n#tg-boot .bd{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#16120d 0%,#0a0907 46%,#05070b 78%);transition:opacity 1.1s ease}\n#tg-boot .bd::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,190,120,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}\n#tg-boot.scene .bd{opacity:0}\n#tg-boot .vg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 52%,rgba(3,4,6,.62) 100%),linear-gradient(180deg,rgba(5,6,8,.72) 0%,transparent 16%,transparent 66%,rgba(5,6,8,.9) 100%)}\n#tg-boot .foot{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(40px,9vh,100px);display:flex;flex-direction:column;gap:clamp(14px,2.6vh,28px)}\n#tg-boot .ttl{display:flex;flex-direction:column;gap:6px}\n#tg-boot .name{font:900 clamp(30px,4.6vw,56px)/1.1 \"Songti SC\",\"STKaiti\",\"Hiragino Mincho ProN\",\"Yu Mincho\",serif;letter-spacing:.3em;color:#f6e7c9;text-shadow:0 0 26px rgba(255,150,70,.45)}\n#tg-boot .sub{font-size:clamp(11px,1.2vw,13px);letter-spacing:.2em;color:#c8a46e}\n#tg-boot .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}\n#tg-boot .stage{font-size:clamp(12px,1.25vw,14px);letter-spacing:.14em;color:#ead9bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n#tg-boot .stage::before{content:\"\";display:inline-block;width:7px;height:7px;margin-right:10px;vertical-align:1px;background:#ff9a4a;box-shadow:0 0 8px #ff8a3a;transform:rotate(45deg);animation:tgb-blink 1.2s ease-in-out infinite}\n#tg-boot .pct{font:700 clamp(18px,2vw,24px)/1 ui-monospace,Menlo,Consolas,monospace;color:#fff1d6;letter-spacing:.04em;text-shadow:0 0 12px rgba(255,150,70,.5);flex:none}\n#tg-boot .pct small{font-size:.6em;margin-left:2px;color:#c8a46e}\n#tg-boot .track{position:relative;height:4px;background:rgba(255,190,120,.12);box-shadow:inset 0 0 0 1px rgba(255,190,120,.22)}\n#tg-boot .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#8a3e16,#ff8a3a 70%,#ffd39a);box-shadow:0 0 10px rgba(255,140,60,.75);transition:width .2s linear}\n#tg-boot .fill::after{content:\"\";position:absolute;right:-1px;top:-4px;width:2px;height:12px;background:#fff3dc;box-shadow:0 0 10px 2px rgba(255,200,140,.9)}\n#tg-boot .fill::before{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,240,210,.55),transparent);background-size:120px 100%;background-repeat:no-repeat;animation:tgb-sheen 1.6s linear infinite}\n#tg-boot .ticks{position:absolute;inset:0}\n#tg-boot .ticks i{position:absolute;top:-3px;width:1px;height:10px;background:rgba(255,190,120,.35)}\n#tg-boot .hint{margin-top:10px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.08em;color:rgba(234,217,189,.62)}\n#tg-boot.fail .fill{background:linear-gradient(90deg,#5a1a12,#d0503a);box-shadow:0 0 10px rgba(220,80,60,.7)}\n#tg-boot.fail .stage{color:#ffb4a0}\n#tg-boot.fail .stage::before{background:#e05a40;box-shadow:0 0 8px #e05a40;animation:none}\n@keyframes tgb-blink{50%{opacity:.35}}\n@keyframes tgb-sheen{from{background-position:-120px 0}to{background-position:calc(100% + 120px) 0}}\n@media (max-width:600px){#tg-boot .name{letter-spacing:.18em}#tg-boot .hint{display:none}}\n@media (prefers-reduced-motion:reduce){#tg-boot,#tg-boot .bd,#tg-boot .fill{transition:none}#tg-boot .stage::before,#tg-boot .fill::before{animation:none}}\n#forgeax-loading{background:transparent!important}\n#forgeax-loading-title,#forgeax-loading-spinner,#forgeax-loading-status{visibility:hidden}\n";
-  var MARKUP = "<div class=\"bd\"></div><div class=\"vg\"></div><div class=\"foot\"><div class=\"ttl\"><div class=\"name\"></div><div class=\"sub\"></div></div><div class=\"bar\"><div class=\"row\"><div class=\"stage\"></div><div class=\"pct\">0<small>%</small></div></div><div class=\"track\"><div class=\"ticks\"></div><div class=\"fill\"></div></div><div class=\"hint\"></div></div></div>";
+  var CSS = "\n#tg-boot{position:absolute;inset:0;z-index:2147483645;pointer-events:none;overflow:hidden;color:#f1e2c6;font:500 14px/1.5 \"PingFang SC\",\"Hiragino Sans\",\"Yu Gothic\",system-ui,sans-serif;opacity:1;transition:opacity .8s ease}\n#tg-boot.out{opacity:0}\n#tg-boot .bd{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#16120d 0%,#0a0907 46%,#05070b 78%);transition:opacity 1.1s ease}\n#tg-boot .bd::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,190,120,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}\n#tg-boot.scene .bd{opacity:0}\n#tg-boot .vg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 52%,rgba(3,4,6,.62) 100%),linear-gradient(180deg,rgba(5,6,8,.72) 0%,transparent 16%,transparent 66%,rgba(5,6,8,.9) 100%)}\n#tg-boot .foot{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(40px,9vh,100px);display:flex;flex-direction:column;gap:clamp(14px,2.6vh,28px)}\n#tg-boot .ttl{display:flex;flex-direction:column;gap:6px}\n#tg-boot .name{font:900 clamp(30px,4.6vw,56px)/1.1 \"Songti SC\",\"STKaiti\",\"Hiragino Mincho ProN\",\"Yu Mincho\",serif;letter-spacing:.3em;color:#f6e7c9;text-shadow:0 0 26px rgba(255,150,70,.45)}\n#tg-boot .sub{font-size:clamp(11px,1.2vw,13px);letter-spacing:.2em;color:#c8a46e}\n#tg-boot .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}\n#tg-boot .stage{font-size:clamp(12px,1.25vw,14px);letter-spacing:.14em;color:#ead9bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n#tg-boot .stage::before{content:\"\";display:inline-block;width:7px;height:7px;margin-right:10px;vertical-align:1px;background:#ff9a4a;box-shadow:0 0 8px #ff8a3a;transform:rotate(45deg);animation:tgb-blink 1.2s ease-in-out infinite}\n#tg-boot .pct{font:700 clamp(18px,2vw,24px)/1 ui-monospace,Menlo,Consolas,monospace;color:#fff1d6;letter-spacing:.04em;text-shadow:0 0 12px rgba(255,150,70,.5);flex:none}\n#tg-boot .pct small{font-size:.6em;margin-left:2px;color:#c8a46e}\n#tg-boot .track{position:relative;height:4px;background:rgba(255,190,120,.12);box-shadow:inset 0 0 0 1px rgba(255,190,120,.22)}\n#tg-boot .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#8a3e16,#ff8a3a 70%,#ffd39a);box-shadow:0 0 10px rgba(255,140,60,.75);transition:width .2s linear}\n#tg-boot .fill::after{content:\"\";position:absolute;right:-1px;top:-4px;width:2px;height:12px;background:#fff3dc;box-shadow:0 0 10px 2px rgba(255,200,140,.9)}\n#tg-boot .fill::before{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,240,210,.55),transparent);background-size:120px 100%;background-repeat:no-repeat;animation:tgb-sheen 1.6s linear infinite}\n#tg-boot .ticks{position:absolute;inset:0}\n#tg-boot .ticks i{position:absolute;top:-3px;width:1px;height:10px;background:rgba(255,190,120,.35)}\n#tg-boot .hint{margin-top:10px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.08em;color:rgba(234,217,189,.62)}\n#tg-boot .performance{margin:0;max-width:880px;font-size:13px;line-height:1.7;letter-spacing:0;color:#ead9bd;overflow-wrap:anywhere}\n#tg-boot.fail .fill{background:linear-gradient(90deg,#5a1a12,#d0503a);box-shadow:0 0 10px rgba(220,80,60,.7)}\n#tg-boot.fail .stage{color:#ffb4a0}\n#tg-boot.fail .stage{white-space:normal}\n#tg-boot.fail .hint{display:block!important;color:#ffcfbf;line-height:1.7;max-width:880px;letter-spacing:.04em}\n#tg-boot.fail .stage::before{background:#e05a40;box-shadow:0 0 8px #e05a40;animation:none}\n@keyframes tgb-blink{50%{opacity:.35}}\n@keyframes tgb-sheen{from{background-position:-120px 0}to{background-position:calc(100% + 120px) 0}}\n@media (max-width:600px){#tg-boot .name{letter-spacing:.18em}#tg-boot .hint{display:none}}\n@media (prefers-reduced-motion:reduce){#tg-boot,#tg-boot .bd,#tg-boot .fill{transition:none}#tg-boot .stage::before,#tg-boot .fill::before{animation:none}}\n#forgeax-loading{display:none!important}\n";
+  var MARKUP = "<div class=\"bd\"></div><div class=\"vg\"></div><div class=\"foot\"><div class=\"ttl\"><div class=\"name\"></div><div class=\"sub\"></div></div><div class=\"bar\"><div class=\"row\"><div class=\"stage\"></div><div class=\"pct\">0<small>%</small></div></div><div class=\"track\"><div class=\"ticks\"></div><div class=\"fill\"></div></div><div class=\"hint\"></div></div><p class=\"performance\"></p></div>";
   var TICKS = [30,89.5,93.6,96.5];
-  var TEXT = {"zh":{"title":"天工战甲","sub":"作战「开物」 · 人类工匠的变形战甲","engine":"启动引擎","hint":"首次载入需要一些时间；全部就绪后，出击与章节即刻开始"},"en":{"title":"TIANGONG","sub":"Operation Kaiwu · A transforming mech built by human hands","engine":"Starting engine","hint":"The first load takes a moment. Once everything is ready, sorties and chapters start instantly."},"ja":{"title":"天工戦甲","sub":"作戦「開物」 · 人の手が造った変形戦甲","engine":"エンジン起動中","hint":"初回の読み込みには少し時間がかかります。準備が整えば、出撃も章選択もすぐに始まります。"}};
+  var TEXT = {"zh":{"title":"天工战甲","sub":"作战「开物」 · 人类工匠的变形战甲","engine":"启动引擎","hint":"正在初始化；全部就绪后，出击与章节即刻开始","performance":"该作品使用测试版引擎实现，目前对设备性能有一定要求。请根据自己的硬件配置调整画质与渲染缩放。目前仅支持 Chrome 系浏览器，其他浏览器不保证正常运行。","failed":"游戏启动失败，具体错误见 Diagnostics","nogpu":"此浏览器不支持 WebGPU，游戏无法运行","noadapter":"浏览器找不到可用的显卡（GPU 被禁用或驱动过旧）","soft":"当前是软件渲染（没有用上显卡），会非常卡甚至无法加载","lost":"显卡设备丢失，可能是显存或内存不足","advice":"建议：使用最新版 Chrome（146 及以上）；Mac 建议 M4 及以上芯片；Windows 建议 RTX 4060 及以上显卡。关闭其他占内存的程序和标签页后刷新重试；确认 chrome://gpu 中 WebGPU 为硬件加速。","mac":"已识别为 Mac。请使用最新版 Chrome，在设置 → 系统中开启图形加速并重新启动浏览器；在 chrome://gpu 检查 WebGPU 是否为硬件加速。Apple 芯片使用内置 GPU，无需独立显卡；建议 M4 及以上，但不按芯片型号限制启动。","windows":"已识别为 Windows。请使用最新版 Chrome 并开启图形加速。有独立显卡时，在 Windows 设置 → 系统 → 显示 → 图形中将 Chrome 设为高性能，再重新启动浏览器；在 chrome://gpu 检查 WebGPU 是否为硬件加速。建议 RTX 4060 及以上，实际以浏览器可用能力为准。"},"en":{"title":"TIANGONG","sub":"Operation Kaiwu · A transforming mech built by human hands","engine":"Starting engine","hint":"Initializing. Once everything is ready, sorties and chapters start instantly.","performance":"This game uses a beta engine and currently has hardware performance requirements. Please adjust graphics quality and render scale to suit your hardware. Currently, only Chrome-based browsers are supported; other browsers are not guaranteed to work correctly.","failed":"The game could not start. See Diagnostics for the specific error","nogpu":"This browser has no WebGPU, so the game cannot run","noadapter":"The browser cannot find a usable GPU (disabled or outdated driver)","soft":"Software rendering is in use (no GPU), so loading will be very slow or fail","lost":"The GPU device was lost, likely from running out of video or system memory","advice":"Suggested: latest Chrome (146+); on Mac, an M4 chip or newer; on Windows, an RTX 4060 or better GPU. Close other memory-heavy apps and tabs, then reload. Check that WebGPU is hardware accelerated at chrome://gpu.","mac":"Mac detected. Use the latest Chrome, enable graphics acceleration in Settings > System, and restart the browser. Check WebGPU hardware acceleration at chrome://gpu. Apple chips use their built-in GPU and do not require a discrete GPU. M4 or newer is recommended, but chip models do not restrict startup.","windows":"Windows detected. Use the latest Chrome with graphics acceleration enabled. For a discrete GPU, select High performance for Chrome in Windows Settings > System > Display > Graphics, then restart Chrome. Check WebGPU at chrome://gpu. RTX 4060 or better is recommended; actual browser capabilities determine support."},"ja":{"title":"天工戦甲","sub":"作戦「開物」 · 人の手が造った変形戦甲","engine":"エンジン起動中","hint":"初期化中です。準備が整えば、出撃も章選択もすぐに始まります。","performance":"本作品はベータ版エンジンで制作されており、現在は一定のハードウェア性能が必要です。お使いの機器に合わせて画質と描画スケールを調整してください。現在は Chrome 系ブラウザーのみ対応しており、その他のブラウザーでの正常な動作は保証していません。","failed":"ゲームを起動できませんでした。詳しいエラーは Diagnostics をご確認ください","nogpu":"このブラウザは WebGPU 非対応のため、ゲームを実行できません","noadapter":"利用可能な GPU が見つかりません（無効化またはドライバが古い可能性）","soft":"ソフトウェア描画です（GPU 未使用）。非常に重い、または読み込めない場合があります","lost":"GPU デバイスが失われました。ビデオメモリまたはメモリ不足の可能性があります","advice":"推奨：最新の Chrome（146 以上）。Mac は M4 以降のチップ、Windows は RTX 4060 以上のグラフィックスカード。他のアプリやタブを閉じて再読み込みし、chrome://gpu で WebGPU がハードウェア加速か確認してください。","mac":"Mac を検出しました。最新の Chrome を使い、設定 → システムでグラフィック アクセラレーションを有効にして再起動してください。chrome://gpu で WebGPU のハードウェア加速を確認できます。Apple チップは内蔵 GPU を使うため独立 GPU は不要です。M4 以降を推奨しますが、チップ名による起動制限はありません。","windows":"Windows を検出しました。最新の Chrome でグラフィック アクセラレーションを有効にしてください。独立 GPU がある場合は Windows 設定 → システム → ディスプレイ → グラフィックスで Chrome を高パフォーマンスに設定し、再起動してください。chrome://gpu で WebGPU を確認できます。RTX 4060 以上を推奨しますが、実際のブラウザ機能で対応を判断します。"}};
   var KEY = "tg.loadBootMs";
   if (!CSS || !MARKUP) return;
+  // Install before the body is parsed so the native loading UI cannot flash first.
+  var st = document.createElement('style'); st.id = 'tg-boot-css'; st.textContent = CSS; document.head.appendChild(st);
   // 语言：?lang= > 设置存档 tg.settings.v1 的 locale > 浏览器语言（同 assets/i18n/index.ts initialLocale）
   var parse = function (v) { if (typeof v !== 'string') return null; v = v.trim().toLowerCase(); return v.indexOf('zh') === 0 ? 'zh' : v.indexOf('en') === 0 ? 'en' : v.indexOf('ja') === 0 || v === 'jp' ? 'ja' : null; };
   var lng = parse(q.get('lang'));
@@ -28,16 +31,55 @@
   var T = TEXT[lng] || TEXT.zh || {};
   var lastMs = 45000;
   try { var v = Number(localStorage.getItem(KEY)); if (v > 3000 && v < 600000) lastMs = v; } catch (e) { /* 禁用存储 */ }
-  var B = g.__tgBoot = { shown: 0, stop: null };
+  var platform = navigator.userAgentData && navigator.userAgentData.platform || navigator.platform || '';
+  var advice = /mac/i.test(platform) ? T.mac : /win/i.test(platform) ? T.windows : T.advice;
+  var B = g.__tgBoot = { shown: 0, stop: null, reason: '', advice: advice || T.advice || '', environment: { platform: platform, webgpu: !!navigator.gpu, secure: isSecureContext } };
+  var Lr = null;
+  // 兼容性诊断与一般启动错误分别显示；插件失败本身不能证明硬件不兼容。
+  var warn = function (why) {
+    if (B.reason) return;
+    B.reason = why;
+    if (Lr) { Lr.classList.add('fail'); Lr.querySelector('.stage').textContent = why; Lr.querySelector('.hint').textContent = B.advice; }
+  };
+  B.warn = warn;
+  (function () {
+    // 检查真实能力，不按设备型号拦截；诊断不改动引擎的后端选择。
+    if (!navigator.gpu) { warn(T.nogpu || ''); return; }
+    try {
+      navigator.gpu.requestAdapter({ powerPreference: 'high-performance' }).then(function (a) {
+        if (!a) { B.environment.adapter = null; warn(T.noadapter || ''); return; }
+        var info = a.info || {};
+        B.environment.adapter = { vendor: info.vendor || '', architecture: info.architecture || '', description: info.description || '', fallback: !!(info.isFallbackAdapter || a.isFallbackAdapter) };
+        if (B.environment.adapter.fallback) warn(T.soft || '');
+      }, function () { /* 交给引擎自己报错 */ });
+    } catch (e) { /* 忽略 */ }
+  })();
+  var fatalSeen = false;
+  setInterval(function () {
+    var f = document.getElementById('forgeax-fatal');
+    if (!f || fatalSeen || getComputedStyle(f).display === 'none') return;
+    fatalSeen = true;
+    var txt = (f.textContent || '');
+    var deviceLost = /device[-_ ]?lost|GPUDevice.*lost/i.test(txt);
+    var gpuFailure = deviceLost || /render-feature-capability-missing/i.test(txt);
+    var why = deviceLost ? T.lost : T.failed;
+    warn(why || '');
+    if (B.advice && !f.querySelector('.tg-compat')) {
+      var d = document.createElement('div'); d.className = 'tg-compat';
+      d.style.cssText = 'margin-top:14px;padding:10px 12px;border-left:3px solid #ff9a4a;background:rgba(255,154,74,.12);color:#ffe3c4;font:13px/1.7 system-ui,sans-serif;white-space:normal';
+      d.textContent = [why, gpuFailure || B.environment.webgpu === false || B.environment.adapter === null || B.environment.adapter && B.environment.adapter.fallback ? B.advice : ''].filter(Boolean).join(' '); f.appendChild(d);
+    }
+  }, 1000);
   var mount = function () {
     var shell = document.getElementById('app-shell');
     if (!shell || document.getElementById('tg-boot')) return;
-    var st = document.createElement('style'); st.id = 'tg-boot-css'; st.textContent = CSS; document.head.appendChild(st);
     var L = document.createElement('div'); L.id = 'tg-boot'; L.setAttribute('aria-live', 'polite'); L.innerHTML = MARKUP; shell.appendChild(L);
     var $ = function (c) { return L.querySelector(c); };
     $('.name').textContent = T.title || ''; $('.sub').textContent = T.sub || ''; $('.stage').textContent = T.engine || ''; $('.hint').textContent = T.hint || '';
+    $('.performance').textContent = T.performance || '';
     var ticks = $('.ticks');
     for (var k = 0; k < TICKS.length; k++) { var e = document.createElement('i'); e.style.left = TICKS[k] + '%'; ticks.appendChild(e); }
+    Lr = L; if (B.reason) { L.classList.add('fail'); $('.stage').textContent = B.reason; $('.hint').textContent = B.advice; }
     var pct = $('.pct'), fill = $('.fill'), last = -1;
     var tick = function () {
       var p = Math.min(99, 95 * (1 - Math.exp(-performance.now() / (lastMs * 0.52))));
@@ -386,17 +428,17 @@
   ev('diag-installed', '');
 })();
 </script>
-    <script id="tg-render-capacity">(function(){var c="3";try{if(localStorage.getItem("tg.pacing")==="low")c="2";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);history.replaceState(history.state,"",u.href);}}catch(e){}})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
     <title>天工战甲</title>
-    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-fps{box-sizing:border-box;z-index:2147483645;color:#ffe17b;text-align:center;pointer-events:none;background:#050c16e0;border:1px solid #e6ebf54d;border-radius:6px;width:92px;margin-left:-46px;padding:5px 8px;font:600 13px/18px system-ui,sans-serif;display:none;position:absolute;top:12px;left:50%}@media (width<=600px){#forgeax-fps{top:auto;bottom:12px}}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#05070b;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{justify-items:center;gap:12px;max-width:min(480px,100%);display:grid}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.02em;margin:0;font-size:clamp(20px,4vw,30px);font-weight:500}#forgeax-loading-spinner{border:2px solid #e6ebf533;border-top-color:#e6ebf5c7;border-radius:50%;width:22px;height:22px;animation:.9s linear infinite forgeax-loading-spin}#forgeax-loading-status{color:#e6ebf5b8;margin:0}#forgeax-loading-progress{background:#e6ebf524;border-radius:2px;width:min(360px,80vw);height:4px;overflow:hidden}#forgeax-loading-fill{background:#e6ebf5c7;width:0;height:100%;transition:width .2s linear}#forgeax-loading-detail,#forgeax-loading-meta{color:#e6ebf585;max-width:100%;min-height:1.5em;margin:0;font-size:13px;overflow:hidden}#forgeax-loading-slow,#forgeax-loading-reload{display:none}#forgeax-loading-reload,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-details{white-space:pre-wrap;max-height:45vh;overflow:auto}@keyframes forgeax-loading-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}#forgeax-loading-spinner{animation:none}}</style>
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-B8OAjtH-.js"></script>
+    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#05070b;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{justify-items:center;gap:12px;max-width:min(480px,100%);display:grid}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.02em;margin:0;font-size:clamp(20px,4vw,30px);font-weight:500}#forgeax-loading-spinner{border:2px solid #e6ebf533;border-top-color:#e6ebf5c7;border-radius:50%;width:22px;height:22px;animation:.9s linear infinite forgeax-loading-spin}#forgeax-loading-status{color:#e6ebf5b8;margin:0}#forgeax-loading-progress{background:#e6ebf524;border-radius:2px;width:min(360px,80vw);height:4px;overflow:hidden}#forgeax-loading-fill{background:#e6ebf5c7;width:0;height:100%;transition:width .2s linear}#forgeax-loading-detail,#forgeax-loading-meta{color:#e6ebf585;max-width:100%;min-height:1.5em;margin:0;font-size:13px;overflow:hidden}#forgeax-loading-slow,#forgeax-loading-reload{display:none}#forgeax-loading-reload,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-details{white-space:pre-wrap;max-height:45vh;overflow:auto}@keyframes forgeax-loading-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}#forgeax-loading-spinner{animation:none}}</style>
+
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-Ddk-0Urv.js"></script>
   </head>
   <body>
     <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
-    <div id="forgeax-fps" aria-label="Completed game frames per second">FPS --</div>
+    <div id="forgeax-status">Game 70a8ff1f3d00 | Engine 0.5.0-dev.15787.dae620ebb07b | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
     <div id="forgeax-loading" role="status" aria-live="polite" aria-atomic="true">
       <div id="forgeax-loading-content">
         <h1 id="forgeax-loading-title">天工战甲</h1>
@@ -422,7 +464,36 @@
       ((host) => {
         const document = host?.document ?? globalThis.document;
         const window = host?.events ?? globalThis.window;
-        const currentCanvas = () => host?.surface?.() ?? document.querySelector('#app');
+        const findCanvas = (root) => {
+          const preferred = root?.querySelector?.('canvas#app') ?? root?.querySelector?.('#app');
+          if (preferred !== null && preferred !== undefined) return preferred;
+          let fallback = root?.querySelector?.('canvas');
+          const descendants = root?.querySelectorAll?.('*');
+          if (descendants === null || descendants === undefined) return fallback;
+          for (const element of descendants) {
+            const nested = findCanvas(element.shadowRoot);
+            if (nested?.id === 'app') return nested;
+            fallback ??= nested;
+          }
+          return fallback;
+        };
+        let cachedCanvas;
+        const currentCanvas = () => {
+          const surface = host?.surface?.();
+          if (surface !== null && surface !== undefined) return surface;
+          if (cachedCanvas !== null && cachedCanvas !== undefined && cachedCanvas.isConnected !== false)
+            return cachedCanvas;
+          cachedCanvas = findCanvas(document);
+          return cachedCanvas;
+        };
+        const eventCanvas = (event) => {
+          if (typeof event?.composedPath === 'function') {
+            for (const node of event.composedPath()) {
+              if (node?.nodeType === 1 && node.tagName === 'CANVAS') return node;
+            }
+          }
+          return event?.target;
+        };
         const isElement = (node) => host === undefined ? node instanceof HTMLElement : node?.nodeType === 1;
         const isNode = (node) => host === undefined ? node instanceof Node : node !== null && typeof node === 'object';
         const startupEnabled = true;
@@ -683,11 +754,10 @@
         };
         // Receipt observation outlives the loading overlay. It does not request
         // render frames or sample rAF; one timer updates text only when changed.
-        // Browser pages opt in with ?fps=1 so capture, play and release frames
-        // stay free of developer chrome; URL-less native hosts keep the badge.
         const frameRate = (() => {
           const node = document.querySelector('#forgeax-fps');
-          let closed = !gamePage || node?.id !== 'forgeax-fps' || (host === undefined && query.get('fps') !== '1');
+          const status = document.querySelector('#forgeax-status');
+          let closed = !gamePage || node?.id !== 'forgeax-fps';
           let session, surface, deviceGeneration = -1, lastFrame = -1;
           let since, count = 0, timer;
           const text = value => {
@@ -696,7 +766,7 @@
           const reset = () => {
             clearStartupTimeout(timer); timer = undefined;
             since = undefined; count = 0;
-            text('FPS --'); setDisplay(node, 'none');
+            text('FPS --'); setDisplay(status, 'none');
           };
           const tick = () => {
             if (closed || !isForeground()) { reset(); return; }
@@ -722,11 +792,11 @@
             lastFrame = detail.frameId;
             if (since === undefined) {
               since = clockNow();
-              setDisplay(node, 'block');
+              setDisplay(status, 'block');
               timer = setStartupTimeout(tick, 1000);
             } else count += 1;
           };
-          const onReceipt = event => { if (event.target === currentCanvas()) completed(event.detail); };
+          const onReceipt = event => { if (eventCanvas(event) === currentCanvas()) completed(event.detail); };
           const visibilityChanged = () => reset();
           const pageHidden = event => { if (event.persisted) reset(); else destroy(); };
           const destroy = () => {
@@ -994,7 +1064,8 @@
         };
         const onSubmitted = (event) => {
           if (phase === 'entered' || phase === 'failed' || phase === 'destroyed') return;
-          if (event?.target !== currentCanvas()) return;
+          const canvas = eventCanvas(event);
+          if (canvas !== currentCanvas()) return;
           const detail = event?.detail;
           if (
             detail !== null &&
@@ -1009,13 +1080,13 @@
             if (
               latestSubmitted !== undefined &&
               (detail.deviceGeneration !== latestSubmitted.deviceGeneration ||
-                event.target !== latestSubmitted.canvas)
+                canvas !== latestSubmitted.canvas)
             ) {
               if (phase === 'fading') prepare();
               else submittedFrames = new Set();
             }
             latestSubmitted = {
-              canvas: event.target,
+              canvas,
               frameId: detail.frameId,
               deviceGeneration: detail.deviceGeneration,
               worldIdentity: detail.worldIdentity,
@@ -1026,7 +1097,7 @@
           }
         };
         const onCompleted = (event) => {
-          if (event?.target === currentCanvas()) enter(event?.detail);
+          if (eventCanvas(event) === currentCanvas()) enter(event?.detail);
         };
         const onVisibilityChange = () => {
           frameRate.visibilityChanged();
