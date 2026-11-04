@@ -6,7 +6,7 @@
 (function () {
   var DATA = window.MK_DATA || {};
   var UI = window.MK_UI || {};
-  var REPO_ROOT = "https://github.com/ForgeaX-Games/forgeax-marketplace/tree/main/plugins";
+  var REPO_ROOT = "https://github.com/ForgeAX/forgeax-marketplace/tree/main/plugins";
 
   // ── search + kind filter ──
   (function () {
