@@ -1,0 +1,1 @@
+import{t as e}from"./program-group-daac6d421f9c264d-Dr6mmJoJ.js";try{await e(()=>import(`./main-TolPYSF6.js`),[])}catch(e){globalThis.__forgeaxStartup?.fail?.(e)}

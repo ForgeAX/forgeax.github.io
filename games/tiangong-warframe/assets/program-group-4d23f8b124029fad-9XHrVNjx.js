@@ -1,1 +1,0 @@
-export{default as t}from"./physics-rapier3d-B5NMDmp_.js";

@@ -147,11 +147,16 @@ pre{white-space:pre-wrap;word-break:break-all;font:12px/1.45 ui-monospace,Menlo,
       if (a0.requestDevice && /^FAILED/.test(a0.requestDevice)) V.push('用引擎同样的参数创建 GPU 设备失败：' + a0.requestDevice);
     }
     if (chrome && chrome < 146 && !edge) V.push('Chrome 主版本 ' + chrome + ' < 146：旧版 Windows Chrome 的 WebGPU 限额偏低，请先升级 Chrome。');
-    if (R.env && R.env.crossOriginIsolated === false) V.push('页面没有跨源隔离（COOP/COEP 响应头丢了，可能被代理 / iOA 改写）：SharedArrayBuffer 不可用。请换网络或直连再试，并把这段发回。');
     var f = R.fatal || '';
-    if (/deadline-exceeded|timed out|did not complete within/i.test(f)) V.push('启动超时：第一次打开时显卡驱动要现编几百条着色器（Windows D3D12 比 Mac 慢很多）。请直接再刷新一次（第二次有缓存会快很多）；还不行就打开 tg-diag.html 点「完整编译测试」，把结果发回。');
+    if (/asset-dependency-failed/.test(f)) {
+      var dependency = /dependencyGuid:\s*([0-9a-f-]{36})/i.exec(f);
+      V.unshift('资源依赖加载失败' + (dependency ? '（' + dependency[1] + '）' : '') + '：游戏已停止。需要检查该资源的下载、完整性和发布记录；请保留这份诊断后重新加载。');
+    }
+    if (/asset-fetch-failed/.test(f)) V.unshift('资源下载失败：请保留诊断后重新加载。下方错误原文包含失败请求地址及重试结果，可据此检查下载服务。');
+    if (/asset-integrity-failed|asset-artifact-integrity-mismatch/.test(f)) V.unshift('资源读取或完整性检查失败：需要核对错误原文、资源内容和下载响应；请保留这份诊断后重新加载。');
+    if (/deadline-exceeded|timed out|did not complete within|detail\.reason:\s*timeout/i.test(f)) V.push('启动超时：尚不能仅凭超时判断是资源下载、场景初始化还是着色器编译。请保留这份诊断后重新加载，并对照下方时间线和错误原文。');
     if (/device.?lost|DeviceLost|GPU process|lost/i.test(f)) V.push('GPU 设备丢失：可能是显存不足或驱动崩溃 / 超时重置（TDR）。请关掉其他占显存的程序再试，并更新显卡驱动。');
-    if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline/i.test(f)) V.push('资源下载 / 投递出错：可能是公司网络或代理拦截。请换网络再试，或按 Ctrl+Shift+R 强制刷新。');
+    if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline|asset-dependency-failed|asset-integrity-failed|asset-artifact-integrity-mismatch/i.test(f)) V.push('资源加载失败：需要检查失败请求与发布文件，不能仅凭这条错误确定网络或代理原因。请保留这份诊断后重新加载。');
     if (R.compile && R.compile.failed) V.push('完整编译测试里有 ' + R.compile.failed + ' 条管线在这台机器上编不过（见下方「失败」行）——这是 Windows 专属问题，请把整段发回。');
     if (R.compile && R.compile.state === 'done' && !R.compile.failed) V.push('完整编译测试全部通过，用时 ' + Math.round(R.compile.ms / 1000) + ' s' + (R.compile.ms > 90000 ? '（超过 90 s，接近游戏 120 s 的启动期限，第一次打开很可能超时）' : '') + '。');
     if (!V.length) V.push(R.fatal ? '没有识别出已知原因，请把整段发回。' : '显卡能力检查通过，没有发现缺的限额 / 特性。');
