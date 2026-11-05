@@ -452,6 +452,10 @@
         var q = text.length > 5000 ? text.slice(0, 5000) : text;
         return "claude-cli://open?q=" + encodeURIComponent(q);
       }
+      if (agent === "workbuddy") {
+        var promptText = text.length > 8000 ? text.slice(0, 8000) : text;
+        return "workbuddy://task?action=start&prompt=" + encodeURIComponent(promptText);
+      }
       return "";
     }
 
