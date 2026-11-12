@@ -1,22 +1,25 @@
 # ForgeAX Engine + SDK: stable AI bootstrap contract
 
+<!-- game-builder-engine-version: 0.4.19 -->
+
 You are an AI coding Agent. Execute this contract exactly. Do not guess versions,
 URLs, packages, or recovery steps. This page installs and initializes the tools, then
 hands off to their installed local documentation.
 
 ## Release and installation surface
 
-This is the **stable** entrypoint and always selects `latest`. To use another
-channel, open its guide below; do not override this page's channel with an
-environment variable. Resolve Engine and SDK from the same channel at execution
-time, require the same exact release, and pin that result. These pages track
-channels; the installed SDK's local documents describe the resolved version.
+This is the **production** entrypoint. It currently selects exactly **0.4.19**
+for both Engine and SDK. The URL stays unchanged when the approved version is
+updated. Read the exact version from this document, never from npm channel tags
+or environment overrides. The separate [validation guide](https://forgeax.github.io/download/engine-ai-test.md)
+may pin either a stable or prerelease version; its purpose is independent of the
+version suffix. The installed SDK's local documents describe the selected release.
 
-| Guide | npm tag | Source | Intended use |
-|:--|:--|:--|:--|
-| [Stable](https://forgeax.github.io/download/engine-ai.md) | `latest` | `stable` | Default for ordinary game development and stable releases |
-| [Test / release candidate](https://forgeax.github.io/download/engine-ai-rc.md) | `rc` | `rc` | Test the next stable release and reproduce test-team issues |
-| [Development](https://forgeax.github.io/download/engine-ai-next.md) | `next` | `main` | Try ongoing changes; gameplay and API stability are not promised |
+> [!IMPORTANT]
+> Updating this document changes the version selected by subsequent new-game
+> initializations, including consumers of this existing public URL. Review and
+> validate both exact npm packages before publishing it. Existing games keep their
+> dependencies and lockfiles; never upgrade them merely because this page changes.
 
 `@forgeax/engine` is one complete npm tarball containing all Engine modules,
 locked common dependencies, declarations, WASM, and CLI. Unpatched third-party
@@ -34,10 +37,9 @@ import { World } from '@forgeax/engine/ecs';
 ```
 
 > [!IMPORTANT]
-> This page selects **stable (`latest`)**. If that channel is unavailable or
-> Engine and SDK versions differ, stop and report; never mix channels or silently
-> fall back. Pin the resolved version and keep the lockfile. Changing a channel
-> tag does not update a pinned game.
+> This page selects one **exact release**. If Engine or SDK is unavailable,
+> stop and report; never select a nearby version or fall back to a channel tag.
+> Keep the resolved version and lockfile for this game.
 
 ## Mandatory rules
 
@@ -56,7 +58,7 @@ import { World } from '@forgeax/engine/ecs';
    another external absolute path. `forgeax project new` must not overwrite an existing path.
 5. Direct edit is the default. Do not start the ForgeAX closed loop unless the user
    explicitly authorizes it for the current task.
-6. The user's machine must provide pnpm `>=12.10.1 <13`. Check `pnpm --version`
+6. The user's machine must provide pnpm `>=12.15.0 <13`. Check `pnpm --version`
    before any bootstrap or project command; if it is unavailable or unsupported,
    stop and report the exact version instead of silently switching versions. This
    is the project package-manager contract; npm remains a supported public registry
@@ -68,38 +70,38 @@ import { World } from '@forgeax/engine/ecs';
 
 ## Resolve and require one exact release
 
-Requirements: Node.js `>=22.13.0`, pnpm `>=12.10.1 <13`, npm registry access, and an
+Requirements: Node.js `>=22.13.0`, pnpm `>=12.15.0 <13`, npm registry access, and an
 empty parent directory.
 
 ```sh
 set -eu
 
-RELEASE_CHANNEL="latest"
+RELEASE_VERSION="0.4.19"
 REGISTRY="https://registry.npmjs.org/"
 
 PNPM_VERSION="$(pnpm --version 2>/dev/null || true)"
 if ! node -e '
   const match = /^12\.(\d+)\.(\d+)$/.exec(process.argv[1] ?? "");
-  const supported = match && (+match[1] > 10 || (+match[1] === 10 && +match[2] >= 1));
+  const supported = match && (+match[1] >= 15);
   process.exit(supported ? 0 : 1);
 ' "$PNPM_VERSION"; then
-  echo "pnpm >=12.10.1 <13 is required on the user's machine; found ${PNPM_VERSION:-unavailable}. Activate pnpm 12.10.1+ and retry." >&2
+  echo "pnpm >=12.15.0 <13 is required on the user's machine; found ${PNPM_VERSION:-unavailable}. Activate pnpm 12.15.0+ and retry." >&2
   exit 19
 fi
 
-ENGINE_VERSION="$(npm view @forgeax/engine "dist-tags.$RELEASE_CHANNEL" --registry="$REGISTRY" 2>/dev/null || true)"
-SDK_VERSION="$(npm view @forgeax/engine-sdk "dist-tags.$RELEASE_CHANNEL" --registry="$REGISTRY" 2>/dev/null || true)"
+ENGINE_VERSION="$(npm view "@forgeax/engine@$RELEASE_VERSION" version --registry="$REGISTRY" 2>/dev/null || true)"
+SDK_VERSION="$(npm view "@forgeax/engine-sdk@$RELEASE_VERSION" version --registry="$REGISTRY" 2>/dev/null || true)"
 
-if [ -z "$ENGINE_VERSION" ]; then
+if [ "$ENGINE_VERSION" != "$RELEASE_VERSION" ]; then
   echo "@forgeax/engine is not resolvable from public npm; stop and report." >&2
   exit 20
 fi
-if [ -z "$SDK_VERSION" ]; then
+if [ "$SDK_VERSION" != "$RELEASE_VERSION" ]; then
   echo "@forgeax/engine-sdk is not published on public npm; stop and report." >&2
   exit 21
 fi
 if [ "$ENGINE_VERSION" != "$SDK_VERSION" ]; then
-  echo "Engine/SDK channel mismatch ($RELEASE_CHANNEL): $ENGINE_VERSION / $SDK_VERSION" >&2
+  echo "Engine/SDK version mismatch ($RELEASE_VERSION): $ENGINE_VERSION / $SDK_VERSION" >&2
   exit 22
 fi
 
@@ -119,7 +121,7 @@ pnpm exec forgeax project skill verify --json
 pnpm exec forgeax project check --json
 ```
 
-For testing, use [the rc guide](https://forgeax.github.io/download/engine-ai-rc.md).
+For validation, use [the test guide](https://forgeax.github.io/download/engine-ai-test.md).
 For development, use [the next guide](https://forgeax.github.io/download/engine-ai-next.md).
 For a 3D game, select `--template game-3d` in the `project new` command.
 
@@ -176,7 +178,7 @@ paths. Keep SDK installations separate from game directories.
 
 ## Bootstrap report
 
-Report the selected channel, resolved Engine/SDK identities, the View identity from
+Report the document URL, selected exact release, resolved Engine/SDK identities, the View identity from
 its installed manifest when View is used, actual Node/pnpm versions, absolute SDK/game paths, executed installation and initialization commands,
 `project skill verify` / `project check` results, the local documents read, and the
 first error or next required reading. Bootstrap completion establishes tool readiness;
