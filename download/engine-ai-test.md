@@ -1,6 +1,6 @@
 # ForgeAX Engine + SDK: validation AI bootstrap contract
 
-<!-- game-builder-engine-version: 0.5.0-rc.2 -->
+<!-- game-builder-engine-version: 0.5.0 -->
 
 You are an AI coding Agent. Execute this contract exactly. Do not guess versions,
 URLs, packages, or recovery steps. This page installs and initializes the tools, then
@@ -8,7 +8,7 @@ hands off to their installed local documentation.
 
 ## Release and installation surface
 
-This is the **validation** entrypoint. It currently selects exactly **0.5.0-rc.2**
+This is the **validation** entrypoint. It currently selects exactly **0.5.0**
 for both Engine and SDK. The URL stays unchanged when the approved version is
 updated. Read the exact version from this document, never from npm channel tags
 or environment overrides. The separate [production guide](https://forgeax.github.io/download/engine-ai.md)
@@ -76,7 +76,7 @@ empty parent directory.
 ```sh
 set -eu
 
-RELEASE_VERSION="0.5.0-rc.2"
+RELEASE_VERSION="0.5.0"
 REGISTRY="https://registry.npmjs.org/"
 
 PNPM_VERSION="$(pnpm --version 2>/dev/null || true)"
