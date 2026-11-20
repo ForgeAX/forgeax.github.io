@@ -1,0 +1,1 @@
+var e=`__tgLodScale`;function t(){let t=globalThis[e];return typeof t==`number`&&t>0&&t<=4?t:1}function n(t){globalThis[e]=t}export{n,t};

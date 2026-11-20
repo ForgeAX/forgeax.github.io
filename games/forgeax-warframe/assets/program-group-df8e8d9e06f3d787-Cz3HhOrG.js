@@ -1,0 +1,1 @@
+import{n as e}from"./program-group-caaf1bd362cb4eca-Bs4ttm2H.js";import{mountPluginAsset as t}from"./plugin-Dw9bbzM2.js";var n={name:`tiangong`,inject:[`assets`,`pluginPrograms`],async apply(n,r){e(n.assets,r.children),await n.effect(async function*(){for(let e of r.children){let r=await t(n,e);if(!r.ok)throw r.error;yield r.value.dispose}})}};export{n as t};

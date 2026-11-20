@@ -1,0 +1,1 @@
+function e(){let e=globalThis;return e.__tgOutro??={want:!1,ready:!1,view:null,mounts:0,unmounts:0}}export{e as t};

@@ -1,0 +1,1 @@
+var e=[0,0,-4e3],t=2e3,n={fovDeg:24,dist:150,tiltDeg:64},r=n.dist*Math.tan(n.fovDeg*Math.PI/360);export{e as i,r as n,t as r,n as t};

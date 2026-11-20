@@ -1,0 +1,1 @@
+var e=[`crab`,`maid`,`whale`],t=new Map;function n(e){return t.set(e.meta.id,e),()=>{t.get(e.meta.id)===e&&t.delete(e.meta.id)}}var r=e=>t.get(e);export{r as n,n as r,e as t};

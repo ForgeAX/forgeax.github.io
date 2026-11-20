@@ -1,0 +1,1 @@
+function e(){let e=globalThis;if(typeof e.__tgTrick==`string`)return e.__tgTrick;try{return new URLSearchParams(e.location?.search??``).get(`tgtrick`)??``}catch{return``}}function t(t){return e().split(`,`).some(e=>e.trim()===`${t}:0`)}export{t};
