@@ -1,6 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
+    <meta name="tg-lang" content="zh">
+    <script id="tg-lang-route">(function(){try{var q=new URLSearchParams(location.search);if(q.get('lang'))return;var r=document.referrer;if(!r)return;var u=new URL(r);if(u.origin!==location.origin||u.pathname.indexOf('/games/')===0)return;var m=u.pathname.match(/^\/(zh|ja|ko|es|de|fr|pt)(\/|$)/);var want=m&&m[1]==='zh'?'tiangong-warframe':'forgeax-warframe';if(want==="tiangong-warframe")return;var p=location.pathname.replace('/tiangong-warframe/','/'+want+'/');if(p===location.pathname)return;location.replace(p+location.search+location.hash);}catch(e){}})();</script>
     <script id="tg-body-boot">(function () {
   try {
     var ch = new BroadcastChannel('tg/body');
@@ -41,6 +43,9 @@
   // 语言：?lang= > 设置存档 tg.settings.v1 的 locale > 浏览器语言（同 assets/i18n/index.ts initialLocale）
   var parse = function (v) { if (typeof v !== 'string') return null; v = v.trim().toLowerCase(); return v.indexOf('zh') === 0 ? 'zh' : v.indexOf('en') === 0 ? 'en' : v.indexOf('ja') === 0 || v === 'jp' ? 'ja' : null; };
   var lng = parse(q.get('lang'));
+  // U252：分语言目录（<meta name="tg-lang">）：本目录存的手动选择 > 目录语言，不读共用的设置存档
+  var pinEl = document.querySelector('meta[name="tg-lang"]'), pin = pinEl ? parse(pinEl.getAttribute('content')) : null;
+  if (!lng && pin) { try { lng = parse(localStorage.getItem('tg.locale.site.' + pin)); } catch (e) { /* 隐私窗口 */ } if (!lng) lng = pin; }
   if (!lng) { try { var raw = localStorage.getItem('tg.settings.v1'); lng = parse(raw ? JSON.parse(raw).locale : null); } catch (e) { /* 隐私窗口 / 坏存档 */ } }
   if (!lng) { var list = (navigator.languages && navigator.languages.length) ? navigator.languages : navigator.language ? [navigator.language] : []; for (var i = 0; i < list.length && !lng; i++) lng = parse(list[i]); if (!lng) lng = list.length ? 'en' : 'zh'; }
   var T = TEXT[lng] || TEXT.zh || {};
@@ -418,12 +423,12 @@
     <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#07090d;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{position:absolute;inset:0}#forgeax-loading-brand{white-space:nowrap;align-items:center;gap:9px;min-width:0;display:flex}#forgeax-loading-logo{flex:none;width:28px;height:auto;display:block}#forgeax-loading-brand-name{color:#f5f7fad1;letter-spacing:.02em;font-size:16px;font-weight:600;line-height:1}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.01em;overflow-wrap:anywhere;margin:0;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%)}#forgeax-loading-progress-content{text-align:left;gap:12px;display:grid;position:absolute;bottom:clamp(22px,6vh,52px);left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px)}#forgeax-loading-row{grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:center;column-gap:16px;display:grid}#forgeax-loading-summary{white-space:nowrap;justify-content:flex-end;align-items:baseline;gap:10px;min-width:0;font-size:13px;line-height:1.6;display:flex}#forgeax-loading-status{color:#e6ebf59e;flex:none;margin:0}#forgeax-loading-detail{color:#e6ebf56b;flex:0 auto;min-width:1em;margin:0;overflow:hidden}#forgeax-loading-detail:empty{display:none}#forgeax-loading-meta{color:#e6ebf59e;font-variant-numeric:tabular-nums;flex:none;margin:0}#forgeax-loading-progress{background:#e6ebf51c;border-radius:2px;width:100%;height:3px;overflow:hidden}#forgeax-loading-fill{background:#c6764f;width:0;height:100%;transition:width .2s linear}#forgeax-loading-slow,#forgeax-loading-reload{justify-self:end;margin:0;display:none}#forgeax-loading-reload,#forgeax-fatal-copy,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-diagnostics-header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;display:flex}#forgeax-fatal-diagnostics-title{margin:0;font-size:15px;font-weight:600}#forgeax-fatal-copy-status{color:#e6ebf5ad;min-height:1.5em;margin:0;font-size:12px}#forgeax-fatal-details{overflow-wrap:anywhere;white-space:pre-wrap;background:#0000003d;border:1px solid #e6ebf529;border-radius:5px;min-width:0;max-height:45vh;margin:0;padding:12px;overflow:auto}@media (width<=600px){#forgeax-loading-row{column-gap:10px}#forgeax-loading-brand{gap:5px}#forgeax-loading-logo{width:18px}#forgeax-loading-brand-name{font-size:12px}#forgeax-loading-summary{gap:3px;font-size:clamp(8px,2.6vw,13px)}}@media (width<=360px){#forgeax-loading-brand{gap:4px}#forgeax-loading-logo{width:16px}#forgeax-loading-brand-name{font-size:10px}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}}</style>
 <style>#forgeax-loading{color:#e6e6e6;text-align:initial;background:0 0;padding:0;font:15px/1.6 system-ui,sans-serif;display:grid}#tg-engine-status{display:none}</style>
 
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/program-group-744261da45fa2d40-Dr6mmJoJ.js"></script>
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-45bc4712fc838105-DCP0OG8N.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/program-group-a5f9b9aaba13fe40-Dr6mmJoJ.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-ee7549a7f4cd1d69-BHLWX0rI.js"></script>
   </head>
   <body>
     <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
-    <div id="forgeax-status">Game 1c80a2c335cf | Engine 0.6.0-local.eng-22 | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
+    <div id="forgeax-status">Game 6780700184cf | Engine 0.6.0-local.eng-22 | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
 <div id="forgeax-loading" class="forgeax-startup-custom" role="status"><span id="tg-engine-status"></span></div>
     <div id="forgeax-fatal" role="alert">
       <div id="forgeax-fatal-content">
@@ -519,8 +524,8 @@
     // lifecycle. Autonomous navigation would race that owner's retirement.
     if (host !== undefined || !gamePage || query.has('forgeaxWorkspace') ||
         !/^https?:$/.test(globalThis.location?.protocol ?? '')) return undefined;
-    const identity = {"project":"tiangong","game":"1c80a2c335cf","engine":"0.6.0-local.eng-22","revision":"9825c0e56b8222cfdf15a8f4591198e9f675cc1759ef88284a3f7b4e50abf048"};
-    const version = "f93ef47f0d0bc04f844b57f130db73b316c7fa1ec347cf5e3ce2ed49c8700edb";
+    const identity = {"project":"tiangong","game":"6780700184cf","engine":"0.6.0-local.eng-22","revision":"5d71d888ea58d2288bff680e269116a1ff2c89bc212283297252884ff43acbbc"};
+    const version = "2a66a86c53b3bdcb955fc4c5885aca1b904ce24905c2b1213596997b19c90229";
     const protocol = 'forgeax-startup-cache/1';
     const retryKey = 'forgeax-startup-retry';
     const original = new URL(location.href);
