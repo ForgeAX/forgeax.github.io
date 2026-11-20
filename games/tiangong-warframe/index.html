@@ -1,6 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script id="tg-body-boot">(function () {
+  try {
+    var ch = new BroadcastChannel('tg/body');
+    ch.onmessage = function (e) {
+      if (!e.data || e.data.kind !== 'ask') return;
+      // 构建所在目录 = 资源基址去掉文件名。根地址、/bake/ 这些入口页带 base 标签（指向 …/v/版本/），页面地址本身不在构建目录里（U241：只看页面地址的话根地址永远走不了快路）；
+      // 被问的时候才取：base 标签和这段脚本谁在前面由发布脚本决定，这时候两样都已经解析过了。
+      // 这段脚本会原样进入口页，注释里不要出现尖括号写法的 base 标签——发布脚本按那个字样判断入口页有没有资源基址（单测核对）
+      var base = new URL('.', (typeof document !== 'undefined' && document.baseURI) || location.href).pathname;
+      var saved = null;
+      try { saved = localStorage.getItem('tiangong.body.v1'); } catch (err) { /* 存档读不了：当没有 */ }
+      ch.postMessage({ kind: 'page', base: base, search: location.search, saved: saved });
+    };
+    window.__tgBodyBoot = { close: function () { try { ch.close(); } catch (err) { /* 已关 */ } } };
+  } catch (err) { /* 没有 BroadcastChannel：引擎等界面插件那条消息 */ }
+})();
+</script>
+    <meta name="tg-body" content="yintai">
     <script id="tg-boot-early">/* U164 开局载入画面的早期部分：由 scripts/startup-diag/inject.mjs 内联进发布版 index.html 的 <head>。
  * 前端插件（assets/ui/boot-screen.ts）要等引擎根插件激活之后才挂载（负载高时 7 s+），那之前页面上只有引擎自带的「Loading…」。
  * 这里在 DOMContentLoaded 就画出同一套层（同一份 BOOT_CSS / BOOT_MARKUP，inject.mjs 从 assets/ui/boot-view.ts 填进来），
@@ -14,14 +32,12 @@
   if (q.has('mode') || q.has('shot') || q.has('scenario') || q.get('hud') === '0' || q.get('tgboot') === '0') return;
   if (q.has('forgeaxWorkspace') && q.get('forgeaxWorkspace') !== 'game') return;
   if (q.has('forgeax-tool-recipe') || q.has('forgeax-tool-replay')) return;
-  var CSS = "\n#tg-boot{position:absolute;inset:0;z-index:2147483645;pointer-events:none;overflow:hidden;color:#f1e2c6;font:500 14px/1.5 \"PingFang SC\",\"Hiragino Sans\",\"Yu Gothic\",system-ui,sans-serif;opacity:1;transition:opacity .8s ease}\n#tg-boot.out{opacity:0}\n#tg-boot .bd{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#16120d 0%,#0a0907 46%,#05070b 78%);transition:opacity 1.1s ease}\n#tg-boot .bd::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,190,120,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}\n#tg-boot.scene .bd{opacity:0}\n#tg-boot .vg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 52%,rgba(3,4,6,.62) 100%),linear-gradient(180deg,rgba(5,6,8,.72) 0%,transparent 16%,transparent 66%,rgba(5,6,8,.9) 100%)}\n#tg-boot .foot{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(40px,9vh,100px);display:flex;flex-direction:column;gap:clamp(14px,2.6vh,28px)}\n#tg-boot .ttl{display:flex;flex-direction:column;gap:6px}\n#tg-boot .name{font:900 clamp(30px,4.6vw,56px)/1.1 \"Songti SC\",\"STKaiti\",\"Hiragino Mincho ProN\",\"Yu Mincho\",serif;letter-spacing:.3em;color:#f6e7c9;text-shadow:0 0 26px rgba(255,150,70,.45)}\n#tg-boot .sub{font-size:clamp(11px,1.2vw,13px);letter-spacing:.2em;color:#c8a46e}\n#tg-boot .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}\n#tg-boot .stage{font-size:clamp(12px,1.25vw,14px);letter-spacing:.14em;color:#ead9bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n#tg-boot .stage::before{content:\"\";display:inline-block;width:7px;height:7px;margin-right:10px;vertical-align:1px;background:#ff9a4a;box-shadow:0 0 8px #ff8a3a;transform:rotate(45deg);animation:tgb-blink 1.2s ease-in-out infinite}\n#tg-boot .pct{font:700 clamp(18px,2vw,24px)/1 ui-monospace,Menlo,Consolas,monospace;color:#fff1d6;letter-spacing:.04em;text-shadow:0 0 12px rgba(255,150,70,.5);flex:none}\n#tg-boot .pct small{font-size:.6em;margin-left:2px;color:#c8a46e}\n#tg-boot .track{position:relative;height:4px;background:rgba(255,190,120,.12);box-shadow:inset 0 0 0 1px rgba(255,190,120,.22)}\n#tg-boot .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#8a3e16,#ff8a3a 70%,#ffd39a);box-shadow:0 0 10px rgba(255,140,60,.75);transition:width .2s linear}\n#tg-boot .fill::after{content:\"\";position:absolute;right:-1px;top:-4px;width:2px;height:12px;background:#fff3dc;box-shadow:0 0 10px 2px rgba(255,200,140,.9)}\n#tg-boot .fill::before{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,240,210,.55),transparent);background-size:120px 100%;background-repeat:no-repeat;animation:tgb-sheen 1.6s linear infinite}\n#tg-boot .ticks{position:absolute;inset:0}\n#tg-boot .ticks i{position:absolute;top:-3px;width:1px;height:10px;background:rgba(255,190,120,.35)}\n#tg-boot .hint{margin-top:10px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.08em;color:rgba(234,217,189,.62)}\n#tg-boot .performance{margin:0;max-width:880px;font-size:13px;line-height:1.7;letter-spacing:0;color:#ead9bd;overflow-wrap:anywhere}\n#tg-boot.fail .fill{background:linear-gradient(90deg,#5a1a12,#d0503a);box-shadow:0 0 10px rgba(220,80,60,.7)}\n#tg-boot.fail .stage{color:#ffb4a0}\n#tg-boot.fail .stage{white-space:normal}\n#tg-boot.fail .hint{display:block!important;color:#ffcfbf;line-height:1.7;max-width:880px;letter-spacing:.04em}\n#tg-boot.fail .stage::before{background:#e05a40;box-shadow:0 0 8px #e05a40;animation:none}\n@keyframes tgb-blink{50%{opacity:.35}}\n@keyframes tgb-sheen{from{background-position:-120px 0}to{background-position:calc(100% + 120px) 0}}\n@media (max-width:600px){#tg-boot .name{letter-spacing:.18em}#tg-boot .hint{display:none}}\n@media (prefers-reduced-motion:reduce){#tg-boot,#tg-boot .bd,#tg-boot .fill{transition:none}#tg-boot .stage::before,#tg-boot .fill::before{animation:none}}\n#forgeax-loading{display:none!important}\n";
-  var MARKUP = "<div class=\"bd\"></div><div class=\"vg\"></div><div class=\"foot\"><div class=\"ttl\"><div class=\"name\"></div><div class=\"sub\"></div></div><div class=\"bar\"><div class=\"row\"><div class=\"stage\"></div><div class=\"pct\">0<small>%</small></div></div><div class=\"track\"><div class=\"ticks\"></div><div class=\"fill\"></div></div><div class=\"hint\"></div></div><p class=\"performance\"></p></div>";
+  var CSS = "\n#tg-boot{position:absolute;inset:0;z-index:2147483645;pointer-events:none;overflow:hidden;color:#f1e2c6;font:500 14px/1.5 \"PingFang SC\",\"Hiragino Sans\",\"Yu Gothic\",system-ui,sans-serif;opacity:1;transition:opacity .8s ease}\n#tg-boot.out{opacity:0}\n#tg-boot .bd{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#16120d 0%,#0a0907 46%,#05070b 78%);transition:opacity 1.1s ease}\n#tg-boot .bd::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,190,120,.035) 0 1px,transparent 1px 4px);mix-blend-mode:screen}\n#tg-boot.scene .bd{opacity:0}\n#tg-boot .vg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 52%,rgba(3,4,6,.62) 100%),linear-gradient(180deg,rgba(5,6,8,.72) 0%,transparent 16%,transparent 66%,rgba(5,6,8,.9) 100%)}\n#tg-boot .foot{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(40px,9vh,100px);display:flex;flex-direction:column;gap:clamp(14px,2.6vh,28px)}\n#tg-boot .ttl{display:flex;flex-direction:column;gap:6px}\n#tg-boot .name{font:900 clamp(30px,4.6vw,56px)/1.1 \"Songti SC\",\"STKaiti\",\"Hiragino Mincho ProN\",\"Yu Mincho\",serif;letter-spacing:.3em;color:#f6e7c9;text-shadow:0 0 26px rgba(255,150,70,.45)}\n#tg-boot .sub{font-size:clamp(11px,1.2vw,13px);letter-spacing:.2em;color:#c8a46e}\n#tg-boot .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}\n#tg-boot .stage{font-size:clamp(12px,1.25vw,14px);letter-spacing:.14em;color:#ead9bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n#tg-boot .stage::before{content:\"\";display:inline-block;width:7px;height:7px;margin-right:10px;vertical-align:1px;background:#ff9a4a;box-shadow:0 0 8px #ff8a3a;transform:rotate(45deg);animation:tgb-blink 1.2s ease-in-out infinite}\n#tg-boot .pct{font:700 clamp(18px,2vw,24px)/1 ui-monospace,Menlo,Consolas,monospace;color:#fff1d6;letter-spacing:.04em;text-shadow:0 0 12px rgba(255,150,70,.5);flex:none}\n#tg-boot .pct small{font-size:.6em;margin-left:2px;color:#c8a46e}\n#tg-boot .track{position:relative;height:4px;background:rgba(255,190,120,.12);box-shadow:inset 0 0 0 1px rgba(255,190,120,.22)}\n#tg-boot .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#8a3e16,#ff8a3a 70%,#ffd39a);box-shadow:0 0 10px rgba(255,140,60,.75);transition:width .2s linear}\n#tg-boot .fill::after{content:\"\";position:absolute;right:-1px;top:-4px;width:2px;height:12px;background:#fff3dc;box-shadow:0 0 10px 2px rgba(255,200,140,.9)}\n#tg-boot .fill::before{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,240,210,.55),transparent);background-size:120px 100%;background-repeat:no-repeat;animation:tgb-sheen 1.6s linear infinite}\n#tg-boot .ticks{position:absolute;inset:0}\n#tg-boot .ticks i{position:absolute;top:-3px;width:1px;height:10px;background:rgba(255,190,120,.35)}\n#tg-boot .hint{margin-top:10px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.08em;color:rgba(234,217,189,.62)}\n#tg-boot.fail .fill{background:linear-gradient(90deg,#5a1a12,#d0503a);box-shadow:0 0 10px rgba(220,80,60,.7)}\n#tg-boot.fail .stage{color:#ffb4a0}\n#tg-boot.fail .stage::before{background:#e05a40;box-shadow:0 0 8px #e05a40;animation:none}\n@keyframes tgb-blink{50%{opacity:.35}}\n@keyframes tgb-sheen{from{background-position:-120px 0}to{background-position:calc(100% + 120px) 0}}\n@media (max-width:600px){#tg-boot .name{letter-spacing:.18em}#tg-boot .hint{display:none}}\n@media (prefers-reduced-motion:reduce){#tg-boot,#tg-boot .bd,#tg-boot .fill{transition:none}#tg-boot .stage::before,#tg-boot .fill::before{animation:none}}\n";
+  var MARKUP = "<div class=\"bd\"></div><div class=\"vg\"></div><div class=\"foot\"><div class=\"ttl\"><div class=\"name\"></div><div class=\"sub\"></div></div><div class=\"bar\"><div class=\"row\"><div class=\"stage\"></div><div class=\"pct\">0<small>%</small></div></div><div class=\"track\"><div class=\"ticks\"></div><div class=\"fill\"></div></div><div class=\"hint\"></div></div></div>";
   var TICKS = [30,89.5,93.6,96.5];
-  var TEXT = {"zh":{"title":"天工战甲","sub":"作战「开物」 · 人类工匠的变形战甲","engine":"启动引擎","hint":"正在初始化；全部就绪后，出击与章节即刻开始","performance":"该作品使用测试版引擎实现，目前对设备性能有一定要求。请根据自己的硬件配置调整画质与渲染缩放。目前仅支持 Chrome 系浏览器，其他浏览器不保证正常运行。","failed":"游戏启动失败，具体错误见 Diagnostics","nogpu":"此浏览器不支持 WebGPU，游戏无法运行","noadapter":"浏览器找不到可用的显卡（GPU 被禁用或驱动过旧）","soft":"当前是软件渲染（没有用上显卡），会非常卡甚至无法加载","lost":"显卡设备丢失，可能是显存或内存不足","advice":"建议：使用最新版 Chrome（146 及以上）；Mac 建议 M4 及以上芯片；Windows 建议 RTX 4060 及以上显卡。关闭其他占内存的程序和标签页后刷新重试；确认 chrome://gpu 中 WebGPU 为硬件加速。","mac":"已识别为 Mac。请使用最新版 Chrome，在设置 → 系统中开启图形加速并重新启动浏览器；在 chrome://gpu 检查 WebGPU 是否为硬件加速。Apple 芯片使用内置 GPU，无需独立显卡；建议 M4 及以上，但不按芯片型号限制启动。","windows":"已识别为 Windows。请使用最新版 Chrome 并开启图形加速。有独立显卡时，在 Windows 设置 → 系统 → 显示 → 图形中将 Chrome 设为高性能，再重新启动浏览器；在 chrome://gpu 检查 WebGPU 是否为硬件加速。建议 RTX 4060 及以上，实际以浏览器可用能力为准。"},"en":{"title":"TIANGONG","sub":"Operation Kaiwu · A transforming mech built by human hands","engine":"Starting engine","hint":"Initializing. Once everything is ready, sorties and chapters start instantly.","performance":"This game uses a beta engine and currently has hardware performance requirements. Please adjust graphics quality and render scale to suit your hardware. Currently, only Chrome-based browsers are supported; other browsers are not guaranteed to work correctly.","failed":"The game could not start. See Diagnostics for the specific error","nogpu":"This browser has no WebGPU, so the game cannot run","noadapter":"The browser cannot find a usable GPU (disabled or outdated driver)","soft":"Software rendering is in use (no GPU), so loading will be very slow or fail","lost":"The GPU device was lost, likely from running out of video or system memory","advice":"Suggested: latest Chrome (146+); on Mac, an M4 chip or newer; on Windows, an RTX 4060 or better GPU. Close other memory-heavy apps and tabs, then reload. Check that WebGPU is hardware accelerated at chrome://gpu.","mac":"Mac detected. Use the latest Chrome, enable graphics acceleration in Settings > System, and restart the browser. Check WebGPU hardware acceleration at chrome://gpu. Apple chips use their built-in GPU and do not require a discrete GPU. M4 or newer is recommended, but chip models do not restrict startup.","windows":"Windows detected. Use the latest Chrome with graphics acceleration enabled. For a discrete GPU, select High performance for Chrome in Windows Settings > System > Display > Graphics, then restart Chrome. Check WebGPU at chrome://gpu. RTX 4060 or better is recommended; actual browser capabilities determine support."},"ja":{"title":"天工戦甲","sub":"作戦「開物」 · 人の手が造った変形戦甲","engine":"エンジン起動中","hint":"初期化中です。準備が整えば、出撃も章選択もすぐに始まります。","performance":"本作品はベータ版エンジンで制作されており、現在は一定のハードウェア性能が必要です。お使いの機器に合わせて画質と描画スケールを調整してください。現在は Chrome 系ブラウザーのみ対応しており、その他のブラウザーでの正常な動作は保証していません。","failed":"ゲームを起動できませんでした。詳しいエラーは Diagnostics をご確認ください","nogpu":"このブラウザは WebGPU 非対応のため、ゲームを実行できません","noadapter":"利用可能な GPU が見つかりません（無効化またはドライバが古い可能性）","soft":"ソフトウェア描画です（GPU 未使用）。非常に重い、または読み込めない場合があります","lost":"GPU デバイスが失われました。ビデオメモリまたはメモリ不足の可能性があります","advice":"推奨：最新の Chrome（146 以上）。Mac は M4 以降のチップ、Windows は RTX 4060 以上のグラフィックスカード。他のアプリやタブを閉じて再読み込みし、chrome://gpu で WebGPU がハードウェア加速か確認してください。","mac":"Mac を検出しました。最新の Chrome を使い、設定 → システムでグラフィック アクセラレーションを有効にして再起動してください。chrome://gpu で WebGPU のハードウェア加速を確認できます。Apple チップは内蔵 GPU を使うため独立 GPU は不要です。M4 以降を推奨しますが、チップ名による起動制限はありません。","windows":"Windows を検出しました。最新の Chrome でグラフィック アクセラレーションを有効にしてください。独立 GPU がある場合は Windows 設定 → システム → ディスプレイ → グラフィックスで Chrome を高パフォーマンスに設定し、再起動してください。chrome://gpu で WebGPU を確認できます。RTX 4060 以上を推奨しますが、実際のブラウザ機能で対応を判断します。"}};
+  var TEXT = {"zh":{"title":"天工战甲","sub":"作战「开物」 · 人类工匠的变形战甲","engine":"启动引擎","hint":"首次载入需要一些时间；全部就绪后，出击与章节即刻开始"},"en":{"title":"TIANGONG","sub":"Operation Kaiwu · A transforming mech built by human hands","engine":"Starting engine","hint":"The first load takes a moment. Once everything is ready, sorties and chapters start instantly."},"ja":{"title":"天工戦甲","sub":"作戦「開物」 · 人の手が造った変形戦甲","engine":"エンジン起動中","hint":"初回の読み込みには少し時間がかかります。準備が整えば、出撃も章選択もすぐに始まります。"}};
   var KEY = "tg.loadBootMs";
   if (!CSS || !MARKUP) return;
-  // Install before the body is parsed so the native loading UI cannot flash first.
-  var st = document.createElement('style'); st.id = 'tg-boot-css'; st.textContent = CSS; document.head.appendChild(st);
   // 语言：?lang= > 设置存档 tg.settings.v1 的 locale > 浏览器语言（同 assets/i18n/index.ts initialLocale）
   var parse = function (v) { if (typeof v !== 'string') return null; v = v.trim().toLowerCase(); return v.indexOf('zh') === 0 ? 'zh' : v.indexOf('en') === 0 ? 'en' : v.indexOf('ja') === 0 || v === 'jp' ? 'ja' : null; };
   var lng = parse(q.get('lang'));
@@ -30,55 +46,16 @@
   var T = TEXT[lng] || TEXT.zh || {};
   var lastMs = 45000;
   try { var v = Number(localStorage.getItem(KEY)); if (v > 3000 && v < 600000) lastMs = v; } catch (e) { /* 禁用存储 */ }
-  var platform = navigator.userAgentData && navigator.userAgentData.platform || navigator.platform || '';
-  var advice = /mac/i.test(platform) ? T.mac : /win/i.test(platform) ? T.windows : T.advice;
-  var B = g.__tgBoot = { shown: 0, stop: null, reason: '', advice: advice || T.advice || '', environment: { platform: platform, webgpu: !!navigator.gpu, secure: isSecureContext } };
-  var Lr = null;
-  // 兼容性诊断与一般启动错误分别显示；插件失败本身不能证明硬件不兼容。
-  var warn = function (why) {
-    if (B.reason) return;
-    B.reason = why;
-    if (Lr) { Lr.classList.add('fail'); Lr.querySelector('.stage').textContent = why; Lr.querySelector('.hint').textContent = B.advice; }
-  };
-  B.warn = warn;
-  (function () {
-    // 检查真实能力，不按设备型号拦截；诊断不改动引擎的后端选择。
-    if (!navigator.gpu) { warn(T.nogpu || ''); return; }
-    try {
-      navigator.gpu.requestAdapter({ powerPreference: 'high-performance' }).then(function (a) {
-        if (!a) { B.environment.adapter = null; warn(T.noadapter || ''); return; }
-        var info = a.info || {};
-        B.environment.adapter = { vendor: info.vendor || '', architecture: info.architecture || '', description: info.description || '', fallback: !!(info.isFallbackAdapter || a.isFallbackAdapter) };
-        if (B.environment.adapter.fallback) warn(T.soft || '');
-      }, function () { /* 交给引擎自己报错 */ });
-    } catch (e) { /* 忽略 */ }
-  })();
-  var fatalSeen = false;
-  setInterval(function () {
-    var f = document.getElementById('forgeax-fatal');
-    if (!f || fatalSeen || getComputedStyle(f).display === 'none') return;
-    fatalSeen = true;
-    var txt = (f.textContent || '');
-    var deviceLost = /device[-_ ]?lost|GPUDevice.*lost/i.test(txt);
-    var gpuFailure = deviceLost || /render-feature-capability-missing/i.test(txt);
-    var why = deviceLost ? T.lost : T.failed;
-    warn(why || '');
-    if (B.advice && !f.querySelector('.tg-compat')) {
-      var d = document.createElement('div'); d.className = 'tg-compat';
-      d.style.cssText = 'margin-top:14px;padding:10px 12px;border-left:3px solid #ff9a4a;background:rgba(255,154,74,.12);color:#ffe3c4;font:13px/1.7 system-ui,sans-serif;white-space:normal';
-      d.textContent = [why, gpuFailure || B.environment.webgpu === false || B.environment.adapter === null || B.environment.adapter && B.environment.adapter.fallback ? B.advice : ''].filter(Boolean).join(' '); f.appendChild(d);
-    }
-  }, 1000);
+  var B = g.__tgBoot = { shown: 0, stop: null };
   var mount = function () {
     var shell = document.getElementById('app-shell');
     if (!shell || document.getElementById('tg-boot')) return;
+    var st = document.createElement('style'); st.id = 'tg-boot-css'; st.textContent = CSS; document.head.appendChild(st);
     var L = document.createElement('div'); L.id = 'tg-boot'; L.setAttribute('aria-live', 'polite'); L.innerHTML = MARKUP; shell.appendChild(L);
     var $ = function (c) { return L.querySelector(c); };
     $('.name').textContent = T.title || ''; $('.sub').textContent = T.sub || ''; $('.stage').textContent = T.engine || ''; $('.hint').textContent = T.hint || '';
-    $('.performance').textContent = T.performance || '';
     var ticks = $('.ticks');
     for (var k = 0; k < TICKS.length; k++) { var e = document.createElement('i'); e.style.left = TICKS[k] + '%'; ticks.appendChild(e); }
-    Lr = L; if (B.reason) { L.classList.add('fail'); $('.stage').textContent = B.reason; $('.hint').textContent = B.advice; }
     var pct = $('.pct'), fill = $('.fill'), last = -1;
     var tick = function () {
       var p = Math.min(99, 95 * (1 - Math.exp(-performance.now() / (lastMs * 0.52))));
@@ -212,7 +189,7 @@
     R.fatalVisible = !!(fatalBox && getComputedStyle(fatalBox).display !== 'none');
     var fd = document.getElementById('forgeax-fatal-details'), fm = document.getElementById('forgeax-fatal-message');
     R.fatal = (fm && R.fatalVisible ? fm.textContent + '\n' : '') + (fd ? fd.textContent : '');
-    var st = document.getElementById('forgeax-loading-status');
+    var st = document.getElementById('forgeax-loading-status') || document.getElementById('tg-engine-status');
     R.loadingStatus = st ? st.textContent : undefined;
     R.pageErrors = D.errors.slice();
     R.consoleErrors = D.logs.slice();
@@ -237,17 +214,18 @@
     }
     if (chrome && chrome < 146 && !edge) V.push('Chrome 主版本 ' + chrome + ' < 146：旧版 Windows Chrome 的 WebGPU 限额偏低，请先升级 Chrome。');
     var f = R.fatal || '';
-    if (/asset-dependency-failed/.test(f)) {
-      var dependency = /dependencyGuid:\s*([0-9a-f-]{36})/i.exec(f);
-      V.unshift('资源依赖加载失败' + (dependency ? '（' + dependency[1] + '）' : '') + '：游戏已停止。需要检查该资源的下载、完整性和发布记录；请保留这份诊断后重新加载。');
-    }
-    if (/asset-fetch-failed/.test(f)) V.unshift('资源下载失败：请保留诊断后重新加载。下方错误原文包含失败请求地址及重试结果，可据此检查下载服务。');
-    if (/asset-integrity-failed|asset-artifact-integrity-mismatch/.test(f)) V.unshift('资源读取或完整性检查失败：需要核对错误原文、资源内容和下载响应；请保留这份诊断后重新加载。');
-    if (/deadline-exceeded|timed out|did not complete within|detail\.reason:\s*timeout/i.test(f)) V.push('启动超时：尚不能仅凭超时判断是资源下载、场景初始化还是着色器编译。请保留这份诊断后重新加载，并对照下方时间线和错误原文。');
+    // U245：浏览器按「上次修改时间」自行缓存了上一版的资源清单（服务器没给 Cache-Control），新程序读到旧清单 → 版本对不上。
+    // 引擎自动重试只重下页面和脚本，结果一样；清掉本站缓存的文件后刷新即可。
+    var stale = /plugin-publication-mismatch|publication-mismatch/i.test(f + ' ' + (R.pageErrors || []).join(' ') + ' ' + (R.consoleErrors || []).join(' '));
+    if (stale) V.unshift('浏览器里留着上一版游戏的缓存文件，和新版对不上（plugin-publication-mismatch）。处理：打开浏览器「清除浏览数据」，只勾选「缓存的图片和文件」，清除后刷新本页；或者用无痕窗口打开。不是显卡或网络的问题。');
+    // 页面没有跨源隔离不一定是原因：有的发布平台本来就不隔离，游戏照样能跑。只在没有别的结论、又确实启动失败时提示。
+    var noIso = R.env && R.env.crossOriginIsolated === false;
+    if (/deadline-exceeded|timed out|did not complete within/i.test(f)) V.push('启动超时：第一次打开时显卡驱动要现编几百条着色器（Windows D3D12 比 Mac 慢很多）。请直接再刷新一次（第二次有缓存会快很多）；还不行就打开 tg-diag.html 点「完整编译测试」，把结果发回。');
     if (/device.?lost|DeviceLost|GPU process|lost/i.test(f)) V.push('GPU 设备丢失：可能是显存不足或驱动崩溃 / 超时重置（TDR）。请关掉其他占显存的程序再试，并更新显卡驱动。');
-    if (/pack|service ?worker|fetch|network/i.test(f) && !/deadline|asset-dependency-failed|asset-integrity-failed|asset-artifact-integrity-mismatch/i.test(f)) V.push('资源加载失败：需要检查失败请求与发布文件，不能仅凭这条错误确定网络或代理原因。请保留这份诊断后重新加载。');
+    if (!stale && /pack|service ?worker|fetch|network/i.test(f) && !/deadline/i.test(f)) V.push('资源下载 / 投递出错：可能是公司网络或代理拦截。请换网络再试，或按 Ctrl+Shift+R 强制刷新。');
     if (R.compile && R.compile.failed) V.push('完整编译测试里有 ' + R.compile.failed + ' 条管线在这台机器上编不过（见下方「失败」行）——这是 Windows 专属问题，请把整段发回。');
     if (R.compile && R.compile.state === 'done' && !R.compile.failed) V.push('完整编译测试全部通过，用时 ' + Math.round(R.compile.ms / 1000) + ' s' + (R.compile.ms > 90000 ? '（超过 90 s，接近游戏 120 s 的启动期限，第一次打开很可能超时）' : '') + '。');
+    if (!V.length && R.fatal && noIso) V.push('页面没有跨源隔离（没有 COOP/COEP 响应头，SharedArrayBuffer 不可用）。有的发布平台本来如此；如果是自己的网址，可能被代理 / iOA 改写，请换网络或直连再试，并把这段发回。');
     if (!V.length) V.push(R.fatal ? '没有识别出已知原因，请把整段发回。' : '显卡能力检查通过，没有发现缺的限额 / 特性。');
     return V;
   }
@@ -384,7 +362,7 @@
 
   // ---------- 游戏页挂钩 ----------
   function hookGamePage() {
-    var st = document.getElementById('forgeax-loading-status');
+    var st = document.getElementById('forgeax-loading-status') || document.getElementById('tg-engine-status');
     var fatal = document.getElementById('forgeax-fatal');
     if (!st && !fatal) return false;
     var lastText = '';
@@ -432,36 +410,36 @@
   ev('diag-installed', '');
 })();
 </script>
+    <script id="tg-render-capacity">(function(){var c="3";try{if(localStorage.getItem("tg.pacing")==="low")c="2";}catch(e){}try{var u=new URL(location.href);if(!u.searchParams.has("forgeax-render-pipeline-capacity")){u.searchParams.set("forgeax-render-pipeline-capacity",c);history.replaceState(history.state,"",u.href);}}catch(e){}})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
     <title>天工战甲</title>
-    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#05070b;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{justify-items:center;gap:12px;max-width:min(480px,100%);display:grid}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.02em;margin:0;font-size:clamp(20px,4vw,30px);font-weight:500}#forgeax-loading-spinner{border:2px solid #e6ebf533;border-top-color:#e6ebf5c7;border-radius:50%;width:22px;height:22px;animation:.9s linear infinite forgeax-loading-spin}#forgeax-loading-status{color:#e6ebf5b8;margin:0}#forgeax-loading-progress{background:#e6ebf524;border-radius:2px;width:min(360px,80vw);height:4px;overflow:hidden}#forgeax-loading-fill{background:#e6ebf5c7;width:0;height:100%;transition:width .2s linear}#forgeax-loading-detail,#forgeax-loading-meta{color:#e6ebf585;max-width:100%;min-height:1.5em;margin:0;font-size:13px;overflow:hidden}#forgeax-loading-slow,#forgeax-loading-reload{display:none}#forgeax-loading-reload,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-details{white-space:pre-wrap;max-height:45vh;overflow:auto}@keyframes forgeax-loading-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}#forgeax-loading-spinner{animation:none}}</style>
+    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#07090d;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{position:absolute;inset:0}#forgeax-loading-brand{white-space:nowrap;align-items:center;gap:9px;min-width:0;display:flex}#forgeax-loading-logo{flex:none;width:28px;height:auto;display:block}#forgeax-loading-brand-name{color:#f5f7fad1;letter-spacing:.02em;font-size:16px;font-weight:600;line-height:1}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.01em;overflow-wrap:anywhere;margin:0;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%)}#forgeax-loading-progress-content{text-align:left;gap:12px;display:grid;position:absolute;bottom:clamp(22px,6vh,52px);left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px)}#forgeax-loading-row{grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:center;column-gap:16px;display:grid}#forgeax-loading-summary{white-space:nowrap;justify-content:flex-end;align-items:baseline;gap:10px;min-width:0;font-size:13px;line-height:1.6;display:flex}#forgeax-loading-status{color:#e6ebf59e;flex:none;margin:0}#forgeax-loading-detail{color:#e6ebf56b;flex:0 auto;min-width:1em;margin:0;overflow:hidden}#forgeax-loading-detail:empty{display:none}#forgeax-loading-meta{color:#e6ebf59e;font-variant-numeric:tabular-nums;flex:none;margin:0}#forgeax-loading-progress{background:#e6ebf51c;border-radius:2px;width:100%;height:3px;overflow:hidden}#forgeax-loading-fill{background:#c6764f;width:0;height:100%;transition:width .2s linear}#forgeax-loading-slow,#forgeax-loading-reload{justify-self:end;margin:0;display:none}#forgeax-loading-reload,#forgeax-fatal-copy,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-diagnostics-header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;display:flex}#forgeax-fatal-diagnostics-title{margin:0;font-size:15px;font-weight:600}#forgeax-fatal-copy-status{color:#e6ebf5ad;min-height:1.5em;margin:0;font-size:12px}#forgeax-fatal-details{overflow-wrap:anywhere;white-space:pre-wrap;background:#0000003d;border:1px solid #e6ebf529;border-radius:5px;min-width:0;max-height:45vh;margin:0;padding:12px;overflow:auto}@media (width<=600px){#forgeax-loading-row{column-gap:10px}#forgeax-loading-brand{gap:5px}#forgeax-loading-logo{width:18px}#forgeax-loading-brand-name{font-size:12px}#forgeax-loading-summary{gap:3px;font-size:clamp(8px,2.6vw,13px)}}@media (width<=360px){#forgeax-loading-brand{gap:4px}#forgeax-loading-logo{width:16px}#forgeax-loading-brand-name{font-size:10px}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}}</style>
+<style>#forgeax-loading{color:#e6e6e6;text-align:initial;background:0 0;padding:0;font:15px/1.6 system-ui,sans-serif;display:grid}#tg-engine-status{display:none}</style>
 
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-DAXt4AE1.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/program-group-744261da45fa2d40-Dr6mmJoJ.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-45bc4712fc838105-DCP0OG8N.js"></script>
   </head>
   <body>
     <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
-    <div id="forgeax-status">Game c99d8d09578a | Engine 0.5.0-dev.15787.dae620ebb07b | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
-    <div id="forgeax-loading" role="status" aria-live="polite" aria-atomic="true">
-      <div id="forgeax-loading-content">
-        <h1 id="forgeax-loading-title">天工战甲</h1>
-        <div id="forgeax-loading-spinner" aria-hidden="true"></div>
-        <p id="forgeax-loading-status">Downloading engine code</p>
-        <div id="forgeax-loading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="forgeax-loading-status"><div id="forgeax-loading-fill"></div></div>
-        <p id="forgeax-loading-detail"></p>
-        <p id="forgeax-loading-meta">0%</p>
-        <p id="forgeax-loading-slow">Still loading. You can keep waiting or reload.</p>
-        <button id="forgeax-loading-reload" type="button">Reload</button>
-      </div>
-    </div>
+    <div id="forgeax-status">Game 1c80a2c335cf | Engine 0.6.0-local.eng-22 | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
+<div id="forgeax-loading" class="forgeax-startup-custom" role="status"><span id="tg-engine-status"></span></div>
     <div id="forgeax-fatal" role="alert">
       <div id="forgeax-fatal-content">
         <p id="forgeax-fatal-message">Unable to start the game.</p>
-        <details><summary>Diagnostics</summary><pre id="forgeax-fatal-details"></pre></details>
+        <section id="forgeax-fatal-diagnostics" aria-labelledby="forgeax-fatal-diagnostics-title">
+          <div id="forgeax-fatal-diagnostics-header">
+            <h2 id="forgeax-fatal-diagnostics-title">Diagnostics</h2>
+            <button id="forgeax-fatal-copy" type="button">Copy diagnostics</button>
+          </div>
+          <p id="forgeax-fatal-copy-status" aria-live="polite"></p>
+          <pre id="forgeax-fatal-details" tabindex="0"></pre>
+        </section>
         <button id="forgeax-fatal-reload" type="button">Reload</button>
       </div>
     </div>
+
     </div>
     <noscript>JavaScript is required to start this game. Please enable JavaScript and reload.</noscript>
     <script>
@@ -513,6 +491,8 @@
         const fatal = document.querySelector('#forgeax-fatal');
         const fatalMessage = document.querySelector('#forgeax-fatal-message');
         const fatalDetails = document.querySelector('#forgeax-fatal-details');
+        const fatalCopy = document.querySelector('#forgeax-fatal-copy');
+        const fatalCopyStatus = document.querySelector('#forgeax-fatal-copy-status');
         const fatalReload = document.querySelector('#forgeax-fatal-reload');
         const gameUi = document.querySelector('#game-ui');
         const QueryParams = typeof URLSearchParams === 'function'
@@ -532,8 +512,144 @@
           !query.has('forgeax-tool-recipe') && !query.has('forgeax-tool-replay');
         // Editor workspace/resource/tool pages omit the game loading overlay.
         // Editor Play uses it and waits for a completed game frame. Every page
-        // retains the fatal diagnostic surface and Reload action.
+        // retains fatal diagnostics independently of the chosen presentation.
         const fatalEnabled = true;
+        const startupCache = (() => {
+    // Workspace targets have frozen admission and a parent-owned failure/close
+    // lifecycle. Autonomous navigation would race that owner's retirement.
+    if (host !== undefined || !gamePage || query.has('forgeaxWorkspace') ||
+        !/^https?:$/.test(globalThis.location?.protocol ?? '')) return undefined;
+    const identity = {"project":"tiangong","game":"1c80a2c335cf","engine":"0.6.0-local.eng-22","revision":"9825c0e56b8222cfdf15a8f4591198e9f675cc1759ef88284a3f7b4e50abf048"};
+    const version = "f93ef47f0d0bc04f844b57f130db73b316c7fa1ec347cf5e3ce2ed49c8700edb";
+    const protocol = 'forgeax-startup-cache/1';
+    const retryKey = 'forgeax-startup-retry';
+    const original = new URL(location.href);
+    const scope = new URL('./', document.baseURI).href;
+    const key = 'forgeax.startup/' + encodeURIComponent(identity.project) + '/' + scope;
+    const retried = original.searchParams.get(retryKey) === '1';
+    let complete = false, recovering = false, owner = false, preparation;
+    const cancellation = new AbortController();
+    const retire = () => {complete = true; cancellation.abort(); globalThis.removeEventListener('pagehide', retire);};
+    globalThis.addEventListener('pagehide', retire, {once: true});
+    const withCombinedSignal = (async function withCombinedSignal(signals, operation) {
+  const controller = new AbortController();
+  const listeners = /* @__PURE__ */ new Map();
+  const release = () => {
+    for (const [signal, listener] of listeners) signal.removeEventListener("abort", listener);
+    listeners.clear();
+  };
+  try {
+    const aborted = signals.find((signal) => signal.aborted);
+    if (aborted) controller.abort(aborted.reason);
+    else {
+      for (const signal of new Set(signals)) {
+        const listener = () => {
+          release();
+          controller.abort(signal.reason);
+        };
+        listeners.set(signal, listener);
+        signal.addEventListener("abort", listener, { once: true });
+      }
+    }
+    return await operation(controller.signal);
+  } finally {
+    release();
+  }
+});
+    const withSignal = operation => withCombinedSignal([cancellation.signal, AbortSignal.timeout(10000)], operation);
+    const read = (storage, name) => { try { return globalThis[storage]?.getItem(name); } catch { return null; } };
+    const write = (storage, name, value) => { try { globalThis[storage]?.setItem(name, value); } catch {} };
+    const remove = (storage, name) => { try { globalThis[storage]?.removeItem(name); } catch {} };
+    const command = (action, timeout) => {
+      const controller = globalThis.navigator?.serviceWorker?.controller;
+      if (!controller || typeof MessageChannel !== 'function') return Promise.resolve(null);
+      return new Promise((resolve, reject) => {
+        const channel = new MessageChannel();
+        const finish = (error, value) => { clearTimeout(timer); channel.port1.close(); error ? reject(error) : resolve(value); };
+        let timer = setTimeout(() => action === 'reset' && owner
+          ? finish(Error('Startup cache owner reset timed out')) : finish(undefined, null), timeout);
+        channel.port1.onmessage = event => {
+          const response = event.data;
+          if (response?.protocol !== protocol) return;
+          owner = true;
+          if (response.accepted === true) { clearTimeout(timer); timer = setTimeout(() => finish(Error('Startup cache owner timed out')), 30000); return; }
+          finish(response.ok === true ? undefined : Error(response.error ?? 'Startup cache owner failed'), response);
+        };
+        try { controller.postMessage({kind: 'forgeax-startup-cache', protocol, action, project: identity.project, version, versions: identity}, [channel.port2]); }
+        catch (error) { finish(error); }
+      });
+    };
+    const refreshHttp = () => withSignal(async signal => {
+      const target = new URL(original);
+      target.searchParams.set('forgeax-startup-cache-reset', '1');
+      const response = await fetch(target, {cache: 'reload', signal});
+      if (!response.ok) throw Error('Startup HTTP cache refresh failed: ' + response.status);
+      await response.arrayBuffer();
+    });
+    const updateController = async () => {
+      const workers = globalThis.navigator?.serviceWorker;
+      if (!workers?.controller) return;
+      // An older installed owner may predate this protocol. Update its existing
+      // registration; never register a replacement or claim another scope.
+      await Promise.race([
+        (async () => {
+          const registration = await workers.getRegistration(location.href);
+          if (!registration) return;
+          await registration.update();
+          const installing = registration.installing;
+          if (installing && !['activated', 'redundant'].includes(installing.state))
+            await new Promise(resolve => installing.addEventListener('statechange', () => {
+              if (['activated', 'redundant'].includes(installing.state)) resolve();
+            }));
+        })(),
+        new Promise(resolve => setTimeout(resolve, 5000)),
+      ]);
+    };
+    return {
+      ready: () => preparation ??= (async () => {
+        const previous = read('localStorage', key);
+        if (previous && previous !== version) await refreshHttp();
+        await command('prepare', 500);
+
+      })(),
+      complete: () => {
+        retire();
+        write('localStorage', key, version);
+        remove('sessionStorage', key + '/failure');
+        if (retried) { const target = new URL(location.href); target.searchParams.delete(retryKey); try { history.replaceState(history.state, '', target); } catch {} }
+      },
+      retire,
+      recover: async (details, onRetry) => {
+        if (complete || recovering) return {status: 'disabled'};
+        recovering = true;
+        if (retried) return {status: 'exhausted', previous: read('sessionStorage', key + '/failure')};
+        write('sessionStorage', key + '/failure', 'Game ' + identity.game + ' | Engine ' + identity.engine + '\n' + details.slice(0, 12000));
+        onRetry?.();
+        try {
+          await updateController();
+          if (complete) return {status: 'disabled'};
+          await command('reset', owner ? 30000 : 500);
+          if (complete) return {status: 'disabled'};
+          await refreshHttp();
+          const modules = [...document.querySelectorAll('script[type=module][src],link[rel=modulepreload][href]')].map(node => node.src || node.href);
+          for (let index = 0; index < modules.length; index += 4) {
+            // These URLs belong to the failed generation. A scoped reset may
+            // retire its document, and an update may remove an old hashed URL.
+            // Best-effort HTTP revalidation must never prevent the one retry.
+            await Promise.allSettled(modules.slice(index, index + 4).map(url => withSignal(async signal => {
+              const response = await fetch(url, {cache: 'reload', signal});
+              if (!response.ok) throw Error('Startup module refresh failed: ' + response.status);
+              await response.arrayBuffer();
+            })));
+          }
+          if (complete) return {status: 'disabled'};
+          const target = new URL(original); target.searchParams.set(retryKey, '1');
+          location.replace(target.href);
+          return {status: 'reloaded'};
+        } catch (error) { return complete ? {status: 'disabled'} : {status: 'failed', error: String(error)}; }
+      },
+    };
+  })();
         let phase = gamePage ? 'loading' : 'disabled';
         let slowTimer;
         let fadeTimer;
@@ -545,7 +661,28 @@
         let progressBound = false;
         let shownPercent = 0;
         let shownElapsed = '';
+        let shownActivity = labels.phases['engine-code'] ?? labels.loading;
+        let shownDetail = '';
         let lastView;
+        let uiMessage = '', uiDiagnostics = '', uiRecovery = 'idle', uiCopyStatus = 'idle';
+        const uiListeners = new Set();
+        const uiDisposers = new Map();
+        const snapshotUi = () => Object.freeze({ phase,
+            progress: Object.freeze({ percent: shownPercent,
+              activity: shownActivity, detail: shownDetail, elapsed: shownElapsed }),
+            slow: slowRemainingMs <= 0, message: uiMessage, diagnostics: uiDiagnostics,
+            recovery: uiRecovery, copyStatus: uiCopyStatus });
+        const notifyUi = () => {
+          const state = snapshotUi();
+          for (const listener of uiListeners) {
+            try { listener(state); } catch (error) { console.error('[ForgeAX startup UI]', error); }
+          }
+        };
+        const disposeUi = (kind) => {
+          const dispose = uiDisposers.get(kind);
+          uiDisposers.delete(kind);
+          try { dispose?.(); } catch (error) { console.error('[ForgeAX startup UI cleanup]', error); }
+        };
         let enteredCallbacks = [];
         let latestSubmitted;
         // A completion may legally lag behind a later submission. Keep the
@@ -568,7 +705,8 @@
         };
         const reload = () => {
           if (phase === 'destroyed') return;
-          destroy();
+          // The page is going away: keep the game UI inert under the cover.
+          destroy(false);
           if (host !== undefined) host.reload();
           else if (typeof location?.reload === 'function') location.reload();
         };
@@ -576,12 +714,61 @@
           if (node !== null && isElement(node)) node.textContent = text;
         };
         const setDisplay = (node, display) => {
-          if (node !== null && isElement(node)) node.style.display = display;
+          if (node !== null && isElement(node)) {
+            const custom = (node === loading && true) || (node === fatal && false);
+            node.style.display = display === 'grid' && custom ? '' : display;
+          }
         };
         const setAttribute = (node, name, value) => {
           if (node !== null && isElement(node) && typeof node.setAttribute === 'function') {
             node.setAttribute(name, value);
           }
+        };
+        const copyDiagnostics = async () => {
+          if (phase === 'destroyed') return false;
+          const text = [uiMessage, uiDiagnostics]
+            .map((value) => value?.trim())
+            .filter((value) => value !== undefined && value.length > 0)
+            .join('\n\n');
+          let copied = false;
+          try {
+            const clipboard = host?.clipboard ?? globalThis.navigator?.clipboard;
+            if (typeof clipboard?.writeText === 'function') {
+              await clipboard.writeText(text);
+              copied = true;
+            }
+          } catch {
+            // Continue to the DOM fallback when clipboard permission is unavailable.
+          }
+          if (!copied) {
+            try {
+              const textarea = document.createElement?.('textarea');
+              const parent = document.body ?? document.documentElement;
+              if (textarea !== undefined && parent !== undefined && parent !== null) {
+                textarea.value = text;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-10000px';
+                parent.appendChild(textarea);
+                try {
+                  textarea.focus?.();
+                  textarea.select();
+                  copied = document.execCommand?.('copy') === true;
+                } finally {
+                  textarea.remove?.();
+                }
+              }
+            } catch {
+              copied = false;
+            }
+          }
+          uiCopyStatus = copied ? 'copied' : 'failed';
+          setText(fatalCopyStatus, copied ? 'Diagnostics copied.' : 'Could not copy diagnostics.');
+          notifyUi();
+          return copied;
+        };
+        const onCopyDiagnostics = () => {
+          void copyDiagnostics();
         };
         const isStartupControlTarget = (target) => {
           if (!(isNode(target))) return false;
@@ -600,9 +787,8 @@
           event?.stopPropagation?.();
         };
         const onStartupControlKey = (event) => {
-          // Let the focused Reload button receive its default Enter/Space
-          // activation, but stop the key event before it bubbles to the
-          // gameplay producer while the startup surface owns the page.
+          // Let focused startup buttons receive their default activation, but
+          // stop the key event before it reaches gameplay while this surface owns the page.
           if (!inputEnabled) event?.stopPropagation?.();
         };
         const startupInputKinds = [
@@ -657,11 +843,18 @@
             }
           }
           inputBinding = callback;
-          setInputEnabled(false);
+          // A binding joins the current gate: an App bound after the first
+          // ready frame (hot reload, a replacement App) is admitted at once,
+          // and the game UI never falls back to inert behind no cover.
+          setInputEnabled(inputEnabled);
           return () => {
             if (inputBinding !== callback) return;
-            setInputEnabled(false);
             inputBinding = undefined;
+            try {
+              callback(false);
+            } catch {
+              // The retiring App may already be disposed.
+            }
           };
         };
         let fadeCanvasWatch;
@@ -714,7 +907,32 @@
           }
           return bytes;
         };
-        const showMeta = () => showText(loadingMeta, shownPercent + '%' + (shownElapsed === '' ? '' : ' · ' + shownElapsed));
+        let detailLayout;
+        const showDetail = () => {
+          if (loadingDetail === null || !isElement(loadingDetail)) return;
+          setAttribute(loadingDetail, 'title', shownDetail);
+          const summary = loadingDetail.parentElement;
+          const layout = [shownDetail, summary?.clientWidth, loadingStatus?.scrollWidth, loadingMeta?.scrollWidth].join('|');
+          if (layout === detailLayout) return;
+          detailLayout = layout;
+          showText(loadingDetail, shownDetail);
+          if (!(loadingDetail.clientWidth > 0) || loadingDetail.scrollWidth <= loadingDetail.clientWidth) return;
+          // Use portable DOM measurements: the native UI profile has no CSS text-overflow.
+          const characters = Array.from(shownDetail);
+          let low = 0, high = characters.length;
+          while (low < high) {
+            const middle = Math.ceil((low + high) / 2);
+            showText(loadingDetail, characters.slice(0, middle).join('') + '…');
+            if (loadingDetail.scrollWidth <= loadingDetail.clientWidth) low = middle;
+            else high = middle - 1;
+          }
+          showText(loadingDetail, characters.slice(0, low).join('') + '…');
+        };
+        const showMeta = () => {
+          showText(loadingMeta, shownPercent + '%' + (shownElapsed === '' ? '' : ' · ' + shownElapsed));
+          showDetail();
+          notifyUi();
+        };
         const showPercent = (percent) => {
           shownPercent = Math.max(shownPercent, percent);
           showMeta();
@@ -729,7 +947,7 @@
           showMeta();
           if (!progressBound) {
             const bytes = scriptBytes();
-            if (bytes > 0) showText(loadingDetail, megabytes(bytes));
+            if (bytes > 0) { shownDetail = megabytes(bytes); showDetail(); notifyUi(); }
           }
           elapsedTimer = setStartupTimeout(tickElapsed, 500);
         };
@@ -738,9 +956,11 @@
           if (view === null || typeof view !== 'object') return;
           progressBound = true;
           lastView = view;
-          showText(loadingStatus, typeof view.activity === 'string' ? view.activity : labels.loading);
-          showText(loadingDetail, typeof view.detail === 'string' ? view.detail : '');
+          shownActivity = typeof view.activity === 'string' ? view.activity : labels.loading;
+          shownDetail = typeof view.detail === 'string' ? view.detail : '';
+          showText(loadingStatus, shownActivity);
           if (Number.isFinite(view.percent)) showPercent(Math.max(0, Math.min(100, Math.floor(view.percent))));
+          else { showDetail(); notifyUi(); }
         };
         const onEntered = (callback) => {
           if (typeof callback === 'function') enteredCallbacks.push(callback);
@@ -839,6 +1059,7 @@
           slowVisibleSince = undefined;
           setDisplay(loadingSlow, 'block');
           setDisplay(loadingReload, 'inline-block');
+          notifyUi();
         };
         const armSlowTimer = () => {
           if (gamePage && elapsedTimer === undefined) tickElapsed();
@@ -958,29 +1179,66 @@
           clearStartupWork();
           // Retain the first cause through teardown and keep Reload alive.
           cleanupStartupListeners();
+          bindUiKeys();
           bindStartupInputCapture();
           bindFatalReload();
+          bindFatalCopy();
           let details = formatStartupFailure(reason);
           const notice = fatal;
-          if (!(isElement(notice))) return;
           const message = runtimeFailure ? 'The game stopped because execution failed.' : 'Unable to start the game.';
           if (/webgpu|adapter-unavailable|no usable (rendering )?backend/i.test(details)) {
-            details += '\n\nRenderer diagnosis: ForgeaX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.';
+            details += '\n\nRenderer diagnosis: ForgeAX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.';
           }
           // Keep the existing plain-text diagnostic fallback for hosts that
           // provide only one synthetic HTMLElement in a test harness.
-          if (fatalMessage === notice) {
-            notice.textContent = (runtimeFailure ? 'ForgeaX game stopped.\n' : 'ForgeaX game failed to start.\n') + message + '\n' + details;
+          if (notice !== null && fatalMessage === notice) {
+            notice.textContent = (runtimeFailure ? 'ForgeAX game stopped.\n' : 'ForgeAX game failed to start.\n') + message + '\n' + details;
           } else {
             setText(fatalMessage, message);
             setText(fatalDetails, details);
           }
+          uiMessage = message;
+          uiDiagnostics = details;
+          console.warn?.('[ForgeAX game failure]', message, details);
+          notifyUi();
+          if (startupCache === undefined) disposeUi('loading');
           setDisplay(loading, 'none');
           setDisplay(notice, 'grid');
           setDisplay(fatalReload, 'inline-block');
           setAttribute(loading, 'aria-hidden', 'true');
           setAttribute(loading, 'data-fading', 'false');
           if (gamePage && fatalReload !== null && isElement(fatalReload)) fatalReload.focus?.();
+          if (startupCache !== undefined) {
+            void startupCache.recover(details, () => {
+              // The native/dev startup oracle observes the fatal surface. Keep
+              // recovery nonterminal until its single retry has really failed.
+              uiRecovery = 'retrying';
+              notifyUi();
+              setDisplay(notice, 'none');
+              setDisplay(loading, 'grid');
+              setAttribute(loading, 'aria-hidden', 'false');
+              setText(loadingStatus, 'Refreshing cached startup resources and retrying once…');
+            }).then(result => {
+              if (phase === 'destroyed') return;
+              if (result.status === 'reloaded' || result.status === 'disabled') { disposeUi('loading'); return; }
+              setDisplay(loading, 'none');
+              setAttribute(loading, 'aria-hidden', 'true');
+              setDisplay(notice, 'grid');
+              setText(fatalMessage, message);
+              if (result.status === 'exhausted') {
+                uiRecovery = 'exhausted';
+                uiDiagnostics = details + '\n\nAutomatic startup cache recovery was attempted once.' +
+                  (result.previous ? '\nFirst failure:\n' + result.previous : '');
+              } else if (result.status === 'failed') {
+                uiRecovery = 'failed';
+                uiDiagnostics = details + '\n\nStartup cache recovery failed: ' + result.error;
+              }
+              setText(fatalDetails, uiDiagnostics);
+              notifyUi();
+              disposeUi('loading');
+            });
+          }
+
         };
         const prepare = () => {
           if (!gamePage || (phase !== 'loading' && phase !== 'fading')) return;
@@ -994,6 +1252,8 @@
             setAttribute(loading, 'data-fading', 'false');
           }
           phase = 'preparing';
+          shownActivity = labels.phases['first-frame'] ?? labels.loading;
+          notifyUi();
           latestSubmitted = undefined;
           submittedFrames = new Set();
           setText(loadingStatus, labels.phases['first-frame'] ?? labels.loading);
@@ -1034,6 +1294,7 @@
           // The game is presentable now; the fade is cosmetic and must not
           // swallow the first player or scripted input.
           setInputEnabled(true);
+          startupCache?.complete();
           runEntered();
           const fadeGeneration = sessionGeneration;
           const fadeCanvas = latestSubmitted.canvas;
@@ -1052,17 +1313,26 @@
             }
             stopFadeCanvasWatch();
             phase = 'entered';
+            notifyUi();
+            disposeUi('loading');
             setDisplay(loading, 'none');
             setAttribute(loading, 'data-fading', 'false');
             cleanupStartupListeners();
           }, fadeDurationMs);
         };
-        const destroy = () => {
+        const destroy = (releaseUi = true) => {
           if (phase === 'destroyed') return;
           sessionGeneration += 1;
           phase = 'destroyed';
+          notifyUi();
+          disposeUi('loading');
+          disposeUi('failure');
+          uiListeners.clear();
+          startupCache?.retire();
           frameRate.destroy();
           setInputEnabled(false);
+          // The retired startup owner no longer gates the page's UI.
+          if (releaseUi && gamePage && isElement(gameUi)) gameUi.inert = false;
           clearStartupWork();
           cleanupStartupListeners();
         };
@@ -1113,7 +1383,10 @@
             slowTimer = undefined;
           }
         };
-        const onPageHide = () => destroy();
+        // A page kept in the back/forward cache resumes as it was.
+        const onPageHide = (event) => {
+          if (event?.persisted !== true) destroy();
+        };
         const onError = (event) => {
           if (event?.error !== undefined) {
             show(event.error);
@@ -1155,7 +1428,18 @@
           loadingReload[listen]('keydown', onStartupControlKey);
           loadingReload[listen]('keyup', onStartupControlKey);
         };
+        const bindUiKeys = () => {
+          for (const root of [loading, fatal]) {
+            root?.addEventListener?.('keydown', onStartupControlKey);
+            root?.addEventListener?.('keyup', onStartupControlKey);
+          }
+        };
+        bindUiKeys();
         const cleanupStartupListeners = () => {
+          for (const root of [loading, fatal]) {
+            root?.removeEventListener?.('keydown', onStartupControlKey);
+            root?.removeEventListener?.('keyup', onStartupControlKey);
+          }
           if (typeof window.removeEventListener === 'function') {
             window.removeEventListener('forgeax:frame-submitted', onSubmitted, { capture: true });
             window.removeEventListener('forgeax:frame-completed', onCompleted, { capture: true });
@@ -1178,6 +1462,11 @@
             fatalReload.removeEventListener('keydown', onStartupControlKey);
             fatalReload.removeEventListener('keyup', onStartupControlKey);
           }
+          if (fatalCopy !== null && typeof fatalCopy.removeEventListener === 'function') {
+            fatalCopy.removeEventListener('click', onCopyDiagnostics);
+            fatalCopy.removeEventListener('keydown', onStartupControlKey);
+            fatalCopy.removeEventListener('keyup', onStartupControlKey);
+          }
         };
         setLoadingControls(true);
         const bindFatalReload = () => {
@@ -1189,6 +1478,16 @@
           fatalReload.addEventListener('click', reload);
           fatalReload.addEventListener('keydown', onStartupControlKey);
           fatalReload.addEventListener('keyup', onStartupControlKey);
+        };
+        const bindFatalCopy = () => {
+          if (
+            fatalCopy === null ||
+            !isElement(fatalCopy) ||
+            typeof fatalCopy.addEventListener !== 'function'
+          ) return;
+          fatalCopy.addEventListener('click', onCopyDiagnostics);
+          fatalCopy.addEventListener('keydown', onStartupControlKey);
+          fatalCopy.addEventListener('keyup', onStartupControlKey);
         };
         if (gamePage) {
           // Render Worker recovery replaces its transferred canvas. Capture
@@ -1238,6 +1537,7 @@
           }
         };
         const startup = Object.freeze({
+          ready: () => startupCache?.ready() ?? Promise.resolve(),
           prepare,
           enter,
           fail: show,
@@ -1247,8 +1547,39 @@
           submitted: (detail) => onSubmitted({ target: currentCanvas(), detail }),
           visibilityChanged: onVisibilityChange,
           progress,
+          inspect: snapshotUi,
           onEntered,
         });
+        if (phase !== 'destroyed' && gamePage && loading !== null) {
+            const root = loading;
+            const ownedListeners = new Set();
+            let retired = false;
+            let cleanup;
+            uiDisposers.set('loading', () => {
+              retired = true;
+              for (const listener of ownedListeners) uiListeners.delete(listener);
+              ownedListeners.clear();
+              cleanup?.();
+            });
+            try {
+              cleanup = ((screen) => {
+const el = screen.root.querySelector('#tg-engine-status'); return screen.subscribe((s) => { el.textContent = [s.progress.activity, s.progress.detail].filter(Boolean).join(' '); });
+})(Object.freeze({
+                kind: 'loading', root, document, reload, copyDiagnostics,
+                subscribe(listener) {
+                  if (retired || typeof listener !== 'function') return () => {};
+                  ownedListeners.add(listener); uiListeners.add(listener); listener(snapshotUi());
+                  return () => { ownedListeners.delete(listener); uiListeners.delete(listener); };
+                }
+              }));
+              if (typeof cleanup !== 'function') cleanup = undefined;
+              if (retired) cleanup?.();
+            } catch (error) {
+              console.error('[ForgeAX startup UI mount]', error);
+              disposeUi('loading');
+            }
+          }
+
         if (host === undefined) globalThis.__forgeaxStartup = startup;
         return startup;
       })(undefined);
@@ -1257,7 +1588,7 @@
       (() => {
         // This inert marker keeps generated pages inspectable by older hosts
         // that only parse the fatal diagnostic hook.
-        const startupFailureText = 'ForgeaX game failed to start.\n' + 'Unable to start the game.';
+        const startupFailureText = 'ForgeAX game failed to start.\n' + 'Unable to start the game.';
         void startupFailureText;
       })();
     </script>
