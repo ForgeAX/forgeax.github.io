@@ -232,6 +232,14 @@
   var burgerLinks = document.getElementById("navlinks");
   if (burger && burgerLinks) burger.addEventListener("click", function () { burgerLinks.classList.toggle("open"); });
 
+  /* Tables that stack into blocks on a phone (.tbl-stack): each cell carries its column name. */
+  document.querySelectorAll(".tbl-stack table").forEach(function (table) {
+    var heads = Array.prototype.map.call(table.querySelectorAll("thead th"), function (th) { return th.textContent.trim(); });
+    table.querySelectorAll("tbody tr").forEach(function (row) {
+      Array.prototype.forEach.call(row.cells, function (cell, i) { if (heads[i]) cell.setAttribute("data-label", heads[i]); });
+    });
+  });
+
   /* Desktop docs menu opens on hover; preserve native disclosure behavior on mobile. */
   document.querySelectorAll(".nav-docs-menu").forEach(function (menu) {
     var summary = menu.querySelector("summary");

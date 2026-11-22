@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="https://forgeax.github.io/assets/blog/yintai/poster-en.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -95,7 +95,7 @@
 </figure><figure>
 <img src="/assets/blog/yintai/zh/st-fix.jpg" width="1280" height="720" alt="小腿喷口在三视图里的朝向和建出来的轴线" loading="lazy" />
 <figcaption>红圈是三张图里的小腿喷口，右边是建出来的喷口和它的轴线。</figcaption>
-</figure><table>
+</figure><div class="tbl-stack"><table>
 <thead>
 <tr>
 <th>原画里的问题</th>
@@ -115,7 +115,7 @@
 <td>每个部位以最能说清结构的那张为准，其余两张只用来核对轮廓。</td>
 </tr>
 </tbody></table>
-<p>也有反过来的：大腿内侧那条曲线和板边的折边，一开始被当成装饰，建得不对；原画是对的——那是铝板 / 钛板的折边工艺。所以「修原画」只修功能上说不通的地方，看不懂的先当它有道理。小腿喷口的角度也还没定死：侧视图画的大约 50°，现在三个体型是 18–26°。</p>
+</div><p>也有反过来的：大腿内侧那条曲线和板边的折边，一开始被当成装饰，建得不对；原画是对的——那是铝板 / 钛板的折边工艺。所以「修原画」只修功能上说不通的地方，看不懂的先当它有道理。小腿喷口的角度也还没定死：侧视图画的大约 50°，现在三个体型是 18–26°。</p>
 <h2>从原画到游戏，每一步做了什么</h2>
 <h3>1 · 先把 30 个关节定下来</h3>
 <figure><img src="/assets/blog/yintai/zh/st-skeleton.jpg" width="1280" height="720" alt="骨架阶段" loading="lazy" /></figure><p>骨盆、脊、胸、头、四肢、背包、两级翼、尾鳍、舱盖，29 条父子连接。每个零件挂在一个关节上，变形只动关节。</p>
@@ -135,7 +135,7 @@
 <p>待机时武器不能穿进机体，三个体型都要查，有守卫测试看着。开发过程中每一轮改完都回到游戏里拍，和原画并排看。</p>
 <h2>用了引擎的哪些建模工具</h2>
 <p>入口是 <code>@forgeax/engine/modeling</code>。表的上半部分是引擎自带的；最后三行是为这台机甲在它上面写的几个小工具。</p>
-<table>
+<div class="tbl-stack"><table>
 <thead>
 <tr>
 <th>工具</th>
@@ -209,7 +209,7 @@
 <td>约 100 处：膝、髋、肩、踝、肘的关节盘、轴端盖、喷口</td>
 </tr>
 </tbody></table>
-<h2>高模是真的程序化高模</h2>
+</div><h2>高模是真的程序化高模</h2>
 <p>高模不是雕出来的，也不是另一个文件：给生成代码一个精度档，同一份代码按 8 倍密度取样，再把图集里的紧固件按同一份高度场顶成真几何，就是高模。它只在离线用：数面数、拍对照、量低模离它多远。</p>
 <figure>
 <img src="/assets/blog/yintai/zh/st-hilo-num.jpg" width="1280" height="720" alt="高模和低模的三角数" loading="lazy" />
@@ -399,6 +399,6 @@
 <div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
 </footer>
 
-<script src="/assets/site.js?v=6c968d97"></script>
+<script src="/assets/site.js?v=c93fba97"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="https://forgeax.github.io/assets/blog/yintai/poster-en.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta name="color-scheme" content="light" />
 
@@ -95,7 +95,7 @@
 </figure><figure>
 <img src="/assets/blog/yintai/en/st-fix.jpg" width="1280" height="720" alt="The shin nozzle direction in the three views and the axis as built" loading="lazy" />
 <figcaption>The red circles mark the shin nozzle in the three views; on the right, the nozzle as built and its axis.</figcaption>
-</figure><table>
+</figure><div class="tbl-stack"><table>
 <thead>
 <tr>
 <th>Problem in the concept</th>
@@ -115,7 +115,7 @@
 <td>For each part, the view that explains its structure best is the reference; the other two are only used to check the silhouette.</td>
 </tr>
 </tbody></table>
-<p>It also went the other way. The curve on the inner thigh and the folded plate edges were first read as decoration and built wrong. The concept was right: they are the flanges of formed aluminium / titanium sheet. So “fixing the concept” only touches what cannot work functionally; anything not yet understood is assumed to have a reason. The nozzle angle is not final either — the side view shows about 50°, and the three builds currently use 18–26°.</p>
+</div><p>It also went the other way. The curve on the inner thigh and the folded plate edges were first read as decoration and built wrong. The concept was right: they are the flanges of formed aluminium / titanium sheet. So “fixing the concept” only touches what cannot work functionally; anything not yet understood is assumed to have a reason. The nozzle angle is not final either — the side view shows about 50°, and the three builds currently use 18–26°.</p>
 <h2>From concept to game, step by step</h2>
 <h3>1 · Fix the 30 joints first</h3>
 <figure><img src="/assets/blog/yintai/en/st-skeleton.jpg" width="1280" height="720" alt="Skeleton stage" loading="lazy" /></figure><p>Pelvis, spine, chest, head, limbs, pack, two-stage wings, tail fins, canopy — 29 parent links. Every part hangs off one joint, and the transformation only moves joints.</p>
@@ -135,7 +135,7 @@
 <p>Weapons must not clip into the body in the idle pose; all three body builds are checked and covered by guard tests. During development every round was checked back in the game, side by side with the concept.</p>
 <h2>Which modelling tools were used</h2>
 <p>The entry point is <code>@forgeax/engine/modeling</code>. The upper part of the table ships with the engine; the last three rows are small helpers written on top of it for this mech.</p>
-<table>
+<div class="tbl-stack"><table>
 <thead>
 <tr>
 <th>Tool</th>
@@ -209,7 +209,7 @@
 <td>About 100 places: joint discs at knee, hip, shoulder, ankle and elbow, axle caps, nozzles</td>
 </tr>
 </tbody></table>
-<h2>The high-poly model is genuinely procedural</h2>
+</div><h2>The high-poly model is genuinely procedural</h2>
 <p>The high-poly model is not sculpted and is not a separate file. Give the generation code a precision level and the same code samples at 8× density, then raises the fasteners in the atlas into real geometry from the same height fields. That is the high-poly model. It is only used offline: to count triangles, to shoot comparisons, and to measure how far the low-poly sits from it.</p>
 <figure>
 <img src="/assets/blog/yintai/en/st-hilo-num.jpg" width="1280" height="720" alt="Triangle counts of high-poly and low-poly" loading="lazy" />
@@ -399,6 +399,6 @@
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
 </footer>
 
-<script src="/assets/site.js?v=6c968d97"></script>
+<script src="/assets/site.js?v=c93fba97"></script>
 </body>
 </html>
