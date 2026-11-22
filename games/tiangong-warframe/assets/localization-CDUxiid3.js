@@ -1,0 +1,1 @@
+export{t as bindUiLocalization,n as createUiLocalization,r as refreshUiLocalization}from"./engine-4f53cda18c2baa0c-DI2VvvXn.js";

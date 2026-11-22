@@ -1,0 +1,1 @@
+export{default as t}from"./physics-rapier3d-CMuNck3M.js";
