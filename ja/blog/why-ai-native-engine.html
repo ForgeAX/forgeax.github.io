@@ -1,12 +1,104 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=/ja/about.html#why-ai-native-engine" />
-<link rel="canonical" href="https://forgeax.github.io/ja/about.html#why-ai-native-engine" />
-<title>AI ネイティブ エンジンを構築する理由 → About — ForgeAX</title>
-<script>location.replace('/ja/about.html#why-ai-native-engine');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI ネイティブ エンジンを構築する理由 — ForgeAX</title>
+<meta name="description" content="AI がエンジンの最初のユーザーである場合、API、エラー メッセージ、状態は AI の観点から再設計される必要があります。私たちが行ったいくつかの具体的な選択。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="AI ネイティブ エンジンを構築する理由 — ForgeAX" />
+<meta property="og:description" content="AI がエンジンの最初のユーザーである場合、API、エラー メッセージ、状態は AI の観点から再設計される必要があります。私たちが行ったいくつかの具体的な選択。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ja/blog/why-ai-native-engine.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/why-ai-native-engine.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/why-ai-native-engine.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
 </head>
-<body><p>Moved to <a href="/ja/about.html#why-ai-native-engine">/ja/about.html#why-ai-native-engine</a>.</p></body>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/" class="active">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/why-ai-native-engine.html" data-l="en">English</a><a class="lang-item" href="/zh/blog/why-ai-native-engine.html" data-l="zh">中文</a><a class="lang-item active" href="/ja/blog/why-ai-native-engine.html" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/blog/why-ai-native-engine.html" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/why-ai-native-engine.html" data-l="es">Español</a><a class="lang-item" href="/de/blog/why-ai-native-engine.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/blog/why-ai-native-engine.html" data-l="fr">Français</a><a class="lang-item" href="/pt/blog/why-ai-native-engine.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ja/blog/">← ブログに戻る</a>
+    <div class="meta"><span class="tag">意見</span><span>2026年6月16日</span></div>
+    <h1>AI ネイティブ エンジンを構築する理由</h1>
+    <p class="standfirst">ほとんどのゲーム エンジン API は人間向けに作成されています。 AI がコードを書くようになると、エンジンは違ったものになるはずです。</p>
+    <div class="prose"><p>ForgeAX の核となるアイデアはシンプルです。ユーザーがゲームを説明し、AI がエンジン コードを作成します。これは「作者が違うだけ」のように聞こえますが、実際には既存のエンジンは AI に適していません。人間と同じようにドキュメントを読み、推測し、コンテキストを埋める読者を想定しています。</p>
+<p>私たちのスタンスは率直です: <strong>AI はエンジンの最初のユーザーです。 「AI に優しい」と「人間に優しい」が矛盾する場合、AI が勝ちます。</strong> 具体的な結果をいくつか示します。</p>
+<h2>1 · 真実の情報源は 1 つで、残りは導き出される</h2>
+<p>ファクトは正確に 1 か所で定義されます。他のすべてはそこから派生します。たとえば、コンポーネント フィールドはスキーマ内にインラインで存在します。インスペクター、デバッガー、ツールは、ソースを grep して推測する代わりにスキーマを読み取ります。 AI は、どこにでも点在する規則を「記憶」する必要がありません。見るべき場所は 1 つだけだからです。</p>
+<h2>2 · AI が理解して回復できるエラー</h2>
+<p>エラーは、単に人間が「投げる」文章ではありません。私たちはエラー コードの閉じたセットを使用しており、それぞれに構造化された「何を/なぜ/どのように回復するか」情報が含まれています。 AI はエラーに遭遇したとき、例外テキストを神秘主義として扱うのではなく、次に何を変更すべきかを認識します。</p>
+<h2>3 · 「画面を見る」のではなく構造化データ</h2>
+<p>レンダリングのバグで最も難しいのは、「画面上で間違って見える」ことです。人間はモニターを見つめることができます。 AIにはできません。そのため、エンジンはレンダー呼び出しのフレーム (描画呼び出し、バインディング、レンダー ターゲット、パイプライン状態) をキャプチャして、オフラインで読み取り、再生し、N 回目の描画で完全な状態を検査できます。視覚的な問題は、AI が「読み取る」ことができるデータになります。</p>
+<h2>4 · 相互にチェックする 2 つの実装</h2>
+<p>レンダー層には、単一のインターフェイスの背後に 2 つのバックエンド実装 (WebGPU と wasm 実装) があります。これらは並列してレンダリングされます。AI がエンジン API を悪用した瞬間に、もう一方のバックエンドが即座に分岐し、問題が表面化します。人間のレビューを待つよりもはるかに速くなります。</p>
+<hr>
+<p>これらの設計には 1 つの基準があります。<strong>読者 (人間または AI) が頭の中に保持しなければならない概念が少ないほど、優れています。</strong> API の自己一貫性が高く、ローカルでインデックス付け可能であるほど、AI が正しく理解できる頻度が高くなります。また、人間が引き継ぎやすくなります。</p>
+<p>「AI ネイティブ」はスローガンではありません。それは、「AI の観点からやり直す」という長い一連の決定です。ドキュメントと将来の投稿でさらに詳しく説明します。</p>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ja/docs/">ドキュメントの概要を参照 →</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+</body>
 </html>

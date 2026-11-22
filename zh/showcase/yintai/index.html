@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>银胎 3D 模型 — 天工引擎</title>
+<meta name="description" content="《天工战甲》主角机「银胎」的可交互 3D 模型：和游戏里用的是同一份 72,157 三角的网格，在天工引擎里用代码建出来。可以旋转、拆开看、变形成战机。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="银胎 — 一台完全用代码建出来的游戏机甲" />
+<meta property="og:description" content="在浏览器里转一转游戏实际使用的 72,157 三角网格：线框、弦高热图、一件一件搭起来，以及机甲 ↔ 战机变形。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://forgeax.github.io/zh/showcase/yintai/" />
+<meta property="og:image" content="https://forgeax.github.io/assets/showcase/yintai/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/showcase/yintai/" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/showcase/yintai/" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/showcase/yintai/" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/showcase/yintai/" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/showcase/yintai/" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/showcase/yintai/" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/showcase/yintai/" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/showcase/yintai/" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/showcase/yintai/" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/showcase/yintai/" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+<meta name="twitter:title" content="银胎 — 一台完全用代码建出来的游戏机甲" />
+<meta name="twitter:description" content="在浏览器里转一转游戏实际使用的 72,157 三角网格：线框、弦高热图、一件一件搭起来，以及机甲 ↔ 战机变形。" />
+<meta name="twitter:image" content="https://forgeax.github.io/assets/showcase/yintai/og.jpg" />
+<meta name="twitter:image:alt" content="银胎：一台银色装甲的可变形机甲，可交互的 3D 模型。" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="银胎：一台银色装甲的可变形机甲，可交互的 3D 模型。" />
+<link rel="stylesheet" href="/assets/showcase/yintai/page.css?v=5d5ebc84" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/showcase/yintai/" data-l="en">English</a><a class="lang-item active" href="/zh/showcase/yintai/" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/showcase/yintai/" data-l="ja">日本語</a><a class="lang-item" href="/ko/showcase/yintai/" data-l="ko">한국어</a><a class="lang-item" href="/es/showcase/yintai/" data-l="es">Español</a><a class="lang-item" href="/de/showcase/yintai/" data-l="de">Deutsch</a><a class="lang-item" href="/fr/showcase/yintai/" data-l="fr">Français</a><a class="lang-item" href="/pt/showcase/yintai/" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap yin-page">
+  <div class="page-head">
+    <div class="eyebrow">作品 · 3D 模型</div>
+    <h1>银胎 YINTAI</h1>
+    <p>《天工战甲》的主角机，和游戏里用的是同一份网格。每一块装甲都是在天工引擎里用代码写出来的 NURBS 曲面——没有导入任何外部模型和贴图，也没有手工雕刻。</p>
+  </div>
+
+  <div class="yin-viewer" id="yin-viewer">
+    <div class="yin-stage">
+      <canvas id="yin-cv" aria-label="银胎 3D 模型"></canvas>
+      <div class="yin-load" id="yin-load">正在载入模型（7 MB）…</div>
+      <div class="yin-read" id="yin-read" hidden><b id="yin-tri">72,157</b>三角已显示</div>
+      <div class="yin-hint">拖动旋转 · 滚轮或双指缩放 · 双击回正面</div>
+    </div>
+    <div class="yin-ctl">
+      <div>
+        <h2>看法</h2>
+        <div class="yin-modes" id="yin-modes">
+          <button type="button" data-m="final" aria-pressed="true">成品</button>
+          <button type="button" data-m="clay" aria-pressed="false">素模</button>
+          <button type="button" data-m="wire" aria-pressed="false">线框</button>
+          <button type="button" data-m="sag" aria-pressed="false">弦高热图</button>
+          <button type="button" data-m="bake" aria-pressed="false">烘焙贴片</button>
+          <button type="button" data-m="joint" aria-pressed="false">按关节上色</button>
+        </div>
+      </div>
+      <div class="yin-legend" id="yin-legend" aria-live="polite"></div>
+      <div>
+        <div class="yin-row"><span>一件一件搭</span><b id="yin-bval">30 / 30</b></div>
+        <input id="yin-build" type="range" min="0" max="30" step="0.02" value="30" aria-label="一件一件搭" />
+        <div class="yin-now" id="yin-now"></div>
+      </div>
+      <div>
+        <div class="yin-row"><span>机甲 ↔ 战机</span><b id="yin-uval">机甲</b></div>
+        <input id="yin-xf" type="range" min="0" max="1" step="0.005" value="0" aria-label="机甲 ↔ 战机" />
+      </div>
+      <button type="button" id="yin-spin" aria-pressed="true">自动旋转</button>
+    </div>
+  </div>
+
+  <ul class="yin-facts">
+    <li><b>72,157</b><span>游戏网格的三角数</span></li>
+    <li><b>6</b><span>子网格 = draw 数</span></li>
+    <li><b>3,607,350</b><span>高模参考的三角数</span></li>
+    <li><b>512²</b><span>一张烘焙图集：法线 + AO</span></li>
+    <li><b>30</b><span>关节，机甲和战机共用</span></li>
+    <li><b>9.83 m</b><span>全高</span></li>
+  </ul>
+
+  <div class="yin-notes">
+    <div><h3>由 AI 用代码建模</h3><p>银胎是 8 个源文件、约 4,100 行 TypeScript。先定 30 个关节，再照着一张原画，用引擎的高阶 NURBS 曲面把装甲一块一块拼起来。</p></div>
+    <div><h3>高模和低模是同一份代码</h3><p>同一份代码采样得密，是 3,607,350 三角的高模参考；按游戏密度采样，就是这里看到的 72,157 三角，约 2 %。弦高热图显示每个三角离真实曲面有多远。</p></div>
+    <div><h3>6 次 draw，一张小图集</h3><p>整台机甲是 6 个子网格。铆钉、螺栓这些小零件烘进一张 512² 的法线 / AO 图集；机甲和战机两种形态共用一副 30 关节的骨架。</p></div>
+  </div>
+
+  <div class="yin-cta">
+    <a class="btn primary" href="/games/tiangong-warframe/">去玩《天工战甲》</a>
+    <a class="btn ghost" href="/zh/blog/yintai-making-of.html">它是怎么做出来的</a>
+  </div>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+<script src="/assets/showcase/yintai/viewer.js?v=76ddc28a"></script>
+<script src="/assets/showcase/yintai/page.js?v=0449a7d0"></script>
+</body>
+</html>

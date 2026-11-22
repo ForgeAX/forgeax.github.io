@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=/ja/about.html" />
-<link rel="canonical" href="https://forgeax.github.io/ja/about.html" />
-<title>Blog → About — ForgeAX</title>
-<script>location.replace('/ja/about.html');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ブログ — ForgeAX</title>
+<meta name="description" content="ForgeAX からの開発の最新情報、マイルストーン、意見。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="ブログ — ForgeAX" />
+<meta property="og:description" content="ForgeAX からの開発の最新情報、マイルストーン、意見。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://forgeax.github.io/ja/blog/" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/blog/" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
 </head>
-<body><p>Moved to <a href="/ja/about.html">/ja/about.html</a>.</p></body>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/" class="active">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/" data-l="en">English</a><a class="lang-item" href="/zh/blog/" data-l="zh">中文</a><a class="lang-item active" href="/ja/blog/" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/blog/" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/" data-l="es">Español</a><a class="lang-item" href="/de/blog/" data-l="de">Deutsch</a><a class="lang-item" href="/fr/blog/" data-l="fr">Français</a><a class="lang-item" href="/pt/blog/" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>ブログ＆ご意見</h1>
+    <p>AI がゲームを構築する方法、マイルストーンの振り返り、人間の視点と判断について深く掘り下げて考えます。このエンジン自体を構築する AI の日々の記録については、<a href="/ja/changelog/">変更履歴</a>（長期的な開発記憶）。</p>
+  </div>
+
+  <div class="read post-list" style="padding-top:10px">
+    <a class="post-row" href="/ja/blog/yintai-making-of.html">
+      <div class="meta"><span class="tag">メイキング</span><span>2026年11月23日</span></div>
+      <h3>YINTAI: a game mech modelled entirely in code</h3>
+      <p>From one concept image to a mech that transforms and fights in the game: 72,157 triangles, 6 draw calls, built with the engine's NURBS modelling tools. No imported model or texture files, nothing sculpted by hand.</p>
+    </a>
+    <a class="post-row" href="/ja/blog/why-ai-native-engine.html">
+      <div class="meta"><span class="tag">意見</span><span>2026年6月16日</span></div>
+      <h3>AI ネイティブ エンジンを構築する理由</h3>
+      <p>AI がエンジンの最初のユーザーである場合、API、エラー メッセージ、状態は AI の観点から再設計される必要があります。私たちが行ったいくつかの具体的な選択。</p>
+    </a>
+    <a class="post-row" href="/ja/blog/how-the-loop-works.html">
+      <div class="meta"><span class="tag">舞台裏</span><span>2026年6月10日</span></div>
+      <h3>AI が機能を適切に取得する方法</h3>
+      <p>まずは正しくやってみるのではなく、要件→調査→計画→実装→検証→判断→最終化という、観察可能で追跡可能なパイプラインを使用します。</p>
+    </a>
+  </div>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+</body>
 </html>

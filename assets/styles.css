@@ -311,6 +311,11 @@ main{position:relative;z-index:1}
 .prose table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
 .prose th,.prose td{border:1px solid var(--border-subtle);padding:9px 12px;text-align:left}
 .prose th{background:var(--bg-base);font-weight:600}
+.prose figure{margin:24px 0}
+.prose img,.prose video{display:block;width:100%;max-width:100%;height:auto;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--bg-base)}
+.prose figcaption{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--text-tertiary)}
+.prose .fig-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.prose .fig-row.two{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
 .back{display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:14px;margin-bottom:8px}
 .back:hover{color:var(--brand)}
 

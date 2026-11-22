@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=/zh/about.html" />
-<link rel="canonical" href="https://forgeax.github.io/zh/about.html" />
-<title>Blog → About — 天工引擎</title>
-<script>location.replace('/zh/about.html');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>观点 · Blog — 天工引擎</title>
+<meta name="description" content="天工引擎的开发更新、里程碑与技术观点。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="观点 · Blog — 天工引擎" />
+<meta property="og:description" content="天工引擎的开发更新、里程碑与技术观点。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://forgeax.github.io/zh/blog/" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/blog/" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
 </head>
-<body><p>Moved to <a href="/zh/about.html">/zh/about.html</a>.</p></body>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/" class="active">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/" data-l="en">English</a><a class="lang-item active" href="/zh/blog/" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/blog/" data-l="ja">日本語</a><a class="lang-item" href="/ko/blog/" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/" data-l="es">Español</a><a class="lang-item" href="/de/blog/" data-l="de">Deutsch</a><a class="lang-item" href="/fr/blog/" data-l="fr">Français</a><a class="lang-item" href="/pt/blog/" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>观点</h1>
+    <p>关于"AI 怎么做游戏"的思考、里程碑回顾与深度文章 —— 偏人的视角与判断。想看 AI 逐日自建这套引擎的流水账，见<a href="/zh/changelog/">更新日志</a>（它的长期开发记忆）。</p>
+  </div>
+
+  <div class="read post-list" style="padding-top:10px">
+    <a class="post-row" href="/zh/blog/yintai-making-of.html">
+      <div class="meta"><span class="tag">制作过程</span><span>2026年11月23日</span></div>
+      <h3>银胎：一台完全用代码建出来的游戏机甲</h3>
+      <p>从一张原画，到一台能在游戏里变形、战斗的机甲：72,157 个三角、6 次绘制，全部用引擎的 NURBS 建模工具写出来。没有导入任何模型和贴图文件，也没有手工雕刻。</p>
+    </a>
+    <a class="post-row" href="/zh/blog/why-ai-native-engine.html">
+      <div class="meta"><span class="tag">观点</span><span>2026年6月16日</span></div>
+      <h3>为什么要做天工引擎</h3>
+      <p>当 AI 成为引擎的第一用户，API、错误信息、状态形态都应该为 AI 的视角重新设计。这篇聊聊我们为此做的几个具体取舍。</p>
+    </a>
+    <a class="post-row" href="/zh/blog/how-the-loop-works.html">
+      <div class="meta"><span class="tag">幕后</span><span>2026年6月10日</span></div>
+      <h3>AI 是怎么把一个功能做对的</h3>
+      <p>不靠"一次写对"，而是用一条可观测、可回溯的流水线，让它逐步收敛到正确：需求 → 研究 → 计划 → 实现 → 验证 → 验收 → 合入。</p>
+    </a>
+  </div>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+</body>
 </html>

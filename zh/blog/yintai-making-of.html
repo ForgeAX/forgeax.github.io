@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>银胎：一台完全用代码建出来的游戏机甲 — 天工引擎</title>
+<meta name="description" content="从一张原画，到一台能在游戏里变形、战斗的机甲：72,157 个三角、6 次绘制，全部用引擎的 NURBS 建模工具写出来。没有导入任何模型和贴图文件，也没有手工雕刻。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="银胎：一台完全用代码建出来的游戏机甲 — 天工引擎" />
+<meta property="og:description" content="从一张原画，到一台能在游戏里变形、战斗的机甲：72,157 个三角、6 次绘制，全部用引擎的 NURBS 建模工具写出来。没有导入任何模型和贴图文件，也没有手工雕刻。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/blog/yintai-making-of.html" />
+<meta property="og:image" content="https://forgeax.github.io/assets/blog/yintai/poster-en.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/yintai-making-of.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/yintai-making-of.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+<meta name="twitter:image" content="https://forgeax.github.io/assets/blog/yintai/poster-en.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/" class="active">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/yintai-making-of.html" data-l="en">English</a><a class="lang-item active" href="/zh/blog/yintai-making-of.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/blog/yintai-making-of.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/blog/yintai-making-of.html" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/yintai-making-of.html" data-l="es">Español</a><a class="lang-item" href="/de/blog/yintai-making-of.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/blog/yintai-making-of.html" data-l="fr">Français</a><a class="lang-item" href="/pt/blog/yintai-making-of.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/blog/">← 返回观点</a>
+    <div class="meta"><span class="tag">制作过程</span><span>2026年11月23日</span></div>
+    <h1>银胎：一台完全用代码建出来的游戏机甲</h1>
+    <p class="standfirst">银胎是《天工战甲》的主角机。它是 AI 在天工引擎上一块装甲一块装甲写出来的代码，每一轮都有人盯着造型把关。这篇说清楚它是怎么建的、有哪些数字、这些数字是怎么来的。</p>
+    <div class="prose"><figure>
+<video controls playsinline preload="metadata" poster="/assets/blog/yintai/poster-zh.jpg">
+<source src="/assets/blog/yintai/yintai-film-zh.mp4" type="video/mp4" />
+</video>
+<figcaption>60 秒，从无到有。0–43 秒：原画 → 修原画 → 骨架 → 曲面 → 高模 / 低模 → 烘焙 → 材质 → 变形；43–58 秒：实机录屏。配乐是游戏自己的两首曲子。</figcaption>
+</figure><p>成品也可以<a href="/zh/showcase/yintai/">在浏览器里直接转着看</a>：线框、弦高热图、一件一件搭起来、机甲 ↔ 战机变形，用的就是游戏里那份网格。</p>
+<h2>银胎是一份代码，高模和低模是它的两档精度</h2>
+<p>整台机甲由 8 个源文件、大约 4,100 行 TypeScript 生成：先定 30 个关节，再用引擎的高阶 NURBS 曲面把装甲一片一片拼出来。同一份代码按高密度取样是高模，按游戏用的密度取样是低模；铆钉、螺栓这些小件烘进一张 512² 的法线 / AO 图集。没有导入任何外部模型、贴图文件，也没有手工雕和手工减面。</p>
+<ul>
+<li><strong>3,607,350</strong> 高模三角（离线，不进游戏）</li>
+<li><strong>72,157</strong> 低模三角，约为高模的 2 %</li>
+<li><strong>6</strong> 子网格 = 6 次绘制</li>
+<li><strong>512²</strong> 烘焙图集一张：法线 + AO</li>
+<li><strong>30</strong> 关节，机甲 / 战机共用</li>
+<li><strong>41</strong> 变形采样，机甲 ⇄ 战机</li>
+<li><strong>9.83 m</strong> 全高</li>
+<li><strong>0</strong> 外部模型 / 贴图文件</li>
+</ul>
+<p>游戏里有三个体型，各出一份低模：72,157 / 72,424 / 72,349 三角。下面的数字都是第一个体型的。</p>
+<h2>原画里说不通的地方，先修再建</h2>
+<p>原画是生图模型画的：一张主视觉，加三张分别生成的三视图。它给的是体块、转折和气质，不是图纸——同一个零件在三张图里对不上的地方，不能照着哪一张描，要按这个零件是干什么的去定。</p>
+<figure>
+<img src="/assets/blog/yintai/concept-hero.jpg" width="733" height="1100" alt="银胎原画，正面四分之三" loading="lazy" />
+<div class="fig-row">
+<img src="/assets/blog/yintai/ortho-front.jpg" width="600" height="900" alt="正视图" loading="lazy" />
+<img src="/assets/blog/yintai/ortho-side.jpg" width="600" height="900" alt="侧视图" loading="lazy" />
+<img src="/assets/blog/yintai/ortho-back.jpg" width="600" height="900" alt="背视图" loading="lazy" />
+</div>
+<figcaption>目标原画，和按它生成的三视图（正 / 侧 / 背）。</figcaption>
+</figure><figure>
+<img src="/assets/blog/yintai/zh/st-fix.jpg" width="1280" height="720" alt="小腿喷口在三视图里的朝向和建出来的轴线" loading="lazy" />
+<figcaption>红圈是三张图里的小腿喷口，右边是建出来的喷口和它的轴线。</figcaption>
+</figure><table>
+<thead>
+<tr>
+<th>原画里的问题</th>
+<th>怎么定的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>小腿喷口三张图各画各的。</strong> 正视图里喷口朝着镜头，背视图里也朝着镜头，侧视图里朝后下。</td>
+<td>喷口是推进用的，只能有一根轴：朝后下，左右一致，离竖直 26.3°。</td>
+</tr>
+<tr>
+<td><strong>翼和机身怎么连，原画没画好。</strong> 连接处看不出机械结构。</td>
+<td>设计成单轴斜铰折翼 + 后梁锁；翼根不削，保持饱满。</td>
+</tr>
+<tr>
+<td><strong>三张视图互相对不上。</strong> 它们是分别生成的，同一个零件在三张图里的位置和大小不一致。</td>
+<td>每个部位以最能说清结构的那张为准，其余两张只用来核对轮廓。</td>
+</tr>
+</tbody></table>
+<p>也有反过来的：大腿内侧那条曲线和板边的折边，一开始被当成装饰，建得不对；原画是对的——那是铝板 / 钛板的折边工艺。所以「修原画」只修功能上说不通的地方，看不懂的先当它有道理。小腿喷口的角度也还没定死：侧视图画的大约 50°，现在三个体型是 18–26°。</p>
+<h2>从原画到游戏，每一步做了什么</h2>
+<h3>1 · 先把 30 个关节定下来</h3>
+<figure><img src="/assets/blog/yintai/zh/st-skeleton.jpg" width="1280" height="720" alt="骨架阶段" loading="lazy" /></figure><p>骨盆、脊、胸、头、四肢、背包、两级翼、尾鳍、舱盖，29 条父子连接。每个零件挂在一个关节上，变形只动关节。</p>
+<h3>2 · 一件一件拼曲面</h3>
+<figure><img src="/assets/blog/yintai/zh/st-build.jpg" width="1280" height="720" alt="逐件搭建阶段" loading="lazy" /></figure><p>每片装甲是 5–6 阶的 NURBS 曲面：截面曲线放样，或者把量出来的点阵拟合成面，或者几片拼成一件、片与片之间留一条清楚的转折线——是汽车外板那种「大面 + 棱」，不是一个鼓包。</p>
+<h3>3 · 同一份代码，两档精度</h3>
+<figure><img src="/assets/blog/yintai/zh/st-hilo-wipe.jpg" width="1280" height="720" alt="左小腿高模和低模的线框" loading="lazy" /></figure><p>图里是左小腿：左半高模 461,625 三角，右半低模 6,980 三角，同一张曲面。没有手工拓扑——拼板件给引擎一个弦高容差，裁出来的板按格数取样，旋转件给一圈的段数。</p>
+<h3>4 · 量低模离曲面有多远</h3>
+<figure><img src="/assets/blog/yintai/zh/st-chord.jpg" width="1280" height="720" alt="弦高热图前后对比" loading="lazy" /></figure><p>每个三角到曲面的弦高画成热图。后期有一轮把偏密的小铜盘上的三角挪给偏粗的背罐和前臂护板：背罐中位 9.5 → 2.6 mm，总数没涨。</p>
+<h3>5 · 大形不烘焙，小件才烘焙</h3>
+<figure><img src="/assets/blog/yintai/zh/st-bake.jpg" width="1280" height="720" alt="背罐：高模、低模、低模加烘焙" loading="lazy" /></figure><p>三联是同一只背罐：高模（铆钉是真几何）、低模不贴图集、低模 + 烘焙图集（游戏里的样子）。铆钉、螺栓、口盖共 13 种小件烘成一张 512² 法线 / AO 图集。</p>
+<h3>6 · 四个材质槽</h3>
+<figure><img src="/assets/blog/yintai/zh/st-mat.jpg" width="1280" height="720" alt="素模和成品材质" loading="lazy" /></figure><p>银漆（车漆式高光，拉丝方向沿曲面走）、石墨骨架、铜、朱红，都是程序化材质，不用贴图文件。</p>
+<h3>7 · 同一个网格，两种形态</h3>
+<figure><img src="/assets/blog/yintai/zh/st-xform.jpg" width="1280" height="720" alt="变形为战机" loading="lazy" /></figure><p>机甲和战机是同一份网格、同一套 30 个关节。变形是关节动画，导出成 41 个采样；在 <a href="/zh/showcase/yintai/">3D 模型页</a>里拖「机甲 ↔ 战机」就是它。</p>
+<h3>8 · 进游戏</h3>
+<p>待机时武器不能穿进机体，三个体型都要查，有守卫测试看着。开发过程中每一轮改完都回到游戏里拍，和原画并排看。</p>
+<h2>用了引擎的哪些建模工具</h2>
+<p>入口是 <code>@forgeax/engine/modeling</code>。表的上半部分是引擎自带的；最后三行是为这台机甲在它上面写的几个小工具。</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>做什么</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nurbs.interpolate</code></td>
+<td>过一串点插出一条 5 阶曲线</td>
+<td>放样曲面的每条截面线、头盔的经线、肩甲的截面</td>
+</tr>
+<tr>
+<td><code>nurbs.loft</code></td>
+<td>把几条截面线放样成一张曲面</td>
+<td>头盔、肩甲，和四处按截面线定形的装甲</td>
+</tr>
+<tr>
+<td><code>nurbs.fitSurface</code></td>
+<td>把点阵拟合成一张高阶曲面（最高 6 × 6 阶）</td>
+<td>用得最多：15 处，胸甲、眉檐、小腿前板、腿上的卵形外板等</td>
+</tr>
+<tr>
+<td><code>nurbs.match</code></td>
+<td>让两张面在公共边上相切或曲率连续（G0 / G1 / G2）</td>
+<td>胸甲正面和侧面两张面的对接</td>
+</tr>
+<tr>
+<td><code>nurbs.surfacePoint</code> / <code>surfaceDerivatives</code></td>
+<td>在曲面上取点和法线</td>
+<td>顶点法线直接用曲面法线，所以网格粗一点明暗也是圆的</td>
+</tr>
+<tr>
+<td><code>model().patchLayout()</code></td>
+<td>声明「几片面拼成一件」：每片 5 × 5 阶，相邻片共用一条棱，棱上可以滚圆角</td>
+<td>背罐筒身、前臂上下护板、脚上的板</td>
+</tr>
+<tr>
+<td><code>.surface({ chord, angle, sew })</code></td>
+<td>按弦高容差把曲面切成三角，并把片与片缝起来</td>
+<td>上面这类拼板件的出网格；高模就是把 <code>chord</code> 收紧 8 倍</td>
+</tr>
+<tr>
+<td><code>.lift()</code> + <code>.shell()</code></td>
+<td>把出好的曲面网格带回建模会话，再向里加厚度</td>
+<td>拼板件要有板厚的时候</td>
+</tr>
+<tr>
+<td><code>.uv.project()</code> / <code>.toMesh()</code></td>
+<td>投影 UV，出三角网格</td>
+<td>每个部件的最后一步</td>
+</tr>
+<tr>
+<td><code>trimSheet</code> / <code>bakeTrimSheet</code> / <code>textureFrom</code></td>
+<td>把小件的高度场排成一张图集，烘出法线和 AO</td>
+<td>铆钉、螺栓、口盖、格栅、划痕等 13 种，2,574 个贴片三角</td>
+</tr>
+<tr>
+<td><code>panel</code>（项目内）</td>
+<td>从一张曲面上按参数范围裁下一块板，给厚度、边缘向里折</td>
+<td>23 处：机鼻、胸甲、小腿、龙骨、尾鳍等按板缝分开的外板</td>
+</tr>
+<tr>
+<td><code>tpatch</code>（项目内）</td>
+<td>任意轮廓的裁剪曲面片</td>
+<td>37 处：头盔、眉檐、肩甲、腿上的卵形外板等带缺口或斜边的板</td>
+</tr>
+<tr>
+<td><code>lathe</code> / <code>latheHard</code>（项目内）</td>
+<td>一条轮廓线绕轴转一圈（后者保留硬棱）</td>
+<td>约 100 处：膝、髋、肩、踝、肘的关节盘、轴端盖、喷口</td>
+</tr>
+</tbody></table>
+<h2>高模是真的程序化高模</h2>
+<p>高模不是雕出来的，也不是另一个文件：给生成代码一个精度档，同一份代码按 8 倍密度取样，再把图集里的紧固件按同一份高度场顶成真几何，就是高模。它只在离线用：数面数、拍对照、量低模离它多远。</p>
+<figure>
+<img src="/assets/blog/yintai/zh/st-hilo-num.jpg" width="1280" height="720" alt="高模和低模的三角数" loading="lazy" />
+<figcaption>两个数，和整机线框。</figcaption>
+</figure><table>
+<thead>
+<tr>
+<th>高模是怎么数出来的</th>
+<th>三角</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>曲面按 ×8 取样</td>
+<td>1,702,266</td>
+<td>格数、一圈段数 × 8，弦高和角度容差 ÷ 8；轮廓点、结构线、板缝一个没动</td>
+</tr>
+<tr>
+<td>1,257 处紧固件做成真几何</td>
+<td>1,907,598</td>
+<td>铆钉 975 处、螺栓 207、格栅 32、口盖 8 等；按 1 mm 一格，用烘图集的那份高度场把面顶起来</td>
+</tr>
+<tr>
+<td>减去被替换掉的贴片</td>
+<td>−2,514</td>
+<td>留下 60 个贴片三角：30 处划痕 / 蹭痕，深 0.05–0.15 mm，做不成几何</td>
+</tr>
+<tr>
+<td><strong>高模合计</strong></td>
+<td><strong>3,607,350</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>同一个部件</th>
+<th>高模</th>
+<th>低模</th>
+<th>低 / 高</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>左小腿</td>
+<td>461,625</td>
+<td>6,980</td>
+<td>1.5 %</td>
+</tr>
+<tr>
+<td>背包 / 背罐</td>
+<td>417,762</td>
+<td>5,979</td>
+<td>1.4 %</td>
+</tr>
+<tr>
+<td>整机</td>
+<td>3,607,350</td>
+<td>72,157</td>
+<td>2.0 %</td>
+</tr>
+</tbody></table>
+<h3>哪些烘焙了，哪些没有</h3>
+<ul>
+<li><strong>大形没有烘焙。</strong> 机体没有「高模投到低模」的法线图。低模每个顶点直接带曲面的解析法线，所以三角粗一点明暗也是圆的，折线只出现在轮廓上。</li>
+<li><strong>小件是烘焙的。</strong> 铆钉、螺栓、螺母、螺钉、快卸扣、铭牌、格栅、口盖、绑带、划痕、蹭痕、基准标、刻度共 13 种，各是一个程序化的高度场；引擎的 <code>trimSheet</code> / <code>bakeTrimSheet</code> 把它们烘成一张 512² 的法线 + AO 图集，贴在 2,574 个贴片三角上。</li>
+<li><strong>高模里的紧固件和图集是同一个来源。</strong> 图集是直接从高度场烘出来的，不是从高模这份网格投影出来的；高模里的真几何是用同一份高度场顶出来的，所以两边形状一致。</li>
+</ul>
+<p>两句老实话。一，高模的数取决于选的档位：×8 和 1 mm 格距是为这台机甲定的，换一档数就变，它不是一个「雕出来多少就是多少」的数。二，高模没有全部加密：翼面蒙皮、袖套、头部的带子和手工给点的小件在高模里和低模一样，所以 3,607,350 是偏保守的。</p>
+<h2>低模的拓扑和精度</h2>
+<p>低模用三种办法查：弦高热图（黄 &gt; 5 mm，橙 &gt; 10 mm，红 &gt; 20 mm）、细长三角、从 300 个方向都看不到的三角。</p>
+<figure>
+<img src="/assets/blog/yintai/r139-topo-wire-front-back.jpg" width="2000" height="1250" alt="低模线框，正面和背面" loading="lazy" />
+<figcaption>低模线框，正面 / 背面。装甲件是规则的四边形网格；细长三角 1,294 个（1.8 %），多在舱盖平板上。</figcaption>
+</figure><figure>
+<img src="/assets/blog/yintai/r139-sag-heat-front-back-before-after.jpg" width="2400" height="750" alt="弦高热图，改前改后" loading="lazy" />
+<figcaption>弦高热图：正面改前 / 改后、背面改前 / 改后。弦高超过 10 mm 的三角 4,062 → 3,770。</figcaption>
+</figure><figure>
+<img src="/assets/blog/yintai/r139-tank-wire-heat-before-after.jpg" width="2000" height="1500" alt="背罐线框和热图" loading="lazy" />
+<figcaption>背罐筒身：每片 140 → 472 三角，中位弦高 9.5 → 2.6 mm（原来实际是个八边形）。</figcaption>
+</figure><figure>
+<img src="/assets/blog/yintai/r139-forearm-wire-heat-before-after.jpg" width="2000" height="1500" alt="前臂护板线框和热图" loading="lazy" />
+<figcaption>前臂护板：上护板 9.8 → 3.9 mm，下护板 8.5 → 2.5 mm。</figcaption>
+</figure><table>
+<thead>
+<tr>
+<th>这一轮</th>
+<th>改前</th>
+<th>改后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>机体三角</td>
+<td>72,185</td>
+<td>72,157</td>
+</tr>
+<tr>
+<td>弦高 &gt; 10 mm 的三角</td>
+<td>4,062</td>
+<td>3,770</td>
+</tr>
+<tr>
+<td>背罐筒身，中位弦高</td>
+<td>9.5 mm</td>
+<td>2.6 mm</td>
+</tr>
+<tr>
+<td>前臂上护板，中位弦高</td>
+<td>9.8 mm</td>
+<td>3.9 mm</td>
+</tr>
+<tr>
+<td>关节小铜盘的弓高</td>
+<td>1.2–2.6 mm</td>
+<td>2.8–4.0 mm</td>
+</tr>
+</tbody></table>
+<p>这一轮在游戏全身图里认不出差别，背罐放大 3 倍并排才看得出高光带边缘顺一点。收获在数字和线框上——三角总数没涨，只是从不需要的地方挪到了需要的地方。</p>
+<figure>
+<img src="/assets/blog/yintai/r139-game-tank-before-after-x3.jpg" width="1800" height="720" alt="游戏内背罐放大三倍，改前改后" loading="lazy" />
+<figcaption>游戏内，背罐放大 3 倍，左改前右改后。</figcaption>
+</figure><h2>低模的 72,157 个三角分在哪</h2>
+<table>
+<thead>
+<tr>
+<th>材质槽</th>
+<th>三角</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>银漆</td>
+<td>34,828</td>
+<td>外装甲。车漆式高光，拉丝方向沿主曲面走</td>
+</tr>
+<tr>
+<td>石墨</td>
+<td>20,705</td>
+<td>骨架、关节座、内衬</td>
+</tr>
+<tr>
+<td>铜</td>
+<td>14,858</td>
+<td>关节盘、轴端盖、喷口沿</td>
+</tr>
+<tr>
+<td>朱红</td>
+<td>1,250</td>
+<td>胸口红盖等红色件</td>
+</tr>
+<tr>
+<td>头部 / 眼</td>
+<td>516</td>
+<td>眼灯是自发光</td>
+</tr>
+</tbody></table>
+<h2>游戏里</h2>
+<p>成片最后那段游戏画面不是摆拍，是从一段真实游玩的录屏里原速剪出来的：机库变形、出击、雪地要塞、Boss 战。</p>
+<figure>
+<div class="fig-row two">
+<img src="/assets/blog/yintai/zh/gp-hangar.jpg" width="1280" height="720" alt="机库" loading="lazy" />
+<img src="/assets/blog/yintai/zh/gp-sortie.jpg" width="1280" height="720" alt="出击" loading="lazy" />
+<img src="/assets/blog/yintai/zh/gp-snow.jpg" width="1280" height="720" alt="雪地要塞" loading="lazy" />
+<img src="/assets/blog/yintai/zh/gp-boss.jpg" width="1280" height="720" alt="Boss 战" loading="lazy" />
+</div>
+<figcaption>机库 · 出击 · 雪地要塞 · Boss 战。</figcaption>
+</figure><p>可以<a href="/games/tiangong-warframe/">在浏览器里直接玩《天工战甲》</a>，也可以<a href="/zh/showcase/yintai/">打开 3D 模型</a>自己把机甲拆开看。</p>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/showcase/yintai/">打开 3D 模型 →</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+</body>
+</html>

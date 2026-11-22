@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=/fr/about.html" />
-<link rel="canonical" href="https://forgeax.github.io/fr/about.html" />
-<title>Blog → About — ForgeAX</title>
-<script>location.replace('/fr/about.html');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — ForgeAX</title>
+<meta name="description" content="Mises à jour de développement, jalons et opinions de ForgeAX." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="Blog — ForgeAX" />
+<meta property="og:description" content="Mises à jour de développement, jalons et opinions de ForgeAX." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://forgeax.github.io/fr/blog/" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/blog/" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
 </head>
-<body><p>Moved to <a href="/fr/about.html">/fr/about.html</a>.</p></body>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/" class="active">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/" data-l="en">English</a><a class="lang-item" href="/zh/blog/" data-l="zh">中文</a><a class="lang-item" href="/ja/blog/" data-l="ja">日本語</a><a class="lang-item" href="/ko/blog/" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/" data-l="es">Español</a><a class="lang-item" href="/de/blog/" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/blog/" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/blog/" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>Blog & avis</h1>
+    <p>Réflexion sur la façon dont l'IA crée des jeux, rétrospectives marquantes et analyses approfondies – la perspective et le jugement humains. Pour le compte rendu quotidien de l'IA dans la construction de ce moteur elle-même, voir le<a href="/fr/changelog/">journal des modifications</a>(sa mémoire de développement à long terme).</p>
+  </div>
+
+  <div class="read post-list" style="padding-top:10px">
+    <a class="post-row" href="/fr/blog/yintai-making-of.html">
+      <div class="meta"><span class="tag">Making-of</span><span>23 novembre 2026</span></div>
+      <h3>YINTAI: a game mech modelled entirely in code</h3>
+      <p>From one concept image to a mech that transforms and fights in the game: 72,157 triangles, 6 draw calls, built with the engine's NURBS modelling tools. No imported model or texture files, nothing sculpted by hand.</p>
+    </a>
+    <a class="post-row" href="/fr/blog/why-ai-native-engine.html">
+      <div class="meta"><span class="tag">Avis</span><span>16 juin 2026</span></div>
+      <h3>Pourquoi créer un moteur natif d'IA</h3>
+      <p>Lorsque l'IA est le premier utilisateur du moteur, l'API, les messages d'erreur et l'état doivent être repensés en fonction de son point de vue. Quelques choix concrets que nous avons faits.</p>
+    </a>
+    <a class="post-row" href="/fr/blog/how-the-loop-works.html">
+      <div class="meta"><span class="tag">Dans les coulisses</span><span>10 juin 2026</span></div>
+      <h3>Comment l'IA réussit à créer une fonctionnalité</h3>
+      <p>Non pas en faisant les choses correctement du premier coup, mais avec un pipeline observable et traçable : exigences → recherche → plan → mise en œuvre → vérification → jugement → finalisation.</p>
+    </a>
+  </div>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+</body>
 </html>

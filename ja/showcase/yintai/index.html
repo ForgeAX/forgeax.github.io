@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YINTAI 3D model — ForgeAX</title>
+<meta name="description" content="Rotate, strip down and transform YINTAI, the hero mech of Tiangong Warframe: the exact 72,157-triangle mesh the game ships, modelled in code on the ForgeAX engine." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="YINTAI — a game mech modelled entirely in code" />
+<meta property="og:description" content="Spin the 72,157-triangle mesh the game actually ships: wireframe, chord-error heat map, part-by-part build and the mech ↔ fighter transform, live in your browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://forgeax.github.io/ja/showcase/yintai/" />
+<meta property="og:image" content="https://forgeax.github.io/assets/showcase/yintai/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/showcase/yintai/" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/showcase/yintai/" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/showcase/yintai/" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/showcase/yintai/" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/showcase/yintai/" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/showcase/yintai/" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/showcase/yintai/" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/showcase/yintai/" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/showcase/yintai/" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/showcase/yintai/" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+<meta name="twitter:title" content="YINTAI — a game mech modelled entirely in code" />
+<meta name="twitter:description" content="Spin the 72,157-triangle mesh the game actually ships: wireframe, chord-error heat map, part-by-part build and the mech ↔ fighter transform, live in your browser." />
+<meta name="twitter:image" content="https://forgeax.github.io/assets/showcase/yintai/og.jpg" />
+<meta name="twitter:image:alt" content="YINTAI, a transforming mech with silver armour, shown as an interactive 3D model." />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="YINTAI, a transforming mech with silver armour, shown as an interactive 3D model." />
+<link rel="stylesheet" href="/assets/showcase/yintai/page.css?v=5d5ebc84" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=f0baba8e" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/showcase/yintai/" data-l="en">English</a><a class="lang-item" href="/zh/showcase/yintai/" data-l="zh">中文</a><a class="lang-item active" href="/ja/showcase/yintai/" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/showcase/yintai/" data-l="ko">한국어</a><a class="lang-item" href="/es/showcase/yintai/" data-l="es">Español</a><a class="lang-item" href="/de/showcase/yintai/" data-l="de">Deutsch</a><a class="lang-item" href="/fr/showcase/yintai/" data-l="fr">Français</a><a class="lang-item" href="/pt/showcase/yintai/" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap yin-page">
+  <div class="page-head">
+    <div class="eyebrow">Showcase · 3D model</div>
+    <h1>YINTAI</h1>
+    <p>The hero mech of Tiangong Warframe, exactly as the game ships it. Every armour panel is a NURBS surface written in code on the ForgeAX engine — no imported model or texture files, nothing sculpted by hand.</p>
+  </div>
+
+  <div class="yin-viewer" id="yin-viewer">
+    <div class="yin-stage">
+      <canvas id="yin-cv" aria-label="YINTAI 3D model"></canvas>
+      <div class="yin-load" id="yin-load">Loading model (7 MB)…</div>
+      <div class="yin-read" id="yin-read" hidden><b id="yin-tri">72,157</b>triangles shown</div>
+      <div class="yin-hint">drag to rotate · scroll or pinch to zoom · double-click for front view</div>
+    </div>
+    <div class="yin-ctl">
+      <div>
+        <h2>View</h2>
+        <div class="yin-modes" id="yin-modes">
+          <button type="button" data-m="final" aria-pressed="true">Final</button>
+          <button type="button" data-m="clay" aria-pressed="false">Clay</button>
+          <button type="button" data-m="wire" aria-pressed="false">Wireframe</button>
+          <button type="button" data-m="sag" aria-pressed="false">Chord heat map</button>
+          <button type="button" data-m="bake" aria-pressed="false">Baked patches</button>
+          <button type="button" data-m="joint" aria-pressed="false">Colour by joint</button>
+        </div>
+      </div>
+      <div class="yin-legend" id="yin-legend" aria-live="polite"></div>
+      <div>
+        <div class="yin-row"><span>Build part by part</span><b id="yin-bval">30 / 30</b></div>
+        <input id="yin-build" type="range" min="0" max="30" step="0.02" value="30" aria-label="Build part by part" />
+        <div class="yin-now" id="yin-now"></div>
+      </div>
+      <div>
+        <div class="yin-row"><span>Mech ↔ fighter</span><b id="yin-uval">Mech</b></div>
+        <input id="yin-xf" type="range" min="0" max="1" step="0.005" value="0" aria-label="Mech ↔ fighter" />
+      </div>
+      <button type="button" id="yin-spin" aria-pressed="true">Auto-rotate</button>
+    </div>
+  </div>
+
+  <ul class="yin-facts">
+    <li><b>72,157</b><span>triangles in the game mesh</span></li>
+    <li><b>6</b><span>sub-meshes = draw calls</span></li>
+    <li><b>3,607,350</b><span>triangles in the high-poly reference</span></li>
+    <li><b>512²</b><span>one baked atlas: normal + AO</span></li>
+    <li><b>30</b><span>joints, shared by mech and fighter</span></li>
+    <li><b>9.83 m</b><span>overall height</span></li>
+  </ul>
+
+  <div class="yin-notes">
+    <div><h3>Modelled in code by an AI agent</h3><p>YINTAI is 8 source files, about 4,100 lines of TypeScript. Thirty joints are fixed first; the armour is then assembled piece by piece from the engine's high-degree NURBS surfaces, working from a single concept image.</p></div>
+    <div><h3>High-poly and low-poly are the same code</h3><p>Sampled densely, the code yields a 3,607,350-triangle reference model. Sampled at game density it yields the 72,157 triangles shown here, about 2 %. The chord heat map shows how far each triangle sits from the true surface.</p></div>
+    <div><h3>Six draw calls, one small atlas</h3><p>The whole mech is six sub-meshes. Rivets, bolts and other small parts are baked into one 512² normal / AO atlas, and one 30-joint skeleton drives both the mech and the fighter.</p></div>
+  </div>
+
+  <div class="yin-cta">
+    <a class="btn primary" href="/games/forgeax-warframe/">Play Tiangong Warframe</a>
+    <a class="btn ghost" href="/ja/blog/yintai-making-of.html">How it was made</a>
+  </div>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=6c968d97"></script>
+<script src="/assets/showcase/yintai/viewer.js?v=76ddc28a"></script>
+<script src="/assets/showcase/yintai/page.js?v=0449a7d0"></script>
+</body>
+</html>

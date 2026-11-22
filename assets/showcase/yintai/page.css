@@ -1,0 +1,54 @@
+/* /showcase/yintai/ — interactive 3D model page. Site tokens only; the stage backdrop is the
+   neutral studio sweep the model's lighting was tuned against. */
+.yin-page{padding-bottom:64px}
+.yin-page .page-head{padding-bottom:0}
+.yin-page .page-head p{max-width:680px}
+
+.yin-viewer{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;margin-top:30px}
+.yin-stage{position:relative;min-width:0;aspect-ratio:16/11;overflow:hidden;border:1px solid var(--border-default);border-radius:var(--radius-xl);
+  background:radial-gradient(120% 95% at 50% 40%,#f6f7f7 0%,#e9ebec 52%,#d6dadc 100%)}
+.yin-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.yin-stage canvas:active{cursor:grabbing}
+.yin-stage [hidden]{display:none!important}
+.yin-load{position:absolute;inset:0;display:grid;place-items:center;padding:0 24px;text-align:center;color:#55626a;font:14px/1.5 var(--font-mono)}
+.yin-read{position:absolute;right:16px;top:14px;text-align:right;font:12.5px/1.5 var(--font-mono);color:#55626a;pointer-events:none}
+.yin-read b{display:block;color:#12181c;font-size:24px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums}
+.yin-hint{position:absolute;left:16px;bottom:12px;right:16px;font:12px/1.4 var(--font-mono);color:#55626a;pointer-events:none}
+
+.yin-ctl{min-width:0;display:flex;flex-direction:column;gap:16px;padding:16px;border:1px solid var(--border-subtle);border-radius:var(--radius-xl);background:var(--bg-elevated)}
+.yin-ctl h2{margin:0 0 8px;font:500 11.5px/1 var(--font-mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--text-tertiary)}
+.yin-modes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.yin-ctl button{font:500 13.5px/1.2 var(--font-sans);color:var(--text-primary);background:var(--bg-base);border:1px solid var(--border-default);
+  border-radius:var(--radius-md,8px);padding:9px 8px;cursor:pointer;transition:border-color var(--dur-fast) var(--ease-out),background var(--dur-fast) var(--ease-out)}
+.yin-ctl button:hover{border-color:var(--border-strong)}
+.yin-ctl button[aria-pressed="true"]{background:var(--action-primary-bg);border-color:var(--action-primary-bg);color:var(--action-primary-fg)}
+.yin-ctl button:focus-visible,.yin-ctl input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.yin-ctl input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--brand)}
+.yin-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px;color:var(--text-secondary)}
+.yin-row b{font:500 12.5px var(--font-mono);color:var(--text-primary);white-space:nowrap}
+.yin-legend{font-size:13px;line-height:1.55;color:var(--text-secondary);min-height:4.7em}
+.yin-now{margin-top:8px;padding-left:10px;border-left:2px solid var(--brand);font-size:13px;line-height:1.55;color:var(--text-secondary);min-height:4.7em}
+.yin-now b{display:block;font:500 13.5px var(--font-mono);color:var(--text-primary)}
+
+.yin-facts{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;overflow:hidden;
+  border:1px solid var(--border-subtle);border-radius:var(--radius-xl);background:var(--border-subtle)}
+.yin-facts li{background:var(--bg-elevated);padding:16px 14px 15px;min-width:0}
+.yin-facts b{display:block;font:600 21px/1.2 var(--font-mono);letter-spacing:-.4px;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.yin-facts span{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;color:var(--text-secondary)}
+
+.yin-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:44px}
+.yin-notes h3{font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--text-primary)}
+.yin-notes p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--text-secondary)}
+.yin-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+
+@media (max-width:900px){
+  .yin-viewer{grid-template-columns:1fr}
+  .yin-stage{aspect-ratio:4/3}
+  .yin-facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .yin-notes{grid-template-columns:1fr;gap:26px}
+}
+@media (max-width:520px){
+  .yin-stage{aspect-ratio:4/5}
+  .yin-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .yin-hint{font-size:11px}
+}
