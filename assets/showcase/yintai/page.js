@@ -24,6 +24,7 @@
     mech: '机甲', jet: '战机', empty: '空', emptyHint: '把滑杆往右拖，零件按关节顺序一件一件出来。',
     part: (n, j) => nf(n) + ' 三角 · 关节 ' + j,
     fail: '模型没有载入。这个页面需要支持 WebGL 2 的浏览器。',
+    lost: '3D 画面被浏览器暂停了。点这里重新载入。',
   } : {
     names: { Pelvis: 'Pelvis', Spine: 'Waist', Chest: 'Chest armour', Head: 'Head', Nose: 'Nose', Pack: 'Pack / back tanks', 'Wing.L': 'Wing L', 'Wing.R': 'Wing R',
       'WingTip.L': 'Wingtip L', 'WingTip.R': 'Wingtip R', 'Shoulder.L': 'Shoulder L', 'Shoulder.R': 'Shoulder R', 'Forearm.L': 'Forearm L', 'Forearm.R': 'Forearm R',
@@ -40,6 +41,7 @@
     mech: 'Mech', jet: 'Fighter', empty: 'Empty', emptyHint: 'Drag the slider to the right; parts appear one by one in joint order.',
     part: (n, j) => nf(n) + ' triangles · joint ' + j,
     fail: 'The model could not be loaded. This page needs a browser with WebGL 2.',
+    lost: 'The browser paused the 3D view. Tap here to reload it.',
   };
   const MODE = { final: [0, 0], clay: [1, 0], wire: [1, 0.62], sag: [6, 0], bake: [4, 0], joint: [3, 0] };
 
@@ -93,30 +95,63 @@
   $('spin').addEventListener('click', () => setSpin(!spin));
 
   // Orbit with one pointer, pinch with two, wheel to zoom (the page scrolls again at either limit).
+  // On a touch screen an up / down swipe belongs to the page (touch-action: pan-y in page.css), so a
+  // finger only takes hold of the model once it has moved sideways; after that it orbits both ways.
   const zoom = (k) => { const d = Math.min(44, Math.max(5, s.dist * k)); const moved = d !== s.dist; s.dist = d; dirty = dirty || moved; return moved; };
+  // A stage taller than it is wide (a phone held upright) stands a little further back so the wings stay in frame.
+  const homeDist = () => (cv.clientHeight > cv.clientWidth * 1.1 ? 29 : 25);
+  const home = () => { s.yaw = FRONT; s.pitch = 0.1; s.dist = homeDist(); dirty = true; };
+  const used = () => { setSpin(false); cv.parentElement.classList.add('is-used'); };
   const pts = new Map();
-  let drag = null, pinch = 0;
+  let drag = null, pinch = 0, tap = null, lastTap = null;
   const gap = () => { const [a, b] = [...pts.values()]; return Math.hypot(a[0] - b[0], a[1] - b[1]); };
   cv.addEventListener('pointerdown', (e) => {
-    pts.set(e.pointerId, [e.clientX, e.clientY]); cv.setPointerCapture(e.pointerId); setSpin(false);
-    if (pts.size === 1) drag = [e.clientX, e.clientY, s.yaw, s.pitch]; else { drag = null; pinch = gap(); }
+    const touch = e.pointerType === 'touch';
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    try { cv.setPointerCapture(e.pointerId); } catch { /* the pointer is already gone */ }
+    if (pts.size === 1) {
+      drag = { x: e.clientX, y: e.clientY, yaw: s.yaw, pitch: s.pitch, live: !touch };
+      tap = touch ? { x: e.clientX, y: e.clientY, t: e.timeStamp } : null;
+      if (!touch) used();
+    } else { drag = null; tap = null; pinch = gap(); used(); }
   });
   cv.addEventListener('pointermove', (e) => {
     if (!pts.has(e.pointerId)) return;
     pts.set(e.pointerId, [e.clientX, e.clientY]);
     if (pts.size >= 2) { const g = gap(); if (pinch > 0 && g > 0) zoom(pinch / g); pinch = g; return; }
     if (!drag) return;
-    s.yaw = drag[2] - (e.clientX - drag[0]) * 0.008;
-    s.pitch = Math.min(1.2, Math.max(-0.5, drag[3] + (e.clientY - drag[1]) * 0.006));
+    if (!drag.live) {
+      if (Math.abs(e.clientX - drag.x) < 6) return;
+      Object.assign(drag, { x: e.clientX, y: e.clientY, live: true }); tap = null; used();
+      return;
+    }
+    s.yaw = drag.yaw - (e.clientX - drag.x) * 0.008;
+    s.pitch = Math.min(1.2, Math.max(-0.5, drag.pitch + (e.clientY - drag.y) * 0.006));
     dirty = true;
   });
-  const end = (e) => { pts.delete(e.pointerId); drag = null; pinch = 0; };
+  const end = (e) => {
+    // Touch: one tap stops the turntable, two quick taps go back to the front view.
+    if (e.type === 'pointerup' && tap && pts.size === 1 && e.timeStamp - tap.t < 320 && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) < 12) {
+      if (lastTap && e.timeStamp - lastTap.t < 420 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 40) { home(); lastTap = null; }
+      else lastTap = { x: e.clientX, y: e.clientY, t: e.timeStamp };
+      used();
+    }
+    pts.delete(e.pointerId); drag = null; pinch = 0; tap = null;
+  };
   cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+  cv.addEventListener('touchmove', (e) => { if (e.touches.length > 1 && e.cancelable) e.preventDefault(); }, { passive: false });
   cv.addEventListener('wheel', (e) => { if (zoom(Math.exp(e.deltaY * 0.0012))) e.preventDefault(); }, { passive: false });
-  cv.addEventListener('dblclick', () => { s.yaw = FRONT; s.pitch = 0.1; s.dist = 25; dirty = true; });
+  cv.addEventListener('dblclick', home);
   addEventListener('resize', fit);
 
-  setMode('final'); setBuild(30); fit();
+  // A phone can take the graphics context away while the page sits in the background; say so instead of showing a blank stage.
+  cv.addEventListener('webglcontextlost', (e) => {
+    e.preventDefault();
+    const box = $('load'); box.textContent = COPY.lost; box.hidden = false; box.classList.add('is-lost'); $('read').hidden = true;
+    box.addEventListener('click', () => location.reload(), { once: true });
+  });
+
+  setMode('final'); setBuild(30); fit(); s.dist = homeDist();
   let seen = true;
   if ('IntersectionObserver' in window) new IntersectionObserver((es) => { seen = es[0].isIntersecting; }).observe(cv);
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) setSpin(false);
