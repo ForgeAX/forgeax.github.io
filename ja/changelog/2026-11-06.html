@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-06 · Engine 0.6 プレビュー：レンダリングパスの自動選択、WebGL2 の機能拡充、レンダラーが見ているものを確認できるツール — ForgeAX</title>
+<meta name="description" content="今週はプレビュービルド 2 件。Standard パイプラインはデバイスの能力に応じてレンダリングパスを選ぶようになり、WebGL2 にシャドウ、スプライト、インスタンス LOD、物理ベースの空が加わり、2 つの新しい DevKit コマンドで、あなたと AI エージェントがシーンの明るさを確認し、任意のピクセルの下にあるサーフェスを特定できます。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-06 · Engine 0.6 プレビュー：レンダリングパスの自動選択、WebGL2 の機能拡充、レンダラーが見ているものを確認できるツール — ForgeAX" />
+<meta property="og:description" content="今週はプレビュービルド 2 件。Standard パイプラインはデバイスの能力に応じてレンダリングパスを選ぶようになり、WebGL2 にシャドウ、スプライト、インスタンス LOD、物理ベースの空が加わり、2 つの新しい DevKit コマンドで、あなたと AI エージェントがシーンの明るさを確認し、任意のピクセルの下にあるサーフェスを特定できます。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/" class="active">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-06.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-06.html" data-l="zh">中文</a><a class="lang-item active" href="/ja/changelog/2026-11-06.html" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-06.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-06.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-06.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-06.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-06.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ja/changelog/">← 変更履歴</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-06</span></div>
+    <h1>Engine 0.6 プレビュー：レンダリングパスの自動選択、WebGL2 の機能拡充、レンダラーが見ているものを確認できるツール</h1>
+    <p class="standfirst">今週はプレビュービルド 2 件。Standard パイプラインはデバイスの能力に応じてレンダリングパスを選ぶようになり、WebGL2 にシャドウ、スプライト、インスタンス LOD、物理ベースの空が加わり、2 つの新しい DevKit コマンドで、あなたと AI エージェントがシーンの明るさを確認し、任意のピクセルの下にあるサーフェスを特定できます。</p>
+    <div class="prose"><h3>Engine 0.6 プレビュー：レンダリングパスの自動選択、WebGL2 の機能拡充、レンダラーが見ているものを確認できるツール</h3>
+<ul>
+<li>プレビュービルド 2 件（0.6.0-dev.16816 と 0.6.0-dev.16817）を公開しました。</li>
+<li>レンダリングパスの自動選択：Standard パイプラインがデバイスの能力に応じて Forward と Deferred のパスを選ぶため、デバイスごとの設定なしで、1 つのプロジェクトがより幅広いデバイスで動作します。</li>
+<li>WebGL2 の機能拡充：シャドウの受け取り、スプライトのページング、インスタンス LOD、検証済みの Standard エフェクトとアンビエントオクルージョン、さらにポータブルな物理ベースの空の背景に対応しました。</li>
+<li>レンダラーが見ているものを確認：<code>dev look --view luminance</code> は、ブルームのしきい値を中心に段（ストップ）単位で区切ったシーン輝度の疑似カラーヒートマップと JSON サマリーを書き出します。<code>dev pick --x --y</code> は、あるピクセルの下にあるサーフェスのエンティティ、メッシュ、マテリアルスロット、ワールド位置を報告します。どちらも、光りすぎたり見え方がおかしいピクセルを AI エージェントが推測ではなく診断できるように作られています。</li>
+<li>平面反射：<code>PlanarReflection.resolutionScale</code> で反射の解像度を設定し、<code>generateMipmaps</code> でサーフェスの粗さに応じて反射をぼかします。</li>
+<li>GPU キャプチャの調査が高速に：パスごとのサマリーを追加し、パイプラインとバインディングはキャプチャを再生せずに調べられます。</li>
+<li>キャラクターコントローラーは、押し出しを繰り返すことなく権威側の位置に合わせられ、キャラクターの移動は入力時間に従います。キャンバスのピクセル比は性能を予測しやすいよう既定で 1 になり、デバイスの密度を使う場合は <code>canvasPixelRatio</code> で指定します。</li>
+<li>このほか：ポータブルな Hi-Z、スクリーンスペースリフレクション、ヒストグラム露出の実行プラン、インスタンス数変更のコスト削減、組み立て制約から生成したテクスチャ付き車両を 3D スターターに追加、テンプレートの開発・ビルド手順のドキュメントを明確化しました。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ja/changelog/">← すべての更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

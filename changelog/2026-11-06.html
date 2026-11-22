@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-06 · Engine 0.6 preview: automatic rendering path, WebGL2 catches up, tools that show what the renderer sees — ForgeAX</title>
+<meta name="description" content="Two preview builds this week. The Standard pipeline now picks its rendering path from what the device can do, WebGL2 gains shadows, sprites, instance LOD and a physical sky, and two new DevKit commands let you and your AI agent see scene brightness and identify the surface under any pixel." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-06 · Engine 0.6 preview: automatic rendering path, WebGL2 catches up, tools that show what the renderer sees — ForgeAX" />
+<meta property="og:description" content="Two preview builds this week. The Standard pipeline now picks its rendering path from what the device can do, WebGL2 gains shadows, sprites, instance LOD and a physical sky, and two new DevKit commands let you and your AI agent see scene brightness and identify the surface under any pixel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/changelog/2026-11-06.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-en forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/" data-nav="/">Home</a>
+      <a href="/tutorials/" data-nav="/tutorials/">Tutorials</a>
+      <a href="/examples/" data-nav="/examples/">Examples</a>
+      <a href="/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/blog/" data-nav="/blog/">Blog</a>
+      <a href="/changelog/" data-nav="/changelog/" class="active">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Language">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item active" href="/changelog/2026-11-06.html" data-l="en" aria-current="true">English</a><a class="lang-item" href="/zh/changelog/2026-11-06.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-06.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-06.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-06.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-06.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-06.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-06.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/#install">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/changelog/">← Changelog</a>
+    <div class="meta"><span class="tag brand">Update</span><span>2026-11-06</span></div>
+    <h1>Engine 0.6 preview: automatic rendering path, WebGL2 catches up, tools that show what the renderer sees</h1>
+    <p class="standfirst">Two preview builds this week. The Standard pipeline now picks its rendering path from what the device can do, WebGL2 gains shadows, sprites, instance LOD and a physical sky, and two new DevKit commands let you and your AI agent see scene brightness and identify the surface under any pixel.</p>
+    <div class="prose"><h3>Engine 0.6 preview: automatic rendering path, WebGL2 catches up, tools that show what the renderer sees</h3>
+<ul>
+<li>Two preview builds, 0.6.0-dev.16816 and 0.6.0-dev.16817.</li>
+<li>Automatic rendering path: the Standard pipeline now chooses between its Forward and Deferred paths from the device&#39;s capabilities, so one project runs across a wider range of devices without per-device settings.</li>
+<li>WebGL2 catches up: shadow receiving, sprite paging, instance LOD, qualified Standard effects and ambient occlusion, plus a portable physical sky background.</li>
+<li>See what the renderer sees: <code>dev look --view luminance</code> writes a false-colour heat map of scene brightness in stops around the bloom threshold, with a JSON summary, and <code>dev pick --x --y</code> reports the surface under a pixel: its entity, mesh, material slot and world position. Both are built so an AI agent can diagnose a glowing or wrong-looking pixel instead of guessing.</li>
+<li>Planar reflections: <code>PlanarReflection.resolutionScale</code> sets the reflection resolution and <code>generateMipmaps</code> blurs the reflection by surface roughness.</li>
+<li>GPU capture inspection got faster: a per-pass summary, and pipelines and bindings can be inspected without replaying the capture.</li>
+<li>Character controllers can be reconciled to an authoritative position without repeated pushes, and character movement respects input time. The canvas pixel ratio now defaults to 1 for predictable performance; opt into device density with <code>canvasPixelRatio</code>.</li>
+<li>Also in these builds: portable Hi-Z, screen-space reflection and histogram exposure plans, cheaper changes to instance counts, a textured vehicle in the 3D starter built from assembly constraints, and clearer template documentation for the dev and build flow.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/changelog/">← All updates</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>An AI-native personal game studio — turn ideas into playable games.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/tutorials/">Tutorials</a>
+    <a href="/examples/">Examples</a>
+    <a href="/marketplace/">Plugins</a>
+    <a href="/blog/">Blog</a>
+    <a href="/changelog/">Changelog</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub org</a>
+    <a href="/license.html">License</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

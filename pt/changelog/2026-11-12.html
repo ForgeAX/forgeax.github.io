@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-12 · Engine estável v0.5.0: duas semanas de prévias chegam à versão estável, bloom recalibrado — ForgeAX</title>
+<meta name="description" content="O SDK v0.5.0 é a nova versão estável no GitHub Releases, duas semanas depois da v0.4.19. Ele traz a maior parte do trabalho mostrado em prévia desde então, incluindo várias luzes direcionais, renderização WebGL2 muito mais ampla, antisserrilhamento temporal e suas próprias telas de carregamento, e recalibra o bloom. Três compilações de prévia saíram junto com ele." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-12 · Engine estável v0.5.0: duas semanas de prévias chegam à versão estável, bloom recalibrado — ForgeAX" />
+<meta property="og:description" content="O SDK v0.5.0 é a nova versão estável no GitHub Releases, duas semanas depois da v0.4.19. Ele traz a maior parte do trabalho mostrado em prévia desde então, incluindo várias luzes direcionais, renderização WebGL2 muito mais ampla, antisserrilhamento temporal e suas próprias telas de carregamento, e recalibra o bloom. Três compilações de prévia saíram junto com ele." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-pt forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/pt/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/pt/" data-nav="/">Início</a>
+      <a href="/pt/tutorials/" data-nav="/tutorials/">Tutoriais</a>
+      <a href="/pt/examples/" data-nav="/examples/">Exemplos</a>
+      <a href="/pt/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/pt/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/pt/changelog/" data-nav="/changelog/" class="active">Registro de alterações</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Linguagem">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-12.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-12.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-12.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-12.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-12.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-12.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-12.html" data-l="fr">Français</a><a class="lang-item active" href="/pt/changelog/2026-11-12.html" data-l="pt" aria-current="true">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/pt/#install">Começar</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/pt/changelog/">← Registro de alterações</a>
+    <div class="meta"><span class="tag brand">Atualização</span><span>2026-11-12</span></div>
+    <h1>Engine estável v0.5.0: duas semanas de prévias chegam à versão estável, bloom recalibrado</h1>
+    <p class="standfirst">O SDK v0.5.0 é a nova versão estável no GitHub Releases, duas semanas depois da v0.4.19. Ele traz a maior parte do trabalho mostrado em prévia desde então, incluindo várias luzes direcionais, renderização WebGL2 muito mais ampla, antisserrilhamento temporal e suas próprias telas de carregamento, e recalibra o bloom. Três compilações de prévia saíram junto com ele.</p>
+    <div class="prose"><h3>Engine estável v0.5.0: duas semanas de prévias chegam à versão estável, bloom recalibrado</h3>
+<ul>
+<li>O SDK v0.5.0 é a nova versão estável, duas semanas depois da v0.4.19, publicada no GitHub Releases como um arquivo autocontido com procedência, uma lista de materiais de software SPDX e somas SHA-256. Nos mesmos dois dias saíram três compilações de prévia, de 0.6.0-dev.16819 a 0.6.0-dev.16821.</li>
+<li>Novidades da versão estável desde a v0.4.19: várias luzes direcionais em uma cena, mais extensões de glTF, texturas de vídeo, as ferramentas de modelagem de malhas, escolha automática do caminho de renderização conforme o dispositivo, renderização WebGL2 muito mais ampla, incluindo antisserrilhamento e ampliação temporais, suas próprias telas de carregamento e de falha, e inicializações a quente mais rápidas.</li>
+<li>Mudança incompatível, bloom: <code>bloomIntensity</code> agora é a parcela da luz intensa espalhada como brilho, então uma cena ajustada antes mostra cerca de um terço do brilho anterior; multiplique o valor antigo por 3 para manter o visual. <code>bloomThreshold</code> agora tem -1 como padrão, ou seja, sem limiar, de modo que superfícies emissivas coloridas brilham; defina-o explicitamente para manter um limiar.</li>
+<li>Mudança incompatível, lente e reflexos: a aberração cromática agora é uma franja radial que deixa o centro intacto e cresce em direção aos cantos. <code>chromaticAberration</code> é uma porcentagem de 0 a 5, <code>chromaticAberrationAngle</code> foi removido e <code>chromaticAberrationStartOffset</code> foi adicionado. <code>PlanarReflection.distortion</code> agora é um raio em espaço de mundo, e não um deslocamento de tela.</li>
+<li>Céu e névoa: a atmosfera física completa roda no caminho Forward do WebGL2, a névoa agora cobre o fundo do céu e é controlada com <code>Fog.skyOpacity</code>, o céu acompanha o brilho e a tonalidade do sol, e há uma nova predefinição de material <code>ADDITIVE_BLEND</code>, um auxiliar <code>setTransformLookAt</code> e um modo de mapeamento de tons fílmico.</li>
+<li>Correções de vídeo e cor: um vídeo usado como textura comum não aparece mais de cabeça para baixo em navegadores sem importação de vídeo sem cópia, e uma tabela de consulta de cores identidade agora deixa a imagem inalterada em vez de escurecer as sombras.</li>
+<li>Desempenho: uma pré-passagem de profundidade no caminho Forward, uma física que avisa sobre mudanças de movimento sem sondar corpos em repouso, quadros dados como concluídos assim que seu próprio trabalho de GPU termina e, nos navegadores de Android e iOS, um buffer de desenho cujo lado menor tem 720 pixels por padrão.</li>
+<li>Nas compilações de prévia: <code>forgeax project play --release</code> executa sua partida roteirizada contra a versão já compilada, <code>--session</code> mantém um navegador aquecido entre as execuções, uma etapa posterior pode começar a partir de uma etapa de preparação em vez de repetir a partida inteira, e <code>mouse.look</code> gira uma câmera controlada pelo mouse. O modelo 3D agora é dividido em pastas de jogador, câmera, mundo e interface, e cada uma pode ser removida.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/pt/changelog/">← Todas as atualizações</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Um estúdio de jogos pessoais nativo de IA — transforme ideias em jogos jogáveis.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/pt/tutorials/">Tutoriais</a>
+    <a href="/pt/examples/">Exemplos</a>
+    <a href="/pt/marketplace/">Plugins</a>
+    <a href="/pt/blog/">Blogue</a>
+    <a href="/pt/changelog/">Registro de alterações</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organização GitHub</a>
+    <a href="/pt/license.html">Licença</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

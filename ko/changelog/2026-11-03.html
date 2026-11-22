@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-03 · Engine 0.6 프리뷰 시작: 여러 개의 방향광, 더 넓은 glTF 지원, 기본으로 동작하는 비디오 텍스처, 메시 모델링 — ForgeAX</title>
+<meta name="description" content="0.6 프리뷰 라인이 하루도 안 되는 사이에 빌드 3개로 시작했습니다. 이제 모든 DirectionalLight가 장면을 비추고, glTF 임포트가 양자화 메시와 KTX2 텍스처를 지원하며, 비디오 머티리얼이 기본 구성에서 동작하고, 편집 가능한 메시 모델링 커널이 SDK에 포함되며, 앰비언트 오클루전이 Forward 경로와 WebGL2까지 확장되었습니다." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-03 · Engine 0.6 프리뷰 시작: 여러 개의 방향광, 더 넓은 glTF 지원, 기본으로 동작하는 비디오 텍스처, 메시 모델링 — ForgeAX" />
+<meta property="og:description" content="0.6 프리뷰 라인이 하루도 안 되는 사이에 빌드 3개로 시작했습니다. 이제 모든 DirectionalLight가 장면을 비추고, glTF 임포트가 양자화 메시와 KTX2 텍스처를 지원하며, 비디오 머티리얼이 기본 구성에서 동작하고, 편집 가능한 메시 모델링 커널이 SDK에 포함되며, 앰비언트 오클루전이 Forward 경로와 WebGL2까지 확장되었습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ko/changelog/2026-11-03.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ko/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ko forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ko/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ko/" data-nav="/">홈</a>
+      <a href="/ko/tutorials/" data-nav="/tutorials/">튜토리얼</a>
+      <a href="/ko/examples/" data-nav="/examples/">예</a>
+      <a href="/ko/marketplace/" data-nav="/marketplace/">플러그인</a>
+      <a href="/ko/blog/" data-nav="/blog/">블로그</a>
+      <a href="/ko/changelog/" data-nav="/changelog/" class="active">변경 내역</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="언어">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-03.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-03.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-03.html" data-l="ja">日本語</a><a class="lang-item active" href="/ko/changelog/2026-11-03.html" data-l="ko" aria-current="true">한국어</a><a class="lang-item" href="/es/changelog/2026-11-03.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-03.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-03.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-03.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ko/#install">시작하기</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ko/changelog/">← 변경 내역</a>
+    <div class="meta"><span class="tag brand">업데이트</span><span>2026-11-03</span></div>
+    <h1>Engine 0.6 프리뷰 시작: 여러 개의 방향광, 더 넓은 glTF 지원, 기본으로 동작하는 비디오 텍스처, 메시 모델링</h1>
+    <p class="standfirst">0.6 프리뷰 라인이 하루도 안 되는 사이에 빌드 3개로 시작했습니다. 이제 모든 DirectionalLight가 장면을 비추고, glTF 임포트가 양자화 메시와 KTX2 텍스처를 지원하며, 비디오 머티리얼이 기본 구성에서 동작하고, 편집 가능한 메시 모델링 커널이 SDK에 포함되며, 앰비언트 오클루전이 Forward 경로와 WebGL2까지 확장되었습니다.</p>
+    <div class="prose"><h3>Engine 0.6 프리뷰 시작: 여러 개의 방향광, 더 넓은 glTF 지원, 기본으로 동작하는 비디오 텍스처, 메시 모델링</h3>
+<ul>
+<li>0.6 프리뷰 라인 시작: 하루도 안 되는 사이에 빌드 3개(0.6.0-dev.1 ~ 0.6.0-dev.16579)를 공개했고, 그 사이에 소스 업데이트도 한 번 있었습니다.</li>
+<li>이제 모든 <code>DirectionalLight</code>가 장면을 비춥니다. 첫 번째는 캐스케이드 그림자와 대기를 담당하는 태양 역할을 유지하고, 추가되는 각 광원은 그림자 없는 방향광을 더합니다. 이전에는 하나만 적용되었습니다.</li>
+<li>더 많은 glTF 파일을 그대로 임포트: 양자화 메시와 애니메이션을 위한 <code>KHR_mesh_quantization</code>, KTX2 텍스처를 위한 <code>KHR_texture_basisu</code>를 지원합니다.</li>
+<li>비디오 텍스처가 기본 구성에서 동작: 페이지의 비디오 프레임을 Engine Worker로 연결해 기본 게임에서 <code>VideoPlayer</code> 머티리얼이 재생되며, 자동 재생이 차단되면 다음 사용자 동작에서 다시 시도합니다.</li>
+<li>편집 가능한 메시 모델링: 모델링 커널을 <code>@forgeax/engine/modeling</code>으로 제공하고, 지오메트리를 검사, 선택, 검증, 오버레이하는 <code>forgeax model</code> 도구를 갖췄으며, 메시 미리보기에 직접 만든 오버레이 지오메트리를 표시할 수 있습니다.</li>
+<li>앰비언트 오클루전이 더 이상 Deferred 경로를 요구하지 않습니다. 이제 WebGL2를 포함한 Forward 경로에서도 동작합니다.</li>
+<li>WebGL2 수정: 캐릭터 텍스처가 더 이상 깨지지 않고, 배열 텍스처의 밉 레벨이 색을 유지하며, Worker가 WebGPU 어댑터를 탐색하는 동안에도 사용할 수 있는 WebGL2 폴백을 유지합니다.</li>
+<li>기존 Three.js 장면을 옮기는 과정에서 찾은 수정: 스페큘러 맵이 있는 머티리얼이 다시 그려지고, 매우 밝은 HDR 하늘이 조명을 검게 만들거나 얼룩지게 하지 않으며, 평면 반사가 표면의 물결에 따라 일렁여 젖은 바닥을 표현할 수 있고, 그림자가 캐스터와 깔끔하게 맞닿으며, 삼각형 메시 콜라이더가 부모 아래에서도 동작합니다.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ko/changelog/">← 모든 업데이트</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI 기반 개인 게임 스튜디오 — 아이디어를 플레이 가능한 게임으로 바꿔보세요.</p>
+  </div>
+  <nav class="foot-links" aria-label="대지">
+    <a href="/ko/tutorials/">튜토리얼</a>
+    <a href="/ko/examples/">예</a>
+    <a href="/ko/marketplace/">플러그인</a>
+    <a href="/ko/blog/">블로그</a>
+    <a href="/ko/changelog/">변경 내역</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 조직</a>
+    <a href="/ko/license.html">특허</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

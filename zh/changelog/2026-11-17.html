@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-17 · 引擎 0.6 预览版：水体、体积云、桌面和移动端打包、性能分析工作台 — 天工引擎</title>
+<meta name="description" content="两天四个预览版本。首个水体系统和预烘焙体积云到来；游戏可以打包成桌面和移动应用；引擎自带 CPU、内存、GPU 性能分析工作台；3D 起步场景有了自动曝光，天空下半部分得到修正。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-17 · 引擎 0.6 预览版：水体、体积云、桌面和移动端打包、性能分析工作台 — 天工引擎" />
+<meta property="og:description" content="两天四个预览版本。首个水体系统和预烘焙体积云到来；游戏可以打包成桌面和移动应用；引擎自带 CPU、内存、GPU 性能分析工作台；3D 起步场景有了自动曝光，天空下半部分得到修正。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/changelog/2026-11-17.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/" class="active">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-17.html" data-l="en">English</a><a class="lang-item active" href="/zh/changelog/2026-11-17.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/changelog/2026-11-17.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-17.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-17.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-17.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-17.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-17.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/changelog/">← 更新日志</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-17</span></div>
+    <h1>引擎 0.6 预览版：水体、体积云、桌面和移动端打包、性能分析工作台</h1>
+    <p class="standfirst">两天四个预览版本。首个水体系统和预烘焙体积云到来；游戏可以打包成桌面和移动应用；引擎自带 CPU、内存、GPU 性能分析工作台；3D 起步场景有了自动曝光，天空下半部分得到修正。</p>
+    <div class="prose"><h3>引擎 0.6 预览版：水体、体积云、桌面和移动端打包、性能分析工作台</h3>
+<ul>
+<li>两天四个预览版本，从 0.6.0-dev.16822 到 0.6.0-dev.16825。</li>
+<li>水体：首个水体系统以 <code>@forgeax/engine-water</code> 的形式到来，包含水体和水域、波浪驱动的水面、反射和水下视图、浮力和泡沫，以及局部涟漪模拟。示例场景从港口到海岸都有。</li>
+<li>体积云：预烘焙的云层通过新的 <code>VolumetricCloudLayer</code> 组件渲染，云的烘焙工具已包含在 SDK 的创作工具中。</li>
+<li>桌面和移动端打包：<code>forgeax project build --target tauri</code> 把普通的浏览器构建包进一个 Tauri 应用，<code>forgeax project package --format tauri --platform windows|macos|linux|android|ios</code> 生成原生安装包。针对 Windows 和 Android 的修复在紧接着的下一个版本就跟上了。</li>
+<li>引擎自带性能分析工作台：CPU 时间线和调用树、内存快照和分配分析、GPU 资源和耗时报告。每一项都会生成可交互的 HTML 报告，同时附带 AI 智能体可以查询的机器可读数据。</li>
+<li>光照和画质：3D 起步场景的相机现在使用自动曝光，晴天光照做了更新，并带有一张在 GPU 上生成的铺地纹理。天空的下半部分现在渲染正确，雾可以和 MSAA 一起使用，MSAA 可以与 FXAA 组合，GPU 生成的纹理成为原生资源类型。</li>
+<li>ECS 的不兼容变更：系统、调度和资源现在由你定义并导入的对象来标识（<code>defineSystem</code>、<code>defineSchedule</code>、<code>defineResource</code>），名称只作为诊断用的标签。注册系统请写 <code>world.addSystem(Update, defineSystem({ ... }))</code>。另外新增 <code>world.acquireTimeScale(scale)</code>，用于慢动作和暂停，需要继续播放的效果可以读取 <code>Time.unscaledDelta</code>。</li>
+<li>阴影和构建：<code>DirectionalLight.staticShadowCache</code> 现在需要主动开启（默认 <code>false</code>），并且不再被不投射阴影的物体触发失效。<code>devkitAppOptions.canvasPixelRatio</code> 接受 <code>&#39;device&#39;</code> 或 <code>{ mode: &#39;device&#39;, max: 2 }</code>；单 HTML 包默认采用紧凑格式（<code>--compress=false</code> 恢复为普通 JSON）；生产构建默认复用构建缓存中已烘焙的材质。</li>
+<li>更快、更省：网格在运行时只保留一份表示，内存占用更低；不再使用的材质程序会被回收；大型层级的变换更新更快。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/changelog/">← 查看全部更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

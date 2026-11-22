@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-27 · Engine 0.5 preview: smoother effects, an even frame-rate limit, full resolution on 4K displays — ForgeAX</title>
+<meta name="description" content="Four preview builds in under a day. GPU effects now advance on every rendered frame, games can cap their frame rate with even pacing, dual-GPU laptops and 4K displays get the performance and resolution they should, and ordinary browser builds became much smaller. Several of these fixes came straight from a game being built on the SDK." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-27 · Engine 0.5 preview: smoother effects, an even frame-rate limit, full resolution on 4K displays — ForgeAX" />
+<meta property="og:description" content="Four preview builds in under a day. GPU effects now advance on every rendered frame, games can cap their frame rate with even pacing, dual-GPU laptops and 4K displays get the performance and resolution they should, and ordinary browser builds became much smaller. Several of these fixes came straight from a game being built on the SDK." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/changelog/2026-10-27.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-en forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/" data-nav="/">Home</a>
+      <a href="/tutorials/" data-nav="/tutorials/">Tutorials</a>
+      <a href="/examples/" data-nav="/examples/">Examples</a>
+      <a href="/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/blog/" data-nav="/blog/">Blog</a>
+      <a href="/changelog/" data-nav="/changelog/" class="active">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Language">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item active" href="/changelog/2026-10-27.html" data-l="en" aria-current="true">English</a><a class="lang-item" href="/zh/changelog/2026-10-27.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-27.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-27.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-27.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-27.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-27.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-27.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/#install">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/changelog/">← Changelog</a>
+    <div class="meta"><span class="tag brand">Update</span><span>2026-10-27</span></div>
+    <h1>Engine 0.5 preview: smoother effects, an even frame-rate limit, full resolution on 4K displays</h1>
+    <p class="standfirst">Four preview builds in under a day. GPU effects now advance on every rendered frame, games can cap their frame rate with even pacing, dual-GPU laptops and 4K displays get the performance and resolution they should, and ordinary browser builds became much smaller. Several of these fixes came straight from a game being built on the SDK.</p>
+    <div class="prose"><h3>Engine 0.5 preview: smoother effects, an even frame-rate limit, full resolution on 4K displays</h3>
+<ul>
+<li>Four preview builds in under a day, 0.5.0-dev.15780 through 0.5.0-dev.15783.</li>
+<li>Smoother effects: GPU particle effects now advance on every rendered frame instead of at the fixed simulation rate, so debris, dust and sparks no longer look low-frame-rate in a scene that renders smoothly. A game project reported this, and the fix shipped in the next build.</li>
+<li>An even frame-rate limit: <code>ExecutionControl.setFrameRateLimit(fps | null)</code> caps the frame rate with steady pacing, so 30 FPS on a 60 Hz display is exactly every second refresh rather than an uneven alternation.</li>
+<li>The right GPU and the right resolution: WebGPU now asks for the high-performance adapter by default, so dual-GPU laptops run on the discrete GPU, and worker-mode canvases size themselves from the real device limit, so 4K displays no longer render at about half resolution.</li>
+<li>Much smaller browser builds: ordinary builds now share the compressed asset delivery used by packaged players. In our test game builds the output shrank by about 80% for roughly 2% more build time.</li>
+<li>More resilient rendering: meshes recover after a GPU device loss, materials that sample a render target stay bound when content is republished, and the pipeline library warms up in a stable order and replays after recovery.</li>
+<li>Rendering: updated sky and water, sky-only scenes render correctly, opaque materials can opt out of fog with <code>fog: false</code>, and a new <code>withVertexColors</code> geometry helper.</li>
+<li>Easier to get started: the README was restructured around a showcase, features and a quick start, the effects cookbook is split into topics, the feature lab covers every SDK capability, and the dev overlay shows a subtle game and Engine version label.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/changelog/">← All updates</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>An AI-native personal game studio — turn ideas into playable games.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/tutorials/">Tutorials</a>
+    <a href="/examples/">Examples</a>
+    <a href="/marketplace/">Plugins</a>
+    <a href="/blog/">Blog</a>
+    <a href="/changelog/">Changelog</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub org</a>
+    <a href="/license.html">License</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

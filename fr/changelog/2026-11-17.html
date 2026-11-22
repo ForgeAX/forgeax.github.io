@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-17 · Aperçu d’Engine 0.6 : eau, nuages volumétriques, empaquetage pour ordinateur et mobile, un atelier de profilage — ForgeAX</title>
+<meta name="description" content="Quatre versions d’aperçu en deux jours. Un premier système d’eau et des nuages volumétriques précalculés font leur arrivée, les jeux peuvent être empaquetés en applications de bureau et mobiles, un atelier de profilage CPU, mémoire et GPU est livré avec le moteur, et le modèle 3D reçoit l’exposition automatique et un bas de ciel corrigé." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-17 · Aperçu d’Engine 0.6 : eau, nuages volumétriques, empaquetage pour ordinateur et mobile, un atelier de profilage — ForgeAX" />
+<meta property="og:description" content="Quatre versions d’aperçu en deux jours. Un premier système d’eau et des nuages volumétriques précalculés font leur arrivée, les jeux peuvent être empaquetés en applications de bureau et mobiles, un atelier de profilage CPU, mémoire et GPU est livré avec le moteur, et le modèle 3D reçoit l’exposition automatique et un bas de ciel corrigé." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/changelog/2026-11-17.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/" class="active">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-17.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-17.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-17.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-17.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-17.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-17.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/changelog/2026-11-17.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/changelog/2026-11-17.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/changelog/">← Journal des modifications</a>
+    <div class="meta"><span class="tag brand">Mise à jour</span><span>2026-11-17</span></div>
+    <h1>Aperçu d’Engine 0.6 : eau, nuages volumétriques, empaquetage pour ordinateur et mobile, un atelier de profilage</h1>
+    <p class="standfirst">Quatre versions d’aperçu en deux jours. Un premier système d’eau et des nuages volumétriques précalculés font leur arrivée, les jeux peuvent être empaquetés en applications de bureau et mobiles, un atelier de profilage CPU, mémoire et GPU est livré avec le moteur, et le modèle 3D reçoit l’exposition automatique et un bas de ciel corrigé.</p>
+    <div class="prose"><h3>Aperçu d’Engine 0.6 : eau, nuages volumétriques, empaquetage pour ordinateur et mobile, un atelier de profilage</h3>
+<ul>
+<li>Quatre versions d’aperçu en deux jours, de la 0.6.0-dev.16822 à la 0.6.0-dev.16825.</li>
+<li>Eau : un premier système d’eau arrive sous la forme de <code>@forgeax/engine-water</code>, avec des étendues et des zones d’eau, des surfaces animées par les vagues, des vues de réflexion et sous-marines, la flottabilité et l’écume, ainsi qu’une simulation locale d’ondulations. Les scènes d’exemple vont d’un port à un littoral.</li>
+<li>Nuages volumétriques : les couches de nuages précalculées sont rendues par le nouveau composant <code>VolumetricCloudLayer</code>, et les outils de précalcul des nuages sont inclus dans les outils de création du SDK.</li>
+<li>Empaquetage pour ordinateur et mobile : <code>forgeax project build --target tauri</code> enveloppe le build navigateur ordinaire dans une application Tauri, et <code>forgeax project package --format tauri --platform windows|macos|linux|android|ios</code> produit des installateurs natifs. Les correctifs pour Windows et Android ont suivi dès la version suivante.</li>
+<li>Un atelier de profilage est livré avec le moteur : chronologies CPU et arbres d’appels, instantanés mémoire et profils d’allocation, rapports de ressources et de temps GPU. Chacun est fourni sous forme de rapport HTML interactif, accompagné de données lisibles par machine qu’un agent d’IA peut interroger.</li>
+<li>Éclairage et qualité d’image : la caméra du modèle 3D utilise désormais l’exposition automatique, avec un éclairage de journée claire rafraîchi et une texture de pavage générée sur le GPU. Le bas du ciel est rendu correctement, le brouillard fonctionne avec le MSAA, le MSAA peut être combiné au FXAA, et les textures générées sur le GPU deviennent un type de ressource natif.</li>
+<li>Changement incompatible dans l’ECS : les systèmes, les planifications et les ressources sont désormais identifiés par l’objet que vous définissez et importez (<code>defineSystem</code>, <code>defineSchedule</code>, <code>defineResource</code>), et leurs noms ne sont plus que des libellés de diagnostic. Enregistrez un système avec <code>world.addSystem(Update, defineSystem({ ... }))</code>. Autre nouveauté : <code>world.acquireTimeScale(scale)</code> pour le ralenti et la pause, avec <code>Time.unscaledDelta</code> pour les effets qui doivent continuer à tourner.</li>
+<li>Ombres et builds : <code>DirectionalLight.staticShadowCache</code> est désormais optionnel (valeur par défaut <code>false</code>) et n’est plus invalidé par les objets qui ne projettent pas d’ombre. <code>devkitAppOptions.canvasPixelRatio</code> accepte <code>&#39;device&#39;</code> ou <code>{ mode: &#39;device&#39;, max: 2 }</code>, les paquets en un seul fichier HTML sont compacts par défaut (<code>--compress=false</code> rétablit le JSON brut), et les builds de production réutilisent par défaut les matériaux précalculés du cache de build.</li>
+<li>Plus rapide et plus léger : les maillages ne conservent qu’une seule représentation à l’exécution, ce qui réduit l’usage mémoire, les programmes de matériaux qui ne servent plus sont retirés, et les mises à jour de transformations des grandes hiérarchies sont plus rapides.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

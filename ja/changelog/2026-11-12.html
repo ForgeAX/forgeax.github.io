@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-12 · Engine 安定版 v0.5.0：2 週間分のプレビューの成果が安定版に、ブルームを再調整 — ForgeAX</title>
+<meta name="description" content="SDK v0.5.0 が新しい安定版として、v0.4.19 から 2 週間で GitHub Releases に公開されました。複数のディレクショナルライト、大幅に広がった WebGL2 レンダリング、テンポラルアンチエイリアシング、独自の読み込み画面など、この間にプレビューした作業の大半を含み、ブルームを再調整しています。同時にプレビュービルド 3 件も公開しました。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-12 · Engine 安定版 v0.5.0：2 週間分のプレビューの成果が安定版に、ブルームを再調整 — ForgeAX" />
+<meta property="og:description" content="SDK v0.5.0 が新しい安定版として、v0.4.19 から 2 週間で GitHub Releases に公開されました。複数のディレクショナルライト、大幅に広がった WebGL2 レンダリング、テンポラルアンチエイリアシング、独自の読み込み画面など、この間にプレビューした作業の大半を含み、ブルームを再調整しています。同時にプレビュービルド 3 件も公開しました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/" class="active">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-12.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-12.html" data-l="zh">中文</a><a class="lang-item active" href="/ja/changelog/2026-11-12.html" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-12.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-12.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-12.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-12.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-12.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ja/changelog/">← 変更履歴</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-12</span></div>
+    <h1>Engine 安定版 v0.5.0：2 週間分のプレビューの成果が安定版に、ブルームを再調整</h1>
+    <p class="standfirst">SDK v0.5.0 が新しい安定版として、v0.4.19 から 2 週間で GitHub Releases に公開されました。複数のディレクショナルライト、大幅に広がった WebGL2 レンダリング、テンポラルアンチエイリアシング、独自の読み込み画面など、この間にプレビューした作業の大半を含み、ブルームを再調整しています。同時にプレビュービルド 3 件も公開しました。</p>
+    <div class="prose"><h3>Engine 安定版 v0.5.0：2 週間分のプレビューの成果が安定版に、ブルームを再調整</h3>
+<ul>
+<li>SDK v0.5.0 が新しい安定版です。v0.4.19 から 2 週間で、来歴情報、SPDX ソフトウェア部品表、SHA-256 チェックサムを添えた自己完結型アーカイブとして GitHub Releases に公開しました。同じ 2 日間にプレビュービルド 0.6.0-dev.16819 から 0.6.0-dev.16821 までの 3 件も公開しています。</li>
+<li>v0.4.19 以降に安定版へ加わったもの：1 つのシーンでの複数のディレクショナルライト、より多くの glTF 拡張、ビデオテクスチャ、メッシュモデリングツール、デバイスに応じたレンダリングパスの自動選択、テンポラルアンチエイリアシングとアップスケーリングを含む大幅に広がった WebGL2 レンダリング、独自の読み込み画面と失敗画面、より速いウォームスタート。</li>
+<li>破壊的変更（ブルーム）：<code>bloomIntensity</code> は、明るい光のうちグローとして散乱する割合を表すようになりました。以前に調整したシーンではグローが約 3 分の 1 になるため、同じ見た目を保つには以前の値を 3 倍にしてください。<code>bloomThreshold</code> の既定値は -1（しきい値なし）になり、色付きのエミッシブ面も光ります。しきい値が必要な場合は明示的に設定してください。</li>
+<li>破壊的変更（レンズと反射）：色収差は、中心には影響せず四隅に向かって強くなる放射状のフリンジになりました。<code>chromaticAberration</code> は 0 から 5 のパーセント値になり、<code>chromaticAberrationAngle</code> を削除し、<code>chromaticAberrationStartOffset</code> を追加しました。<code>PlanarReflection.distortion</code> は画面上のオフセットではなく、ワールド空間の半径になりました。</li>
+<li>空とフォグ：完全な物理ベースの大気が WebGL2 の Forward パスで動作し、フォグが空の背景も覆うようになり <code>Fog.skyOpacity</code> で調整できます。空は太陽の明るさと色合いに従います。<code>ADDITIVE_BLEND</code> マテリアルプリセット、<code>setTransformLookAt</code> ヘルパー、フィルミックなトーンマッピングモードを追加しました。</li>
+<li>ビデオと色の修正：ゼロコピーのビデオ取り込みに対応しないブラウザーで、通常のテクスチャとして使ったビデオが上下逆になる問題を修正しました。恒等のカラールックアップテーブルは、シャドウを暗くせず映像をそのまま保つようになりました。</li>
+<li>パフォーマンス：Forward パスに深度プリパスを追加し、物理は静止したボディをポーリングせずに動きの変化を通知し、フレームは自身の GPU 処理が終わりしだい完了として扱われます。Android と iOS のブラウザーでは、描画バッファーの短辺が既定で 720 ピクセルになります。</li>
+<li>プレビュービルドでは：<code>forgeax project play --release</code> でビルド済みのリリースに対してスクリプト化したプレイスルーを実行でき、<code>--session</code> は実行の間でブラウザーをウォーム状態に保ち、後のステップはゲーム全体を再生せずにセットアップステップから開始でき、<code>mouse.look</code> でマウスルックカメラを回せます。3D スターターは、プレイヤー、カメラ、ワールド、UI の各フォルダーに分かれ、それぞれ個別に削除できます。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ja/changelog/">← すべての更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

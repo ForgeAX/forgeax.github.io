@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-27 · Engine 0.5 프리뷰: 더 부드러운 이펙트, 고른 프레임 레이트 제한, 4K 디스플레이의 전체 해상도 — ForgeAX</title>
+<meta name="description" content="하루도 안 되는 사이에 프리뷰 빌드 4개. GPU 이펙트가 이제 렌더링되는 매 프레임마다 진행되고, 게임은 고른 간격으로 프레임 레이트를 제한할 수 있으며, 듀얼 GPU 노트북과 4K 디스플레이가 제 성능과 해상도를 내고, 일반 브라우저 빌드가 훨씬 작아졌습니다. 이 가운데 몇 가지 수정은 SDK로 개발 중인 게임에서 직접 나온 것입니다." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-27 · Engine 0.5 프리뷰: 더 부드러운 이펙트, 고른 프레임 레이트 제한, 4K 디스플레이의 전체 해상도 — ForgeAX" />
+<meta property="og:description" content="하루도 안 되는 사이에 프리뷰 빌드 4개. GPU 이펙트가 이제 렌더링되는 매 프레임마다 진행되고, 게임은 고른 간격으로 프레임 레이트를 제한할 수 있으며, 듀얼 GPU 노트북과 4K 디스플레이가 제 성능과 해상도를 내고, 일반 브라우저 빌드가 훨씬 작아졌습니다. 이 가운데 몇 가지 수정은 SDK로 개발 중인 게임에서 직접 나온 것입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ko/changelog/2026-10-27.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ko/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ko forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ko/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ko/" data-nav="/">홈</a>
+      <a href="/ko/tutorials/" data-nav="/tutorials/">튜토리얼</a>
+      <a href="/ko/examples/" data-nav="/examples/">예</a>
+      <a href="/ko/marketplace/" data-nav="/marketplace/">플러그인</a>
+      <a href="/ko/blog/" data-nav="/blog/">블로그</a>
+      <a href="/ko/changelog/" data-nav="/changelog/" class="active">변경 내역</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="언어">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-27.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-27.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-27.html" data-l="ja">日本語</a><a class="lang-item active" href="/ko/changelog/2026-10-27.html" data-l="ko" aria-current="true">한국어</a><a class="lang-item" href="/es/changelog/2026-10-27.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-27.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-27.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-27.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ko/#install">시작하기</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ko/changelog/">← 변경 내역</a>
+    <div class="meta"><span class="tag brand">업데이트</span><span>2026-10-27</span></div>
+    <h1>Engine 0.5 프리뷰: 더 부드러운 이펙트, 고른 프레임 레이트 제한, 4K 디스플레이의 전체 해상도</h1>
+    <p class="standfirst">하루도 안 되는 사이에 프리뷰 빌드 4개. GPU 이펙트가 이제 렌더링되는 매 프레임마다 진행되고, 게임은 고른 간격으로 프레임 레이트를 제한할 수 있으며, 듀얼 GPU 노트북과 4K 디스플레이가 제 성능과 해상도를 내고, 일반 브라우저 빌드가 훨씬 작아졌습니다. 이 가운데 몇 가지 수정은 SDK로 개발 중인 게임에서 직접 나온 것입니다.</p>
+    <div class="prose"><h3>Engine 0.5 프리뷰: 더 부드러운 이펙트, 고른 프레임 레이트 제한, 4K 디스플레이의 전체 해상도</h3>
+<ul>
+<li>하루도 안 되는 사이에 프리뷰 빌드 4개(0.5.0-dev.15780 ~ 0.5.0-dev.15783)를 공개했습니다.</li>
+<li>더 부드러운 이펙트: GPU 파티클 이펙트가 고정 시뮬레이션 주기가 아니라 렌더링되는 매 프레임마다 진행되어, 부드럽게 렌더링되는 장면에서 파편, 먼지, 불꽃이 낮은 프레임 레이트처럼 보이지 않습니다. 한 게임 프로젝트가 제보했고, 수정은 바로 다음 빌드에 실렸습니다.</li>
+<li>고른 프레임 레이트 제한: <code>ExecutionControl.setFrameRateLimit(fps | null)</code>이 일정한 간격으로 프레임 레이트를 제한합니다. 60 Hz 디스플레이에서 30 FPS로 제한하면 들쭉날쭉한 간격이 아니라 정확히 두 번의 새로 고침마다 한 프레임이 됩니다.</li>
+<li>올바른 GPU와 올바른 해상도: WebGPU가 기본으로 고성능 어댑터를 요청해 듀얼 GPU 노트북이 외장 GPU로 실행되고, Worker 모드 캔버스가 실제 디바이스 한도에 맞춰 크기를 정해 4K 디스플레이가 절반가량의 해상도로 렌더링되지 않습니다.</li>
+<li>훨씬 작아진 브라우저 빌드: 일반 빌드도 패키징된 플레이어와 같은 압축 에셋 전달 방식을 함께 씁니다. 테스트 게임 빌드에서 빌드 시간이 약 2% 늘어나는 대신 출력 크기가 약 80% 줄었습니다.</li>
+<li>더 탄탄한 렌더링: GPU 디바이스 손실 뒤 메시가 복구되고, 렌더 타깃을 샘플링하는 머티리얼이 콘텐츠를 다시 게시해도 바인딩을 유지하며, 파이프라인 라이브러리가 안정된 순서로 예열되고 복구 뒤 다시 재생됩니다.</li>
+<li>렌더링: 하늘과 물을 업데이트했고, 하늘만 있는 장면이 올바르게 렌더링되며, 불투명 머티리얼은 <code>fog: false</code>로 안개를 끌 수 있고, 지오메트리 헬퍼 <code>withVertexColors</code>를 추가했습니다.</li>
+<li>더 쉬운 시작: README를 쇼케이스, 기능, 빠른 시작 중심으로 재구성하고, 이펙트 쿡북을 주제별로 나눴으며, feature lab이 모든 SDK 기능을 다루고, 개발 오버레이에 게임과 Engine 버전이 눈에 띄지 않게 표시됩니다.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ko/changelog/">← 모든 업데이트</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI 기반 개인 게임 스튜디오 — 아이디어를 플레이 가능한 게임으로 바꿔보세요.</p>
+  </div>
+  <nav class="foot-links" aria-label="대지">
+    <a href="/ko/tutorials/">튜토리얼</a>
+    <a href="/ko/examples/">예</a>
+    <a href="/ko/marketplace/">플러그인</a>
+    <a href="/ko/blog/">블로그</a>
+    <a href="/ko/changelog/">변경 내역</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 조직</a>
+    <a href="/ko/license.html">특허</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

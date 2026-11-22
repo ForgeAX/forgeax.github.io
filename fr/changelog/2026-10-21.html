@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-21 · Engine stable v0.4.16–v0.4.17 : catalogue d’exemples, Soleil réglable en direct, physique plus stable — ForgeAX</title>
+<meta name="description" content="Deux versions stables supplémentaires ont suivi v0.4.15 en deux jours : un exemple exécutable pour chaque capacité du SDK, des paramètres du Soleil réglables en direct dans le modèle 3D, des paramètres de Pack plus simples, et des correctifs pour le démarrage de la physique, la couleur et les ombres." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-21 · Engine stable v0.4.16–v0.4.17 : catalogue d’exemples, Soleil réglable en direct, physique plus stable — ForgeAX" />
+<meta property="og:description" content="Deux versions stables supplémentaires ont suivi v0.4.15 en deux jours : un exemple exécutable pour chaque capacité du SDK, des paramètres du Soleil réglables en direct dans le modèle 3D, des paramètres de Pack plus simples, et des correctifs pour le démarrage de la physique, la couleur et les ombres." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/changelog/2026-10-21.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-21.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-21.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/" class="active">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-21.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-21.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-21.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-21.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-21.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-21.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/changelog/2026-10-21.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/changelog/2026-10-21.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/changelog/">← Journal des modifications</a>
+    <div class="meta"><span class="tag brand">Mise à jour</span><span>2026-10-21</span></div>
+    <h1>Engine stable v0.4.16–v0.4.17 : catalogue d’exemples, Soleil réglable en direct, physique plus stable</h1>
+    <p class="standfirst">Deux versions stables supplémentaires ont suivi v0.4.15 en deux jours : un exemple exécutable pour chaque capacité du SDK, des paramètres du Soleil réglables en direct dans le modèle 3D, des paramètres de Pack plus simples, et des correctifs pour le démarrage de la physique, la couleur et les ombres.</p>
+    <div class="prose"><h3>Engine stable v0.4.16–v0.4.17 : catalogue d’exemples, Soleil réglable en direct, physique plus stable</h3>
+<ul>
+<li>Les sources stables v0.4.16 et v0.4.17 ont été publiées deux jours de suite, juste après v0.4.15.</li>
+<li>Nouveau catalogue d’exemples par capacité (feature lab) : chaque capacité du SDK dispose d’un petit exemple à exécuter et à lire.</li>
+<li>La scène de départ 3D expose désormais les paramètres du Soleil en direct ; les paramètres de Pack sont plus simples à écrire, peuvent être inspectés à partir de leurs seules déclarations et conservent leurs valeurs enregistrées à la réouverture d’une scène.</li>
+<li>La couleur de la balance des blancs est corrigée, et les scènes Three.js sous WebGPU se rapprochent de l’original pour le chargement, les matériaux, les ombres et l’éclairage basé sur l’image.</li>
+<li>Les corps physiques démarrent maintenant avec la bonne masse, et un échec de démarrage de la physique ne provoque plus de boucle de rechargement.</li>
+<li>La distance d’ombre directionnelle par défaut est limitée à 200 unités pour des ombres plus nettes d’emblée, les ombres de contact du modèle 3D couvrent de nouveau toute la scène, et un jeu peut choisir d’attendre les images lentes au lieu d’échouer.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

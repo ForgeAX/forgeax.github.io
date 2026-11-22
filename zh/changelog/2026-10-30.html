@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-30 · 引擎 0.5 预览版：SDK 可从 GitHub Releases 下载、更小的游戏包、可自行恢复的启动 — 天工引擎</title>
+<meta name="description" content="两天六个预览版本，稳定版 SDK 现在可以直接从 GitHub Releases 下载。游戏包更小；在较慢的机器上，启动过程会继续等待并给出说明而不是直接放弃；WebGL2 回退更稳定；物理开放了求解器设置。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-30 · 引擎 0.5 预览版：SDK 可从 GitHub Releases 下载、更小的游戏包、可自行恢复的启动 — 天工引擎" />
+<meta property="og:description" content="两天六个预览版本，稳定版 SDK 现在可以直接从 GitHub Releases 下载。游戏包更小；在较慢的机器上，启动过程会继续等待并给出说明而不是直接放弃；WebGL2 回退更稳定；物理开放了求解器设置。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/changelog/2026-10-30.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/" class="active">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-30.html" data-l="en">English</a><a class="lang-item active" href="/zh/changelog/2026-10-30.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/changelog/2026-10-30.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-30.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-30.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-30.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-30.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-30.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/changelog/">← 更新日志</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-10-30</span></div>
+    <h1>引擎 0.5 预览版：SDK 可从 GitHub Releases 下载、更小的游戏包、可自行恢复的启动</h1>
+    <p class="standfirst">两天六个预览版本，稳定版 SDK 现在可以直接从 GitHub Releases 下载。游戏包更小；在较慢的机器上，启动过程会继续等待并给出说明而不是直接放弃；WebGL2 回退更稳定；物理开放了求解器设置。</p>
+    <div class="prose"><h3>引擎 0.5 预览版：SDK 可从 GitHub Releases 下载、更小的游戏包、可自行恢复的启动</h3>
+<ul>
+<li>两天内发布六个预览版本：0.5.0-dev.15784 至 0.5.0-dev.15789。</li>
+<li>稳定版 SDK 上线 GitHub Releases：SDK v0.4.18 和 v0.4.19 已发布在公开仓库，是一个自包含的浏览器游戏 SDK 压缩包，附带来源证明、SPDX 软件物料清单和 SHA-256 校验值。</li>
+<li>游戏包更小，材质着色器改为在首次用到时才准备，而不是启动时全部准备。</li>
+<li>启动可自行恢复：启动较慢时会继续等待，并显示可展开的诊断信息，而不是直接失败；默认的游戏加载可以从缓存的失败中恢复；在严格的内容安全策略（CSP）下也能正常加载。</li>
+<li>WebGL2 回退更稳定：回退只选择一次，并保留两个后端各自报告的原因；在低端设备上曝光和帧资源也保持正确。</li>
+<li>物理：求解器迭代次数现在可以配置，求解器启用了 SIMD；在我们的回放基准中，针对体素世界的连续碰撞检测开销减少约三分之一。</li>
+<li>稳定帧的工作更少：帧准备阶段的内存分配减少，Worker 的垃圾回收开销下降，没有变化的动画时钟不再重复写入，ECS 新增低分配的只读查询批次。</li>
+<li>微信小游戏：场景在固定的分辨率预算内渲染，可用 <code>maxRenderShortSide</code> 调整，画布、UI 和输入保持原生分辨率；浏览器构建不受影响。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/changelog/">← 查看全部更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

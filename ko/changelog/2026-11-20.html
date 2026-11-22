@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-20 · Engine 안정 버전 v0.5.1, v0.5.0 이후 일주일: 물, 구름, 앱 패키징, 커뮤니티가 요청한 조명 제어 — ForgeAX</title>
+<meta name="description" content="SDK v0.5.1이 v0.5.0 이후 일주일 만에 새 안정 버전으로 GitHub Releases에 공개되었습니다. 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치가 안정 버전에 들어왔고, 커뮤니티 요청으로 SpotLight.decay가 추가되었으며, 품질 프리셋이 기기에 맞는 설정을 골라 줍니다. 프리뷰 빌드 4개도 함께 공개했습니다." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-20 · Engine 안정 버전 v0.5.1, v0.5.0 이후 일주일: 물, 구름, 앱 패키징, 커뮤니티가 요청한 조명 제어 — ForgeAX" />
+<meta property="og:description" content="SDK v0.5.1이 v0.5.0 이후 일주일 만에 새 안정 버전으로 GitHub Releases에 공개되었습니다. 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치가 안정 버전에 들어왔고, 커뮤니티 요청으로 SpotLight.decay가 추가되었으며, 품질 프리셋이 기기에 맞는 설정을 골라 줍니다. 프리뷰 빌드 4개도 함께 공개했습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ko/changelog/2026-11-20.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ko/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-20.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ko forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ko/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ko/" data-nav="/">홈</a>
+      <a href="/ko/tutorials/" data-nav="/tutorials/">튜토리얼</a>
+      <a href="/ko/examples/" data-nav="/examples/">예</a>
+      <a href="/ko/marketplace/" data-nav="/marketplace/">플러그인</a>
+      <a href="/ko/blog/" data-nav="/blog/">블로그</a>
+      <a href="/ko/changelog/" data-nav="/changelog/" class="active">변경 내역</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="언어">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-20.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-20.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-20.html" data-l="ja">日本語</a><a class="lang-item active" href="/ko/changelog/2026-11-20.html" data-l="ko" aria-current="true">한국어</a><a class="lang-item" href="/es/changelog/2026-11-20.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-20.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-20.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-20.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ko/#install">시작하기</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ko/changelog/">← 변경 내역</a>
+    <div class="meta"><span class="tag brand">업데이트</span><span>2026-11-20</span></div>
+    <h1>Engine 안정 버전 v0.5.1, v0.5.0 이후 일주일: 물, 구름, 앱 패키징, 커뮤니티가 요청한 조명 제어</h1>
+    <p class="standfirst">SDK v0.5.1이 v0.5.0 이후 일주일 만에 새 안정 버전으로 GitHub Releases에 공개되었습니다. 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치가 안정 버전에 들어왔고, 커뮤니티 요청으로 SpotLight.decay가 추가되었으며, 품질 프리셋이 기기에 맞는 설정을 골라 줍니다. 프리뷰 빌드 4개도 함께 공개했습니다.</p>
+    <div class="prose"><h3>Engine 안정 버전 v0.5.1, v0.5.0 이후 일주일: 물, 구름, 앱 패키징, 커뮤니티가 요청한 조명 제어</h3>
+<ul>
+<li>SDK v0.5.1이 새 안정 버전입니다. v0.5.0 이후 일주일 만에, 출처 증명과 SPDX 소프트웨어 자재 명세서, SHA-256 체크섬을 갖춘 독립형 아카이브로 GitHub Releases에 공개했습니다. 같은 사흘 동안 프리뷰 빌드 0.6.0-dev.16826부터 0.6.0-dev.16829까지 4개도 공개했습니다.</li>
+<li>v0.5.0 이후 안정 버전에 새로 들어온 것: 물 시스템(내 프로젝트로 복사해 쓸 수 있는 호수 예제 포함), 쿠킹된 볼류메트릭 클라우드, 데스크톱 및 모바일용 Tauri 패키징, CPU·메모리·GPU 프로파일링 워크벤치. 기기에서 구름을 쓸 수 없어도 장면은 계속 실행됩니다.</li>
+<li>커뮤니티의 요청: <code>SpotLight.decay</code>가 이제 <code>PointLight.decay</code>와 같은 방식으로 동작해, 스포트라이트가 원뿔 전체에서 고른 밝기를 유지할 수 있습니다. 11월 5일 GitHub 이슈에서 요청된 기능으로, 이번 안정 버전에 네이티브와 Three.js 레이어 모두 포함되었습니다. 기본값은 2여서 기존 장면은 달라지지 않습니다.</li>
+<li>Three.js 호환: <code>@forgeax/engine/three</code>가 이제 Three.js r187을 대상으로 하며, 로더와 컨트롤부터 지오메트리 헬퍼까지 100개가 넘는 애드온 모듈과 포스트 이펙트, 포인트 색상을 지원합니다. Three.js 객체가 네이티브 World를 공유하는 것도 실험적 경로로 가능합니다.</li>
+<li>품질 프리셋과 기기 구성: 프로젝트에서 <code>quality: { base: { kind: &#39;device-default&#39; } }</code>를 선언하면 기기에 맞는 권장값에서 시작하고, 플레이어의 선택이 저장되며, <code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code>로 실행 중에 낮음·중간·높음을 전환할 수 있습니다. 스크린 스페이스 반사는 절반 밀도로 추적한 뒤 전체 해상도로 재구성할 수 있습니다.</li>
+<li>텍스트와 머티리얼: <code>GlyphText</code>에 <code>worldOriented</code>가 추가되어 레이블이 카메라를 향하는 대신 엔티티를 따라갈 수 있고, 게임에 포함한 폰트를 쓸 수 있습니다. <code>alphaCutoff</code> 또는 <code>alphaHash</code>를 쓰는 컷아웃 머티리얼은 이제 기본값이 <code>alphaMode: &#39;opaque&#39;</code>여서, 컷아웃 부분이 회색으로 보이고 프레임 전체가 어두워지던 문제가 해결되었습니다. 자동 노출은 프레임 사이에 이력을 유지합니다.</li>
+<li>AI 에이전트를 위해: SDK에 엔진 기능 개요가 포함되고, 스타터 가이드는 에이전트가 코드를 쓰기 전에 그것을 읽고 기존 기능에 맞춰 계획하도록 안내합니다. 3D 스타터는 단위 테스트 틀을 없애고 실제 플레이스루로 검증하며, <code>forgeax project test</code>는 테스트 파일이 없는 게임에서 성공을 반환합니다.</li>
+<li>프리뷰 빌드에서는: 엔진 도구와 시작 화면 레이블을 중국어와 영어로 사용할 수 있고, 영어 README와 함께 중국어 README를 제공합니다. 실행 중 GPU에서 생성하는 텍스처가 이제 파노라마와 볼륨 텍스처를 지원하며, MSAA에서도 외곽선이 유지됩니다.</li>
+<li>프리뷰 빌드에는 또한: 레벨 스트리밍을 향한 첫 단계로, 레벨을 숨긴 상태로 백그라운드에서 준비한 뒤 실행 중인 장면에 합류시킬 수 있고, Deferred 렌더링이 더 빨라졌으며, 3D 스타터의 기본 노출이 중립적으로 바뀌었습니다.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ko/changelog/">← 모든 업데이트</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI 기반 개인 게임 스튜디오 — 아이디어를 플레이 가능한 게임으로 바꿔보세요.</p>
+  </div>
+  <nav class="foot-links" aria-label="대지">
+    <a href="/ko/tutorials/">튜토리얼</a>
+    <a href="/ko/examples/">예</a>
+    <a href="/ko/marketplace/">플러그인</a>
+    <a href="/ko/blog/">블로그</a>
+    <a href="/ko/changelog/">변경 내역</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 조직</a>
+    <a href="/ko/license.html">특허</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-25 · Engine 0.5 プレビュー：計測に基づく読み込み進捗、正確なパッケージプレビュー、より確実なエージェント向けツール — ForgeAX</title>
+<meta name="description" content="2 日間でプレビュービルド 5 件。読み込みは計測に基づく進捗を表示して既定でタイムラインを記録し、プレイヤーがダウンロードする正確なバイト数をプレビューでき、DevKit のライブコマンドがより確実になり、実際のゲーム制作でつまずきの原因になったドキュメントのサンプルを修正しました。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-25 · Engine 0.5 プレビュー：計測に基づく読み込み進捗、正確なパッケージプレビュー、より確実なエージェント向けツール — ForgeAX" />
+<meta property="og:description" content="2 日間でプレビュービルド 5 件。読み込みは計測に基づく進捗を表示して既定でタイムラインを記録し、プレイヤーがダウンロードする正確なバイト数をプレビューでき、DevKit のライブコマンドがより確実になり、実際のゲーム制作でつまずきの原因になったドキュメントのサンプルを修正しました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ja/changelog/2026-10-25.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/" class="active">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-25.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-25.html" data-l="zh">中文</a><a class="lang-item active" href="/ja/changelog/2026-10-25.html" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-25.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-25.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-25.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-25.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-25.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ja/changelog/">← 変更履歴</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-10-25</span></div>
+    <h1>Engine 0.5 プレビュー：計測に基づく読み込み進捗、正確なパッケージプレビュー、より確実なエージェント向けツール</h1>
+    <p class="standfirst">2 日間でプレビュービルド 5 件。読み込みは計測に基づく進捗を表示して既定でタイムラインを記録し、プレイヤーがダウンロードする正確なバイト数をプレビューでき、DevKit のライブコマンドがより確実になり、実際のゲーム制作でつまずきの原因になったドキュメントのサンプルを修正しました。</p>
+    <div class="prose"><h3>Engine 0.5 プレビュー：計測に基づく読み込み進捗、正確なパッケージプレビュー、より確実なエージェント向けツール</h3>
+<ul>
+<li>2 日間でプレビュービルド 5 件（0.5.0-dev.15096 から 0.5.0-dev.15779）を公開しました。</li>
+<li>読み込みを計測可能に：起動カバーは後戻りしない実測の進捗を表示します。読み込みタイムラインは既定で有効になり、Worker の起動、パッケージの読み込み、パイプライン作成、最初に表示されたフレームを記録し、<code>markLoadTimeline</code> で独自のマークも追加できます。</li>
+<li>出荷内容を把握：公開前にプレイヤーがダウンロードする正確なバイト数をプレビューし、Bundle の転送を確認できます。WeChat ミニゲームのパッケージはアセットを効率よくまとめ、起動とキーボードフォーカスを強化しました。</li>
+<li>AI エージェントにも人にも確実なツール：DevKit のライブコマンドは信頼性が上がり、入力の準備完了を待ち、出力が簡潔になりました。新規ゲームプロジェクトで型チェックに失敗していた SDK ドキュメントのサンプルは、実際のプロジェクトで問題になった後に修正しました。</li>
+<li>SDK に View アセットプレビューワークスペースが同梱され、三角形単位の正確なピッキングを備えたマテリアルと UV のプレビュー操作も含まれます。メッシュのジオメトリは描画せずに読み戻せます。</li>
+<li>パフォーマンス：各フレームが停滞の理由とコンパイル・パイプラインのカウンターを報告し、Worker のメモリとガベージコレクションの負荷が減り、任意のパイプラインライブラリをバックグラウンドでウォームアップし、描画チェーンのコストはシーンの大きさではなく変更量に比例するようになりました。</li>
+<li>メンテナンス：依存関係の HTTP と URI パーサーの脆弱性を修正し、ツールチェーンを npm 12.2.1 と pnpm 12.15.0 に更新し、zstd デコードのメモリ使用量に上限を設けました。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ja/changelog/">← すべての更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

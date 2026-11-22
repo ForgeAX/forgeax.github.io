@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-06 · 引擎 0.6 预览版：自动选择渲染路径、WebGL2 能力补齐、能看见渲染器所见的工具 — 天工引擎</title>
+<meta name="description" content="本周两个预览版本。Standard 管线现在根据设备能力选择渲染路径，WebGL2 新增阴影、精灵、实例 LOD 和物理天空，两条新的 DevKit 命令让你和你的智能体看到场景亮度，并识别任意像素下的表面。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-06 · 引擎 0.6 预览版：自动选择渲染路径、WebGL2 能力补齐、能看见渲染器所见的工具 — 天工引擎" />
+<meta property="og:description" content="本周两个预览版本。Standard 管线现在根据设备能力选择渲染路径，WebGL2 新增阴影、精灵、实例 LOD 和物理天空，两条新的 DevKit 命令让你和你的智能体看到场景亮度，并识别任意像素下的表面。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/" class="active">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-06.html" data-l="en">English</a><a class="lang-item active" href="/zh/changelog/2026-11-06.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/changelog/2026-11-06.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-06.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-06.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-06.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-06.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-06.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/changelog/">← 更新日志</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-06</span></div>
+    <h1>引擎 0.6 预览版：自动选择渲染路径、WebGL2 能力补齐、能看见渲染器所见的工具</h1>
+    <p class="standfirst">本周两个预览版本。Standard 管线现在根据设备能力选择渲染路径，WebGL2 新增阴影、精灵、实例 LOD 和物理天空，两条新的 DevKit 命令让你和你的智能体看到场景亮度，并识别任意像素下的表面。</p>
+    <div class="prose"><h3>引擎 0.6 预览版：自动选择渲染路径、WebGL2 能力补齐、能看见渲染器所见的工具</h3>
+<ul>
+<li>两个预览版本：0.6.0-dev.16816 和 0.6.0-dev.16817。</li>
+<li>自动选择渲染路径：Standard 管线现在根据设备能力在 Forward 和 Deferred 路径之间选择，同一个项目无需按设备单独设置，就能在更多设备上运行。</li>
+<li>WebGL2 能力补齐：阴影接收、精灵分页、实例 LOD、经过验证的 Standard 效果和环境光遮蔽，以及可移植的物理天空背景。</li>
+<li>看见渲染器所见：<code>dev look --view luminance</code> 输出场景亮度的伪彩色热力图，以辉光阈值为中心按档位分段，并附带 JSON 摘要；<code>dev pick --x --y</code> 报告某个像素下的表面，包括实体、网格、材质槽和世界坐标。两者都是为了让智能体可以诊断发光或显示异常的像素，而不是靠猜。</li>
+<li>平面反射：<code>PlanarReflection.resolutionScale</code> 设置反射分辨率，<code>generateMipmaps</code> 按表面粗糙度模糊反射。</li>
+<li>GPU 捕获检查更快：新增逐通道摘要，管线和绑定无需重放捕获即可检查。</li>
+<li>角色控制器可以校正到权威位置而不产生重复推挤，角色移动会遵循输入时间。画布像素比默认改为 1，性能更可预期；需要设备像素密度时可通过 <code>canvasPixelRatio</code> 开启。</li>
+<li>这些版本还包括：可移植的 Hi-Z、屏幕空间反射和直方图曝光方案，实例数量变化的开销更低，3D 起步模板新增一辆由装配约束生成的带贴图车辆，模板的开发和构建流程文档更清晰。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/changelog/">← 查看全部更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

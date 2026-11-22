@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-30 · Engine 0.5 Vorschau: SDK-Downloads auf GitHub Releases, kleinere Spielpakete, ein Start, der sich erholt — ForgeAX</title>
+<meta name="description" content="Sechs Vorschau-Builds in zwei Tagen, und das stabile SDK steht jetzt auf GitHub Releases zum Download bereit. Spielpakete wurden kleiner, der Start wartet auf langsamen Rechnern und erklärt sich, statt aufzugeben, der WebGL2-Fallback ist stabiler, und die Physik legt Solver-Einstellungen offen." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-30 · Engine 0.5 Vorschau: SDK-Downloads auf GitHub Releases, kleinere Spielpakete, ein Start, der sich erholt — ForgeAX" />
+<meta property="og:description" content="Sechs Vorschau-Builds in zwei Tagen, und das stabile SDK steht jetzt auf GitHub Releases zum Download bereit. Spielpakete wurden kleiner, der Start wartet auf langsamen Rechnern und erklärt sich, statt aufzugeben, der WebGL2-Fallback ist stabiler, und die Physik legt Solver-Einstellungen offen." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/de/changelog/2026-10-30.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/de/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-de forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/de/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/de/" data-nav="/">Startseite</a>
+      <a href="/de/tutorials/" data-nav="/tutorials/">Tutorials</a>
+      <a href="/de/examples/" data-nav="/examples/">Beispiele</a>
+      <a href="/de/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/de/blog/" data-nav="/blog/">Blog</a>
+      <a href="/de/changelog/" data-nav="/changelog/" class="active">Änderungsprotokoll</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Sprache">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-30.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-30.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-30.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-30.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-30.html" data-l="es">Español</a><a class="lang-item active" href="/de/changelog/2026-10-30.html" data-l="de" aria-current="true">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-30.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-30.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/de/#install">Loslegen</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/de/changelog/">← Änderungsprotokoll</a>
+    <div class="meta"><span class="tag brand">Update</span><span>2026-10-30</span></div>
+    <h1>Engine 0.5 Vorschau: SDK-Downloads auf GitHub Releases, kleinere Spielpakete, ein Start, der sich erholt</h1>
+    <p class="standfirst">Sechs Vorschau-Builds in zwei Tagen, und das stabile SDK steht jetzt auf GitHub Releases zum Download bereit. Spielpakete wurden kleiner, der Start wartet auf langsamen Rechnern und erklärt sich, statt aufzugeben, der WebGL2-Fallback ist stabiler, und die Physik legt Solver-Einstellungen offen.</p>
+    <div class="prose"><h3>Engine 0.5 Vorschau: SDK-Downloads auf GitHub Releases, kleinere Spielpakete, ein Start, der sich erholt</h3>
+<ul>
+<li>Sechs Vorschau-Builds in zwei Tagen, 0.5.0-dev.15784 bis 0.5.0-dev.15789.</li>
+<li>Stabiles SDK auf GitHub Releases: SDK v0.4.18 und v0.4.19 sind im öffentlichen Repository als eigenständiges Browser-Spiele-SDK-Archiv veröffentlicht, mit Herkunftsnachweis, SPDX-Software-Stückliste und SHA-256-Prüfsummen.</li>
+<li>Kleinere Spielpakete, und Material-Shader werden erst vorbereitet, wenn sie zum ersten Mal gebraucht werden, statt alle vorab.</li>
+<li>Ein Start, der sich erholt: Ein langsamer Start wartet jetzt weiter und zeigt aufklappbare Diagnosen, statt fehlzuschlagen, das Standard-Laden eines Spiels erholt sich von zwischengespeicherten Fehlern, und das Laden funktioniert unter einer strikten Content Security Policy.</li>
+<li>Stabilerer WebGL2-Fallback: Der Fallback wird einmal gewählt, behält die von beiden Backends gemeldeten Gründe und hält Belichtung und Bildressourcen auf schwächeren Geräten korrekt.</li>
+<li>Physik: Die Solver-Iterationen sind jetzt konfigurierbar, der Solver nutzt SIMD, und die kontinuierliche Kollisionserkennung gegen Voxel-Welten kostet in unserem Replay-Benchmark etwa ein Drittel weniger.</li>
+<li>Weniger Arbeit in stabilen Bildern: Die Bildvorbereitung belegt weniger Speicher, die Garbage Collection im Worker ging zurück, unveränderte Animationsuhren werden nicht mehr neu geschrieben, und das ECS erhielt allokationsarme, schreibgeschützte Abfrage-Batches.</li>
+<li>WeChat-Minispiel: Die Szene wird innerhalb eines festen Auflösungsbudgets gerendert, das sich mit <code>maxRenderShortSide</code> ändern lässt, während Canvas, UI und Eingabe in nativer Auflösung bleiben; Browser-Builds sind nicht betroffen.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/de/changelog/">← Alle Updates</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Ein KI-natives persönliches Spielestudio – verwandeln Sie Ideen in spielbare Spiele.</p>
+  </div>
+  <nav class="foot-links" aria-label="Website">
+    <a href="/de/tutorials/">Tutorials</a>
+    <a href="/de/examples/">Beispiele</a>
+    <a href="/de/marketplace/">Plugins</a>
+    <a href="/de/blog/">Blog</a>
+    <a href="/de/changelog/">Änderungsprotokoll</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub org</a>
+    <a href="/de/license.html">Lizenz</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

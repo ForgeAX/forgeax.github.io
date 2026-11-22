@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-27 · Aperçu d’Engine 0.5 : effets plus fluides, limite d’images régulière, pleine résolution sur les écrans 4K — ForgeAX</title>
+<meta name="description" content="Quatre versions d’aperçu en moins d’une journée. Les effets GPU avancent désormais à chaque image rendue, les jeux peuvent limiter leur fréquence d’images à un rythme régulier, les portables à double GPU et les écrans 4K obtiennent les performances et la résolution attendues, et les builds navigateur ordinaires sont bien plus légers. Plusieurs de ces correctifs viennent directement d’un jeu en cours de création avec le SDK." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-27 · Aperçu d’Engine 0.5 : effets plus fluides, limite d’images régulière, pleine résolution sur les écrans 4K — ForgeAX" />
+<meta property="og:description" content="Quatre versions d’aperçu en moins d’une journée. Les effets GPU avancent désormais à chaque image rendue, les jeux peuvent limiter leur fréquence d’images à un rythme régulier, les portables à double GPU et les écrans 4K obtiennent les performances et la résolution attendues, et les builds navigateur ordinaires sont bien plus légers. Plusieurs de ces correctifs viennent directement d’un jeu en cours de création avec le SDK." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/changelog/2026-10-27.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-27.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-27.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/" class="active">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-27.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-27.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-27.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-27.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-27.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-27.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/changelog/2026-10-27.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/changelog/2026-10-27.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/changelog/">← Journal des modifications</a>
+    <div class="meta"><span class="tag brand">Mise à jour</span><span>2026-10-27</span></div>
+    <h1>Aperçu d’Engine 0.5 : effets plus fluides, limite d’images régulière, pleine résolution sur les écrans 4K</h1>
+    <p class="standfirst">Quatre versions d’aperçu en moins d’une journée. Les effets GPU avancent désormais à chaque image rendue, les jeux peuvent limiter leur fréquence d’images à un rythme régulier, les portables à double GPU et les écrans 4K obtiennent les performances et la résolution attendues, et les builds navigateur ordinaires sont bien plus légers. Plusieurs de ces correctifs viennent directement d’un jeu en cours de création avec le SDK.</p>
+    <div class="prose"><h3>Aperçu d’Engine 0.5 : effets plus fluides, limite d’images régulière, pleine résolution sur les écrans 4K</h3>
+<ul>
+<li>Quatre versions d’aperçu en moins d’une journée, de 0.5.0-dev.15780 à 0.5.0-dev.15783.</li>
+<li>Des effets plus fluides : les effets de particules GPU avancent désormais à chaque image rendue et non plus à la cadence fixe de simulation, si bien que débris, poussière et étincelles ne paraissent plus saccadés dans une scène rendue avec fluidité. Un projet de jeu l’avait signalé, et le correctif est parti dans la version suivante.</li>
+<li>Une limite d’images régulière : <code>ExecutionControl.setFrameRateLimit(fps | null)</code> plafonne la fréquence d’images à un rythme stable, de sorte que 30 FPS sur un écran 60 Hz correspond exactement à un rafraîchissement sur deux, sans alternance irrégulière.</li>
+<li>Le bon GPU et la bonne résolution : WebGPU demande désormais par défaut l’adaptateur hautes performances, les portables à double GPU utilisent donc le GPU dédié, et les canvas en mode worker se dimensionnent d’après la limite réelle de l’appareil, si bien que les écrans 4K ne rendent plus à environ la moitié de leur résolution.</li>
+<li>Des builds navigateur bien plus légers : les builds ordinaires partagent maintenant la livraison de ressources compressées des lecteurs empaquetés. Sur nos builds de jeux de test, la sortie a diminué d’environ 80 % pour à peu près 2 % de temps de build en plus.</li>
+<li>Un rendu plus résilient : les maillages se rétablissent après une perte du périphérique GPU, les matériaux qui échantillonnent une cible de rendu restent liés lorsque le contenu est republié, et la bibliothèque de pipelines se préchauffe dans un ordre stable puis est rejouée après la reprise.</li>
+<li>Rendu : ciel et eau mis à jour, les scènes ne contenant que le ciel sont rendues correctement, les matériaux opaques peuvent désactiver le brouillard avec <code>fog: false</code>, et un nouvel utilitaire de géométrie <code>withVertexColors</code> est disponible.</li>
+<li>Une prise en main plus simple : le README est réorganisé autour d’une vitrine, des fonctionnalités et d’un démarrage rapide, le livre de recettes des effets est découpé par thèmes, le feature lab couvre toutes les capacités du SDK, et la surcouche de développement affiche discrètement la version du jeu et d’Engine.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

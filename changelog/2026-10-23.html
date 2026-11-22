@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-23 · Engine 0.5 preview: smaller player packages, less repeated rendering work, new diagnostics — ForgeAX</title>
+<meta name="description" content="Seven preview builds of the 0.5 line went public in three days. Player packages got smaller, the asset budget grew to 4 GiB, rendering repeats less work from frame to frame, and lighting and occlusion bugs found in real game projects were fixed." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-23 · Engine 0.5 preview: smaller player packages, less repeated rendering work, new diagnostics — ForgeAX" />
+<meta property="og:description" content="Seven preview builds of the 0.5 line went public in three days. Player packages got smaller, the asset budget grew to 4 GiB, rendering repeats less work from frame to frame, and lighting and occlusion bugs found in real game projects were fixed." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/changelog/2026-10-23.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-23.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-23.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-en forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/" data-nav="/">Home</a>
+      <a href="/tutorials/" data-nav="/tutorials/">Tutorials</a>
+      <a href="/examples/" data-nav="/examples/">Examples</a>
+      <a href="/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/blog/" data-nav="/blog/">Blog</a>
+      <a href="/changelog/" data-nav="/changelog/" class="active">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Language">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item active" href="/changelog/2026-10-23.html" data-l="en" aria-current="true">English</a><a class="lang-item" href="/zh/changelog/2026-10-23.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-23.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-23.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-23.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-23.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-23.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-23.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/#install">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/changelog/">← Changelog</a>
+    <div class="meta"><span class="tag brand">Update</span><span>2026-10-23</span></div>
+    <h1>Engine 0.5 preview: smaller player packages, less repeated rendering work, new diagnostics</h1>
+    <p class="standfirst">Seven preview builds of the 0.5 line went public in three days. Player packages got smaller, the asset budget grew to 4 GiB, rendering repeats less work from frame to frame, and lighting and occlusion bugs found in real game projects were fixed.</p>
+    <div class="prose"><h3>Engine 0.5 preview: smaller player packages, less repeated rendering work, new diagnostics</h3>
+<ul>
+<li>Seven preview builds of the 0.5 line, 0.5.0-dev.15088 through 0.5.0-dev.15095, reached the public source in three days.</li>
+<li>Player packages are smaller: Pack artifacts ship in Asset Bundles that store shared bytes once and use zstd when it saves at least 10%, and large player JSON documents are compressed by default (<code>--compress=false</code> turns this off).</li>
+<li>Bigger games fit: the asset content budget is now a public option, <code>assetBudgetBytes</code>, with the default raised from 1 GiB to 4 GiB, and <code>renderPipelineCapacity</code> is configurable.</li>
+<li>Rendering repeats less work from frame to frame: scene preparation is carried across frames, particles are planned incrementally, shadow data is retained, and a static shadow cache is available.</li>
+<li>New building blocks: the Engine Content asset library (ten unit meshes, a checker texture and a default Standard material) mounts through <code>assetLibraries</code> in <code>forge.json</code>, and <code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> runs one fixed update when a frame owes several steps.</li>
+<li>New diagnostics: a WebGPU stub (<code>createApp({ gpuStub })</code>) measures CPU cost without a GPU, and frame events report the real draw cadence and completion latency.</li>
+<li>Fixed from real game projects: point and spot lights away from the screen centre no longer stop at hard screen-space seams, ambient-occlusion intensity is applied once instead of twice, resting physics bodies cost less, and the npm Engine package is much smaller.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/changelog/">← All updates</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>An AI-native personal game studio — turn ideas into playable games.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/tutorials/">Tutorials</a>
+    <a href="/examples/">Examples</a>
+    <a href="/marketplace/">Plugins</a>
+    <a href="/blog/">Blog</a>
+    <a href="/changelog/">Changelog</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub org</a>
+    <a href="/license.html">License</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

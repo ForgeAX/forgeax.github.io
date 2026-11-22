@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-12 · Engine estable v0.5.0: dos semanas de vistas previas llegan a estable, bloom recalibrado — ForgeAX</title>
+<meta name="description" content="El SDK v0.5.0 es la nueva versión estable en GitHub Releases, dos semanas después de v0.4.19. Incluye la mayor parte del trabajo mostrado en vista previa desde entonces, como varias luces direccionales, un renderizado WebGL2 mucho más amplio, antialiasing temporal y tus propias pantallas de carga, y recalibra el bloom. Junto a ella se publicaron tres compilaciones de vista previa." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-12 · Engine estable v0.5.0: dos semanas de vistas previas llegan a estable, bloom recalibrado — ForgeAX" />
+<meta property="og:description" content="El SDK v0.5.0 es la nueva versión estable en GitHub Releases, dos semanas después de v0.4.19. Incluye la mayor parte del trabajo mostrado en vista previa desde entonces, como varias luces direccionales, un renderizado WebGL2 mucho más amplio, antialiasing temporal y tus propias pantallas de carga, y recalibra el bloom. Junto a ella se publicaron tres compilaciones de vista previa." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-es forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/es/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/es/" data-nav="/">Inicio</a>
+      <a href="/es/tutorials/" data-nav="/tutorials/">Tutoriales</a>
+      <a href="/es/examples/" data-nav="/examples/">Ejemplos</a>
+      <a href="/es/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/es/blog/" data-nav="/blog/">Blog</a>
+      <a href="/es/changelog/" data-nav="/changelog/" class="active">Registro de cambios</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Idioma">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-12.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-12.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-12.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-12.html" data-l="ko">한국어</a><a class="lang-item active" href="/es/changelog/2026-11-12.html" data-l="es" aria-current="true">Español</a><a class="lang-item" href="/de/changelog/2026-11-12.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-12.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-12.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/es/#install">Empezar</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/es/changelog/">← Registro de cambios</a>
+    <div class="meta"><span class="tag brand">Actualización</span><span>2026-11-12</span></div>
+    <h1>Engine estable v0.5.0: dos semanas de vistas previas llegan a estable, bloom recalibrado</h1>
+    <p class="standfirst">El SDK v0.5.0 es la nueva versión estable en GitHub Releases, dos semanas después de v0.4.19. Incluye la mayor parte del trabajo mostrado en vista previa desde entonces, como varias luces direccionales, un renderizado WebGL2 mucho más amplio, antialiasing temporal y tus propias pantallas de carga, y recalibra el bloom. Junto a ella se publicaron tres compilaciones de vista previa.</p>
+    <div class="prose"><h3>Engine estable v0.5.0: dos semanas de vistas previas llegan a estable, bloom recalibrado</h3>
+<ul>
+<li>El SDK v0.5.0 es la nueva versión estable, dos semanas después de v0.4.19, publicada en GitHub Releases como un archivo autocontenido con procedencia, una lista de materiales de software SPDX y sumas SHA-256. En esos mismos dos días se publicaron tres compilaciones de vista previa, de 0.6.0-dev.16819 a 0.6.0-dev.16821.</li>
+<li>Novedades de la versión estable desde v0.4.19: varias luces direccionales en una escena, más extensiones de glTF, texturas de vídeo, las herramientas de modelado de mallas, elección automática de la ruta de renderizado según el dispositivo, un renderizado WebGL2 mucho más amplio que incluye antialiasing y escalado temporales, tus propias pantallas de carga y de error, y arranques en caliente más rápidos.</li>
+<li>Cambio incompatible, bloom: <code>bloomIntensity</code> es ahora la proporción de luz brillante que se dispersa como resplandor, así que una escena ajustada antes muestra alrededor de un tercio de su resplandor anterior; multiplica el valor antiguo por 3 para conservar el aspecto. <code>bloomThreshold</code> tiene ahora -1 como valor predeterminado, es decir, sin umbral, de modo que las superficies emisivas de color brillan; defínelo explícitamente para mantener un umbral.</li>
+<li>Cambio incompatible, lente y reflejos: la aberración cromática es ahora un halo radial que deja intacto el centro y crece hacia las esquinas. <code>chromaticAberration</code> es un porcentaje de 0 a 5, <code>chromaticAberrationAngle</code> se elimina y se añade <code>chromaticAberrationStartOffset</code>. <code>PlanarReflection.distortion</code> es ahora un radio en espacio de mundo en lugar de un desplazamiento de pantalla.</li>
+<li>Cielo y niebla: la atmósfera física completa funciona en la ruta Forward de WebGL2, la niebla cubre ahora el fondo del cielo y se controla con <code>Fog.skyOpacity</code>, el cielo sigue el brillo y el tinte del sol, y hay un nuevo preajuste de material <code>ADDITIVE_BLEND</code>, un auxiliar <code>setTransformLookAt</code> y un modo de mapeo de tonos fílmico.</li>
+<li>Correcciones de vídeo y color: un vídeo usado como textura normal ya no aparece invertido en navegadores sin importación de vídeo sin copia, y una tabla de consulta de color identidad deja ahora la imagen sin cambios en lugar de oscurecer las sombras.</li>
+<li>Rendimiento: una pasada previa de profundidad en la ruta Forward, una física que notifica los cambios de movimiento sin sondear los cuerpos en reposo, fotogramas que se dan por completados en cuanto termina su propio trabajo de GPU y, en los navegadores de Android e iOS, un búfer de dibujo cuyo lado corto es de 720 píxeles de forma predeterminada.</li>
+<li>En las compilaciones de vista previa: <code>forgeax project play --release</code> ejecuta tu partida guionizada contra la versión ya compilada, <code>--session</code> mantiene un navegador en caliente entre ejecuciones, un paso posterior puede empezar desde un paso de preparación en lugar de repetir toda la partida, y <code>mouse.look</code> gira una cámara controlada con el ratón. La plantilla 3D se divide ahora en carpetas de jugador, cámara, mundo e interfaz, y cada una se puede eliminar.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/es/changelog/">← Todas las actualizaciones</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un estudio de juegos personales nativo de IA: convierte ideas en juegos jugables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Sitio">
+    <a href="/es/tutorials/">Tutoriales</a>
+    <a href="/es/examples/">Ejemplos</a>
+    <a href="/es/marketplace/">Plugins</a>
+    <a href="/es/blog/">Blog</a>
+    <a href="/es/changelog/">Registro de cambios</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organización GitHub</a>
+    <a href="/es/license.html">Licencia</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

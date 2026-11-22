@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-12 · 引擎稳定版 v0.5.0：两周的预览成果进入稳定版，辉光重新校准 — 天工引擎</title>
+<meta name="description" content="SDK v0.5.0 是新的稳定版，已发布到 GitHub Releases，距 v0.4.19 两周。它带上了这段时间预览过的大部分工作，包括多个平行光、大幅扩充的 WebGL2 渲染、时间抗锯齿和自定义加载界面，并重新校准了辉光。同时还发布了三个预览版本。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-12 · 引擎稳定版 v0.5.0：两周的预览成果进入稳定版，辉光重新校准 — 天工引擎" />
+<meta property="og:description" content="SDK v0.5.0 是新的稳定版，已发布到 GitHub Releases，距 v0.4.19 两周。它带上了这段时间预览过的大部分工作，包括多个平行光、大幅扩充的 WebGL2 渲染、时间抗锯齿和自定义加载界面，并重新校准了辉光。同时还发布了三个预览版本。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-12.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-12.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/" class="active">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-12.html" data-l="en">English</a><a class="lang-item active" href="/zh/changelog/2026-11-12.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/changelog/2026-11-12.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-12.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-12.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-12.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-12.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-12.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/changelog/">← 更新日志</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-12</span></div>
+    <h1>引擎稳定版 v0.5.0：两周的预览成果进入稳定版，辉光重新校准</h1>
+    <p class="standfirst">SDK v0.5.0 是新的稳定版，已发布到 GitHub Releases，距 v0.4.19 两周。它带上了这段时间预览过的大部分工作，包括多个平行光、大幅扩充的 WebGL2 渲染、时间抗锯齿和自定义加载界面，并重新校准了辉光。同时还发布了三个预览版本。</p>
+    <div class="prose"><h3>引擎稳定版 v0.5.0：两周的预览成果进入稳定版，辉光重新校准</h3>
+<ul>
+<li>SDK v0.5.0 是新的稳定版，距 v0.4.19 两周，以自包含压缩包的形式发布在 GitHub Releases，附带来源证明、SPDX 软件物料清单和 SHA-256 校验和。同样这两天里还发布了三个预览版本：0.6.0-dev.16819 至 0.6.0-dev.16821。</li>
+<li>稳定版相对 v0.4.19 新增：同一场景中的多个平行光、更多 glTF 扩展、视频纹理、网格建模工具、按设备自动选择渲染路径、大幅扩充的 WebGL2 渲染（包括时间抗锯齿和超分）、自定义加载和失败界面，以及更快的热启动。</li>
+<li>不兼容变更（辉光）：<code>bloomIntensity</code> 现在表示高亮光线中被散射成辉光的比例，因此之前调好的场景只剩约三分之一的辉光；把原来的值乘以 3 即可保持原有效果。<code>bloomThreshold</code> 的默认值改为 -1，即不设阈值，彩色自发光表面也会产生辉光；需要阈值时请显式设置。</li>
+<li>不兼容变更（镜头与反射）：色差现在是径向色散，画面中心不受影响，越靠近角落越明显。<code>chromaticAberration</code> 改为 0 到 5 的百分比，移除 <code>chromaticAberrationAngle</code>，新增 <code>chromaticAberrationStartOffset</code>。<code>PlanarReflection.distortion</code> 现在是世界空间半径，不再是屏幕偏移量。</li>
+<li>天空与雾：完整的物理大气可在 WebGL2 的 Forward 路径上运行；雾现在会覆盖天空背景，可用 <code>Fog.skyOpacity</code> 控制；天空会跟随太阳的亮度和色调；新增 <code>ADDITIVE_BLEND</code> 材质预设、<code>setTransformLookAt</code> 辅助函数和一个电影感色调映射模式。</li>
+<li>视频与颜色修复：在不支持零拷贝视频导入的浏览器里，用作普通纹理的视频不再上下颠倒；恒等的颜色查找表现在不会改变画面，而不是压暗暗部。</li>
+<li>性能：Forward 路径新增深度预通道；物理不再轮询静止刚体，而是在运动状态变化时通知；一帧自己的 GPU 工作完成后立即计入完成；在 Android 和 iOS 浏览器中，绘制缓冲区的短边默认为 720 像素。</li>
+<li>预览版本中：<code>forgeax project play --release</code> 可以对已构建的发布版本运行你的脚本试玩，<code>--session</code> 在多次运行之间保持浏览器热启动，后面的步骤可以从一个准备步骤开始而不必重放整局，<code>mouse.look</code> 可以转动鼠标视角相机。3D 起步模板现在拆成玩家、相机、世界和 UI 四个文件夹，每个都可以单独删除。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/changelog/">← 查看全部更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

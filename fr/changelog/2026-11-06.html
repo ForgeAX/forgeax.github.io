@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-06 · Aperçu d’Engine 0.6 : chemin de rendu automatique, WebGL2 rattrape son retard, des outils qui montrent ce que voit le moteur de rendu — ForgeAX</title>
+<meta name="description" content="Deux versions d’aperçu cette semaine. Le pipeline Standard choisit désormais son chemin de rendu selon les capacités de l’appareil, WebGL2 gagne les ombres, les sprites, le LOD d’instances et un ciel physique, et deux nouvelles commandes DevKit vous permettent, à vous et à votre agent d’IA, de voir la luminosité de la scène et d’identifier la surface sous n’importe quel pixel." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-06 · Aperçu d’Engine 0.6 : chemin de rendu automatique, WebGL2 rattrape son retard, des outils qui montrent ce que voit le moteur de rendu — ForgeAX" />
+<meta property="og:description" content="Deux versions d’aperçu cette semaine. Le pipeline Standard choisit désormais son chemin de rendu selon les capacités de l’appareil, WebGL2 gagne les ombres, les sprites, le LOD d’instances et un ciel physique, et deux nouvelles commandes DevKit vous permettent, à vous et à votre agent d’IA, de voir la luminosité de la scène et d’identifier la surface sous n’importe quel pixel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-06.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-06.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/" class="active">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-06.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-06.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-06.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-06.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-06.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-06.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/changelog/2026-11-06.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/changelog/2026-11-06.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/changelog/">← Journal des modifications</a>
+    <div class="meta"><span class="tag brand">Mise à jour</span><span>2026-11-06</span></div>
+    <h1>Aperçu d’Engine 0.6 : chemin de rendu automatique, WebGL2 rattrape son retard, des outils qui montrent ce que voit le moteur de rendu</h1>
+    <p class="standfirst">Deux versions d’aperçu cette semaine. Le pipeline Standard choisit désormais son chemin de rendu selon les capacités de l’appareil, WebGL2 gagne les ombres, les sprites, le LOD d’instances et un ciel physique, et deux nouvelles commandes DevKit vous permettent, à vous et à votre agent d’IA, de voir la luminosité de la scène et d’identifier la surface sous n’importe quel pixel.</p>
+    <div class="prose"><h3>Aperçu d’Engine 0.6 : chemin de rendu automatique, WebGL2 rattrape son retard, des outils qui montrent ce que voit le moteur de rendu</h3>
+<ul>
+<li>Deux versions d’aperçu, 0.6.0-dev.16816 et 0.6.0-dev.16817.</li>
+<li>Chemin de rendu automatique : le pipeline Standard choisit désormais entre ses chemins Forward et Deferred selon les capacités de l’appareil, si bien qu’un même projet fonctionne sur davantage d’appareils sans réglages propres à chacun.</li>
+<li>WebGL2 rattrape son retard : réception des ombres, pagination des sprites, LOD d’instances, effets Standard qualifiés et occlusion ambiante, ainsi qu’un arrière-plan de ciel physique portable.</li>
+<li>Voir ce que voit le moteur de rendu : <code>dev look --view luminance</code> écrit une carte thermique en fausses couleurs de la luminosité de la scène, par paliers autour du seuil de bloom, avec un résumé JSON, et <code>dev pick --x --y</code> indique la surface située sous un pixel : son entité, son maillage, son emplacement de matériau et sa position dans le monde. Les deux sont conçues pour qu’un agent d’IA puisse diagnostiquer un pixel trop lumineux ou anormal au lieu de deviner.</li>
+<li>Réflexions planaires : <code>PlanarReflection.resolutionScale</code> règle la résolution de la réflexion et <code>generateMipmaps</code> la floute selon la rugosité de la surface.</li>
+<li>L’inspection des captures GPU est plus rapide : un résumé par passe, et les pipelines comme les liaisons s’inspectent sans rejouer la capture.</li>
+<li>Les contrôleurs de personnage peuvent être réconciliés avec une position faisant autorité sans poussées répétées, et le déplacement du personnage respecte le temps de la saisie. Le ratio de pixels du canvas vaut désormais 1 par défaut pour des performances prévisibles ; la densité de l’appareil s’active avec <code>canvasPixelRatio</code>.</li>
+<li>Également dans ces versions : des plans portables pour Hi-Z, les réflexions en espace écran et l’exposition par histogramme, des changements de nombre d’instances moins coûteux, un véhicule texturé dans le modèle 3D construit à partir de contraintes d’assemblage, et une documentation des modèles plus claire sur le flux de développement et de build.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

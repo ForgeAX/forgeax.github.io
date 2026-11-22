@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-17 · Engine 0.6 프리뷰: 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치 — ForgeAX</title>
+<meta name="description" content="이틀 동안 프리뷰 빌드 4개. 첫 번째 물 시스템과 쿠킹된 볼류메트릭 클라우드가 추가되고, 게임을 데스크톱 및 모바일 앱으로 패키징할 수 있으며, CPU·메모리·GPU 프로파일링 워크벤치가 엔진과 함께 제공되고, 3D 스타터에는 자동 노출과 바로잡힌 하늘 아랫부분이 들어갔습니다." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-17 · Engine 0.6 프리뷰: 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치 — ForgeAX" />
+<meta property="og:description" content="이틀 동안 프리뷰 빌드 4개. 첫 번째 물 시스템과 쿠킹된 볼류메트릭 클라우드가 추가되고, 게임을 데스크톱 및 모바일 앱으로 패키징할 수 있으며, CPU·메모리·GPU 프로파일링 워크벤치가 엔진과 함께 제공되고, 3D 스타터에는 자동 노출과 바로잡힌 하늘 아랫부분이 들어갔습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ko/changelog/2026-11-17.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ko/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-17.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-17.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ko forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ko/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ko/" data-nav="/">홈</a>
+      <a href="/ko/tutorials/" data-nav="/tutorials/">튜토리얼</a>
+      <a href="/ko/examples/" data-nav="/examples/">예</a>
+      <a href="/ko/marketplace/" data-nav="/marketplace/">플러그인</a>
+      <a href="/ko/blog/" data-nav="/blog/">블로그</a>
+      <a href="/ko/changelog/" data-nav="/changelog/" class="active">변경 내역</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="언어">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-17.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-17.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-17.html" data-l="ja">日本語</a><a class="lang-item active" href="/ko/changelog/2026-11-17.html" data-l="ko" aria-current="true">한국어</a><a class="lang-item" href="/es/changelog/2026-11-17.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-17.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-17.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-17.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ko/#install">시작하기</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ko/changelog/">← 변경 내역</a>
+    <div class="meta"><span class="tag brand">업데이트</span><span>2026-11-17</span></div>
+    <h1>Engine 0.6 프리뷰: 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치</h1>
+    <p class="standfirst">이틀 동안 프리뷰 빌드 4개. 첫 번째 물 시스템과 쿠킹된 볼류메트릭 클라우드가 추가되고, 게임을 데스크톱 및 모바일 앱으로 패키징할 수 있으며, CPU·메모리·GPU 프로파일링 워크벤치가 엔진과 함께 제공되고, 3D 스타터에는 자동 노출과 바로잡힌 하늘 아랫부분이 들어갔습니다.</p>
+    <div class="prose"><h3>Engine 0.6 프리뷰: 물, 볼류메트릭 클라우드, 데스크톱 및 모바일 패키징, 프로파일링 워크벤치</h3>
+<ul>
+<li>이틀 동안 프리뷰 빌드 4개, 0.6.0-dev.16822부터 0.6.0-dev.16825까지 공개했습니다.</li>
+<li>물: 첫 번째 물 시스템이 <code>@forgeax/engine-water</code>로 추가되었습니다. 수역과 구역, 파도로 움직이는 수면, 반사와 수중 뷰, 부력과 거품, 국소 물결 시뮬레이션을 갖추었습니다. 샘플 장면은 항구부터 해안선까지 있습니다.</li>
+<li>볼류메트릭 클라우드: 쿠킹된 구름 레이어를 새로운 <code>VolumetricCloudLayer</code> 컴포넌트로 렌더링하며, 구름 쿠커가 SDK 저작 도구에 포함됩니다.</li>
+<li>데스크톱 및 모바일 패키징: <code>forgeax project build --target tauri</code>가 일반 브라우저 빌드를 Tauri 앱으로 감싸고, <code>forgeax project package --format tauri --platform windows|macos|linux|android|ios</code>가 네이티브 설치 파일을 만듭니다. Windows와 Android용 수정은 바로 다음 빌드에 반영되었습니다.</li>
+<li>프로파일링 워크벤치가 엔진과 함께 제공됩니다: CPU 타임라인과 콜 트리, 메모리 스냅숏과 할당 프로파일, GPU 리소스 및 타이밍 보고서. 각각 인터랙티브 HTML 보고서로 제공되며, AI 에이전트가 조회할 수 있는 기계 판독용 데이터가 함께 나옵니다.</li>
+<li>조명과 화질: 3D 스타터의 카메라가 이제 자동 노출을 사용하고, 맑은 날 조명을 새로 다듬었으며, GPU에서 생성한 포장 텍스처를 추가했습니다. 하늘 아랫부분이 올바르게 렌더링되고, 안개가 MSAA와 함께 동작하며, MSAA와 FXAA를 함께 쓸 수 있고, GPU 생성 텍스처가 네이티브 에셋 유형이 되었습니다.</li>
+<li>ECS의 호환성이 깨지는 변경: 시스템, 스케줄, 리소스는 이제 직접 정의하고 임포트한 객체(<code>defineSystem</code>, <code>defineSchedule</code>, <code>defineResource</code>)로 식별되며, 이름은 진단용 레이블일 뿐입니다. 시스템은 <code>world.addSystem(Update, defineSystem({ ... }))</code>로 등록하세요. 또한 슬로 모션과 일시 정지를 위한 <code>world.acquireTimeScale(scale)</code>가 추가되었으며, 계속 재생되어야 하는 효과는 <code>Time.unscaledDelta</code>를 읽으면 됩니다.</li>
+<li>그림자와 빌드: <code>DirectionalLight.staticShadowCache</code>는 이제 직접 켜야 하며(기본값 <code>false</code>), 그림자를 드리우지 않는 객체 때문에 무효화되지 않습니다. <code>devkitAppOptions.canvasPixelRatio</code>는 <code>&#39;device&#39;</code> 또는 <code>{ mode: &#39;device&#39;, max: 2 }</code>를 받고, 단일 HTML 패키지는 기본적으로 압축 형식이며(<code>--compress=false</code>로 일반 JSON 복원), 프로덕션 빌드는 기본적으로 빌드 캐시의 쿠킹된 머티리얼을 재사용합니다.</li>
+<li>더 빠르고 가볍게: 메시가 런타임에 하나의 표현만 유지해 메모리 사용량이 줄고, 더 이상 쓰이지 않는 머티리얼 프로그램은 회수되며, 큰 계층 구조의 트랜스폼 업데이트가 빨라졌습니다.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ko/changelog/">← 모든 업데이트</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI 기반 개인 게임 스튜디오 — 아이디어를 플레이 가능한 게임으로 바꿔보세요.</p>
+  </div>
+  <nav class="foot-links" aria-label="대지">
+    <a href="/ko/tutorials/">튜토리얼</a>
+    <a href="/ko/examples/">예</a>
+    <a href="/ko/marketplace/">플러그인</a>
+    <a href="/ko/blog/">블로그</a>
+    <a href="/ko/changelog/">변경 내역</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 조직</a>
+    <a href="/ko/license.html">특허</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

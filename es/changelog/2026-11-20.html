@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-20 · Engine estable v0.5.1, una semana después de v0.5.0: agua, nubes, empaquetado de aplicaciones y un control de luz pedido por la comunidad — ForgeAX</title>
+<meta name="description" content="El SDK v0.5.1 es la nueva versión estable en GitHub Releases, una semana después de v0.5.0. El agua, las nubes volumétricas, el empaquetado para escritorio y móvil y el banco de trabajo de perfilado ya son estables, SpotLight.decay llega tras una petición de la comunidad, y los ajustes de calidad eligen una configuración adecuada para cada dispositivo. Junto a ella se publicaron cuatro compilaciones de vista previa." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-20 · Engine estable v0.5.1, una semana después de v0.5.0: agua, nubes, empaquetado de aplicaciones y un control de luz pedido por la comunidad — ForgeAX" />
+<meta property="og:description" content="El SDK v0.5.1 es la nueva versión estable en GitHub Releases, una semana después de v0.5.0. El agua, las nubes volumétricas, el empaquetado para escritorio y móvil y el banco de trabajo de perfilado ya son estables, SpotLight.decay llega tras una petición de la comunidad, y los ajustes de calidad eligen una configuración adecuada para cada dispositivo. Junto a ella se publicaron cuatro compilaciones de vista previa." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/es/changelog/2026-11-20.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/es/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-20.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-20.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-es forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/es/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/es/" data-nav="/">Inicio</a>
+      <a href="/es/tutorials/" data-nav="/tutorials/">Tutoriales</a>
+      <a href="/es/examples/" data-nav="/examples/">Ejemplos</a>
+      <a href="/es/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/es/blog/" data-nav="/blog/">Blog</a>
+      <a href="/es/changelog/" data-nav="/changelog/" class="active">Registro de cambios</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Idioma">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-20.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-20.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-20.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-20.html" data-l="ko">한국어</a><a class="lang-item active" href="/es/changelog/2026-11-20.html" data-l="es" aria-current="true">Español</a><a class="lang-item" href="/de/changelog/2026-11-20.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-20.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-20.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/es/#install">Empezar</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/es/changelog/">← Registro de cambios</a>
+    <div class="meta"><span class="tag brand">Actualización</span><span>2026-11-20</span></div>
+    <h1>Engine estable v0.5.1, una semana después de v0.5.0: agua, nubes, empaquetado de aplicaciones y un control de luz pedido por la comunidad</h1>
+    <p class="standfirst">El SDK v0.5.1 es la nueva versión estable en GitHub Releases, una semana después de v0.5.0. El agua, las nubes volumétricas, el empaquetado para escritorio y móvil y el banco de trabajo de perfilado ya son estables, SpotLight.decay llega tras una petición de la comunidad, y los ajustes de calidad eligen una configuración adecuada para cada dispositivo. Junto a ella se publicaron cuatro compilaciones de vista previa.</p>
+    <div class="prose"><h3>Engine estable v0.5.1, una semana después de v0.5.0: agua, nubes, empaquetado de aplicaciones y un control de luz pedido por la comunidad</h3>
+<ul>
+<li>El SDK v0.5.1 es la nueva versión estable, una semana después de v0.5.0, publicada en GitHub Releases como un archivo autocontenido con procedencia, una lista de materiales de software SPDX y sumas SHA-256. En esos mismos tres días se publicaron cuatro compilaciones de vista previa, de 0.6.0-dev.16826 a 0.6.0-dev.16829.</li>
+<li>Novedades en estable desde v0.5.0: el sistema de agua, ahora con un ejemplo de lago que puedes copiar a tu propio proyecto, las nubes volumétricas cocinadas, el empaquetado con Tauri para escritorio y móvil, y el banco de trabajo de perfilado de CPU, memoria y GPU. La escena sigue funcionando cuando las nubes no están disponibles en un dispositivo.</li>
+<li>Pedido por la comunidad: <code>SpotLight.decay</code> se comporta ahora como <code>PointLight.decay</code>, de modo que un foco puede mantener un brillo uniforme en todo su cono. Se pidió en un issue de GitHub el 5 de noviembre y está en esta versión estable, de forma nativa y a través de la capa de Three.js. El valor predeterminado de 2 deja las escenas existentes sin cambios.</li>
+<li>Compatibilidad con Three.js: <code>@forgeax/engine/three</code> apunta ahora a Three.js r187 y cubre más de cien módulos complementarios, desde cargadores y controles hasta utilidades de geometría, además de efectos de posprocesado y colores de puntos. Los objetos de Three.js también pueden compartir un World nativo, como vía experimental.</li>
+<li>Ajustes de calidad y configuración por dispositivo: un proyecto declara <code>quality: { base: { kind: &#39;device-default&#39; } }</code> para partir de una recomendación para el dispositivo, la elección del jugador se guarda, y <code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code> cambia entre bajo, medio y alto en tiempo de ejecución. Los reflejos en espacio de pantalla pueden trazarse a media densidad y reconstruirse a resolución completa.</li>
+<li>Texto y materiales: <code>GlyphText</code> incorpora <code>worldOriented</code>, para que una etiqueta siga a su entidad en lugar de mirar a la cámara, y puede usar una fuente incluida con el juego. Los materiales recortados que usan <code>alphaCutoff</code> o <code>alphaHash</code> tienen ahora <code>alphaMode: &#39;opaque&#39;</code> de forma predeterminada, lo que corrige recortes grises y un fotograma oscurecido. La exposición automática conserva su historial entre fotogramas.</li>
+<li>Para agentes de IA: el SDK incluye un resumen de las capacidades del motor, y la guía de inicio indica al agente que lo lea y planifique con las funciones existentes antes de escribir código. La plantilla 3D sustituye el andamiaje de pruebas unitarias por partidas reales, y <code>forgeax project test</code> termina con éxito en un juego sin archivos de prueba.</li>
+<li>En las compilaciones de vista previa: las herramientas del motor y las etiquetas de arranque están disponibles en chino e inglés, con archivos README en chino junto a los ingleses. Las texturas generadas en la GPU en tiempo de ejecución abarcan ahora panoramas y texturas de volumen, y los contornos se conservan con MSAA.</li>
+<li>También en las compilaciones de vista previa: un primer paso hacia la carga de niveles en streaming, en el que un nivel se prepara en segundo plano mientras está oculto y luego se incorpora a la escena en marcha, un renderizado Deferred más rápido y una exposición predeterminada neutra en la plantilla 3D.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/es/changelog/">← Todas las actualizaciones</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un estudio de juegos personales nativo de IA: convierte ideas en juegos jugables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Sitio">
+    <a href="/es/tutorials/">Tutoriales</a>
+    <a href="/es/examples/">Ejemplos</a>
+    <a href="/es/marketplace/">Plugins</a>
+    <a href="/es/blog/">Blog</a>
+    <a href="/es/changelog/">Registro de cambios</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organización GitHub</a>
+    <a href="/es/license.html">Licencia</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

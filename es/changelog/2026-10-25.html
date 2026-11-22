@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-25 · Vista previa de Engine 0.5: progreso de carga medido, vista previa exacta del paquete y herramientas más sólidas para agentes — ForgeAX</title>
+<meta name="description" content="Cinco compilaciones de vista previa en dos días. La carga muestra ahora un progreso medido y registra una línea de tiempo por defecto, se pueden previsualizar los bytes exactos que descargará el jugador, los comandos en vivo de DevKit son más fiables y se corrigieron ejemplos de la documentación que hicieron tropezar a un proyecto de juego real." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-25 · Vista previa de Engine 0.5: progreso de carga medido, vista previa exacta del paquete y herramientas más sólidas para agentes — ForgeAX" />
+<meta property="og:description" content="Cinco compilaciones de vista previa en dos días. La carga muestra ahora un progreso medido y registra una línea de tiempo por defecto, se pueden previsualizar los bytes exactos que descargará el jugador, los comandos en vivo de DevKit son más fiables y se corrigieron ejemplos de la documentación que hicieron tropezar a un proyecto de juego real." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/es/changelog/2026-10-25.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/es/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-es forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/es/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/es/" data-nav="/">Inicio</a>
+      <a href="/es/tutorials/" data-nav="/tutorials/">Tutoriales</a>
+      <a href="/es/examples/" data-nav="/examples/">Ejemplos</a>
+      <a href="/es/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/es/blog/" data-nav="/blog/">Blog</a>
+      <a href="/es/changelog/" data-nav="/changelog/" class="active">Registro de cambios</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Idioma">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-25.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-25.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-25.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-25.html" data-l="ko">한국어</a><a class="lang-item active" href="/es/changelog/2026-10-25.html" data-l="es" aria-current="true">Español</a><a class="lang-item" href="/de/changelog/2026-10-25.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-25.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-25.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/es/#install">Empezar</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/es/changelog/">← Registro de cambios</a>
+    <div class="meta"><span class="tag brand">Actualización</span><span>2026-10-25</span></div>
+    <h1>Vista previa de Engine 0.5: progreso de carga medido, vista previa exacta del paquete y herramientas más sólidas para agentes</h1>
+    <p class="standfirst">Cinco compilaciones de vista previa en dos días. La carga muestra ahora un progreso medido y registra una línea de tiempo por defecto, se pueden previsualizar los bytes exactos que descargará el jugador, los comandos en vivo de DevKit son más fiables y se corrigieron ejemplos de la documentación que hicieron tropezar a un proyecto de juego real.</p>
+    <div class="prose"><h3>Vista previa de Engine 0.5: progreso de carga medido, vista previa exacta del paquete y herramientas más sólidas para agentes</h3>
+<ul>
+<li>Cinco compilaciones de vista previa en dos días, de 0.5.0-dev.15096 a 0.5.0-dev.15779.</li>
+<li>Una carga que se puede medir: la pantalla de inicio muestra un progreso medido que nunca retrocede, y hay una línea de tiempo de carga activada por defecto que cubre el arranque de los workers, la lectura de paquetes, la creación de pipelines y el primer fotograma presentado, con marcas propias mediante <code>markLoadTimeline</code>.</li>
+<li>Saber qué se publica: previsualiza los bytes exactos que descargará el jugador e inspecciona las transferencias de Bundle antes de publicar; los paquetes de minijuegos de WeChat agrupan los recursos de forma eficiente, con arranque y foco de teclado reforzados.</li>
+<li>Herramientas más sólidas para agentes de IA y personas: los comandos en vivo de DevKit son más fiables, esperan a que la entrada esté lista e imprimen una salida compacta; los ejemplos de la documentación del SDK que no pasaban la comprobación de tipos en un proyecto nuevo se corrigieron después de que un proyecto real se topara con ellos.</li>
+<li>El SDK incluye ahora el espacio de trabajo View para previsualizar recursos, con sus controles de vista previa de materiales y UV y selección exacta por triángulo; la geometría de las mallas se puede leer sin renderizarla.</li>
+<li>Rendimiento: cada fotograma informa del motivo de su retraso junto con contadores de compilación y de pipelines, bajan la memoria de los workers y el trabajo del recolector de basura, las bibliotecas de pipelines opcionales se precalientan en segundo plano y el coste de la cadena de render depende ahora de lo que cambió y no del tamaño de la escena.</li>
+<li>Mantenimiento: se corrigieron vulnerabilidades de analizadores HTTP y URI en dependencias, la cadena de herramientas pasó a npm 12.2.1 y pnpm 12.15.0, y se acotó la memoria que usa la decodificación zstd.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/es/changelog/">← Todas las actualizaciones</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un estudio de juegos personales nativo de IA: convierte ideas en juegos jugables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Sitio">
+    <a href="/es/tutorials/">Tutoriales</a>
+    <a href="/es/examples/">Ejemplos</a>
+    <a href="/es/marketplace/">Plugins</a>
+    <a href="/es/blog/">Blog</a>
+    <a href="/es/changelog/">Registro de cambios</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organización GitHub</a>
+    <a href="/es/license.html">Licencia</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

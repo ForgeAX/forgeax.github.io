@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-25 · Engine 0.5 preview: measured loading progress, exact package preview, sturdier agent tooling — ForgeAX</title>
+<meta name="description" content="Five preview builds in two days. Loading now shows measured progress and records a timeline by default, you can preview the exact bytes a player will download, DevKit live commands are more reliable, and documentation examples that tripped up a real game project were corrected." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-25 · Engine 0.5 preview: measured loading progress, exact package preview, sturdier agent tooling — ForgeAX" />
+<meta property="og:description" content="Five preview builds in two days. Loading now shows measured progress and records a timeline by default, you can preview the exact bytes a player will download, DevKit live commands are more reliable, and documentation examples that tripped up a real game project were corrected." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/changelog/2026-10-25.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-25.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-25.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-en forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/" data-nav="/">Home</a>
+      <a href="/tutorials/" data-nav="/tutorials/">Tutorials</a>
+      <a href="/examples/" data-nav="/examples/">Examples</a>
+      <a href="/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/blog/" data-nav="/blog/">Blog</a>
+      <a href="/changelog/" data-nav="/changelog/" class="active">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Language">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item active" href="/changelog/2026-10-25.html" data-l="en" aria-current="true">English</a><a class="lang-item" href="/zh/changelog/2026-10-25.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-10-25.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-25.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-25.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-25.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-25.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-25.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/#install">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/changelog/">← Changelog</a>
+    <div class="meta"><span class="tag brand">Update</span><span>2026-10-25</span></div>
+    <h1>Engine 0.5 preview: measured loading progress, exact package preview, sturdier agent tooling</h1>
+    <p class="standfirst">Five preview builds in two days. Loading now shows measured progress and records a timeline by default, you can preview the exact bytes a player will download, DevKit live commands are more reliable, and documentation examples that tripped up a real game project were corrected.</p>
+    <div class="prose"><h3>Engine 0.5 preview: measured loading progress, exact package preview, sturdier agent tooling</h3>
+<ul>
+<li>Five preview builds in two days, 0.5.0-dev.15096 through 0.5.0-dev.15779.</li>
+<li>Loading you can measure: the startup cover shows measured progress that never moves backwards, and a load timeline is on by default, covering worker start, package reads, pipeline creation and the first presented frame, with your own marks through <code>markLoadTimeline</code>.</li>
+<li>Know what you ship: preview the exact bytes a player will download and inspect Bundle transfers before publishing; WeChat Mini Game packages bundle assets efficiently, with hardened start-up and keyboard focus.</li>
+<li>Sturdier tooling for AI agents and people: DevKit live commands are more reliable, wait until input is ready and print compact output; SDK documentation examples that failed type-checking in a fresh game project were corrected after a real project ran into them.</li>
+<li>The SDK now ships with the View asset preview workspace, including its material and UV preview controls with exact triangle picking; mesh geometry can be read back without rendering it.</li>
+<li>Performance: every frame reports why it stalled along with compile and pipeline counters, worker memory and garbage-collection work went down, optional pipeline libraries warm up in the background, and the render chain&#39;s cost now follows what changed rather than the size of the scene.</li>
+<li>Maintenance: patched HTTP and URI parser vulnerabilities in dependencies, moved the toolchain to npm 12.2.1 and pnpm 12.15.0, and bounded the memory used by zstd decoding.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/changelog/">← All updates</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>An AI-native personal game studio — turn ideas into playable games.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/tutorials/">Tutorials</a>
+    <a href="/examples/">Examples</a>
+    <a href="/marketplace/">Plugins</a>
+    <a href="/blog/">Blog</a>
+    <a href="/changelog/">Changelog</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub org</a>
+    <a href="/license.html">License</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

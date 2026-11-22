@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-03 · L’aperçu d’Engine 0.6 commence : plusieurs lumières directionnelles, davantage de glTF, textures vidéo par défaut, modélisation de maillages — ForgeAX</title>
+<meta name="description" content="La ligne d’aperçu 0.6 s’est ouverte avec trois versions en moins d’une journée. Chaque DirectionalLight éclaire désormais la scène, l’import glTF couvre les maillages quantifiés et les textures KTX2, les matériaux vidéo fonctionnent dans la configuration par défaut, un noyau de modélisation de maillages éditables est livré dans le SDK, et l’occlusion ambiante arrive sur le chemin Forward et sur WebGL2." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-03 · L’aperçu d’Engine 0.6 commence : plusieurs lumières directionnelles, davantage de glTF, textures vidéo par défaut, modélisation de maillages — ForgeAX" />
+<meta property="og:description" content="La ligne d’aperçu 0.6 s’est ouverte avec trois versions en moins d’une journée. Chaque DirectionalLight éclaire désormais la scène, l’import glTF couvre les maillages quantifiés et les textures KTX2, les matériaux vidéo fonctionnent dans la configuration par défaut, un noyau de modélisation de maillages éditables est livré dans le SDK, et l’occlusion ambiante arrive sur le chemin Forward et sur WebGL2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/changelog/2026-11-03.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/" class="active">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-03.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-03.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-03.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-03.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-03.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-03.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/changelog/2026-11-03.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/changelog/2026-11-03.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/changelog/">← Journal des modifications</a>
+    <div class="meta"><span class="tag brand">Mise à jour</span><span>2026-11-03</span></div>
+    <h1>L’aperçu d’Engine 0.6 commence : plusieurs lumières directionnelles, davantage de glTF, textures vidéo par défaut, modélisation de maillages</h1>
+    <p class="standfirst">La ligne d’aperçu 0.6 s’est ouverte avec trois versions en moins d’une journée. Chaque DirectionalLight éclaire désormais la scène, l’import glTF couvre les maillages quantifiés et les textures KTX2, les matériaux vidéo fonctionnent dans la configuration par défaut, un noyau de modélisation de maillages éditables est livré dans le SDK, et l’occlusion ambiante arrive sur le chemin Forward et sur WebGL2.</p>
+    <div class="prose"><h3>L’aperçu d’Engine 0.6 commence : plusieurs lumières directionnelles, davantage de glTF, textures vidéo par défaut, modélisation de maillages</h3>
+<ul>
+<li>La ligne d’aperçu 0.6 commence : trois versions en moins d’une journée, de 0.6.0-dev.1 à 0.6.0-dev.16579, avec une mise à jour des sources entre-temps.</li>
+<li>Chaque <code>DirectionalLight</code> éclaire désormais la scène. La première garde le rôle de soleil, avec ombres en cascade et atmosphère, et chacune des suivantes ajoute une lumière directionnelle sans ombre ; auparavant, une seule était prise en compte.</li>
+<li>Davantage de fichiers glTF s’importent tels quels : <code>KHR_mesh_quantization</code> pour les maillages et animations quantifiés, et <code>KHR_texture_basisu</code> pour les textures KTX2.</li>
+<li>Les textures vidéo fonctionnent dans la configuration par défaut : les images vidéo de la page sont transmises au Worker d’Engine, si bien qu’un matériau <code>VideoPlayer</code> est lu dans un jeu standard, et une lecture automatique bloquée est retentée au prochain geste de l’utilisateur.</li>
+<li>Modélisation de maillages éditables : le noyau de modélisation est disponible sous <code>@forgeax/engine/modeling</code>, avec les outils <code>forgeax model</code> pour inspecter, sélectionner, valider et superposer de la géométrie, et les aperçus de maillages peuvent afficher votre propre géométrie en surimpression.</li>
+<li>L’occlusion ambiante n’exige plus le chemin Deferred : elle fonctionne maintenant sur le chemin Forward, WebGL2 compris.</li>
+<li>Correctifs WebGL2 : les textures de personnages ne sont plus corrompues, les niveaux de mip des textures en tableau conservent leurs couleurs, et un repli WebGL2 utilisable est conservé pendant que le Worker recherche un adaptateur WebGPU.</li>
+<li>Correctifs trouvés en portant une scène Three.js existante : les matériaux avec cartes spéculaires sont de nouveau dessinés, les ciels HDR très lumineux ne rendent plus l’éclairage noir ou moucheté, les réflexions planaires peuvent onduler avec la surface pour un sol mouillé, les ombres rejoignent proprement leurs projeteurs, et les colliders en maillage de triangles fonctionnent sous un parent.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

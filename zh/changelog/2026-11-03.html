@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-03 · 引擎 0.6 预览版启动：多平行光、更多 glTF 支持、默认可用的视频纹理、网格建模 — 天工引擎</title>
+<meta name="description" content="0.6 预览线在不到一天内以三个版本开场。每个 DirectionalLight 现在都会照亮场景，glTF 导入支持量化网格和 KTX2 纹理，视频材质在默认配置下即可工作，SDK 自带可编辑网格建模内核，环境光遮蔽扩展到 Forward 路径和 WebGL2。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-03 · 引擎 0.6 预览版启动：多平行光、更多 glTF 支持、默认可用的视频纹理、网格建模 — 天工引擎" />
+<meta property="og:description" content="0.6 预览线在不到一天内以三个版本开场。每个 DirectionalLight 现在都会照亮场景，glTF 导入支持量化网格和 KTX2 纹理，视频材质在默认配置下即可工作，SDK 自带可编辑网格建模内核，环境光遮蔽扩展到 Forward 路径和 WebGL2。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/changelog/2026-11-03.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-03.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-03.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/" class="active">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-03.html" data-l="en">English</a><a class="lang-item active" href="/zh/changelog/2026-11-03.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/changelog/2026-11-03.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-03.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-11-03.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-11-03.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-03.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-03.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/changelog/">← 更新日志</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-11-03</span></div>
+    <h1>引擎 0.6 预览版启动：多平行光、更多 glTF 支持、默认可用的视频纹理、网格建模</h1>
+    <p class="standfirst">0.6 预览线在不到一天内以三个版本开场。每个 DirectionalLight 现在都会照亮场景，glTF 导入支持量化网格和 KTX2 纹理，视频材质在默认配置下即可工作，SDK 自带可编辑网格建模内核，环境光遮蔽扩展到 Forward 路径和 WebGL2。</p>
+    <div class="prose"><h3>引擎 0.6 预览版启动：多平行光、更多 glTF 支持、默认可用的视频纹理、网格建模</h3>
+<ul>
+<li>0.6 预览线启动：不到一天发布三个版本，0.6.0-dev.1 至 0.6.0-dev.16579，中间还有一次源码更新。</li>
+<li>每个 <code>DirectionalLight</code> 现在都会照亮场景。第一个保留太阳的角色，带级联阴影并驱动大气；其余每个提供不带阴影的平行光。此前只有一个会生效。</li>
+<li>更多 glTF 文件可以直接导入：支持用于量化网格和动画的 <code>KHR_mesh_quantization</code>，以及用于 KTX2 纹理的 <code>KHR_texture_basisu</code>。</li>
+<li>视频纹理在默认配置下即可使用：页面的视频帧会桥接到引擎 Worker 中，<code>VideoPlayer</code> 材质在标准游戏里可以直接播放；自动播放被拦截时，会在用户下一次操作时重试。</li>
+<li>可编辑网格建模：建模内核以 <code>@forgeax/engine/modeling</code> 提供，配有 <code>forgeax model</code> 工具用于检查、选择、校验和叠加几何体，网格预览也可以显示你自己的叠加几何体。</li>
+<li>环境光遮蔽不再要求 Deferred 路径：现在在 Forward 路径上也能工作，包括 WebGL2。</li>
+<li>WebGL2 修复：角色纹理不再损坏，数组纹理的各级 mip 保持正确颜色，Worker 探测 WebGPU 适配器期间会保留可用的 WebGL2 回退。</li>
+<li>在迁移一个现有 Three.js 场景时发现并修复：带高光贴图的材质恢复绘制，极亮的 HDR 天空不再让光照变黑或出现噪点，平面反射可以随表面波纹扰动以表现湿地面，阴影与投射物的接触处更干净，三角网格碰撞体可以挂在父节点下。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/changelog/">← 查看全部更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

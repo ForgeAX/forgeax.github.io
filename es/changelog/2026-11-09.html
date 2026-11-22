@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-11-09 · Vista previa de Engine 0.6: tus propias pantallas de carga, mucho más renderizado en WebGL2 y arranques en caliente más rápidos — ForgeAX</title>
+<meta name="description" content="Una compilación de vista previa grande. Un proyecto puede tener ahora sus propias pantallas de carga y de error, WebGL2 gana terreno, morphs, calcomanías, sombras suaves, MSAA y antialiasing temporal, una escena de prueba con muchas luces pasó de 39 a 60 fotogramas por segundo, y DevKit arranca más rápido cuando ha cambiado poco." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-11-09 · Vista previa de Engine 0.6: tus propias pantallas de carga, mucho más renderizado en WebGL2 y arranques en caliente más rápidos — ForgeAX" />
+<meta property="og:description" content="Una compilación de vista previa grande. Un proyecto puede tener ahora sus propias pantallas de carga y de error, WebGL2 gana terreno, morphs, calcomanías, sombras suaves, MSAA y antialiasing temporal, una escena de prueba con muchas luces pasó de 39 a 60 fotogramas por segundo, y DevKit arranca más rápido cuando ha cambiado poco." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/es/changelog/2026-11-09.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/es/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-11-09.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-11-09.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-es forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/es/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/es/" data-nav="/">Inicio</a>
+      <a href="/es/tutorials/" data-nav="/tutorials/">Tutoriales</a>
+      <a href="/es/examples/" data-nav="/examples/">Ejemplos</a>
+      <a href="/es/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/es/blog/" data-nav="/blog/">Blog</a>
+      <a href="/es/changelog/" data-nav="/changelog/" class="active">Registro de cambios</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Idioma">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-11-09.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-11-09.html" data-l="zh">中文</a><a class="lang-item" href="/ja/changelog/2026-11-09.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/changelog/2026-11-09.html" data-l="ko">한국어</a><a class="lang-item active" href="/es/changelog/2026-11-09.html" data-l="es" aria-current="true">Español</a><a class="lang-item" href="/de/changelog/2026-11-09.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-11-09.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-11-09.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/es/#install">Empezar</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/es/changelog/">← Registro de cambios</a>
+    <div class="meta"><span class="tag brand">Actualización</span><span>2026-11-09</span></div>
+    <h1>Vista previa de Engine 0.6: tus propias pantallas de carga, mucho más renderizado en WebGL2 y arranques en caliente más rápidos</h1>
+    <p class="standfirst">Una compilación de vista previa grande. Un proyecto puede tener ahora sus propias pantallas de carga y de error, WebGL2 gana terreno, morphs, calcomanías, sombras suaves, MSAA y antialiasing temporal, una escena de prueba con muchas luces pasó de 39 a 60 fotogramas por segundo, y DevKit arranca más rápido cuando ha cambiado poco.</p>
+    <div class="prose"><h3>Vista previa de Engine 0.6: tus propias pantallas de carga, mucho más renderizado en WebGL2 y arranques en caliente más rápidos</h3>
+<ul>
+<li>Compilación de vista previa 0.6.0-dev.16818, con tres días de trabajo.</li>
+<li>Tus propias pantallas de carga y de error: configura <code>devkitAppOptions.startupUi</code> para aportar tu propio HTML, CSS y script en cada pantalla, o para desactivar una pantalla. Las mismas pantallas se usan en desarrollo, en las compilaciones para navegador y en los minijuegos de WeChat, y la pantalla integrada muestra ahora el título de tu juego.</li>
+<li>Mucho más renderizado en WebGL2: superficies con morph, capas de terreno, sombras de contacto y calcomanías, iluminación basada en imagen del cielo físico y sombras suaves, además de MSAA, LOD de instancias por lotes, sombras de cápsula y antialiasing y escalado temporales con TAA, TAAU y TSR.</li>
+<li>La superresolución temporal a resolución nativa está disponible de forma opcional en las rutas Forward y Deferred. Los valores predeterminados no cambian.</li>
+<li>Más sólido en más dispositivos: un contexto WebGL perdido ahora se recupera, las texturas comprimidas están verificadas en móviles y los modos WebGPU en Ubuntu están verificados con una alternativa real de renderizador.</li>
+<li>Escenas con muchas luces más rápidas: una escena de prueba iluminada por muchos focos pasó de 39 a 60 fotogramas por segundo a 1080p gracias a pipelines de sombras solo de vértices, actualizaciones de sombras más estables y un descarte de luces más ajustado. El mismo trabajo corrigió luces que desaparecían en triángulos muy grandes.</li>
+<li>Iteración más rápida: los arranques en caliente de DevKit reutilizan los recursos ya preparados y restauran desde la caché los que no cambiaron, y <code>forgeax project check</code> cocina ahora en seco y sin conexión los paquetes de materiales y partículas, de modo que los errores aparecen antes de ejecutar el juego.</li>
+<li>Efectos, calidad de imagen e importación: los efectos pueden leer el tiempo del reproductor y del mundo y declarar parámetros tipados que se sobrescriben por reproductor, antialiasing especular, partículas dibujadas antes del antialiasing temporal, reflejos en espacio de pantalla sobre receptores planos, tangentes generadas que siguen la orientación de glTF, e importación y empaquetado fiables para proyectos con muchos archivos glTF.</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/es/changelog/">← Todas las actualizaciones</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un estudio de juegos personales nativo de IA: convierte ideas en juegos jugables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Sitio">
+    <a href="/es/tutorials/">Tutoriales</a>
+    <a href="/es/examples/">Ejemplos</a>
+    <a href="/es/marketplace/">Plugins</a>
+    <a href="/es/blog/">Blog</a>
+    <a href="/es/changelog/">Registro de cambios</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organización GitHub</a>
+    <a href="/es/license.html">Licencia</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

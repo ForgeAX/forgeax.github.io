@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026-10-30 · Engine 0.5 プレビュー：GitHub Releases での SDK 配布、より小さなゲームパッケージ、自力で復旧する起動 — ForgeAX</title>
+<meta name="description" content="2 日間でプレビュービルド 6 件。安定版 SDK は GitHub Releases からダウンロードできるようになりました。ゲームパッケージは小さくなり、遅いマシンでは起動をあきらめずに待機して状況を説明し、WebGL2 フォールバックが安定し、物理ではソルバー設定を公開しました。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="2026-10-30 · Engine 0.5 プレビュー：GitHub Releases での SDK 配布、より小さなゲームパッケージ、自力で復旧する起動 — ForgeAX" />
+<meta property="og:description" content="2 日間でプレビュービルド 6 件。安定版 SDK は GitHub Releases からダウンロードできるようになりました。ゲームパッケージは小さくなり、遅いマシンでは起動をあきらめずに待機して状況を説明し、WebGL2 フォールバックが安定し、物理ではソルバー設定を公開しました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/ja/changelog/2026-10-30.html" />
+<meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/ja/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/changelog/2026-10-30.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/changelog/2026-10-30.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-ja forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/ja/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/ja/" data-nav="/">ホーム</a>
+      <a href="/ja/tutorials/" data-nav="/tutorials/">チュートリアル</a>
+      <a href="/ja/examples/" data-nav="/examples/">例</a>
+      <a href="/ja/marketplace/" data-nav="/marketplace/">プラグイン</a>
+      <a href="/ja/blog/" data-nav="/blog/">ブログ</a>
+      <a href="/ja/changelog/" data-nav="/changelog/" class="active">変更履歴</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="言語">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/changelog/2026-10-30.html" data-l="en">English</a><a class="lang-item" href="/zh/changelog/2026-10-30.html" data-l="zh">中文</a><a class="lang-item active" href="/ja/changelog/2026-10-30.html" data-l="ja" aria-current="true">日本語</a><a class="lang-item" href="/ko/changelog/2026-10-30.html" data-l="ko">한국어</a><a class="lang-item" href="/es/changelog/2026-10-30.html" data-l="es">Español</a><a class="lang-item" href="/de/changelog/2026-10-30.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/changelog/2026-10-30.html" data-l="fr">Français</a><a class="lang-item" href="/pt/changelog/2026-10-30.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/ja/#install">はじめる</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/ja/changelog/">← 変更履歴</a>
+    <div class="meta"><span class="tag brand">更新</span><span>2026-10-30</span></div>
+    <h1>Engine 0.5 プレビュー：GitHub Releases での SDK 配布、より小さなゲームパッケージ、自力で復旧する起動</h1>
+    <p class="standfirst">2 日間でプレビュービルド 6 件。安定版 SDK は GitHub Releases からダウンロードできるようになりました。ゲームパッケージは小さくなり、遅いマシンでは起動をあきらめずに待機して状況を説明し、WebGL2 フォールバックが安定し、物理ではソルバー設定を公開しました。</p>
+    <div class="prose"><h3>Engine 0.5 プレビュー：GitHub Releases での SDK 配布、より小さなゲームパッケージ、自力で復旧する起動</h3>
+<ul>
+<li>2 日間でプレビュービルド 6 件（0.5.0-dev.15784 から 0.5.0-dev.15789）を公開しました。</li>
+<li>安定版 SDK を GitHub Releases で配布：SDK v0.4.18 と v0.4.19 を、来歴情報、SPDX ソフトウェア部品表、SHA-256 チェックサム付きの自己完結型ブラウザーゲーム SDK アーカイブとして公開リポジトリで公開しました。</li>
+<li>ゲームパッケージが小さくなり、マテリアルシェーダーは最初にまとめてではなく、初めて必要になった時点で準備します。</li>
+<li>自力で復旧する起動：起動が遅い場合も失敗にせず待機を続け、展開できる診断情報を表示します。既定のゲーム読み込みはキャッシュされた失敗から復旧し、厳格なコンテンツセキュリティポリシーの下でも読み込めます。</li>
+<li>より安定した WebGL2 フォールバック：フォールバックは一度だけ選択され、両方のバックエンドが報告した理由を保持し、性能の低いデバイスでも露出とフレームリソースを正しく保ちます。</li>
+<li>物理：ソルバーの反復回数を設定できるようになり、ソルバーは SIMD を使用します。ボクセルワールドに対する連続衝突検出のコストは、リプレイベンチマークで約 3 分の 1 減りました。</li>
+<li>定常フレームの処理を削減：フレーム準備のメモリ確保が減り、Worker のガベージコレクションが軽くなり、変化のないアニメーションクロックは書き直されず、ECS に低アロケーションの読み取り専用クエリバッチを追加しました。</li>
+<li>WeChat ミニゲーム：シーンは固定の解像度予算内で描画され、<code>maxRenderShortSide</code> で変更できます。キャンバス、UI、入力はネイティブ解像度のままで、ブラウザービルドには影響しません。</li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/ja/changelog/">← すべての更新</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>AI ネイティブのパーソナル ゲーム スタジオ — アイデアをプレイ可能なゲームに変えます。</p>
+  </div>
+  <nav class="foot-links" aria-label="サイト">
+    <a href="/ja/tutorials/">チュートリアル</a>
+    <a href="/ja/examples/">例</a>
+    <a href="/ja/marketplace/">プラグイン</a>
+    <a href="/ja/blog/">ブログ</a>
+    <a href="/ja/changelog/">変更履歴</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub組織</a>
+    <a href="/ja/license.html">ライセンス</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>
