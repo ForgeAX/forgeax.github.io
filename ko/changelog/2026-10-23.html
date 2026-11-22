@@ -67,7 +67,7 @@
 <ul>
 <li>0.5 계열 프리뷰 빌드 7개(0.5.0-dev.15088 ~ 0.5.0-dev.15095)가 3일 만에 공개 소스에 반영되었습니다.</li>
 <li>플레이어 패키지가 작아졌습니다. Pack 산출물은 Asset Bundle로 전달되어 공통 바이트를 한 번만 저장하고, 10% 이상 줄일 수 있으면 zstd를 사용합니다. 큰 JSON 문서는 기본으로 압축됩니다(<code>--compress=false</code>로 끌 수 있음).</li>
-<li>더 큰 게임을 담을 수 있습니다. 에셋 콘텐츠 예산이 공개 옵션 <code>assetBudgetBytes</code>가 되었고 기본값이 1 GiB에서 4 GiB로 올라갔으며, <code>renderPipelineCapacity</code>도 설정할 수 있습니다.</li>
+<li>더 큰 게임을 담을 수 있습니다. 에셋 콘텐츠 예산이 공개 옵션 <code>assetBudgetBytes</code>가 되었고 기본값이 1 GiB에서 4 GiB로 올라갔으며, 이제 프로젝트의 빌드 옵션에서 <code>renderPipelineCapacity</code>도 설정할 수 있습니다.</li>
 <li>프레임마다 반복하던 렌더링 작업이 줄었습니다. 장면 준비 결과를 프레임 간에 이어 쓰고, 파티클을 점진적으로 계획하며, 그림자 데이터를 유지하고, 정적 그림자 캐시를 사용할 수 있습니다.</li>
 <li>새로운 구성 요소: Engine Content 에셋 라이브러리(기본 메시 10종, 체커 텍스처, 기본 Standard 머티리얼)를 <code>forge.json</code>의 <code>assetLibraries</code>로 마운트합니다. <code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code>는 한 프레임에 고정 스텝이 여러 개 밀렸을 때 고정 업데이트를 한 번만 실행합니다.</li>
 <li>새로운 진단 기능: WebGPU 스텁(<code>createApp({ gpuStub })</code>)으로 GPU 없이 CPU 비용을 측정할 수 있고, 프레임 이벤트가 실제 그리기 간격과 완료 지연을 보고합니다.</li>

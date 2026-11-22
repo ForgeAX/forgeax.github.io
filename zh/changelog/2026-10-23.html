@@ -67,7 +67,7 @@
 <ul>
 <li>0.5 系列的七个预览版本（0.5.0-dev.15088 至 0.5.0-dev.15095）在三天内进入公开源码。</li>
 <li>游戏包更小：Pack 产物改用 Asset Bundle 交付，相同字节只存一份，压缩能省 10% 以上时使用 zstd；较大的 JSON 文档默认压缩（可用 <code>--compress=false</code> 关闭）。</li>
-<li>能容纳更大的游戏：资源内容预算成为公开选项 <code>assetBudgetBytes</code>，默认值从 1 GiB 提高到 4 GiB；<code>renderPipelineCapacity</code> 也可以配置。</li>
+<li>能容纳更大的游戏：资源内容预算成为公开选项 <code>assetBudgetBytes</code>，默认值从 1 GiB 提高到 4 GiB；项目现在可以在构建选项里设置 <code>renderPipelineCapacity</code>。</li>
 <li>渲染逐帧重复的工作更少：场景准备结果跨帧保留，粒子增量规划，阴影数据保留复用，并提供静态阴影缓存。</li>
 <li>新的基础件：Engine Content 资源库（十个基础网格、一张棋盘格纹理和一个默认 Standard 材质）通过 <code>forge.json</code> 的 <code>assetLibraries</code> 挂载；<code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> 在一帧欠下多个固定步时只执行一次固定更新。</li>
 <li>新的诊断手段：WebGPU 桩（<code>createApp({ gpuStub })</code>）可以在没有 GPU 的情况下测量 CPU 开销；帧事件会报告真实的绘制节奏和完成延迟。</li>

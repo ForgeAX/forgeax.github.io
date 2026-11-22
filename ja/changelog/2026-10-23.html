@@ -67,7 +67,7 @@
 <ul>
 <li>0.5 系のプレビュービルド 7 件（0.5.0-dev.15088 から 0.5.0-dev.15095）を 3 日間で公開ソースに反映しました。</li>
 <li>プレイヤーパッケージが小さくなりました。Pack の成果物は Asset Bundle で配信され、共通のバイト列は 1 回だけ保存し、10% 以上削減できる場合に zstd を使います。大きな JSON ドキュメントは既定で圧縮されます（<code>--compress=false</code> で無効化）。</li>
-<li>より大きなゲームに対応：アセット内容の予算が公開オプション <code>assetBudgetBytes</code> になり、既定値を 1 GiB から 4 GiB に引き上げました。<code>renderPipelineCapacity</code> も設定できます。</li>
+<li>より大きなゲームに対応：アセット内容の予算が公開オプション <code>assetBudgetBytes</code> になり、既定値を 1 GiB から 4 GiB に引き上げました。<code>renderPipelineCapacity</code> もプロジェクトのビルドオプションで設定できるようになりました。</li>
 <li>フレームごとに繰り返す描画処理を削減：シーンの準備結果をフレーム間で引き継ぎ、パーティクルは増分で計画し、シャドウデータを保持し、静的シャドウキャッシュも利用できます。</li>
 <li>新しい基本部品：Engine Content アセットライブラリ（基本メッシュ 10 種、チェッカーテクスチャ、既定の Standard マテリアル）を <code>forge.json</code> の <code>assetLibraries</code> でマウントできます。<code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> は 1 フレームで複数の固定ステップが溜まった場合に固定更新を 1 回だけ実行します。</li>
 <li>新しい診断機能：WebGPU スタブ（<code>createApp({ gpuStub })</code>）で GPU なしに CPU コストを計測でき、フレームイベントが実際の描画間隔と完了までの遅延を報告します。</li>

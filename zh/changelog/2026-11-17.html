@@ -68,7 +68,7 @@
 <li>两天四个预览版本，从 0.6.0-dev.16822 到 0.6.0-dev.16825。</li>
 <li>水体：首个水体系统以 <code>@forgeax/engine-water</code> 的形式到来，包含水体和水域、波浪驱动的水面、反射和水下视图、浮力和泡沫，以及局部涟漪模拟。示例场景从港口到海岸都有。</li>
 <li>体积云：预烘焙的云层通过新的 <code>VolumetricCloudLayer</code> 组件渲染，云的烘焙工具已包含在 SDK 的创作工具中。</li>
-<li>桌面和移动端打包：<code>forgeax project build --target tauri</code> 把普通的浏览器构建包进一个 Tauri 应用，<code>forgeax project package --format tauri --platform windows|macos|linux|android|ios</code> 生成原生安装包。针对 Windows 和 Android 的修复在紧接着的下一个版本就跟上了。</li>
+<li>桌面和移动端打包：新增的 <code>forgeax project package --format tauri --platform windows|macos|linux|android|ios</code> 生成原生安装包；<code>forgeax project build --target tauri</code> 基于普通浏览器构建生成的 Tauri 工程，现在除了桌面也覆盖 Android 和 iOS。针对 Windows 和 Android 的修复在紧接着的下一个版本就跟上了。</li>
 <li>引擎自带性能分析工作台：CPU 时间线和调用树、内存快照和分配分析、GPU 资源和耗时报告。每一项都会生成可交互的 HTML 报告，同时附带 AI 智能体可以查询的机器可读数据。</li>
 <li>光照和画质：3D 起步场景的相机现在使用自动曝光，晴天光照做了更新，并带有一张在 GPU 上生成的铺地纹理。天空的下半部分现在渲染正确，雾可以和 MSAA 一起使用，MSAA 可以与 FXAA 组合，GPU 生成的纹理成为原生资源类型。</li>
 <li>ECS 的不兼容变更：系统、调度和资源现在由你定义并导入的对象来标识（<code>defineSystem</code>、<code>defineSchedule</code>、<code>defineResource</code>），名称只作为诊断用的标签。注册系统请写 <code>world.addSystem(Update, defineSystem({ ... }))</code>。另外新增 <code>world.acquireTimeScale(scale)</code>，用于慢动作和暂停，需要继续播放的效果可以读取 <code>Time.unscaledDelta</code>。</li>

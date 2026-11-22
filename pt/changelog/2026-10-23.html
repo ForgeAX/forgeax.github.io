@@ -67,7 +67,7 @@
 <ul>
 <li>Sete compilações de prévia da linha 0.5, de 0.5.0-dev.15088 a 0.5.0-dev.15095, chegaram ao código público em três dias.</li>
 <li>Os pacotes de jogo ficaram menores: os artefatos de Pack são entregues em Asset Bundles que guardam os bytes compartilhados uma única vez e usam zstd quando isso economiza pelo menos 10%, e documentos JSON grandes são comprimidos por padrão (<code>--compress=false</code> desativa).</li>
-<li>Jogos maiores cabem: o orçamento de conteúdo de recursos agora é uma opção pública, <code>assetBudgetBytes</code>, com o padrão elevado de 1 GiB para 4 GiB, e <code>renderPipelineCapacity</code> é configurável.</li>
+<li>Jogos maiores cabem: o orçamento de conteúdo de recursos agora é uma opção pública, <code>assetBudgetBytes</code>, com o padrão elevado de 1 GiB para 4 GiB, e um projeto agora pode definir <code>renderPipelineCapacity</code> nas opções de build.</li>
 <li>A renderização repete menos trabalho entre quadros: a preparação da cena é mantida de um quadro para outro, as partículas são planejadas de forma incremental, os dados de sombra são retidos e há um cache de sombras estáticas disponível.</li>
 <li>Novas peças básicas: a biblioteca de recursos Engine Content (dez malhas unitárias, uma textura xadrez e um material Standard padrão) é montada por <code>assetLibraries</code> em <code>forge.json</code>, e <code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> executa uma única atualização fixa quando um quadro deve vários passos.</li>
 <li>Novos diagnósticos: um stub de WebGPU (<code>createApp({ gpuStub })</code>) mede o custo de CPU sem GPU, e os eventos de quadro informam a cadência real de desenho e a latência de conclusão.</li>

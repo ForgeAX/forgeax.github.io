@@ -67,7 +67,7 @@
 <ul>
 <li>Sieben Vorschau-Builds der 0.5-Reihe, 0.5.0-dev.15088 bis 0.5.0-dev.15095, erreichten die öffentlichen Quellen in drei Tagen.</li>
 <li>Spielpakete sind kleiner: Pack-Artefakte werden in Asset Bundles ausgeliefert, die gemeinsame Bytes nur einmal speichern und zstd nutzen, wenn es mindestens 10 % spart; große JSON-Dokumente werden standardmäßig komprimiert (<code>--compress=false</code> schaltet das ab).</li>
-<li>Größere Spiele passen hinein: Das Budget für Asset-Inhalte ist jetzt eine öffentliche Option, <code>assetBudgetBytes</code>, mit einem von 1 GiB auf 4 GiB erhöhten Standardwert, und <code>renderPipelineCapacity</code> ist konfigurierbar.</li>
+<li>Größere Spiele passen hinein: Das Budget für Asset-Inhalte ist jetzt eine öffentliche Option, <code>assetBudgetBytes</code>, mit einem von 1 GiB auf 4 GiB erhöhten Standardwert, und ein Projekt kann <code>renderPipelineCapacity</code> jetzt in seinen Build-Optionen festlegen.</li>
 <li>Das Rendering wiederholt von Bild zu Bild weniger Arbeit: Die Szenenvorbereitung wird über Bilder hinweg übernommen, Partikel werden inkrementell geplant, Schattendaten bleiben erhalten, und ein statischer Schatten-Cache steht zur Verfügung.</li>
 <li>Neue Bausteine: Die Asset-Bibliothek Engine Content (zehn Grundkörper, eine Schachbretttextur und ein Standard-Material als Vorgabe) wird über <code>assetLibraries</code> in <code>forge.json</code> eingebunden, und <code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> führt nur ein festes Update aus, wenn ein Bild mehrere Schritte schuldet.</li>
 <li>Neue Diagnosen: Ein WebGPU-Stub (<code>createApp({ gpuStub })</code>) misst CPU-Kosten ohne GPU, und Bild-Ereignisse melden den tatsächlichen Zeichentakt und die Abschlusslatenz.</li>

@@ -67,7 +67,7 @@
 <ul>
 <li>Seven preview builds of the 0.5 line, 0.5.0-dev.15088 through 0.5.0-dev.15095, reached the public source in three days.</li>
 <li>Player packages are smaller: Pack artifacts ship in Asset Bundles that store shared bytes once and use zstd when it saves at least 10%, and large player JSON documents are compressed by default (<code>--compress=false</code> turns this off).</li>
-<li>Bigger games fit: the asset content budget is now a public option, <code>assetBudgetBytes</code>, with the default raised from 1 GiB to 4 GiB, and <code>renderPipelineCapacity</code> is configurable.</li>
+<li>Bigger games fit: the asset content budget is now a public option, <code>assetBudgetBytes</code>, with the default raised from 1 GiB to 4 GiB, and a project can now set <code>renderPipelineCapacity</code> in its build options.</li>
 <li>Rendering repeats less work from frame to frame: scene preparation is carried across frames, particles are planned incrementally, shadow data is retained, and a static shadow cache is available.</li>
 <li>New building blocks: the Engine Content asset library (ten unit meshes, a checker texture and a default Standard material) mounts through <code>assetLibraries</code> in <code>forge.json</code>, and <code>TimePolicy.fixedCatchUp: &#39;merged&#39;</code> runs one fixed update when a frame owes several steps.</li>
 <li>New diagnostics: a WebGPU stub (<code>createApp({ gpuStub })</code>) measures CPU cost without a GPU, and frame events report the real draw cadence and completion latency.</li>

@@ -72,7 +72,7 @@
 <li>Sturdier on more devices: a lost WebGL context now recovers, compressed textures are qualified on mobile, and WebGPU modes on Ubuntu are qualified with a real renderer fallback.</li>
 <li>Faster scenes with many lights: a test scene lit by many spot lights went from 39 to 60 frames per second at 1080p, through vertex-only shadow pipelines, steadier shadow updates and tighter light culling. The same work fixed lights going missing on very large triangles.</li>
 <li>Faster iteration: DevKit warm starts reuse prepared assets and restore unchanged ones from cache, and <code>forgeax project check</code> now dry-cooks material and particle packs offline, so mistakes surface before you run the game.</li>
-<li>Effects, image quality and import: effects can read player and world time and declare typed parameters you override per player, specular anti-aliasing, particles drawn before temporal anti-aliasing, screen-space reflections on planar receivers, generated tangents that follow glTF handedness, and reliable import and packing for projects with many glTF files.</li>
+<li>Effects, image quality and import: effects can read their effect player&#39;s time and world time and declare typed parameters you override per effect player, specular anti-aliasing, particles drawn before temporal anti-aliasing, screen-space reflections on planar receivers, generated tangents that follow glTF handedness, and reliable import and packing for projects with many glTF files.</li>
 </ul>
 </div>
     <p style="margin-top:32px"><a class="btn ghost" href="/changelog/">← All updates</a></p>

@@ -66,7 +66,8 @@
     <div class="prose"><h3>引擎稳定版 v0.5.1，距 v0.5.0 一周：水体、云、应用打包，以及社区提出的灯光控制</h3>
 <ul>
 <li>SDK v0.5.1 是新的稳定版，距 v0.5.0 一周，以自包含压缩包的形式发布在 GitHub Releases，附带来源证明、SPDX 软件物料清单和 SHA-256 校验和。同样这三天里还发布了四个预览版本：0.6.0-dev.16826 至 0.6.0-dev.16829。</li>
-<li>自 v0.5.0 以来进入稳定版的新内容：水体系统（现在附带一个可以直接复制到自己项目里的湖泊示例）、预烘焙体积云、面向桌面和移动端的 Tauri 打包，以及 CPU、内存、GPU 性能分析工作台。设备不支持云时，场景会照常运行。</li>
+<li>自 v0.5.0 以来进入稳定版的新内容：水体系统（现在附带一个可以直接复制到自己项目里的湖泊示例）、预烘焙体积云、通过 Tauri 生成的桌面和移动端原生安装包，以及 CPU、内存、GPU 性能分析工作台。设备不支持云时，场景会照常运行。</li>
+<li>同样进入稳定版的，还有 11 月 17 日预览过的两项破坏性改动：系统、调度和资源改为以你定义的对象来标识，注册系统写作 <code>world.addSystem(Update, defineSystem({ ... }))</code>；<code>DirectionalLight.staticShadowCache</code> 改为按需开启（默认 <code>false</code>）。时间缩放 <code>world.acquireTimeScale(scale)</code>、针对发布包的试玩 <code>forgeax project play --release</code>，以及 <code>dev look --view luminance</code> 亮度图也都进入了稳定版。</li>
 <li>社区提出的需求：<code>SpotLight.decay</code> 现在与 <code>PointLight.decay</code> 对齐，聚光灯可以在整个光锥内保持均匀亮度。这个需求是 11 月 5 日在一条 GitHub issue 里提出的，本次稳定版已经包含，原生路径和 Three.js 兼容层都支持。默认值为 2，已有场景不受影响。</li>
 <li>Three.js 兼容：<code>@forgeax/engine/three</code> 现在对齐 Three.js r187，覆盖一百多个附加模块，涵盖加载器、控制器和几何工具，还支持后处理效果和点颜色。Three.js 对象也可以共用一个原生 World，这是一条实验性路径。</li>
 <li>画质预设和设备配置：项目声明 <code>quality: { base: { kind: &#39;device-default&#39; } }</code> 即可从针对设备的推荐值起步，玩家的选择会被保存，<code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code> 可在运行时切换低、中、高三档。屏幕空间反射可以用半密度追踪，再以全分辨率重建。</li>

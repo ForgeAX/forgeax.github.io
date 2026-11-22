@@ -66,7 +66,8 @@
     <div class="prose"><h3>Engine 안정 버전 v0.5.1, v0.5.0 이후 일주일: 물, 구름, 앱 패키징, 커뮤니티가 요청한 조명 제어</h3>
 <ul>
 <li>SDK v0.5.1이 새 안정 버전입니다. v0.5.0 이후 일주일 만에, 출처 증명과 SPDX 소프트웨어 자재 명세서, SHA-256 체크섬을 갖춘 독립형 아카이브로 GitHub Releases에 공개했습니다. 같은 사흘 동안 프리뷰 빌드 0.6.0-dev.16826부터 0.6.0-dev.16829까지 4개도 공개했습니다.</li>
-<li>v0.5.0 이후 안정 버전에 새로 들어온 것: 물 시스템(내 프로젝트로 복사해 쓸 수 있는 호수 예제 포함), 쿠킹된 볼류메트릭 클라우드, 데스크톱 및 모바일용 Tauri 패키징, CPU·메모리·GPU 프로파일링 워크벤치. 기기에서 구름을 쓸 수 없어도 장면은 계속 실행됩니다.</li>
+<li>v0.5.0 이후 안정 버전에 새로 들어온 것: 물 시스템(내 프로젝트로 복사해 쓸 수 있는 호수 예제 포함), 쿠킹된 볼류메트릭 클라우드, Tauri로 만드는 데스크톱 및 모바일용 네이티브 설치 파일, CPU·메모리·GPU 프로파일링 워크벤치. 기기에서 구름을 쓸 수 없어도 장면은 계속 실행됩니다.</li>
+<li>11월 17일에 프리뷰로 공개한 두 가지 호환성이 깨지는 변경도 안정 버전에 들어왔습니다. 시스템, 스케줄, 리소스는 정의한 객체로 식별되며 시스템은 <code>world.addSystem(Update, defineSystem({ ... }))</code>로 등록합니다. <code>DirectionalLight.staticShadowCache</code>는 옵트인(기본값 <code>false</code>)이 되었습니다. <code>world.acquireTimeScale(scale)</code>를 통한 시간 스케일, <code>forgeax project play --release</code>를 통한 릴리스 빌드 플레이스루, <code>dev look --view luminance</code> 밝기 맵도 안정 버전에서 쓸 수 있습니다.</li>
 <li>커뮤니티의 요청: <code>SpotLight.decay</code>가 이제 <code>PointLight.decay</code>와 같은 방식으로 동작해, 스포트라이트가 원뿔 전체에서 고른 밝기를 유지할 수 있습니다. 11월 5일 GitHub 이슈에서 요청된 기능으로, 이번 안정 버전에 네이티브와 Three.js 레이어 모두 포함되었습니다. 기본값은 2여서 기존 장면은 달라지지 않습니다.</li>
 <li>Three.js 호환: <code>@forgeax/engine/three</code>가 이제 Three.js r187을 대상으로 하며, 로더와 컨트롤부터 지오메트리 헬퍼까지 100개가 넘는 애드온 모듈과 포스트 이펙트, 포인트 색상을 지원합니다. Three.js 객체가 네이티브 World를 공유하는 것도 실험적 경로로 가능합니다.</li>
 <li>품질 프리셋과 기기 구성: 프로젝트에서 <code>quality: { base: { kind: &#39;device-default&#39; } }</code>를 선언하면 기기에 맞는 권장값에서 시작하고, 플레이어의 선택이 저장되며, <code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code>로 실행 중에 낮음·중간·높음을 전환할 수 있습니다. 스크린 스페이스 반사는 절반 밀도로 추적한 뒤 전체 해상도로 재구성할 수 있습니다.</li>
