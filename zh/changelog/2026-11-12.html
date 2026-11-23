@@ -71,7 +71,7 @@
 <li>不兼容变更（镜头与反射）：色差现在是径向色散，画面中心不受影响，越靠近角落越明显。<code>chromaticAberration</code> 改为 0 到 5 的百分比，移除 <code>chromaticAberrationAngle</code>，新增 <code>chromaticAberrationStartOffset</code>。<code>PlanarReflection.distortion</code> 现在是世界空间半径，不再是屏幕偏移量。</li>
 <li>天空与雾：完整的物理大气可在 WebGL2 的 Forward 路径上运行；雾现在会覆盖天空背景，可用 <code>Fog.skyOpacity</code> 控制；天空会跟随太阳的亮度和色调；新增 <code>ADDITIVE_BLEND</code> 材质预设、<code>setTransformLookAt</code> 辅助函数和一个电影感色调映射模式。</li>
 <li>视频与颜色修复：在不支持零拷贝视频导入的浏览器里，用作普通纹理的视频不再上下颠倒；恒等的颜色查找表现在不会改变画面，而不是压暗暗部。</li>
-<li>性能：Forward 路径新增深度预通道；物理不再轮询静止刚体，而是在运动状态变化时通知；一帧自己的 GPU 工作完成后立即计入完成；在 Android 和 iOS 浏览器中，绘制缓冲区的短边默认为 720 像素。</li>
+<li>性能：Forward 路径新增深度预通道；物理不再轮询静止刚体，而是在运动状态变化时通知；每一帧在自身的 GPU 工作完成后即记为完成；在 Android 和 iOS 浏览器中，绘制缓冲区的短边默认为 720 像素。</li>
 <li>预览版本中：<code>forgeax project play --release</code> 可以对已构建的发布版本运行你的脚本试玩，<code>--session</code> 在多次运行之间保持浏览器热启动，后面的步骤可以从一个准备步骤开始而不必重放整局，<code>mouse.look</code> 可以转动鼠标视角相机。3D 起步模板现在拆成玩家、相机、世界和 UI 四个文件夹，每个都可以单独删除。</li>
 </ul>
 </div>
