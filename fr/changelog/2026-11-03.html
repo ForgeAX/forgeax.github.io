@@ -72,7 +72,7 @@
 <li>Modélisation de maillages éditables : le noyau de modélisation est disponible sous <code>@forgeax/engine/modeling</code>, avec les outils <code>forgeax model</code> pour inspecter, sélectionner, valider et superposer de la géométrie, et les aperçus de maillages peuvent afficher votre propre géométrie en surimpression.</li>
 <li>L’occlusion ambiante n’exige plus le chemin Deferred : elle fonctionne maintenant sur le chemin Forward, WebGL2 compris.</li>
 <li>Correctifs WebGL2 : les textures de personnages ne sont plus corrompues, les niveaux de mip des textures en tableau conservent leurs couleurs, et un repli WebGL2 utilisable est conservé pendant que le Worker recherche un adaptateur WebGPU.</li>
-<li>Correctifs trouvés en portant une scène Three.js existante : les matériaux avec cartes spéculaires sont de nouveau dessinés, les ciels HDR très lumineux ne rendent plus l’éclairage noir ou moucheté, les réflexions planaires peuvent onduler avec la surface pour un sol mouillé, les ombres rejoignent proprement leurs projeteurs, et les colliders en maillage de triangles fonctionnent sous un parent.</li>
+<li>Correctifs trouvés en portant une scène Three.js existante : les matériaux avec cartes spéculaires sont de nouveau dessinés, les ciels HDR très lumineux ne rendent plus l’éclairage noir ou moucheté, les réflexions planaires peuvent onduler avec la surface pour un sol mouillé, les ombres rejoignent proprement les objets qui les projettent, et les colliders en maillage de triangles fonctionnent sous un parent.</li>
 </ul>
 </div>
     <p style="margin-top:32px"><a class="btn ghost" href="/fr/changelog/">← Toutes les mises à jour</a></p>
