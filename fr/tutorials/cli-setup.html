@@ -76,17 +76,16 @@
 
       <h2>1 · Connect your client once</h2>
       <p>Node.js 18 or newer is enough. Run the installer for the clients you use:</p>
-      <pre><code>npx -y @forgeax/game install --ide codex
+      <pre><code>npx -y @forgeax/marker@0.5.0 install --ide codex
 
 # Configure several clients in one pass
-npx -y @forgeax/game install --ide codex,claude,cursor</code></pre>
+npx -y @forgeax/marker@0.5.0 install --ide codex,claude,cursor</code></pre>
       <p>Before it writes configuration, the installer launches the exact MCP command and completes a real <code>initialize → tools/list → resources/list</code> handshake. Existing config is merged; a changed file gets a <code>.bak.latest</code> backup.</p>
       <div class="note">Other supported client ids include <code>zcode</code>, <code>opencode</code>, <code>windsurf</code>, <code>vscode</code>, <code>trae</code>, <code>codebuddy</code> and <code>workbuddy</code>. Omitting <code>--ide</code> configures every supported client.</div>
 
       <h2>2 · Initialize a game project</h2>
       <p>Create or enter an empty directory, then ask the package to create a project and active game:</p>
-      <pre><code>mkdir neon-runner && cd neon-runner
-npx -y @forgeax/game init --game neon-runner</code></pre>
+      <pre><code>npx -y @forgeax/marker@0.5.0 init</code></pre>
       <p><code>init</code> creates the ForgeAX project, selects the game and materializes <code>.forgeax/engine-sdk/</code> from the same Engine pin as the managed Runtime. Your game lives under <code>.forgeax/games/neon-runner/</code>.</p>
 
       <h2>3 · Open the folder in your AI client</h2>
@@ -112,7 +111,7 @@ and keep fixing it until the playable behavior is proven.</code></pre>
           <thead><tr><th>Command</th><th>Use it when</th></tr></thead>
           <tbody>
             <tr><td><code>forgeax-game doctor</code></td><td>You want to check Node, client configuration, project binding and service tiers.</td></tr>
-            <tr><td><code>npx -y @forgeax/game update</code></td><td>An existing project should refresh the published command, client entries and project routing rules.</td></tr>
+            <tr><td><code>npx -y @forgeax/marker@0.5.0 install --ide codex</code></td><td>An existing project should refresh the published command, client entries and project routing rules.</td></tr>
             <tr><td><code>forgeax-game use &lt;slug&gt;</code></td><td>A project contains several games and you want to activate another one.</td></tr>
             <tr><td><code>forgeax-game devkit install</code></td><td>Engine/game-development Skills are missing or need to be refreshed.</td></tr>
           </tbody>

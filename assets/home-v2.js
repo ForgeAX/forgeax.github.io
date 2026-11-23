@@ -399,7 +399,7 @@
   /* ── install command + paste-into-agent prompt ── */
   (function installCommand() {
     var root = document.querySelector("main.home-v2");
-    var BIN = (root && root.getAttribute("data-install-bin")) || "npx -y @forgeax/game";
+    var BIN = (root && root.getAttribute("data-install-bin")) || "npx -y @forgeax/marker@0.5.0";
     var DEFAULT_IDE = "";
     var PREFERRED_IDE_KEY = "forgeax.preferred-ide";
     var ide = DEFAULT_IDE;

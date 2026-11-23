@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>把 ForgeAX Game 安装到 Codex 等 AI 客户端 — 天工引擎</title>
-<meta name="description" content="把 @forgeax/game 插件安装到 Codex、Claude Code、Cursor 等 MCP 客户端，并用匹配的 Engine SDK 与 Runtime 初始化项目。" />
+<meta name="description" content="把 @forgeax/marker 插件安装到 Codex、Claude Code、Cursor 等 MCP 客户端，并用匹配的 Engine SDK 与 Runtime 初始化项目。" />
 <link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
 <meta property="og:title" content="把 ForgeAX Game 安装到 Codex 等 AI 客户端 — 天工引擎" />
-<meta property="og:description" content="把 @forgeax/game 插件安装到 Codex、Claude Code、Cursor 等 MCP 客户端，并用匹配的 Engine SDK 与 Runtime 初始化项目。" />
+<meta property="og:description" content="把 @forgeax/marker 插件安装到 Codex、Claude Code、Cursor 等 MCP 客户端，并用匹配的 Engine SDK 与 Runtime 初始化项目。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://forgeax.github.io/zh/tutorials/cli-setup.html" />
 <meta property="og:image" content="https://forgeax.github.io/logo.svg?v=7" />
@@ -76,17 +76,16 @@
 
       <h2>1 · 只需一次，把客户端接进来</h2>
       <p>只需要 Node.js 18 或更高版本。为你使用的客户端运行安装命令：</p>
-      <pre><code>npx -y @forgeax/game install --ide codex
+      <pre><code>npx -y @forgeax/marker@0.5.0 install --ide codex
 
 # 一次配置多个客户端
-npx -y @forgeax/game install --ide codex,claude,cursor</code></pre>
+npx -y @forgeax/marker@0.5.0 install --ide codex,claude,cursor</code></pre>
       <p>写配置之前，安装器会启动将要保存的真实 MCP 命令，完成 <code>initialize → tools/list → resources/list</code> 握手。它会合并已有配置；被修改的文件旁会生成 <code>.bak.latest</code> 备份。</p>
       <div class="note">其他客户端 id 包括 <code>zcode</code>、<code>opencode</code>、<code>windsurf</code>、<code>vscode</code>、<code>trae</code>、<code>codebuddy</code> 与 <code>workbuddy</code>。省略 <code>--ide</code> 会配置全部已支持客户端。</div>
 
       <h2>2 · 初始化一个游戏项目</h2>
       <p>新建或进入一个空目录，然后让软件包创建项目和活动游戏：</p>
-      <pre><code>mkdir neon-runner && cd neon-runner
-npx -y @forgeax/game init --game neon-runner</code></pre>
+      <pre><code>npx -y @forgeax/marker@0.5.0 init</code></pre>
       <p><code>init</code> 会创建天工引擎项目、选中游戏，并从与托管 Runtime 相同的 Engine pin 生成 <code>.forgeax/engine-sdk/</code>。游戏位于 <code>.forgeax/games/neon-runner/</code>。</p>
 
       <h2>3 · 用你的 AI 客户端打开这个目录</h2>
@@ -112,7 +111,7 @@ npx -y @forgeax/game init --game neon-runner</code></pre>
           <thead><tr><th>命令</th><th>什么时候用</th></tr></thead>
           <tbody>
             <tr><td><code>forgeax-game doctor</code></td><td>检查 Node、客户端配置、项目绑定和服务层级。</td></tr>
-            <tr><td><code>npx -y @forgeax/game update</code></td><td>让已有项目刷新发布命令、客户端入口和项目路由规则。</td></tr>
+            <tr><td><code>npx -y @forgeax/marker@0.5.0 install --ide codex</code></td><td>让已有项目刷新发布命令、客户端入口和项目路由规则。</td></tr>
             <tr><td><code>forgeax-game use &lt;slug&gt;</code></td><td>项目里有多个游戏，需要切换活动游戏。</td></tr>
             <tr><td><code>forgeax-game devkit install</code></td><td>游戏开发或引擎 Skills 缺失，需要重新安装。</td></tr>
           </tbody>

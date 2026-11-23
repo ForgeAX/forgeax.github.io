@@ -87,8 +87,7 @@ const FIRST_PROMPT = L("prompts.first");
 
 const ITER_PROMPT = L("prompts.iter");
 
-const INIT_CMD = `mkdir neon-runner && cd neon-runner
-npx -y @forgeax/game init --game neon-runner`;
+const INIT_CMD = `npx -y @forgeax/marker@0.5.0 init`;
 
 const CX_ICO = {
   plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>',
@@ -179,7 +178,7 @@ function pluginPrompt() {
 }
 
 function installCmd() {
-  return `npx -y @forgeax/game install --ide ${currentClient().ide}`;
+  return `npx -y @forgeax/marker@0.5.0 install --ide ${currentClient().ide}`;
 }
 
 const PLAY_PROMPT = L("prompts.play");
@@ -198,8 +197,7 @@ const STEPS = [
       return `
         <div class="msg msg-agent">
           <div class="term">
-            <div>$ mkdir neon-runner && cd neon-runner</div>
-            <div>$ npx -y @forgeax/game init --game neon-runner</div>
+            <div>$ npx -y @forgeax/marker@0.5.0 init</div>
             ${done ? `
             <div class="ok">✓ ${L("steps.init.created")}</div>
             <div class="ok">✓ ${L("steps.init.activeGame")}</div>
