@@ -1,0 +1,1 @@
+export{i as RapierPhysicsWorld3D,a as createRapier3DPhysicsWorld,o as default,c as loadRapier3D,s as registerPhysicsSystems}from"./engine-4f53cda18c2baa0c-Bh0SHCWS.js";

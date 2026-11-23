@@ -1,1 +1,0 @@
-import{t as e}from"./program-group-7e971b4ecc02a46f-zw7D2JJ6.js";try{await globalThis.__forgeaxStartup?.ready?.(),new URLSearchParams(globalThis.location?.search??``).get(`forgeax-startup-retry`)===`1`?await e(()=>import(`./main-BmEsAZP7.js`),[]):await e(()=>import(`./main-B-PtoeHc.js`),[])}catch(e){globalThis.__forgeaxStartup?.fail?.(e)}

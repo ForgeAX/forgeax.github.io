@@ -1,1 +1,0 @@
-import{Yh as e,rx as t}from"./engine-4f53cda18c2baa0c-DI2VvvXn.js";import{n}from"./engine-0d3dac2866f1af44-CrJM7hUy.js";var r=globalThis;r.onmessage=r=>{if(r.data.kind!==`task-connect`)return;let i=r.data.port;e(i,t,{slices:n()})};
