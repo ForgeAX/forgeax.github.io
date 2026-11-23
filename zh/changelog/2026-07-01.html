@@ -66,7 +66,7 @@
     <div class="prose"><h2>R4 前端:从独立子模块到真正跑起来</h2>
 <p>6 月 30 日把聊天、工作台、设置、仪表盘拆成独立子模块后,这天做的是&quot;接上电&quot;。interface 包瘦身成纯 AppKit 层（总线、广播、深链、浮层）,四个 L2 应用各自接管 Agent 偏好和文件预览,通过 bus 通信而不是挤在一个大 store 里。Studio 的 <code>main.tsx</code> 启动时初始化 <code>initAgentPrefs</code>、<code>initFilePreview</code>、<code>bootBroadcast</code> 和 daemon tick 订阅——四大模块不再是&quot;挂在那里的子目录&quot;,而是编辑器的正式组成部分。R4 从计划变成了能日常开发的结构。</p>
 <h2>视口 2×2:运行模式 × 显示模式</h2>
-<p>编辑器视口这天完成了 2×2 重设计。之前 Edit 和 Play 是两种互斥状态,一切换就要重建整个视口。新方案把&quot;运行模式&quot;（Edit / Play）和&quot;显示模式&quot;（Scene / Game）拆成两个正交维度,合成 2×2 矩阵——你可以同时看到场景视图和游戏视图,用不同的运行状态驱动。AppMode 成为单一数据源,interface 和 editor 子模块都对齐到这套 viewport 语义。这是朝 UE5 式编辑体验迈的一步:在一个屏幕上同时编辑和预览,不用来回切。</p>
+<p>编辑器视口这天完成了 2×2 重设计。之前 Edit 和 Play 是两种互斥状态,一切换就要重建整个视口。新方案把&quot;运行模式&quot;（Edit / Play）和&quot;显示模式&quot;（Scene / Game）拆成两个正交维度,合成 2×2 矩阵——你可以同时看到场景视图和游戏视图,用不同的运行状态驱动。AppMode 成为单一数据源,interface 和 editor 子模块都对齐到这套 viewport 语义。这是朝专业级编辑体验迈的一步:在一个屏幕上同时编辑和预览,不用来回切。</p>
 <h2>编辑器解耦游戏目录,Studio 注入布局</h2>
 <p>编辑器子模块这天去掉了对游戏目录的硬编码依赖,变成布局无关的独立包。游戏文件该放哪、URL 前缀是什么,不再由编辑器自己&quot;烘焙&quot;,而是由宿主（Studio）注入:主视口 iframe 通过 EditSurfaceProps.gameRoot 拿到路径,localStorage 让各面板 iframe 指向同一游戏;启动引擎时传入磁盘扫描目录和客户端 URL 前缀;桌面打包也会烘焙 URL 前缀,让冻结的应用能正确提供游戏资源。编辑器可以独立演进,Studio 掌控项目布局——职责边界更清晰了。</p>
 <h2>bun fx update:拉完代码一目了然</h2>
