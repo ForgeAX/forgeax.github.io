@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ForgeAX est open source : un moteur de jeu construit par l'IA, pour l'IA — ForgeAX</title>
+<meta name="description" content="Ne donnez pas une télécommande à l'IA ; donnez-lui un tournevis. Pourquoi ForgeAX est conçu ainsi, comment créer un jeu avec Codex en deux commandes et un brief, et le jeu de mecha transformable qu'une seule personne a réalisé en cinq jours." />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="ForgeAX est open source : un moteur de jeu construit par l'IA, pour l'IA — ForgeAX" />
+<meta property="og:description" content="Ne donnez pas une télécommande à l'IA ; donnez-lui un tournevis. Pourquoi ForgeAX est conçu ainsi, comment créer un jeu avec Codex en deux commandes et un brief, et le jeu de mecha transformable qu'une seule personne a réalisé en cinq jours." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/fr/blog/forgeax-open-source.html" />
+<meta property="og:image" content="https://forgeax.github.io/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/fr/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/forgeax-open-source.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+<meta name="twitter:image" content="https://forgeax.github.io/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-fr forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/fr/"><img src="/logo.svg?v=7" alt="ForgeAX" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/fr/" data-nav="/">Accueil</a>
+      <a href="/fr/tutorials/" data-nav="/tutorials/">Tutoriels</a>
+      <a href="/fr/examples/" data-nav="/examples/">Exemples</a>
+      <a href="/fr/marketplace/" data-nav="/marketplace/">Plugins</a>
+      <a href="/fr/blog/" data-nav="/blog/" class="active">Blogue</a>
+      <a href="/fr/changelog/" data-nav="/changelog/">Journal des modifications</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Langue">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/forgeax-open-source.html" data-l="en">English</a><a class="lang-item" href="/zh/blog/forgeax-open-source.html" data-l="zh">中文</a><a class="lang-item" href="/ja/blog/forgeax-open-source.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/blog/forgeax-open-source.html" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/forgeax-open-source.html" data-l="es">Español</a><a class="lang-item" href="/de/blog/forgeax-open-source.html" data-l="de">Deutsch</a><a class="lang-item active" href="/fr/blog/forgeax-open-source.html" data-l="fr" aria-current="true">Français</a><a class="lang-item" href="/pt/blog/forgeax-open-source.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/fr/#install">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/fr/blog/">← Retour au blog</a>
+    <div class="meta"><span class="tag">Actualités</span><span>24 novembre 2026</span></div>
+    <h1>ForgeAX est open source : un moteur de jeu construit par l'IA, pour l'IA</h1>
+    <p class="standfirst">ForgeAX (Tiangong en chinois) est désormais open source : un moteur de jeu développé presque entièrement par des agents d'IA et conçu dès le premier jour pour être utilisé par l'IA.</p>
+    <div class="prose"><pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install
+</code></pre>
+<p>Source: <a href="https://github.com/ForgeAX/forgeax-engine">github.com/ForgeAX/forgeax-engine</a> · Apache-2.0</p>
+<h2>01 Great engines, built for humans</h2>
+<p>For two decades, every design decision in a game engine has served a human sitting at a screen. Visual editors let you drag and drop scenes. Blueprints and simplified scripting lower the bar for building logic. Assets are authored in DCC tools, imported, then packed into binaries for compact storage. All of those choices were right for their time, because the user was a person.</p>
+<p>Now put an AI in that seat. It can&#39;t read binary assets. It can only operate editor buttons through screenshots and computer use. It can&#39;t fit a million lines of C++ into one conversation. So today the common way for AI to drive a commercial engine is through a bridge like MCP: the engine exposes a few wrapped APIs, and the AI presses them.</p>
+<p>That&#39;s handing the AI a TV remote. It can change channels and turn up the volume, but when a wire comes loose inside the set, it can&#39;t see it and can&#39;t fix it.</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/fig03-remote-vs-screwdriver-en.png" width="3200" height="1800" alt="Remote or screwdriver" loading="lazy" />
+<figcaption>A bridge alone gives AI a handful of buttons. ForgeAX gives it the source, the runtime state, and a full GPU capture of every frame.</figcaption>
+</figure><p>This approach has two problems. First, the AI can&#39;t see what&#39;s happening inside the engine, so when the picture is wrong it can only guess. Second, every vendor&#39;s bridge is different and keeps changing, so models never see a stable way to use them during training. The results are unreliable.</p>
+<p>And real games are complicated. Almost no engine covers everything a serious game needs out of the box, so studios and solo developers end up forking a version and modifying it heavily.</p>
+<p>So here is our bet: <strong>engine companies have years of head start, but when it comes to being used by AI, everyone is back at the same starting line.</strong></p>
+<h2>02 The next engine&#39;s first user is AI</h2>
+<p>AI keeps getting better at writing code. At this pace, it could soon rewrite any given program from scratch.</p>
+<p>Follow that logic and you reach a slightly counterintuitive conclusion: <strong>a pre-built, tightly sealed engine that the AI can&#39;t change may be an obstacle rather than a help.</strong> Routing around it and rewriting it is often faster.</p>
+<p>If you can&#39;t stop that, hand over the tools. Don&#39;t give the AI a remote. Give it a screwdriver.</p>
+<p>The first page of the ForgeAX engineering guidelines says: <strong>AI is the first user. When what works for AI conflicts with human habit, AI wins.</strong></p>
+<p>In code, that turns into a set of concrete choices.</p>
+<p><strong>The language AI knows best.</strong> Engine, scripts, assets and game logic are all TypeScript, running on WebGPU. The type checker catches the AI&#39;s mistakes immediately, and everything above the WebGPU layer is something the AI can read, modify and rewrite.</p>
+<p><strong>The UI AI knows best.</strong> There&#39;s no custom UI framework. Game UI is standard HTML and CSS. Even inside WeChat mini-games, which have no browser, the engine renders that same HTML and CSS itself.</p>
+<p><strong>Never hidden, even if not wrapped.</strong> We ask the team for robust code, but the rule is that the AI may choose not to change something; it must never be unable to see it. We also follow a principle we call &quot;compression is intelligence&quot;. What gets compressed is concepts, not files: game state lives in one place, render data lives in one place, and everything else reads without copying. Every time the AI doesn&#39;t have to ask &quot;which copy is the real one?&quot;, that&#39;s one less bug.</p>
+<p>We used to pick technology by maturity. Now we pick whatever works best for AI.</p>
+<p>That&#39;s how we built ForgeAX, an AI-native engine.</p>
+<figure>
+<video autoplay muted loop playsinline controls preload="metadata" poster="/assets/blog/forgeax-open-source/vox-city-fps.jpg" aria-label="Voxel Frontline">
+<source src="/assets/blog/forgeax-open-source/vox-city-fps.mp4" type="video/mp4" />
+</video>
+<figcaption>Voxel Frontline, a destructible voxel shooter built with ForgeAX</figcaption>
+</figure><h3>Why ForgeAX</h3>
+<ol>
+<li><strong>A different kind of tool.</strong> No editor-shaped container. ForgeAX is driven by agents and lives entirely in the npm ecosystem that today&#39;s coding harnesses already use. It boots fast inside a sandbox and supports hot reload.</li>
+<li><strong>A different way to make assets.</strong> Procedural assets are supported from the ground up, a workflow AI can actually reason about, and AI&#39;s modeling and procedural skills keep improving. Traditional assets such as FBX are supported too.</li>
+<li><strong>AI built into the runtime.</strong> ForgeAX ships runtime AI interfaces. The NPC module can bind a character to an AI &quot;soul&quot; for agent-driven NPCs. AI can output parameters for procedural map generation at runtime, or rebalance numbers, items and mechanics on the fly. That opens room for AI-native gameplay.</li>
+<li><strong>Fits your workflow and platform.</strong> Whatever coding harness or foundation model you use, opening a ForgeAX project gives it the same usage guide. The two games below were made with different harnesses and different models. One project builds to a web page, a single HTML file or a WeChat mini-game with one command, and it can be packaged as a desktop or mobile app.</li>
+<li><strong>Recursive self-improvement, together.</strong> ForgeAX grows alongside foundation models, harnesses and the community.</li>
+</ol>
+<p>Here&#39;s what that looks like on two real games.</p>
+<h2>03 Make a game with Codex: two commands and one brief</h2>
+<p><strong>No editor, no code written by hand, only Codex. What can it ship?</strong> Here is the whole path. You can follow it as written.</p>
+<p><strong>Step 1. Add ForgeAX to Codex.</strong> You need Node.js 22.13 or newer.</p>
+<pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install --ide codex
+</code></pre>
+<p>Without <code>--ide</code>, it sets up every supported AI coding tool on your machine at once (Claude Code, Codex, Cursor and others). The command writes the ForgeAX tool entry, MCP plus a command line, into your Codex user configuration. Unlike a bridge with a few buttons, everything behind that entry is open to Codex: the engine source, the runtime state and a GPU capture of every frame.</p>
+<p><strong>Step 2. Create a project in an empty directory.</strong></p>
+<pre><code class="language-bash">mkdir spirit-stones &amp;&amp; cd spirit-stones
+npx -y @forgeax/marker@0.5.0 init
+</code></pre>
+<p>The directory has to be genuinely empty. <code>init</code> creates an empty game project in it: nothing in the scene yet, but it already passes the project check and builds.</p>
+<p>A note on versions: the commands above are the ones on the website today. The entry package is <code>@forgeax/marker</code>, and a new project gets engine 0.5.0. We re-ran both commands in a fresh user directory; they succeed, and the empty project passes its check and build. The session shown below was recorded on November 23, when the entry package was still named <code>@forgeax/game</code> (engine 0.4.8), so that is the name you see at the start of the video. The two commands are used the same way.</p>
+<p><strong>Step 3. Open Codex in that directory and say what you want, once.</strong> A good brief covers four things: what the player does, what changes on screen, what counts as done, and what has to be verified. This is the brief we sent on November 23, word for word:</p>
+<blockquote>
+<p>This is an empty project created with ForgeAX. Turn it into an original small 3D game called <em>Spirit Stone Night</em>: the scene is a moonlit night (deep blue sky, cool moonlight, low ground mist); 12 glowing spirit stones are scattered around the level, slowly rotating and floating; when the player walks close, collect the stone automatically with a small burst of light particles; show &quot;Spirit Stones n / 12&quot; in the top-left HUD and &quot;Moonlit Harmony&quot; when all are collected. Read AGENTS.md first and follow the project conventions.</p>
+<p>One limit on this machine: a browser cannot be opened here and browser pages may not be left running, so do not start <code>forgeax dev</code> or any browser, and do not publish or upload anything. Your shell has no network access. Verify with <code>forgeax project check</code>, <code>forgeax project build</code> and automated tests of the game logic instead, and say plainly what is still unverified in a real browser. I will open the build myself and send you a screenshot if something looks wrong. Work only inside this project folder. The sandbox here does not allow writing .git, so I will make the commit; when you&#39;re done, tell me how to play.</p>
+</blockquote>
+<p><strong>The first paragraph is the game. The second is the rules of our machine, not of the engine.</strong> We ran Codex in a sandbox: no network from its shell, no browser, no write access to <code>.git</code>. So in this run three things were ours: opening the build in a browser, playing it on a keyboard, and making the git commit. If your machine has no such limits, you can swap the second paragraph for &quot;when you&#39;re done, run it with <code>forgeax dev</code>, take screenshots to check the visuals yourself, and commit with git&quot;, and let Codex look for itself. We did not test that variant in this run. One more detail: this was an unattended, non-interactive run. In that mode Codex&#39;s own approval policy blocks calls to the ForgeAX MCP tools, which is what happened in an earlier run of ours. This time it only read resources through the MCP entry and did the work through the <code>forgeax</code> command line and the guides that ship with the engine.</p>
+<p><strong>It took two turns and 16 minutes 39 seconds of Codex time. Nobody wrote a line of code by hand.</strong></p>
+<figure>
+<video controls playsinline preload="metadata" poster="/assets/blog/forgeax-open-source/codex-spirit-stones-en.jpg" aria-label="Codex builds Spirit Stone Night: two turns from an empty project to a playable game">
+<source src="/assets/blog/forgeax-open-source/codex-spirit-stones-en.mp4" type="video/mp4" />
+</video>
+<figcaption>Codex building Spirit Stone Night, November 23, 2026, with narration. Codex ran from the command line here, so there is no app window to record: the terminal parts are its own session logs, re-typeset as they were written and played back at 44× and 22× (the speed and the real elapsed time are shown at the top right). They are not a screen recording, and machine paths are removed. The still is our own browser screenshot. The last 33 seconds are the final build, played with real key presses at real-time speed.</figcaption>
+</figure><p><strong>Turn 1: the brief (13 min 4 s).</strong> Codex read AGENTS.md, the project&#39;s AI-facing guide, then the usage guides that ship with the engine. The empty project has no camera and no character, so it chose what to put there: a traveller carrying a lantern, a moonlit island and twelve named stones. It built all of it in code: the island with its pines and distant ridges, the stones, a burst of light for each pickup, a &quot;field journal&quot; panel with the counter, and a small island chart that marks the stones still out there. <strong>It used no external assets</strong>, and its shell had no network anyway. The rules for walking and collecting are kept apart from rendering, so they can be tested without a browser. It wrote 7 tests, among them one that runs the game from the first stone to the twelfth and then restarts it. It hit three problems on the way, fixed each one, and wrote them down in the project&#39;s feedback file. It finished with the project check, the production build and every test green. It also said plainly what it could not verify: start-up in a real browser, how the keys feel, and the final look of the moonlight, mist, particles and HUD.</p>
+<p><strong>We opened the build. It did not start.</strong> The page said &quot;Unable to start the game.&quot; and printed the engine&#39;s own diagnostics: the journal panel had failed during start-up, with <code>parseGuid is not a function</code>. A green project check, a green build and 7 green tests had not caught it.</p>
+<p><strong>Turn 2: we paste the diagnostics back (3 min 35 s).</strong> Codex traced the failure to its own code. The journal panel asked for its layout through a service that, on the interface side of the game, can only read published assets; the call it used exists only on the full asset registry. It found this by reading the engine code installed in the project, <strong>without patching the engine or switching versions</strong>. It first wrote a test that reproduced the exact error, then changed the one call, and the test passed.</p>
+<p><strong>The second build starts and plays clean</strong>: 12 of 12 stones on a real keyboard, &quot;Moonlit Harmony&quot;, R to restart, no errors in the browser. The result is 8 source files, 572 lines of TypeScript, plus the panel&#39;s layout and one particle shader, and 8 automated tests.</p>
+<p><strong>It doesn&#39;t always take two turns.</strong> The same day we ran the same brief in Chinese. That run was a single session of 10 minutes 6 seconds. It produced 8 tests, and the build started and played through in the browser on the first try. The Chinese edition of this article shows that run.</p>
+<p>We ran this brief more than once that day. An earlier pair of runs used the previous model: three turns in English (22 min 55 s) and one in Chinese (11 min 47 s). The same paragraph made a different game every time.</p>
+<p><strong>Green tests are not a correct picture.</strong> The problem in this run passed every offline check and only showed up in a browser. This time we were Codex&#39;s eyes. The diagnosis and the fix were its own, and what made them possible was diagnostics the engine prints by itself and engine code the AI can read. That&#39;s the difference between a remote and a screwdriver: when something breaks, the AI can open the machine and look. With a browser available it can go further and take a frame apart with the frame capture tool, which these runs did not use:</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/fig04-rhi-annotated-en.png" width="3200" height="2000" alt="Taking one frame apart" loading="lazy" />
+<figcaption>The frame capture tool breaks a frame apart. For every draw call, the AI can inspect which program ran and what data it read.</figcaption>
+</figure><p>This path isn&#39;t specific to Codex. Claude Code, Cursor and other general coding agents open the same project and read the same AGENTS.md and the same commands.</p>
+<h2>04 Five days, one transforming mech game</h2>
+<p>Spirit Stone Night is the baseline. To probe the ceiling, we ran a long-horizon test: <strong>Tiangong Warframe</strong>, a two-form mech shooter. In the air you fly the &quot;Falcon&quot; in a vertical bullet-hell; on the ground it transforms into the third-person &quot;Frame&quot;. You launch from a hangar, fight through air and ground battles up to the stratosphere, and face one of three final bosses depending on your rating.</p>
+<p>Mech, environments, enemies, effects, UI, sound effects and music are <strong>all generated in code, with zero external assets, and the whole game was made by one person. Content development took 5 days and 274 messages (18,321 Chinese characters). From those, the AI made 2,401 commits and left about 3,400 process screenshots.</strong> The mech in that five-day build has 25 joints and transforms between fighter and mech. 103 sound effects, 58 boss-attack sounds and 9 adaptive music tracks are all synthesized live.</p>
+<figure>
+<video controls playsinline preload="metadata" poster="/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" aria-label="Gameplay from the latest build of Tiangong Warframe">
+<source src="/assets/blog/forgeax-open-source/tiangong-yintai-run.mp4" type="video/mp4" />
+</video>
+<figcaption>Gameplay from the latest build of Tiangong Warframe at real-time speed (4 min 41 s): the hangar, the launch corridor, the snowfield fortress and a boss fight. The hero mech on screen is YINTAI, the new-generation body described below.</figcaption>
+</figure><p>The first prompt wasn&#39;t &quot;make a mech game&quot;. It was a ~4,000-character spec covering scope, technical constraints and acceptance criteria. A few of the rules: use only ForgeAX, no external assets; one clear takes about 5 minutes, with a new set piece every 20 to 30 seconds; a sub-agent that didn&#39;t work on the game reviews screenshots blind, and a pass needs an average of 4.0 or higher; if the AI thinks a bar is unreasonable, it can only file it under &quot;pending ruling&quot;, never lower it on its own. <strong>With a high bar, every round leaves another round of work, so the AI stays on course through hours nobody is watching.</strong></p>
+<p>On day two, the creator noticed the AI was recording their requests in less and less detail: a sentence with five points would shrink to half a line in the notes. So we added a <strong>requirements ledger</strong>. Every message gets an ID, is broken into checkable requirements, and every status needs evidence. In the first version, only 67 of 167 items were actually done; most were partial. The most important rule: <strong>anything visual can&#39;t be marked as passed by whoever built it; it has to be compared against the reference image.</strong> The sea of clouds is the example. The AI glanced at a screenshot and marked it passed. The next day the creator looked: solid spheres with sandpaper grain, like steamed buns. All of it was thrown out and rebuilt.</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/hangar-mech-front.jpg" width="2560" height="1440" alt="The hangar" loading="lazy" />
+<figcaption>The main menu background. The mech, the hangar and the lighting are all generated in code in real time.</figcaption>
+</figure><p><strong>There was no mech modeler in the engine, so the AI first wrote itself a set of modeling tools, then used them to build the mech.</strong> The creator&#39;s notes on the head were brief: it must not look like a fly, especially the mouth guard; match the reference proportions with a long head; straight V-shaped horns. Every round, the AI put the head side by side with the concept art. The head went through 12 rounds and 123 images; the body went through 26 more rounds for head-to-body proportion. In round 18 the AI replaced the big slanted eyes with a thin visor slit and changed the crest to a short, wide blade. (Recent engine releases build these modeling capabilities in.)</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/mechhead-iter-01-before-after-head.jpg" width="3360" height="1260" alt="Head turntable comparison" loading="lazy" />
+<div class="fig-row two" style="margin-top:8px">
+<img src="/assets/blog/forgeax-open-source/mech-iter-18-before-head.jpg" width="1600" height="900" alt="Round 18, before" loading="lazy" />
+<img src="/assets/blog/forgeax-open-source/mech-iter-18-after-head.jpg" width="1600" height="900" alt="Round 18, after" loading="lazy" />
+</div>
+<figcaption>Iterating on the mech head. Top: turntable comparison, from rough early versions to a tighter shape. Below: round 18 before and after. Each round, the AI took its own screenshots and compared them with the concept art before making changes.</figcaption>
+</figure><p><strong>After the five-day build, the mech itself moved on a generation.</strong> The one in the hangar and head screenshots above is the body from the five-day build. It was assembled piece by piece with tools the AI wrote on the spot, mostly by extruding simple solids; its chest and shoulder armour is folded from flat plates. Since then the engine has grown modeling tools of its own: meshes generated from curves and surfaces, UV unwrapping, baking high-poly detail onto a low-poly mesh. We had the AI rebuild the hero mech from scratch with them. The new body is called <strong>YINTAI</strong>, and it is the one in the recording at the top of this section: continuous curved armour all over, 30 joints, one mesh shared by the mech and the fighter, 72,157 triangles in the in-game model. It is still just code: 8 source files, about 4,100 lines of TypeScript, with no imported models or textures.</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/yintai-concept-vs-game-en.jpg" width="1640" height="1230" alt="YINTAI: concept art next to an in-game capture" loading="lazy" />
+<figcaption>YINTAI, the new hero mech. Left: the AI-generated concept art. Right: an in-game capture in ForgeAX.</figcaption>
+</figure><figure>
+<img src="/assets/blog/forgeax-open-source/fig20-yintai-ingame-grid.jpg" width="2560" height="1440" alt="YINTAI in the game: hangar, launch, snowfield fortress, boss fight" loading="lazy" />
+<figcaption>YINTAI in the game: the hangar, the launch corridor, the snowfield fortress and a boss fight. Frames from a gameplay recording.</figcaption>
+</figure><p>How it was built, surface by surface, is written up in <a href="/fr/blog/yintai-making-of.html">YINTAI: a game mech modelled entirely in code</a>, and the <a href="/fr/showcase/yintai/">3D model</a> can be turned around in the browser. The point for this article is narrower: <strong>the gaps a game exposes turn into engine capabilities, and once those land, the AI can rebuild what it made before with the new ones.</strong></p>
+<figure>
+<video autoplay muted loop playsinline controls preload="metadata" poster="/assets/blog/forgeax-open-source/mech-whale-ring.jpg" aria-label="Kunqiong&#x27;s ring barrage">
+<source src="/assets/blog/forgeax-open-source/mech-whale-ring.mp4" type="video/mp4" />
+</video>
+<figcaption>Kunqiong's ring barrage: bullets expand outward in rings, and the player has to find the gap.</figcaption>
+</figure><p><strong>The AI checks its own work.</strong> The game can jump straight to any shot on command, and the AI then plays with real keyboard and mouse input, from the menu all the way to the boss results screen. <strong>That gives it an edit, screenshot, look, edit-again loop, and the creator only has to look at pictures.</strong></p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/result-rating-b.jpg" width="1920" height="1080" alt="Results screen: rank B" loading="lazy" />
+<figcaption>Results after a real clear: 14 minutes, 2 deaths, rank B. (The author isn't great at games. Show us your score.)</figcaption>
+</figure><p>Why insist on code for everything? Because the AI can&#39;t really modify models and textures imported from outside. <strong>When everything is code, the AI can change anything and verify the change immediately.</strong> That said, ForgeAX also imports FBX, GLB and glTF with PBR materials and skeletal animation. The AI is free to choose: call external modeling tools, bring in existing assets, or use models from third-party generation APIs.</p>
+<ul>
+<li><strong>Play Tiangong Warframe</strong> (RTX 4060 or better, or Apple M4 or newer; a Chromium-based browser with WebGPU hardware acceleration; gamepad recommended): <a href="/games/forgeax-warframe/">forgeax.github.io/games/forgeax-warframe/</a></li>
+</ul>
+<h2>05 Everything grows, persists, and gets reused</h2>
+<p>Two trends define the harness era.</p>
+<p><strong>Everything is a plugin.</strong> Rendering is a plugin. Physics is a plugin. Your game is a plugin too: package it and another project can install it whole; uninstall it and it leaves with its own undo button, nothing left behind.</p>
+<p><strong>Assets are code.</strong> An asset can be written in TypeScript and batch-generated in a loop, or it can be a JSON file where one changed field shows up as a readable diff. Every asset has a stable ID, so references survive moving between projects. The harness manages assets the way it manages its own memory files.</p>
+<p>People often ask: if AI is this capable, why not have it write an engine from scratch every time? It would be fast. The problem is reuse. If you write one and I write one, your assets mean nothing to my project. Both trends point to one goal: <strong>what you&#39;ve built should be remembered.</strong> A module from game A runs in game B. The assets and mechanics from your first game carry into your second. When the next generation of models arrives, AI can rebuild them with new capabilities. Call it an engine with memory, a GitHub for games, or a world whose content, mechanics and framework evolve themselves.</p>
+<h2>06 A self-evolving engine</h2>
+<p>ForgeAX&#39;s first commit was on May 2, 2026. By October 19, the repository had <strong>3,611 commits, 74 packages and 4,034 test files, with nearly 600 commits in the previous 30 days.</strong></p>
+<p>Most of that code wasn&#39;t written by people. <strong>The engine is evolving itself, and it&#39;s speeding up.</strong></p>
+<p>Here&#39;s the division of labor: <strong>humans set direction and accept work; large numbers of cloud AI agents write code, run tests and review each other in sandboxes</strong>, and approved changes are merged by an owner. There are seven steps: requirements, research, planning, implementation, verification, acceptance and merge. Humans own steps one and six, and every step has to leave evidence a machine can check. The agent fleet developing the engine runs on <strong>a scaled-out pool of Mac minis and Windows machines with gaming GPUs</strong>, a real-hardware environment where it iterates on performance and on the game-making experience in parallel.</p>
+<p>Every engine change has to pass acceptance. Each round uses a fresh batch of game tasks that were never used to tune the engine, so it can&#39;t have been &quot;fit to the answers&quot;. The same AI builds the same task several times with ForgeAX and with a baseline, and judges who don&#39;t know which image came from which side score the visuals alone.</p>
+<p><strong>Plans, rationales and failed attempts all go into the repository.</strong> When a stronger model arrives, it can read the history and see why a piece of code was written the way it was. If it was a compromise forced by an earlier model&#39;s limits, the new model can change it confidently and knows where to go.</p>
+<p><strong>You can watch that pace in the public repository.</strong> Stable v0.5.0 shipped on November 12, two weeks after the previous stable release, with several directional lights, temporal anti-aliasing and far wider WebGL2 rendering. Stable v0.5.1 followed one week later and made water, volumetric clouds, desktop and mobile app packaging and a CPU, memory and GPU profiling workbench stable. Between the two, preview builds came as fast as four in two days. Community requests are part of it: on November 5 a developer asked in a GitHub issue for spot lights to control falloff the way point lights do, and two weeks later <code>SpotLight.decay</code> shipped in stable v0.5.1. Every update is written up in the <a href="/fr/changelog/">changelog</a>.</p>
+<p>One step further: as AI moves toward self-improvement, the game industry will change with it. <strong>The more AI uses this engine, the more help it gets finding and fixing its own problems.</strong></p>
+<h2>07 Honestly, it&#39;s still early</h2>
+<p>ForgeAX is at the beginning, with a lot of room to grow. <strong>For now it best serves indie games that ship across platforms, and individuals or teams who want AI deeply involved in development.</strong></p>
+<p>There are three main limitations today.</p>
+<p><strong>Mobile performance.</strong> In WeChat mini-games and similar environments, frame rates aren&#39;t yet a stable 60 fps. That needs deeper optimization.</p>
+<p><strong>Platforms and ecosystem.</strong> Native console and mobile targets, content tooling and commercial track record still trail mature engines. We&#39;re actively working on them.</p>
+<p><strong>The cost of making games with it.</strong> On the same fresh tasks, AI still spends more than we&#39;d like completing them with ForgeAX, because foundation models haven&#39;t been trained on our engine. Even so, the AI-native design means models that have never seen the engine can still build with it. We&#39;re working with model teams, and we&#39;ll open-source more high-quality ForgeAX games for the community and model builders to learn from. As models get stronger, the engine evolves faster, and making games with a model, a harness and ForgeAX gets freer and smoother.</p>
+<p>We&#39;re not claiming you can make a AAA game from one sentence. AI lets you turn ideas into games more freely, <strong>but good games still come from a creator&#39;s ideas, taste, judgment and long hours of polish.</strong></p>
+<h2>Closing</h2>
+<p>Future virtual worlds may be maintained entirely by AI. Gameplay code, narrative and media assets will be AI-generated, at a complexity far beyond what people can read. Players and game experts will still supply the intent and the final taste.</p>
+<p>That&#39;s why it matters to give AI an engine it can fully control: a mature scaffold, so it doesn&#39;t start from zero every time.</p>
+<p>This is our gift to AI: <strong>an engine built natively for AI, a seed for a virtual-world oasis.</strong></p>
+<p>It only gives the world a place to grow. It&#39;s the first gradient. The rest is up to AI and creative human makers.</p>
+<p><strong>Get the full source on GitHub, and add ForgeAX to the AI coding tool you already use with one command:</strong></p>
+<p><a href="https://github.com/ForgeAX/forgeax-engine">github.com/ForgeAX/forgeax-engine</a></p>
+<pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install
+</code></pre>
+<p>We&#39;d love for AI and pioneering game creators everywhere to build with ForgeAX and turn ideas into games. Contributions are welcome too: code, write-ups of what you&#39;ve built, and feedback. Let&#39;s build the AI-native game engine for a new era together.</p>
+<ul>
+<li><a href="/fr/tutorials/getting-started.html">Getting started</a></li>
+<li><a href="https://forgeax.github.io/download/engine-ai.md">Install guide for your AI agent</a></li>
+<li><a href="/fr/changelog/">Changelog</a></li>
+<li><a href="/games/forgeax-warframe/">Play Tiangong Warframe</a></li>
+<li><a href="/fr/blog/yintai-making-of.html">How YINTAI, the new hero mech, was made</a></li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/fr/tutorials/getting-started.html">Commencer →</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="ForgeAX" /></div>
+    <p>Un studio de jeux personnels natif d'IA : transformez vos idées en jeux jouables.</p>
+  </div>
+  <nav class="foot-links" aria-label="Site">
+    <a href="/fr/tutorials/">Tutoriels</a>
+    <a href="/fr/examples/">Exemples</a>
+    <a href="/fr/marketplace/">Plugins</a>
+    <a href="/fr/blog/">Blogue</a>
+    <a href="/fr/changelog/">Journal des modifications</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">Organisation GitHub</a>
+    <a href="/fr/license.html">Licence</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>天工引擎正式开源：一个由 AI 构建、给 AI 用的游戏引擎 — 天工引擎</title>
+<meta name="description" content="给 AI 的不该是遥控器，该是螺丝刀。这篇讲天工引擎为什么这样设计，怎么只用 Codex 和两条命令做出一个游戏，以及五天做出的变形机甲游戏《天工战甲》。" />
+<link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
+<meta property="og:title" content="天工引擎正式开源：一个由 AI 构建、给 AI 用的游戏引擎 — 天工引擎" />
+<meta property="og:description" content="给 AI 的不该是遥控器，该是螺丝刀。这篇讲天工引擎为什么这样设计，怎么只用 Codex 和两条命令做出一个游戏，以及五天做出的变形机甲游戏《天工战甲》。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forgeax.github.io/zh/blog/forgeax-open-source.html" />
+<meta property="og:image" content="https://forgeax.github.io/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://forgeax.github.io/zh/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="en" href="https://forgeax.github.io/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="zh-CN" href="https://forgeax.github.io/zh/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="ja" href="https://forgeax.github.io/ja/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="ko" href="https://forgeax.github.io/ko/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="es" href="https://forgeax.github.io/es/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="de" href="https://forgeax.github.io/de/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="fr" href="https://forgeax.github.io/fr/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="pt" href="https://forgeax.github.io/pt/blog/forgeax-open-source.html" />
+<link rel="alternate" hreflang="x-default" href="https://forgeax.github.io/blog/forgeax-open-source.html" />
+<link rel="alternate" type="text/markdown" href="https://forgeax.github.io/llms.txt" title="llms.txt" />
+<meta name="twitter:image" content="https://forgeax.github.io/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
+<meta name="theme-color" content="#FFFFFF" />
+<meta name="color-scheme" content="light" />
+
+</head>
+<body class="lang-zh forgeax-site">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/zh/"><img src="/logo.svg?v=7" alt="天工引擎" /></a>
+    <button class="nav-burger" id="burger" aria-label="menu"><span class="ui-icon" aria-hidden="true"><i data-lucide="menu"></i></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="/zh/" data-nav="/">主页</a>
+      <a href="/zh/tutorials/" data-nav="/tutorials/">教程</a>
+      <a href="/zh/examples/" data-nav="/examples/">示例</a>
+      <a href="/zh/marketplace/" data-nav="/marketplace/">插件</a>
+      <a href="/zh/blog/" data-nav="/blog/" class="active">观点</a>
+      <a href="/zh/changelog/" data-nav="/changelog/">更新日志</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-menu" id="langMenu">
+        <button type="button" class="lang-menu-trigger lang-menu-trigger--icon" id="langMenuBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="语言">
+          <span class="ui-icon ui-icon--sm" aria-hidden="true"><i data-lucide="globe"></i></span>
+        </button>
+        <div class="lang-menu-list" id="langMenuList" role="listbox" hidden><a class="lang-item" href="/blog/forgeax-open-source.html" data-l="en">English</a><a class="lang-item active" href="/zh/blog/forgeax-open-source.html" data-l="zh" aria-current="true">中文</a><a class="lang-item" href="/ja/blog/forgeax-open-source.html" data-l="ja">日本語</a><a class="lang-item" href="/ko/blog/forgeax-open-source.html" data-l="ko">한국어</a><a class="lang-item" href="/es/blog/forgeax-open-source.html" data-l="es">Español</a><a class="lang-item" href="/de/blog/forgeax-open-source.html" data-l="de">Deutsch</a><a class="lang-item" href="/fr/blog/forgeax-open-source.html" data-l="fr">Français</a><a class="lang-item" href="/pt/blog/forgeax-open-source.html" data-l="pt">Português</a></div>
+      </div>
+      <a class="nav-cta" href="/zh/#install">开始使用</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <article class="read article">
+    <a class="back" href="/zh/blog/">← 返回观点</a>
+    <div class="meta"><span class="tag">动态</span><span>2026年11月24日</span></div>
+    <h1>天工引擎正式开源：一个由 AI 构建、给 AI 用的游戏引擎</h1>
+    <p class="standfirst">天工引擎（ForgeAX）已正式开源。这是一个几乎完全由 AI 智能体开发、从第一天起就为 AI 使用而设计的游戏引擎。</p>
+    <div class="prose"><pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install
+</code></pre>
+<p>源码：<a href="https://github.com/ForgeAX/forgeax-engine">github.com/ForgeAX/forgeax-engine</a> · Apache-2.0</p>
+<h2>01 过去二十年的引擎很好，但它的用户是人</h2>
+<p>传统引擎的每一处设计都是为了让人用得顺手：可视化编辑器让人拖拖拽拽摆场景，蓝图与简化过的引擎脚本降低了人构建游戏逻辑与内容的门槛，资产在 DCC 工具里制作好再导入引擎，引擎不需要编辑资产，所以打包成二进制，方便存储与管理。这些选择在它们的时代全都是对的。前提是，坐在屏幕前的是一个人。</p>
+<p>换成 AI，二进制资产它无法直接看，编辑器交互按钮只能读图用 computer use，百万行 C++ 它在一次对话里读不完。于是今天 AI 想操作商业引擎，主流做法是走 MCP 这类桥接接口：引擎对外开放封装过的 API，AI 去“按”。</p>
+<p>这就像递给 AI 一个遥控器。它能换台，能调音量，但电视里哪根线松了，它看不见，也修不了。</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/fig03-remote-vs-screwdriver.png" width="3200" height="1800" alt="遥控器和螺丝刀" loading="lazy" />
+<figcaption>只有桥接接口时，AI 手里是几个按钮；天工引擎给的是源码、运行状态和一整帧的 GPU 记录</figcaption>
+</figure><p>这种方式有两个问题。第一，AI 看不见引擎内部发生了什么，画面不对时只能猜原因。第二，各家的接口都不一样，而且天天在变，模型训练时没见过它们稳定的用法，所以用起来并不可靠。</p>
+<p>而游戏设计非常复杂，几乎没有哪个引擎特性可以覆盖某一个复杂游戏的全部需求（demo 除外），项目组或个人开发者都会基于引擎的某个版本深度魔改。</p>
+<p>所以我们有一个判断：<strong>引擎公司们积累了很多年，但在&quot;给 AI 用&quot;这一件事上，大家其实回到了同一条起跑线。</strong></p>
+<h2>02 我们相信：下一代引擎的第一用户是 AI</h2>
+<p>AI 写代码的能力还在往上走。照这个速度，任何一段程序它都可能很快从头重写一遍。</p>
+<p>顺着推下去会得到一个有点反直觉的结论：<strong>一个提前写好、封装严实、改不动的引擎，对 AI 来说可能不是帮助，而是障碍</strong>——绕开你、自己重写一遍，反而更快。</p>
+<p>既然拦不住，不如把工具交出去。给 AI 的不该是遥控器，该是螺丝刀。</p>
+<p>天工引擎的工程规范第一页写着：<strong>AI 是第一用户。AI 好用和人类习惯冲突时，AI 赢。</strong></p>
+<p>这句话落到代码上，是一串具体的选择。</p>
+<p><strong>用 AI 最熟的语言。</strong> 引擎、脚本、资产、游戏逻辑全部是 TypeScript，跑在 WebGPU 上。TypeScript 自带类型检查，AI 写错了当场就能发现；而 WebGPU 这一层往上的所有东西，AI 都能读、能改、能重写。</p>
+<p><strong>界面也用 AI 最熟的写法。</strong> 不另造 UI 库，游戏界面就是标准的 HTML 和 CSS；连没有浏览器的微信小游戏里，也由引擎自己把同一份 HTML / CSS 画出来。</p>
+<p><strong>宁可不封装，也不能让它看不见。</strong> 我们对团队的要求是代码写得健壮，但 AI 可以不改它，不能看不见它。另有一笔账内部叫&quot;压缩即智能&quot;，压缩的不是文件是概念：游戏状态只存一份，渲染数据只存一份，别处只读不抄。AI 每少问一次&quot;到底哪份才是真的&quot;，就少犯一次错。</p>
+<p>过去选技术方案，成熟度排第一。现在我们换了个标准：哪个对 AI 友好，选哪个。</p>
+<p>基于这些准则，我们搭建起了 AI Native 的「天工引擎」：</p>
+<figure>
+<video autoplay muted loop playsinline controls preload="metadata" poster="/assets/blog/forgeax-open-source/vox-city-fps.jpg" aria-label="《体素前线》">
+<source src="/assets/blog/forgeax-open-source/vox-city-fps.mp4" type="video/mp4" />
+</video>
+<figcaption>使用天工引擎制作的可破坏体素游戏——《体素前线》</figcaption>
+</figure><h3>为什么选择天工引擎？</h3>
+<ol>
+<li><strong>生产工具形态变革：</strong> 不再受限于传统引擎载体，Agent 框架自驱动，引擎完全跑在 harness 当前最火的 npm 生态内，沙盒内极速启动，热更新；</li>
+<li><strong>颠覆传统素材制作：</strong> 从底层支持程序化资产，更适合 AI 理解的素材流程，未来 AI 建模/做程序化资产的能力会继续持续提升。但我们也支持传统游戏 FBX 等游戏资产；</li>
+<li><strong>原生内置 AI 能力：</strong> 天工内置了一套游戏运行时用的 AI 接口，比如，配套的 NPC 模块能把一个角色绑定到一个 AI「灵魂」上实现运行时的 AI harness NPC，AI 输出程序化地图的参数实现运行时程序化地图生成，或运行时 AI 数值平衡调整、道具、机制变化等更自由的 AI 原生玩法；</li>
+<li><strong>多场景需求兼容：</strong> 支持多种工作流和发行平台发布。无论你使用哪一种通用 AI 编程 harness、哪一家基座模型，打开天工项目都能读到同一份使用指南；下文的两个游戏，就是用不同的 harness 和基座模型做成的。做完的游戏，同一个项目一条命令就能打成网页、单个 HTML 文件或微信小游戏，桌面和移动端应用也已经能打包；</li>
+<li><strong>一起 RSI：</strong> 与 AI 基座模型、harness、社区共生成长。</li>
+</ol>
+<p>下文用两个真实的游戏制作案例，展示生产工具形态和素材制作方式的改变。</p>
+<h2>03 直接用 Codex 做一个游戏：两条命令，一段话</h2>
+<p><strong>不开编辑器，不写一行代码，只用 Codex，能做出什么？</strong> 下面是完整的上手路径，照着做就行。</p>
+<p><strong>第一步，把天工接入 Codex。</strong> 需要 Node.js 22.13 或更高版本。</p>
+<pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install --ide codex
+</code></pre>
+<p>不带 <code>--ide</code> 时，它会一次接入本机上所有受支持的 AI 编程工具（Claude Code、Codex、Cursor 等）。这条命令把天工的工具入口（MCP 和命令行）写进 Codex 的用户配置。和只有几个按钮的桥接不同，入口背后的引擎源码、运行状态和每一帧的 GPU 记录，Codex 都能直接读。</p>
+<p><strong>第二步，在一个空目录里新建项目。</strong></p>
+<pre><code class="language-bash">mkdir spirit-stones &amp;&amp; cd spirit-stones
+npx -y @forgeax/marker@0.5.0 init
+</code></pre>
+<p>目录必须是真正的空目录。<code>init</code> 会在里面生成一个空的游戏项目：场景里还没有任何物体，但工程检查和构建已经能通过。</p>
+<p>说明一下版本：上面是官网现在的命令，入口包是 <code>@forgeax/marker</code>，新建的项目用引擎 0.5.0；我们在全新的用户目录里重新跑过这两条，都成功，空项目的检查和构建也都通过。下面这次实录是 11 月 23 日做的，当时的入口包名还是 <code>@forgeax/game</code>（引擎 0.4.8），所以视频开头出现的是那个包名；两条命令的用法没有变。</p>
+<p><strong>第三步，在这个目录里打开 Codex，把需求一次说清楚。</strong> 一段好的需求要说明四件事：玩家做什么，画面上什么会变，怎样算完成，做完要验证什么。我们 11 月 23 日发出去的是下面这两段，原文照录：</p>
+<blockquote>
+<p>这是用天工引擎新建的空项目。请把它做成一个原创的 3D 小游戏《灵石夜》：场景是月夜（深蓝夜空、冷色月光、地面薄雾），12 颗灵石散落在场地各处，会发光并缓慢旋转悬浮；玩家走近就自动收集，收集时爆出一小团光粒子；左上角 HUD 显示「灵石 n / 12」，收齐后显示「月下圆满」。先读 AGENTS.md，按项目规范做。</p>
+<p>这台机器有一个限制：这里不能打开浏览器，也不允许长时间开着浏览器页面，所以不要启动 <code>forgeax dev</code> 或任何浏览器，也不要发布或上传任何东西。你的命令行没有网络。请改用 <code>forgeax project check</code>、<code>forgeax project build</code> 和针对游戏逻辑的自动化测试来验证，并明确告诉我哪些部分还没有在真实浏览器里验证过。我会自己打开构建结果，发现问题再把截图发给你。只在这个项目目录里工作。这里的沙箱不允许写 .git，提交由我来做；做完告诉我怎么玩。</p>
+</blockquote>
+<p><strong>第一段是需求，第二段是我们这台机器的规矩，不是引擎的要求。</strong> 我们把 Codex 关在沙箱里跑：命令行不联网，不开浏览器，也写不了 <code>.git</code>。所以这一次有三件事是我们自己做的：打开浏览器看画面，用键盘走一遍，最后做 git 提交。你的机器如果没有这些限制，可以把第二段换成「做完用 <code>forgeax dev</code> 跑起来，自己截图检查画面，最后用 git 提交」，让 Codex 自己看画面；这种做法这一次我们没有测。还有一点：这是一次无人值守的非交互运行。这种方式下，Codex 调用天工 MCP 工具的请求会被它自己的审批策略拦下，我们更早的一次运行里就是这样；这一次它只通过 MCP 入口读了资源，干活全程用的是 <code>forgeax</code> 命令行和引擎附带的使用指南。</p>
+<p>需求发出去之后，我们没有再碰键盘。<strong>10 分 06 秒后，Codex 说做完了</strong>：9 个源码文件、570 行 TypeScript，8 项自动化测试、项目检查和正式构建全部通过。我们在浏览器里打开它交出来的构建，第一次就启动了。用真键盘走完一遍：12 颗灵石全部收齐，出现「月下圆满」，按 R 重开，浏览器里没有一条报错，只有一条提醒：场景里放了两盏平行光，引擎只用第一盏。</p>
+<figure>
+<video controls playsinline preload="metadata" poster="/assets/blog/forgeax-open-source/codex-spirit-stones-zh.jpg" aria-label="Codex 做《灵石夜》的实录">
+<source src="/assets/blog/forgeax-open-source/codex-spirit-stones-zh.mp4" type="video/mp4" />
+</video>
+<figcaption>Codex 做《灵石夜》的实录，2026 年 11 月 23 日，带解说。这次 Codex 是用命令行方式运行的，没有图形界面可录：终端部分是它自己的会话记录，按原样重新排版后以 27 倍速回放（倍速和真实用时标在画面右上角），不是屏幕录像，机器路径已隐去。结尾约 36 秒是我们在浏览器里用真实按键玩的画面，原速。全程一次会话，没有人改过一行代码</figcaption>
+</figure><p><strong>这 10 分钟里 Codex 做了什么？</strong> 它走的是一个固定的循环：先看项目，再学引擎，然后实现、验证，最后把没验证的部分交代清楚。</p>
+<p><strong>先看，再学。</strong> Codex 先读了项目里写给 AI 的说明文档 AGENTS.md，又翻了引擎附带的使用指南，然后定下方案：一座立着残缺月门的山谷，玩家提着灯寻石，右下角一张小星图标出还没收的灵石；镜头跟在人身后，方向键或 WASD 行走；收集规则和画面表现分开写，这样不开浏览器也能测。</p>
+<p><strong>实现。</strong> 山谷、松林、月门、提灯的行人、12 颗灵石、光屑、HUD 和星图全部用代码生成，<strong>一张外部素材都没用</strong>，它的命令行本来也连不上网。</p>
+<p><strong>验证。</strong> 没有浏览器，它就写测试：8 项，覆盖走近才收、每颗只收一次、斜着走不会更快、光屑按时消失，还有一项把整个场景在引擎里跑起来，走完 12 处灵石再按 R 复位。它还用 Node 模拟了一遍 HUD，核对计数和结算文案。途中它自己发现并改掉了三处：改配置时留下的一行无效内容，程序生成的场景漏了组件声明，新项目的测试配置会把引擎工具目录里的测试也扫进来。每一处它都记进了项目的反馈文档。</p>
+<p><strong>交代清楚。</strong> 最后它列出了自己没能验证的部分：月光和薄雾的观感、灵石和光屑的亮度、HUD 在实际窗口里的排版、真实键盘和镜头的手感。这几项正是我们在浏览器里替它补上的。</p>
+<p><strong>不是每次都一次过。</strong> 同一天，我们用英文把同一段需求也跑了一遍，那次用了两轮。</p>
+<p>第一轮 13 分 04 秒，项目检查、正式构建和 7 项测试全部通过，但构建在浏览器里启动不了。页面上是一句「Unable to start the game.」和引擎自己打印的一段诊断：HUD 面板启动失败，<code>parseGuid is not a function</code>。我们把这段诊断原样贴了回去。<strong>3 分 35 秒后，Codex 找到了原因</strong>：面板去取自己的界面布局时用错了服务。界面这一侧拿到的只是已发布资产的读取器，它调用的那个方法只有完整的资产注册表才有。它是翻了项目里装着的引擎代码才定位到的，没有改引擎，也没有换引擎版本；它先写了一项能复现这条报错的测试，再改掉那一处调用。第二版在浏览器里干净地走完了全程。两轮合计 16 分 39 秒，8 项测试；完整过程在本文的英文版里。</p>
+<p>这段需求我们当天跑了不止一次。更早的一组用的是上一版模型：中文也是一次过（11 分 47 秒），英文用了三轮（22 分 55 秒）。同一段话，每次做出来的都是不一样的游戏。</p>
+<p><strong>测试全绿，不等于画面是对的。</strong> 英文那一版的问题，检查、构建和测试都没有拦住，是进了浏览器才看见的。这一次是我们替 Codex 看的；定位和修复是它自己做的，靠的是引擎自己打印的诊断，和摆在它面前的引擎代码。这就是遥控器和螺丝刀的区别：出了问题，AI 可以自己打开“机器”看。在能开浏览器的环境里，它还可以用截帧工具把一帧拆开看，这几次运行都没有用到：</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/fig04-rhi-annotated.png" width="3200" height="2000" alt="截帧工具把一帧拆开看" loading="lazy" />
+<figcaption>截帧工具把一帧拆开：每一次绘制用了什么程序、读了什么数据，AI 都能逐项翻看</figcaption>
+</figure><p>这条路径不只适用于 Codex。Claude Code、Cursor 等通用 AI 编程工具打开同一个项目，读到的是同一份 AGENTS.md 和同一套命令。</p>
+<h2>04 5 天 RSI 做出的变形机甲游戏</h2>
+<p>《灵石夜》只是做最基础的测试，为了探索引擎的上限，我们做了一个长程任务的游戏测试：《天工战甲》——这是一款双形态机甲射击游戏，空中是纵版弹幕的「隼」，落地后变形成第三人称的「甲」，从机库出击，经过空战和地面战斗，一路打到平流层，终局还有三个按评级出现的 Boss。</p>
+<p>机体、场景、敌人、特效、界面、音效和音乐，<strong>全部由代码生成，没有使用任何外部素材，并且仅由一个人完成。游戏内容开发一共用了 5 天，274 句话、18,321 个字，AI 据此提交了 2,401 次修改，留下大约 3,400 张过程截图。</strong>五天做完的那一版里，机体有 25 个关节，能在战机和机甲之间变形；103 种音效、58 种 Boss 招式音效、9 首随战斗变化的配乐，全部现场合成。</p>
+<figure>
+<video controls playsinline preload="metadata" poster="/assets/blog/forgeax-open-source/tiangong-yintai-run.jpg" aria-label="《天工战甲》最新版本的实机录屏">
+<source src="/assets/blog/forgeax-open-source/tiangong-yintai-run.mp4" type="video/mp4" />
+</video>
+<figcaption>《天工战甲》最新版本的实机录屏（海外版界面，原速，4 分 41 秒）：机库整备、出击通道、雪原要塞、Boss 战。画面里的主角机是新一代机体「银胎」，下文会讲到</figcaption>
+</figure><p>制作过程是：第一次给 AI 的提示词不是「做一个机甲游戏」，而是一份约 4000 字的文档，内含范围、技术约束、验收条目。其中几条是：只用天工引擎，不用外部素材；一次通关约 5 分钟，每 20 到 30 秒换一个场面；没参与制作的子代理只看截图盲审，均分 4.0 以上才算过；AI 觉得验收线不合理，只能写进「待裁决」，不能自己放宽。<strong>验收线定得高，每一轮做完都还有下一轮要做，AI 在没人看着的几个小时里也不会偏离方向。</strong></p>
+<p>项目进行到第二天，制作人发现自己提过的要求，AI 记得越来越简略：一句话五个要点，到记录里只剩半行。于是有了一份「需求台账」，要求 AI 每一句话都要有着落：每句话一个编号，拆成能逐条检查的要求，每个状态都要有证据。第一版 167 条里，真正做完的只有 67 条，一大半只做到了一部分。规则里最关键的一条是：<strong>凡是画面相关的条目，不能由做的人自己打通过，必须拿当前画面对照参考图。</strong> 云海就是例子：AI 看了一眼图自己打了通过，第二天制作人一看，云是实心圆球加砂纸颗粒，像馒头，全部推翻重做。</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/hangar-mech-front.jpg" width="2560" height="1440" alt="机库待机" loading="lazy" />
+<figcaption>游戏的主菜单背景：机体、机库和光照皆由代码实时生成</figcaption>
+</figure><p><strong>引擎里没有机甲建模器，AI 就先给自己写了一套造型工具，再用它拼出机体。</strong>制作人对头部的要求只有几句：不能像苍蝇，尤其是嘴部面罩；比例要对上参考，头要修长；角是直的 V 形。AI 每一轮都把头部和概念图并排对照，机甲头一共改了 12 轮，用了 123 张图。为了头身比，机体又改了 26 轮。第 18 轮，AI 把头部的大斜眼改成一条细光缝的护目镜，头顶换成短而宽的刀刃冠饰（最新引擎版本已内化建模能力）。</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/mechhead-iter-01-before-after-head.jpg" width="3360" height="1260" alt="机甲头转台对照" loading="lazy" />
+<div class="fig-row two" style="margin-top:8px">
+<img src="/assets/blog/forgeax-open-source/mech-iter-18-before-head.jpg" width="1600" height="900" alt="第 18 轮改前" loading="lazy" />
+<img src="/assets/blog/forgeax-open-source/mech-iter-18-after-head.jpg" width="1600" height="900" alt="第 18 轮改后" loading="lazy" />
+</div>
+<figcaption>这三张图是机甲头部的修改过程。第一张是转台对照：最早的版本太粗糙，后来逐步收紧。后两张是第 18 轮的改前和改后。每一轮都是 AI 自己截图，和概念图并排对照后再改</figcaption>
+</figure><p><strong>五天版本之后，这台机体又换了一代。</strong> 上面机库图和头部修改图里的那台是五天版本的机体，是 AI 用自己现写的工具、靠几何体拉伸这类操作一块块拼出来的，胸甲和肩甲都是平面折的。后来引擎自己有了建模工具：用曲线和曲面生成网格、展开 UV、把高模细节烘焙到低模上。我们让 AI 用这些工具把主角机整台重做，新机体叫「银胎」，本节开头录屏里的就是它：全身装甲是连续的曲面，30 个关节，机甲和战机共用同一份网格，游戏里用的低模是 72,157 个三角面。它仍然只是一份代码，8 个源文件、约 4,100 行 TypeScript，没有导入任何外部模型和贴图。</p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/yintai-concept-vs-game-zh.jpg" width="1640" height="1230" alt="新机体银胎：原画与游戏内实拍的正面对照" loading="lazy" />
+<figcaption>新机体「银胎」。左边是 AI 生成的原画，右边是天工引擎里的游戏内实拍</figcaption>
+</figure><figure>
+<img src="/assets/blog/forgeax-open-source/fig20-yintai-ingame-grid.jpg" width="2560" height="1440" alt="银胎在游戏里：机库、出击、雪地要塞、Boss 战" loading="lazy" />
+<figcaption>银胎在游戏里：机库、出击、雪地要塞、Boss 战（实机录屏截帧，海外版界面）</figcaption>
+</figure><p>银胎是怎么一片一片建出来的，我们写在<a href="/zh/blog/yintai-making-of.html">《银胎：一台完全用代码建出来的游戏机甲》</a>里，<a href="/zh/showcase/yintai/">3D 模型</a>可以在浏览器里转着看。这里只说和引擎有关的一点：<strong>做游戏时暴露出来的缺口，会变成引擎的能力；能力到位以后，AI 可以把做过的东西用新能力重做一遍。</strong></p>
+<figure>
+<video autoplay muted loop playsinline controls preload="metadata" poster="/assets/blog/forgeax-open-source/mech-whale-ring.jpg" aria-label="鲲穹环形弹幕">
+<source src="/assets/blog/forgeax-open-source/mech-whale-ring.mp4" type="video/mp4" />
+</video>
+<figcaption>鲲穹的环形弹幕：弹幕呈圆环向外扩散，玩家要找缝隙穿过</figcaption>
+</figure><p><strong>AI 自己看自己做的东西。</strong> 游戏可以按指令直接跳到任意一个镜头，AI 再用真实的键盘鼠标操作，把流程从菜单一路跑到 Boss 结算。<strong>靠这个，它形成了「改、截图、看、再改」的循环，制作人只需要看图。</strong></p>
+<figure>
+<img src="/assets/blog/forgeax-open-source/result-rating-b.jpg" width="1920" height="1080" alt="结算页：评级 B" loading="lazy" />
+<figcaption>一次真实通关后的结算页：用时 14 分钟，死亡 2 次，评级 B（笔者比较手残，欢迎大家评论区展示战绩）</figcaption>
+</figure><p>为什么要这么较真，坚持全用代码？外部导进来的模型和贴图，AI 改不动。<strong>全是代码，AI 就什么都能改，改完马上能验证。</strong>但我们也支持导入 FBX、GLB、glTF 等常见的带 PBR、骨骼动画等的引擎资产，AI 可自由选择，比如调用外部建模工具做资产、导入已有的资产、由第三方模型生成算法 API 生成的模型等。</p>
+<ul>
+<li><strong>《天工战甲》在线试玩</strong>（推荐 4060 以上显卡或 Mac M4 以上芯片，Chrome 系浏览器开启 WebGPU 硬件加速，建议用手柄）：<a href="/games/forgeax-warframe/">forgeax.github.io/games/forgeax-warframe/</a></li>
+</ul>
+<h2>05 一切皆可成长、沉淀、复用</h2>
+<p>Harness 时代下有两个显著趋势：</p>
+<p><strong>一切皆插件：</strong>渲染是插件，物理是插件，你的游戏本身也是插件，一个游戏打成包可以被另一个项目整个装进去，卸载时带着自己的&quot;撤销键&quot;，走得干干净净。</p>
+<p><strong>资产也是代码：</strong>资产可以用 TypeScript 写、拿循环批量生成，也可以是一份 JSON，改个字段看一眼差异就知道变了什么，每个资产有固定 ID，换了项目引用也不会断，harness 像管理自己记忆文件一样管理资产。</p>
+<p>常有人问：既然 AI 这么强，直接让它从零写一个引擎不就完了？确实挺快，麻烦在于没法复用——你写一个我写一个，你的资产跟我有什么关系。所以这两件事指向同一个目标：<strong>做过的东西，要能被记住。</strong> A 游戏里的一个模块，B 游戏拿过去就能跑；你第一个游戏攒下的资产和玩法，第二个游戏接着用；等基座模型再升一代，还能让 AI 用新能力把它们重做一遍。你可以叫它&quot;有记忆的引擎&quot;，或者一个游戏化的 GitHub，一个自进化的世界内容/机制/框架。</p>
+<h2>06 引擎自进化，未来已来</h2>
+<p>天工引擎的第一次提交是 2026 年 5 月 2 日，而到 10 月 19 日时，引擎的仓库里已经有了 3,611 次提交、74 个功能包、4,034 个测试文件，最近 30 天提交了近 600 次。</p>
+<p>这些代码大部分不是人写的。<strong>引擎自进化的速度，正在指数级提升。</strong></p>
+<p>我们和 AI 的分工是：人提方向、做验收，云端大量 AI 智能体在沙盒里写代码、跑测试、互相审查，审过的改动由负责人统一合入。中间定了七步——需求、研究、计划、实现、验证、验收、合入——人只管第一步和第六步，每一步都要留下机器能核对的证据。我们给开发引擎的 AI 集群提供了规模化的 Mac mini 和带游戏显卡的 Windows 系统硬件群，作为引擎的真实进化环境，让它在真实环境里并行迭代性能、打磨做游戏的体验。</p>
+<p>每一次引擎优化，开发者都要验收：每轮验收都会用新出的一批游戏题，这些题之前没有拿来改过引擎，所以引擎不可能是“照着答案改的”。同一道题，让同一个 AI 分别用天工和对照方案各做几遍，再由不知道哪张图出自哪一边的评委，只看画面打分。</p>
+<p>开发过程里的计划、理由和失败经验，我们全部写进仓库。等更强的模型出现，翻开历史就知道某段代码当初为什么这么写；如果那只是早期模型能力不够时的妥协，它敢改，也知道往哪儿改。</p>
+<p><strong>这个速度在公开仓库里就能看到。</strong> 11 月 12 日发布稳定版 v0.5.0，距上一个稳定版两周，带来多个平行光、时间抗锯齿和大幅扩充的 WebGL2 渲染；一周后发布稳定版 v0.5.1，水体、体积云、桌面和移动端应用打包、CPU / 内存 / GPU 性能分析工作台进入稳定版。两个稳定版之间，预览版本最密的时候两天发了四个。社区的声音也在里面：11 月 5 日有开发者在 GitHub issue 里提出，希望聚光灯能像点光源一样控制衰减，两周后的稳定版 v0.5.1 里，<code>SpotLight.decay</code> 已经可用。每一次更新都记在<a href="/zh/changelog/">更新日志</a>里。</p>
+<p>再往前走一步：AI 在走向自进化，整个游戏行业也会随之改变。<strong>用这台引擎的 AI 越多，帮它发现问题、修复问题的力量就越多。</strong></p>
+<h2>07 坦白说，它还在成长期</h2>
+<p>天工引擎确实还在起步阶段，还有很大的优化和成长空间。<strong>天工引擎能更好服务的，可能是需要跨平台发布的独立游戏，以及让 AI 深度参与开发的个人或团队。</strong></p>
+<p>它目前的局限主要有三点。</p>
+<p><strong>一是移动端性能：</strong>在微信小游戏等场景，帧率离稳定 60 帧还有距离，需要继续做深度优化。</p>
+<p><strong>二是平台和生态：</strong>原生主机和手机平台、内容工具链、商业验证，天工和成熟引擎还有差距，我们正在积极适配。</p>
+<p><strong>三是 AI 用它做游戏的成本：</strong>在同样的新题上，AI 使用天工完成任务的成本目前还偏高，因为基座模型还没有在我们的引擎数据上做过训练。但即使如此，我们 AI 原生开发的思路，也让没见过引擎的基模能正常地开发。我们也在积极地跟基座模型团队合作推进，后续将开源更多用天工引擎做的高品质游戏，供社区与基模团队交流/使用。我们相信基座模型越强，我们的引擎自进化得越快，基座模型 + harness 在用户交互下，使用天工引擎做游戏的流程也会更自由、丝滑。</p>
+<p>我们今天的目标并不是&quot;一句话做出 3A&quot;。AI 能让你更自由地把想法做出来，<strong>但好游戏还是要靠游戏制作人的创意、审美、判断和长时间的打磨。</strong></p>
+<h2>写在最后</h2>
+<p>未来的虚拟世界，可能将完全由 AI 自主维护。游戏玩法代码逻辑、叙事内容、多媒体资产都将由 AI 生成，实现复杂度会远超人能读懂的范围，但需求和最终的品味呈现，还由玩家/游戏专家输入、把握。</p>
+<p>给 AI 一个可以自由操控的引擎至关重要，我们要给 AI 一套成熟的引擎脚手架，避免每次都从头开始。</p>
+<p>我们想送给 AI 一份礼物：<strong>一个为 AI 原生打造的引擎，一粒虚拟世界“绿洲”的种子。</strong></p>
+<p>它只负责让世界有地方生长，是这个世界的最初梯度，剩下的，交给 AI 与充满创意的人类创作者。</p>
+<p><strong>访问下方 GitHub 链接，获取天工全部源码。一行简单命令，即可将天工接入你正在使用的 AI 编程工具：</strong></p>
+<p><a href="https://github.com/ForgeAX/forgeax-engine">https://github.com/ForgeAX/forgeax-engine</a></p>
+<pre><code class="language-bash">npx -y @forgeax/marker@0.5.0 install
+</code></pre>
+<p>以天工之力，造万千可能！欢迎全球 AI 与 AI 先锋游戏创作者使用天工，让游戏创意成为现实。</p>
+<p>天工也期待与你共建。欢迎社区开发者参与贡献代码、分享实践、反馈建议，一起打造新时代的 AI 原生游戏引擎！</p>
+<ul>
+<li><a href="/zh/tutorials/getting-started.html">入门教程</a></li>
+<li><a href="/zh/changelog/">更新日志</a></li>
+<li><a href="/games/forgeax-warframe/">《天工战甲》在线试玩</a></li>
+<li><a href="/zh/blog/yintai-making-of.html">新机体「银胎」的制作过程</a></li>
+</ul>
+</div>
+    <p style="margin-top:32px"><a class="btn ghost" href="/zh/tutorials/getting-started.html">开始上手 →</a></p>
+  </article>
+</main>
+
+<footer class="foot"><div class="foot-inner">
+  <div class="foot-brand-col">
+    <div class="foot-brand"><img src="/logo.svg?v=7" alt="天工引擎" /></div>
+    <p>AI 原生的个人游戏工作室 —— 把想法变成可玩的游戏。</p>
+  </div>
+  <nav class="foot-links" aria-label="站点">
+    <a href="/zh/tutorials/">教程</a>
+    <a href="/zh/examples/">天工引擎示例</a>
+    <a href="/zh/marketplace/">插件</a>
+    <a href="/zh/blog/">观点</a>
+    <a href="/zh/changelog/">更新日志</a>
+    <a href="https://github.com/ForgeAX" target="_blank" rel="noopener">GitHub 组织</a>
+    <a href="/zh/license.html">版权说明</a>
+  </nav>
+</div>
+<div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
+</footer>
+
+<script src="/assets/site.js?v=c93fba97"></script>
+</body>
+</html>
