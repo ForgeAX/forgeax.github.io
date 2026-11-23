@@ -73,6 +73,7 @@
 <li>画质预设和设备配置：项目声明 <code>quality: { base: { kind: &#39;device-default&#39; } }</code> 即可从针对设备的推荐值起步，玩家的选择会被保存，<code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code> 可在运行时切换低、中、高三档。屏幕空间反射可以用半密度追踪，再以全分辨率重建。</li>
 <li>文字和材质：<code>GlyphText</code> 新增 <code>worldOriented</code>，标签可以跟随所在实体的朝向而不是始终面向相机，并且可以使用随游戏打包的字体。使用 <code>alphaCutoff</code> 或 <code>alphaHash</code> 的镂空材质现在默认 <code>alphaMode: &#39;opaque&#39;</code>，修复了镂空处发灰和整帧变暗的问题。自动曝光会在帧与帧之间保留历史。</li>
 <li>面向 AI 智能体：SDK 附带一份引擎能力速览，起步指引会让智能体在写代码之前先读它，并对照已有能力做计划。3D 起步模板去掉了单元测试脚手架，改以真实试玩来验证；<code>forgeax project test</code> 在游戏没有测试文件时返回成功。</li>
+<li>工具：从 v0.5.1 起，可选的 View 资源工作区随 <code>@forgeax/engine</code> npm 包一起提供；用 npm 安装的游戏在项目根目录运行 <code>node ./node_modules/@forgeax/engine/tools/view/start.mjs --project .</code> 就能打开它。</li>
 <li>预览版本中：引擎工具和启动界面的文字现在提供中文和英文，README 也在英文之外提供中文版。运行时在 GPU 上生成的纹理现在覆盖全景图和体积纹理，描边在开启 MSAA 时得以保留。</li>
 <li>预览版本中还有：关卡流式加载迈出第一步，关卡可以在隐藏状态下于后台准备好，再加入正在运行的场景；Deferred 渲染更快；3D 起步场景采用中性的默认曝光。</li>
 </ul>

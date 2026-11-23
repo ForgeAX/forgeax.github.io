@@ -73,6 +73,7 @@
 <li>품질 프리셋과 기기 구성: 프로젝트에서 <code>quality: { base: { kind: &#39;device-default&#39; } }</code>를 선언하면 기기에 맞는 권장값에서 시작하고, 플레이어의 선택이 저장되며, <code>app.configuration?.setQuality({ base: { kind: &#39;preset&#39;, preset: &#39;medium&#39; } })</code>로 실행 중에 낮음·중간·높음을 전환할 수 있습니다. 스크린 스페이스 반사는 절반 밀도로 추적한 뒤 전체 해상도로 재구성할 수 있습니다.</li>
 <li>텍스트와 머티리얼: <code>GlyphText</code>에 <code>worldOriented</code>가 추가되어 레이블이 카메라를 향하는 대신 엔티티를 따라갈 수 있고, 게임에 포함한 폰트를 쓸 수 있습니다. <code>alphaCutoff</code> 또는 <code>alphaHash</code>를 쓰는 컷아웃 머티리얼은 이제 기본값이 <code>alphaMode: &#39;opaque&#39;</code>여서, 컷아웃 부분이 회색으로 보이고 프레임 전체가 어두워지던 문제가 해결되었습니다. 자동 노출은 프레임 사이에 이력을 유지합니다.</li>
 <li>AI 에이전트를 위해: SDK에 엔진 기능 개요가 포함되고, 스타터 가이드는 에이전트가 코드를 쓰기 전에 그것을 읽고 기존 기능에 맞춰 계획하도록 안내합니다. 3D 스타터는 단위 테스트 틀을 없애고 실제 플레이스루로 검증하며, <code>forgeax project test</code>는 테스트 파일이 없는 게임에서 성공을 반환합니다.</li>
+<li>도구: v0.5.1부터 선택 사항인 View 에셋 워크스페이스가 <code>@forgeax/engine</code> npm 패키지에 함께 들어 있습니다. npm으로 설치한 게임은 프로젝트 루트에서 <code>node ./node_modules/@forgeax/engine/tools/view/start.mjs --project .</code> 명령으로 열 수 있습니다.</li>
 <li>프리뷰 빌드에서는: 엔진 도구와 시작 화면 레이블을 중국어와 영어로 사용할 수 있고, 영어 README와 함께 중국어 README를 제공합니다. 실행 중 GPU에서 생성하는 텍스처가 이제 파노라마와 볼륨 텍스처를 지원하며, MSAA에서도 외곽선이 유지됩니다.</li>
 <li>프리뷰 빌드에는 또한: 레벨 스트리밍을 향한 첫 단계로, 레벨을 숨긴 상태로 백그라운드에서 준비한 뒤 실행 중인 장면에 합류시킬 수 있고, Deferred 렌더링이 더 빨라졌으며, 3D 스타터의 기본 노출이 중립적으로 바뀌었습니다.</li>
 </ul>
