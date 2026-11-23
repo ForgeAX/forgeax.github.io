@@ -72,7 +72,7 @@
 <li>引擎自带性能分析工作台：CPU 时间线和调用树、内存快照和分配分析、GPU 资源和耗时报告。每一项都会生成可交互的 HTML 报告，同时附带 AI 智能体可以查询的机器可读数据。</li>
 <li>光照和画质：3D 起步场景的相机现在使用自动曝光，晴天光照做了更新，并带有一张在 GPU 上生成的铺地纹理。天空的下半部分现在渲染正确，雾可以和 MSAA 一起使用，MSAA 可以与 FXAA 组合，GPU 生成的纹理成为原生资源类型。</li>
 <li>ECS 的不兼容变更：系统、调度和资源现在由你定义并导入的对象来标识（<code>defineSystem</code>、<code>defineSchedule</code>、<code>defineResource</code>），名称只作为诊断用的标签。注册系统请写 <code>world.addSystem(Update, defineSystem({ ... }))</code>。另外新增 <code>world.acquireTimeScale(scale)</code>，用于慢动作和暂停，需要继续播放的效果可以读取 <code>Time.unscaledDelta</code>。</li>
-<li>阴影和构建：<code>DirectionalLight.staticShadowCache</code> 现在需要主动开启（默认 <code>false</code>），并且不再被不投射阴影的物体触发失效。<code>devkitAppOptions.canvasPixelRatio</code> 接受 <code>&#39;device&#39;</code> 或 <code>{ mode: &#39;device&#39;, max: 2 }</code>；单 HTML 包默认采用紧凑格式（<code>--compress=false</code> 恢复为普通 JSON）；生产构建默认复用构建缓存中已烘焙的材质。</li>
+<li>阴影和构建：<code>DirectionalLight.staticShadowCache</code> 现在需要主动开启（默认 <code>false</code>），并且不再被不投射阴影的物体触发失效。<code>devkitAppOptions.canvasPixelRatio</code> 接受 <code>&#39;device&#39;</code> 或 <code>{ mode: &#39;device&#39;, max: 2 }</code>；生产构建默认复用构建缓存中已烘焙的材质。</li>
 <li>更快、更省：网格在运行时只保留一份表示，内存占用更低；不再使用的材质程序会被回收；大型层级的变换更新更快。</li>
 </ul>
 </div>

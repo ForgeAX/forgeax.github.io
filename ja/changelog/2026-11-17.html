@@ -72,7 +72,7 @@
 <li>プロファイリングワークベンチをエンジンに同梱：CPU タイムラインとコールツリー、メモリスナップショットとアロケーションプロファイル、GPU リソースとタイミングのレポート。いずれもインタラクティブな HTML レポートとして出力され、AI エージェントが照会できる機械可読データも付属します。</li>
 <li>ライティングと画質：3D スターターのカメラが自動露出を使うようになり、晴天のライティングを刷新し、GPU で生成した舗装テクスチャを追加しました。空の下部が正しく描画され、フォグが MSAA とともに動作し、MSAA と FXAA を併用でき、GPU 生成テクスチャがネイティブのアセット種別になりました。</li>
 <li>ECS の破壊的変更：システム、スケジュール、リソースは、定義してインポートしたオブジェクト（<code>defineSystem</code>、<code>defineSchedule</code>、<code>defineResource</code>）で識別されるようになり、名前は診断用のラベルにすぎません。システムは <code>world.addSystem(Update, defineSystem({ ... }))</code> で登録してください。あわせて、スローモーションと一時停止のための <code>world.acquireTimeScale(scale)</code> を追加しました。動き続ける必要があるエフェクトは <code>Time.unscaledDelta</code> を読み取れます。</li>
-<li>シャドウとビルド：<code>DirectionalLight.staticShadowCache</code> はオプトイン（既定値 <code>false</code>）になり、影を落とさないオブジェクトによって無効化されなくなりました。<code>devkitAppOptions.canvasPixelRatio</code> は <code>&#39;device&#39;</code> または <code>{ mode: &#39;device&#39;, max: 2 }</code> を受け付け、単一 HTML パッケージは既定でコンパクト形式になり（<code>--compress=false</code> でプレーン JSON に戻せます）、本番ビルドは既定でビルドキャッシュのクック済みマテリアルを再利用します。</li>
+<li>シャドウとビルド：<code>DirectionalLight.staticShadowCache</code> はオプトイン（既定値 <code>false</code>）になり、影を落とさないオブジェクトによって無効化されなくなりました。<code>devkitAppOptions.canvasPixelRatio</code> は <code>&#39;device&#39;</code> または <code>{ mode: &#39;device&#39;, max: 2 }</code> を受け付け、本番ビルドは既定でビルドキャッシュのクック済みマテリアルを再利用します。</li>
 <li>より速く、より軽く：メッシュは実行時に単一の表現だけを保持してメモリ使用量を抑え、使われなくなったマテリアルプログラムは回収され、大きな階層のトランスフォーム更新が速くなりました。</li>
 </ul>
 </div>
