@@ -1,0 +1,1 @@
+export{t as buildGuidFromVidPid,n as extractGuidFromGamepadId,r as parseControllerDb,i as platformFromUserAgent,a as selectBestMappingEntry}from"./engine-532082f32f1d3424-DvOPdtME.js";

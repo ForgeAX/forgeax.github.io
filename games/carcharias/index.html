@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>EXO TRACE · 异星迹线</title>
+    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#07090d;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{position:absolute;inset:0}#forgeax-loading-brand{white-space:nowrap;align-items:center;gap:9px;min-width:0;display:flex}#forgeax-loading-logo{flex:none;width:28px;height:auto;display:block}#forgeax-loading-brand-name{color:#f5f7fad1;letter-spacing:.02em;font-size:16px;font-weight:600;line-height:1}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.01em;overflow-wrap:anywhere;margin:0;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%)}#forgeax-loading-progress-content{text-align:left;gap:12px;display:grid;position:absolute;bottom:clamp(22px,6vh,52px);left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px)}#forgeax-loading-row{grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:center;column-gap:16px;display:grid}#forgeax-loading-summary{white-space:nowrap;justify-content:flex-end;align-items:baseline;gap:10px;min-width:0;font-size:13px;line-height:1.6;display:flex}#forgeax-loading-status{color:#e6ebf59e;flex:none;margin:0}#forgeax-loading-detail{color:#e6ebf56b;flex:0 auto;min-width:1em;margin:0;overflow:hidden}#forgeax-loading-detail:empty{display:none}#forgeax-loading-meta{color:#e6ebf59e;font-variant-numeric:tabular-nums;flex:none;margin:0}#forgeax-loading-progress{background:#e6ebf51c;border-radius:2px;width:100%;height:3px;overflow:hidden}#forgeax-loading-fill{background:#c6764f;width:0;height:100%;transition:width .2s linear}#forgeax-loading-slow,#forgeax-loading-reload{justify-self:end;margin:0;display:none}#forgeax-loading-reload,#forgeax-fatal-copy,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-diagnostics-header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;display:flex}#forgeax-fatal-diagnostics-title{margin:0;font-size:15px;font-weight:600}#forgeax-fatal-copy-status{color:#e6ebf5ad;min-height:1.5em;margin:0;font-size:12px}#forgeax-fatal-details{overflow-wrap:anywhere;white-space:pre-wrap;background:#0000003d;border:1px solid #e6ebf529;border-radius:5px;min-width:0;max-height:45vh;margin:0;padding:12px;overflow:auto}@media (width<=600px){#forgeax-loading-row{column-gap:10px}#forgeax-loading-brand{gap:5px}#forgeax-loading-logo{width:18px}#forgeax-loading-brand-name{font-size:12px}#forgeax-loading-summary{gap:3px;font-size:clamp(8px,2.6vw,13px)}}@media (width<=360px){#forgeax-loading-brand{gap:4px}#forgeax-loading-logo{width:16px}#forgeax-loading-brand-name{font-size:10px}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}}</style>
+<style></style>
+<script>
+  // The native page is visible before the game modules load. Only read the
+  // existing save; the running game owns updates and all subsequent screens.
+  (() => {
+    try {
+      const raw = window.exoDesktop ? window.exoDesktop.readSave() : localStorage.getItem('exo-trace-save');
+      const save = JSON.parse(raw);
+      if (save?.version !== 1 || save.settings?.language !== 'en') return;
+      document.documentElement.lang = 'en';
+      document.title = 'EXO TRACE';
+      const setTitle = () => {
+        const title = document.getElementById('forgeax-loading-title');
+        if (!title?.textContent) return false;
+        title.textContent = document.title;
+        return true;
+      };
+      if (!setTitle()) {
+        const observer = new MutationObserver(() => { if (setTitle()) observer.disconnect(); });
+        observer.observe(document.documentElement, {childList: true, subtree: true});
+        document.addEventListener('DOMContentLoaded', () => observer.disconnect(), {once: true});
+      }
+    } catch {
+      // Missing or inaccessible storage follows the default startup presentation.
+    }
+  })();
+</script>
+
+    <script type="module" crossorigin src="/games/carcharias/assets/program-group-fa407cb3dfb35522-xZRTLo0U.js"></script>
+    <script type="module" crossorigin src="/games/carcharias/assets/engine-3706465952c88b7d-BXvU1gf1.js"></script>
+  </head>
+  <body>
+    <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
+    <div id="forgeax-status">Game 0.1.0 | Engine 0.5.0 | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
+    <div id="forgeax-loading" role="status" aria-live="polite" aria-atomic="true">
+      <div id="forgeax-loading-content">
+        <h1 id="forgeax-loading-title">EXO TRACE · 异星迹线</h1>
+        <div id="forgeax-loading-progress-content">
+          <div id="forgeax-loading-row">
+            <div id="forgeax-loading-brand">
+              <img id="forgeax-loading-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMjMgMzEzLjUzOSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJGb3JnZUFYIEVuZ2luZSBsb2dvIj4KICA8dGl0bGU+Rm9yZ2VBWCBFbmdpbmUgbG9nbzwvdGl0bGU+CiAgPHBhdGggZmlsbD0iI2U4NjkyYyIgZD0iTTMyMyAzMTMuNTM5SDBWMEgzMjNWMzEzLjUzOVpNMjc0LjE2MiAyMTQuMDQ2TDI2Mi44ODkgMjAyLjc3MkwyNTEuOTY4IDIxMy42OTJMMjYzLjI0MSAyMjQuOTY3TDI1OC4yOTEgMjI5LjkxOEwyMjguNzg4IDIyOS45MjdMMjI4Ljc5MSAyNTMuMjA2SDE3Mi4xNjRWMjY4LjY0OUgyMjguNzkxVjI4Mi44NTlMMjIwLjA5MiAyNzYuMzcxSDIwOS44MDlWMjkxLjgxNUgyMTQuOTY4TDIyMC41ODcgMjk2LjAwNUwyMjAuODE1IDI5Ni4xNzRDMjMwLjU2NCAzMDMuMTc3IDI0NC4yMzQgMjk2LjIyMyAyNDQuMjM0IDI4NC4xNDFWMjY4LjY0OUgzMDMuNDM1VjI1My4yMDZIMjQ0LjIzNFYyNDUuMzY1TDI2NC42OSAyNDUuMzU4TDI3NC4xNjIgMjM1Ljg4N0wyODUuNDMgMjQ3LjE1NEwyOTYuMzUgMjM2LjIzM0wyODUuMDgyIDIyNC45NjdMMjk2LjY3OCAyMTMuMzcxTDI4NS43NTcgMjAyLjQ1MUwyNzQuMTYyIDIxNC4wNDZaTTEzNi4xIDE3Mi43NzFWMjk4LjI1SDE1MS41NDNWMTcyLjc3MUgxMzYuMVpNMjAuMjcyNSAyNDQuODQxVjI2MC4yODRIMTAwLjcwOFYyNzMuNzk4QzEwMC43MDggMjc4LjA2MiA5Ny4yNDk5IDI4MS41MiA5Mi45ODU0IDI4MS41MkgyMC4yNzI1VjI5Ni45NjNIOTIuOTg1NEMxMDUuNzc5IDI5Ni45NjMgMTE2LjE1MSAyODYuNTkyIDExNi4xNTEgMjczLjc5OFYyNDQuODQxSDIwLjI3MjVaTTE3Mi4xNjQgMjc2LjM3MVYyOTEuODE1SDIwMy4wNTJWMjc2LjM3MUgxNzIuMTY0Wk0yNTAuNjY5IDI3Ni4zNzFWMjkxLjgxNUgzMDMuNDM1VjI3Ni4zNzFIMjUwLjY2OVpNMTcyLjE2NCAyMzAuMDQxVjI0NS40ODRIMjIyLjAzNFYyMzAuMDQxSDE3Mi4xNjRaTTIwLjI3MjUgMTcyLjc3MVYxODguMjE0SDEwMC43MDhWMjAyLjM3MUMxMDAuNzA4IDIwNi42MzYgOTcuMjQ5OSAyMTAuMDkzIDkyLjk4NTQgMjEwLjA5M0gyMC4yNzI1VjIyNS41MzZIOTIuOTg1NEMxMDUuNzc5IDIyNS41MzYgMTE2LjE1MSAyMTUuMTY1IDExNi4xNTEgMjAyLjM3MVYxNzIuNzcxSDIwLjI3MjVaTTE3Mi4xNjQgMjA2LjIzMVYyMjEuNjc2SDIzNi41MTNWMjA2LjIzMUgxNzIuMTY0Wk0xODIuNDYgMTcyLjc3MVYxNzcuOTE5SDE3Mi4xNjRWMTkzLjM2MkgxODIuNDZWMTk5LjE1M0gxOTcuOTAzVjE5My4zNjJIMjEwLjc3M1YxOTkuMTUzSDIyNi4yMTdWMTkzLjM2MkgyMzYuNTEzVjE3Ny45MTlIMjI2LjIxN1YxNzIuNzcxSDIxMC43NzNWMTc3LjkxOUgxOTcuOTAzVjE3Mi43NzFIMTgyLjQ2Wk0yNDMuNTkxIDE3Mi43NzFWMTk5LjE1M0gyNTkuMDM0VjE5My4zNjJIMzAzLjQzNVYxNzcuOTE5SDI1OS4wMzRWMTcyLjc3MUgyNDMuNTkxWk0xNzIuMTY0IDE5LjU2MzVWMzUuMDA3OEgyMjYuODIxTDIxNC42MjcgNzYuNTY0NUMyMTIuNjkzIDgzLjE1NzEgMjE3LjYzNiA4OS43NTg3IDIyNC41MDcgODkuNzU4OEgyNDQuMjE4TDIzMi41MjggMTI5LjZIMTcyLjE2NFYxNDUuMDQzSDMwMy40MzVWMTI5LjZIMjQ4LjYyM0wyNjAuOTcyIDg3LjUwOThDMjYyLjkwNiA4MC45MTcxIDI1Ny45NjMgNzQuMzE1NiAyNTEuMDkzIDc0LjMxNTRIMjMxLjM4M0wyNDIuODQ1IDM1LjI1MUwyNDIuMDE1IDM1LjAwNzhIMzAzLjQzNVYxOS41NjM1SDE3Mi4xNjRaTTE1MS41NDMgMTI0LjQzOEMxMTEuNzQyIDk2LjI1NjUgNjAuMDczMyA5Ni4yNTY2IDIwLjI3MjUgMTI0LjQzOFYxNDQuNjk4QzU3LjIzMDcgMTEwLjYxIDExNC41ODUgMTEwLjYxIDE1MS41NDMgMTQ0LjY5OFYxMjQuNDM4Wk0yMC4yNzI1IDU2Ljg4NTdWNzIuMDA3OEgxNTEuNTQzVjU2Ljg4NTdIMjAuMjcyNVpNMjAuMjcyNSAxOC45MTk5VjM1LjY1MTRIMTUxLjU0M1YxOC45MTk5SDIwLjI3MjVaIi8+Cjwvc3ZnPgo=" alt="" aria-hidden="true" />
+              <span id="forgeax-loading-brand-name">ForgeAX</span>
+            </div>
+            <div id="forgeax-loading-summary">
+              <p id="forgeax-loading-status">Downloading engine code</p>
+              <p id="forgeax-loading-detail"></p>
+              <p id="forgeax-loading-meta">0% · 0 s</p>
+            </div>
+          </div>
+          <div id="forgeax-loading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="forgeax-loading-status"><div id="forgeax-loading-fill"></div></div>
+          <p id="forgeax-loading-slow">Still loading. You can keep waiting or reload.</p>
+          <button id="forgeax-loading-reload" type="button">Reload</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="forgeax-fatal" role="alert">
+      <div id="forgeax-fatal-content">
+        <p id="forgeax-fatal-message">Unable to start the game.</p>
+        <section id="forgeax-fatal-diagnostics" aria-labelledby="forgeax-fatal-diagnostics-title">
+          <div id="forgeax-fatal-diagnostics-header">
+            <h2 id="forgeax-fatal-diagnostics-title">Diagnostics</h2>
+            <button id="forgeax-fatal-copy" type="button">Copy diagnostics</button>
+          </div>
+          <p id="forgeax-fatal-copy-status" aria-live="polite"></p>
+          <pre id="forgeax-fatal-details" tabindex="0"></pre>
+        </section>
+        <button id="forgeax-fatal-reload" type="button">Reload</button>
+      </div>
+    </div>
+
+    </div>
+    <noscript>JavaScript is required to start this game. Please enable JavaScript and reload.</noscript>
+    <script>
+      ((host) => {
+        const document = host?.document ?? globalThis.document;
+        const window = host?.events ?? globalThis.window;
+        const findCanvas = (root) => {
+          const preferred = root?.querySelector?.('canvas#app') ?? root?.querySelector?.('#app');
+          if (preferred !== null && preferred !== undefined) return preferred;
+          let fallback = root?.querySelector?.('canvas');
+          const descendants = root?.querySelectorAll?.('*');
+          if (descendants === null || descendants === undefined) return fallback;
+          for (const element of descendants) {
+            const nested = findCanvas(element.shadowRoot);
+            if (nested?.id === 'app') return nested;
+            fallback ??= nested;
+          }
+          return fallback;
+        };
+        let cachedCanvas;
+        const currentCanvas = () => {
+          const surface = host?.surface?.();
+          if (surface !== null && surface !== undefined) return surface;
+          if (cachedCanvas !== null && cachedCanvas !== undefined && cachedCanvas.isConnected !== false)
+            return cachedCanvas;
+          cachedCanvas = findCanvas(document);
+          return cachedCanvas;
+        };
+        const eventCanvas = (event) => {
+          if (typeof event?.composedPath === 'function') {
+            for (const node of event.composedPath()) {
+              if (node?.nodeType === 1 && node.tagName === 'CANVAS') return node;
+            }
+          }
+          return event?.target;
+        };
+        const isElement = (node) => host === undefined ? node instanceof HTMLElement : node?.nodeType === 1;
+        const isNode = (node) => host === undefined ? node instanceof Node : node !== null && typeof node === 'object';
+        const startupEnabled = true;
+        const loading = document.querySelector('#forgeax-loading');
+        const loadingStatus = document.querySelector('#forgeax-loading-status');
+        const loadingSlow = document.querySelector('#forgeax-loading-slow');
+        const loadingReload = document.querySelector('#forgeax-loading-reload');
+        const loadingDetail = document.querySelector('#forgeax-loading-detail');
+        const loadingProgress = document.querySelector('#forgeax-loading-progress');
+        const loadingFill = document.querySelector('#forgeax-loading-fill');
+        const loadingMeta = document.querySelector('#forgeax-loading-meta');
+        const labels = {"lang":"en","phases":{"engine-code":"Downloading engine code","workers":"Starting workers","downloads":"Downloading assets","assets":"Loading assets","pipelines":"Preparing shaders and pipelines","scene":"Building the scene","first-frame":"Waiting for the first frame"},"loading":"Loading…","elapsed":"{seconds} s","slow":"Still loading. You can keep waiting or reload.","reload":"Reload"};
+        const fatal = document.querySelector('#forgeax-fatal');
+        const fatalMessage = document.querySelector('#forgeax-fatal-message');
+        const fatalDetails = document.querySelector('#forgeax-fatal-details');
+        const fatalCopy = document.querySelector('#forgeax-fatal-copy');
+        const fatalCopyStatus = document.querySelector('#forgeax-fatal-copy-status');
+        const fatalReload = document.querySelector('#forgeax-fatal-reload');
+        const gameUi = document.querySelector('#game-ui');
+        const QueryParams = typeof URLSearchParams === 'function'
+          ? URLSearchParams
+          : class {
+              has() {
+                return false;
+              }
+              get() {
+                return null;
+              }
+            };
+        const query = typeof location === 'object' && location !== null
+          ? new QueryParams(location.search)
+          : new QueryParams();
+        const gamePage = startupEnabled && (!query.has('forgeaxWorkspace') || query.get('forgeaxWorkspace') === 'game') &&
+          !query.has('forgeax-tool-recipe') && !query.has('forgeax-tool-replay');
+        // Editor workspace/resource/tool pages omit the game loading overlay.
+        // Editor Play uses it and waits for a completed game frame. Every page
+        // retains fatal diagnostics independently of the chosen presentation.
+        const fatalEnabled = true;
+        const startupCache = (() => {
+    // Workspace targets have frozen admission and a parent-owned failure/close
+    // lifecycle. Autonomous navigation would race that owner's retirement.
+    if (host !== undefined || !gamePage || query.has('forgeaxWorkspace') ||
+        !/^https?:$/.test(globalThis.location?.protocol ?? '')) return undefined;
+    const identity = {"project":"exo-trace","game":"0.1.0","engine":"0.5.0","revision":"731d67f79f4175aaf1ea09739264e12a8dce48cb3e87408377bf43cb2d7481de"};
+    const version = "83caccca602bfe34a068bd09ca17d6dcb392f89589412edfda6152ec3c860e91";
+    const protocol = 'forgeax-startup-cache/1';
+    const retryKey = 'forgeax-startup-retry';
+    const original = new URL(location.href);
+    const scope = new URL('./', document.baseURI).href;
+    const key = 'forgeax.startup/' + encodeURIComponent(identity.project) + '/' + scope;
+    const retried = original.searchParams.get(retryKey) === '1';
+    let complete = false, recovering = false, owner = false, preparation;
+    const cancellation = new AbortController();
+    const retire = () => {complete = true; cancellation.abort(); globalThis.removeEventListener('pagehide', retire);};
+    globalThis.addEventListener('pagehide', retire, {once: true});
+    const withCombinedSignal = (async function withCombinedSignal(signals, operation) {
+  const controller = new AbortController();
+  const listeners = /* @__PURE__ */ new Map();
+  const release = () => {
+    for (const [signal, listener] of listeners) signal.removeEventListener("abort", listener);
+    listeners.clear();
+  };
+  try {
+    const aborted = signals.find((signal) => signal.aborted);
+    if (aborted) controller.abort(aborted.reason);
+    else {
+      for (const signal of new Set(signals)) {
+        const listener = () => {
+          release();
+          controller.abort(signal.reason);
+        };
+        listeners.set(signal, listener);
+        signal.addEventListener("abort", listener, { once: true });
+      }
+    }
+    return await operation(controller.signal);
+  } finally {
+    release();
+  }
+});
+    const withSignal = operation => withCombinedSignal([cancellation.signal, AbortSignal.timeout(10000)], operation);
+    const read = (storage, name) => { try { return globalThis[storage]?.getItem(name); } catch { return null; } };
+    const write = (storage, name, value) => { try { globalThis[storage]?.setItem(name, value); } catch {} };
+    const remove = (storage, name) => { try { globalThis[storage]?.removeItem(name); } catch {} };
+    const command = (action, timeout) => {
+      const controller = globalThis.navigator?.serviceWorker?.controller;
+      if (!controller || typeof MessageChannel !== 'function') return Promise.resolve(null);
+      return new Promise((resolve, reject) => {
+        const channel = new MessageChannel();
+        const finish = (error, value) => { clearTimeout(timer); channel.port1.close(); error ? reject(error) : resolve(value); };
+        let timer = setTimeout(() => action === 'reset' && owner
+          ? finish(Error('Startup cache owner reset timed out')) : finish(undefined, null), timeout);
+        channel.port1.onmessage = event => {
+          const response = event.data;
+          if (response?.protocol !== protocol) return;
+          owner = true;
+          if (response.accepted === true) { clearTimeout(timer); timer = setTimeout(() => finish(Error('Startup cache owner timed out')), 30000); return; }
+          finish(response.ok === true ? undefined : Error(response.error ?? 'Startup cache owner failed'), response);
+        };
+        try { controller.postMessage({kind: 'forgeax-startup-cache', protocol, action, project: identity.project, version, versions: identity}, [channel.port2]); }
+        catch (error) { finish(error); }
+      });
+    };
+    const refreshHttp = () => withSignal(async signal => {
+      const target = new URL(original);
+      target.searchParams.set('forgeax-startup-cache-reset', '1');
+      const response = await fetch(target, {cache: 'reload', signal});
+      if (!response.ok) throw Error('Startup HTTP cache refresh failed: ' + response.status);
+      await response.arrayBuffer();
+    });
+    const updateController = async () => {
+      const workers = globalThis.navigator?.serviceWorker;
+      if (!workers?.controller) return;
+      // An older installed owner may predate this protocol. Update its existing
+      // registration; never register a replacement or claim another scope.
+      await Promise.race([
+        (async () => {
+          const registration = await workers.getRegistration(location.href);
+          if (!registration) return;
+          await registration.update();
+          const installing = registration.installing;
+          if (installing && !['activated', 'redundant'].includes(installing.state))
+            await new Promise(resolve => installing.addEventListener('statechange', () => {
+              if (['activated', 'redundant'].includes(installing.state)) resolve();
+            }));
+        })(),
+        new Promise(resolve => setTimeout(resolve, 5000)),
+      ]);
+    };
+    return {
+      ready: () => preparation ??= (async () => {
+        const previous = read('localStorage', key);
+        if (previous && previous !== version) await refreshHttp();
+        await command('prepare', 500);
+
+      })(),
+      complete: () => {
+        retire();
+        write('localStorage', key, version);
+        remove('sessionStorage', key + '/failure');
+        if (retried) { const target = new URL(location.href); target.searchParams.delete(retryKey); try { history.replaceState(history.state, '', target); } catch {} }
+      },
+      retire,
+      recover: async (details, onRetry) => {
+        if (complete || recovering) return {status: 'disabled'};
+        recovering = true;
+        if (retried) return {status: 'exhausted', previous: read('sessionStorage', key + '/failure')};
+        write('sessionStorage', key + '/failure', 'Game ' + identity.game + ' | Engine ' + identity.engine + '\n' + details.slice(0, 12000));
+        onRetry?.();
+        try {
+          await updateController();
+          if (complete) return {status: 'disabled'};
+          await command('reset', owner ? 30000 : 500);
+          if (complete) return {status: 'disabled'};
+          await refreshHttp();
+          const modules = [...document.querySelectorAll('script[type=module][src],link[rel=modulepreload][href]')].map(node => node.src || node.href);
+          for (let index = 0; index < modules.length; index += 4) {
+            // These URLs belong to the failed generation. A scoped reset may
+            // retire its document, and an update may remove an old hashed URL.
+            // Best-effort HTTP revalidation must never prevent the one retry.
+            await Promise.allSettled(modules.slice(index, index + 4).map(url => withSignal(async signal => {
+              const response = await fetch(url, {cache: 'reload', signal});
+              if (!response.ok) throw Error('Startup module refresh failed: ' + response.status);
+              await response.arrayBuffer();
+            })));
+          }
+          if (complete) return {status: 'disabled'};
+          const target = new URL(original); target.searchParams.set(retryKey, '1');
+          location.replace(target.href);
+          return {status: 'reloaded'};
+        } catch (error) { return complete ? {status: 'disabled'} : {status: 'failed', error: String(error)}; }
+      },
+    };
+  })();
+        let phase = gamePage ? 'loading' : 'disabled';
+        let slowTimer;
+        let fadeTimer;
+        let slowRemainingMs = 15000;
+        let slowVisibleSince;
+        // Progress view: the Engine model drives it once the game module runs;
+        // before that, the cover counts the page's downloaded script bytes.
+        let elapsedTimer;
+        let progressBound = false;
+        let shownPercent = 0;
+        let shownElapsed = '';
+        let shownActivity = labels.phases['engine-code'] ?? labels.loading;
+        let shownDetail = '';
+        let lastView;
+        let uiMessage = '', uiDiagnostics = '', uiRecovery = 'idle', uiCopyStatus = 'idle';
+        const uiListeners = new Set();
+        const uiDisposers = new Map();
+        const snapshotUi = () => Object.freeze({ phase,
+            progress: Object.freeze({ percent: shownPercent,
+              activity: shownActivity, detail: shownDetail, elapsed: shownElapsed }),
+            slow: slowRemainingMs <= 0, message: uiMessage, diagnostics: uiDiagnostics,
+            recovery: uiRecovery, copyStatus: uiCopyStatus });
+        const notifyUi = () => {
+          const state = snapshotUi();
+          for (const listener of uiListeners) {
+            try { listener(state); } catch (error) { console.error('[ForgeAX startup UI]', error); }
+          }
+        };
+        const disposeUi = (kind) => {
+          const dispose = uiDisposers.get(kind);
+          uiDisposers.delete(kind);
+          try { dispose?.(); } catch (error) { console.error('[ForgeAX startup UI cleanup]', error); }
+        };
+        let enteredCallbacks = [];
+        let latestSubmitted;
+        // A completion may legally lag behind a later submission. Keep the
+        // submitted frame identities for the active device generation so a
+        // successful receipt remains tied to a real frame without requiring
+        // the queue to drain to the newest submission.
+        let submittedFrames = new Set();
+        const submissionKey = (worldIdentity, deviceGeneration, frameId) =>
+          JSON.stringify([worldIdentity, deviceGeneration, frameId]);
+        let expectedSession;
+        let inputBinding;
+        let inputEnabled = false;
+        let sessionGeneration = 0;
+        const reducedMotion =
+          host?.reducedMotion ?? (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+        const fadeDurationMs = reducedMotion ? 0 : 150;
+        const setStartupTimeout = typeof setTimeout === 'function' ? setTimeout : () => undefined;
+        const clearStartupTimeout = (timer) => {
+          if (timer !== undefined && typeof clearTimeout === 'function') clearTimeout(timer);
+        };
+        const reload = () => {
+          if (phase === 'destroyed') return;
+          // The page is going away: keep the game UI inert under the cover.
+          destroy(false);
+          if (host !== undefined) host.reload();
+          else if (typeof location?.reload === 'function') location.reload();
+        };
+        const setText = (node, text) => {
+          if (node !== null && isElement(node)) node.textContent = text;
+        };
+        const setDisplay = (node, display) => {
+          if (node !== null && isElement(node)) {
+            const custom = (node === loading && false) || (node === fatal && false);
+            node.style.display = display === 'grid' && custom ? '' : display;
+          }
+        };
+        const setAttribute = (node, name, value) => {
+          if (node !== null && isElement(node) && typeof node.setAttribute === 'function') {
+            node.setAttribute(name, value);
+          }
+        };
+        const copyDiagnostics = async () => {
+          if (phase === 'destroyed') return false;
+          const text = [uiMessage, uiDiagnostics]
+            .map((value) => value?.trim())
+            .filter((value) => value !== undefined && value.length > 0)
+            .join('\n\n');
+          let copied = false;
+          try {
+            const clipboard = host?.clipboard ?? globalThis.navigator?.clipboard;
+            if (typeof clipboard?.writeText === 'function') {
+              await clipboard.writeText(text);
+              copied = true;
+            }
+          } catch {
+            // Continue to the DOM fallback when clipboard permission is unavailable.
+          }
+          if (!copied) {
+            try {
+              const textarea = document.createElement?.('textarea');
+              const parent = document.body ?? document.documentElement;
+              if (textarea !== undefined && parent !== undefined && parent !== null) {
+                textarea.value = text;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-10000px';
+                parent.appendChild(textarea);
+                try {
+                  textarea.focus?.();
+                  textarea.select();
+                  copied = document.execCommand?.('copy') === true;
+                } finally {
+                  textarea.remove?.();
+                }
+              }
+            } catch {
+              copied = false;
+            }
+          }
+          uiCopyStatus = copied ? 'copied' : 'failed';
+          setText(fatalCopyStatus, copied ? 'Diagnostics copied.' : 'Could not copy diagnostics.');
+          notifyUi();
+          return copied;
+        };
+        const onCopyDiagnostics = () => {
+          void copyDiagnostics();
+        };
+        const isStartupControlTarget = (target) => {
+          if (!(isNode(target))) return false;
+          const owns = (node) =>
+            node !== null &&
+            node !== undefined &&
+            (node === target || (typeof node.contains === 'function' && node.contains(target)));
+          return owns(loading) || owns(fatal);
+        };
+        const onStartupInputCapture = (event) => {
+          if (inputEnabled || isStartupControlTarget(event?.target)) return;
+          // Preserve native Tab navigation into startup controls. The game UI
+          // is inert while this owner blocks gameplay, until the first ready frame.
+          if (event?.key !== 'Tab') event?.preventDefault?.();
+          event?.stopImmediatePropagation?.();
+          event?.stopPropagation?.();
+        };
+        const onStartupControlKey = (event) => {
+          // Let focused startup buttons receive their default activation, but
+          // stop the key event before it reaches gameplay while this surface owns the page.
+          if (!inputEnabled) event?.stopPropagation?.();
+        };
+        const startupInputKinds = [
+          'keydown',
+          'keyup',
+          'pointerdown',
+          'pointerup',
+          'pointermove',
+          'pointercancel',
+          'mousedown',
+          'mouseup',
+          'mousemove',
+          'wheel',
+          'click',
+        ];
+        const bindStartupInputCapture = () => {
+          if (!gamePage || typeof window.addEventListener !== 'function') return;
+          for (const kind of startupInputKinds) {
+            window.addEventListener(kind, onStartupInputCapture, { capture: true });
+          }
+        };
+        const removeStartupInputCapture = () => {
+          if (typeof window.removeEventListener !== 'function') return;
+          for (const kind of startupInputKinds) {
+            window.removeEventListener(kind, onStartupInputCapture, { capture: true });
+          }
+        };
+        const setInputEnabled = (enabled) => {
+          inputEnabled = enabled;
+          if (gamePage && isElement(gameUi)) gameUi.inert = !enabled;
+          // The one readiness signal for scripted real input: it is open only
+          // while this owner admits gameplay input, never on the fatal path.
+          const documentRoot = document.documentElement;
+          if (gamePage && typeof documentRoot?.setAttribute === 'function') {
+            documentRoot.setAttribute('data-forgeax-input', enabled ? 'open' : 'closed');
+          }
+          try {
+            inputBinding?.(enabled);
+          } catch {
+            // Input is an observational startup bridge; it must not change the
+            // fatal error path when an App-owned callback is already disposed.
+          }
+        };
+        const bindInput = (callback) => {
+          if (typeof callback !== 'function') return () => {};
+          const previous = inputBinding;
+          if (previous !== undefined) {
+            try {
+              previous(false);
+            } catch {
+              // Continue replacing an already-bound input bridge.
+            }
+          }
+          inputBinding = callback;
+          // A binding joins the current gate: an App bound after the first
+          // ready frame (hot reload, a replacement App) is admitted at once,
+          // and the game UI never falls back to inert behind no cover.
+          setInputEnabled(inputEnabled);
+          return () => {
+            if (inputBinding !== callback) return;
+            inputBinding = undefined;
+            try {
+              callback(false);
+            } catch {
+              // The retiring App may already be disposed.
+            }
+          };
+        };
+        let fadeCanvasWatch;
+        const stopFadeCanvasWatch = () => {
+          fadeCanvasWatch?.disconnect();
+          fadeCanvasWatch = undefined;
+        };
+        // While the overlay fades, the presenting canvas already receives
+        // input. A Render Worker recovery that replaces it must close input at
+        // once, before the replacement can take a click or a pointer lock.
+        const watchFadeCanvas = (fadeCanvas) => {
+          const parent = fadeCanvas?.parentNode;
+          const Observer = document.defaultView?.MutationObserver;
+          if (typeof Observer !== 'function' || parent === null || parent === undefined) return;
+          fadeCanvasWatch = new Observer(() => {
+            if (phase === 'fading' && currentCanvas() !== fadeCanvas) prepare();
+          });
+          fadeCanvasWatch.observe(parent, { childList: true });
+        };
+        const clearStartupWork = () => {
+          stopFadeCanvasWatch();
+          clearStartupTimeout(slowTimer);
+          clearStartupTimeout(fadeTimer);
+          clearStartupTimeout(elapsedTimer);
+          slowTimer = undefined;
+          fadeTimer = undefined;
+          elapsedTimer = undefined;
+          slowVisibleSince = undefined;
+          submittedFrames = new Set();
+        };
+        const clockNow = () => {
+          if (host !== undefined) return host.now();
+          if (typeof performance === 'object' && performance !== null && typeof performance.now === 'function') {
+            return performance.now();
+          }
+          return Date.now();
+        };
+        const isForeground = () => host?.visible?.() ?? (
+          typeof document !== 'object' || document === null || document.visibilityState !== 'hidden');
+        const startedAt = host === undefined ? 0 : clockNow();
+        const showText = (node, text) => {
+          if (node !== null && isElement(node) && node.textContent !== text) node.textContent = text;
+        };
+        const megabytes = (bytes) => (bytes / 1048576).toFixed(1) + ' MB';
+        const scriptBytes = () => {
+          if (typeof performance !== 'object' || performance === null || typeof performance.getEntriesByType !== 'function') return 0;
+          let bytes = 0;
+          for (const entry of performance.getEntriesByType('resource')) {
+            if (entry.initiatorType === 'script' || /\.m?js(\?|$)/.test(entry.name)) bytes += entry.transferSize || entry.encodedBodySize || 0;
+          }
+          return bytes;
+        };
+        let detailLayout;
+        const showDetail = () => {
+          if (loadingDetail === null || !isElement(loadingDetail)) return;
+          setAttribute(loadingDetail, 'title', shownDetail);
+          const summary = loadingDetail.parentElement;
+          const layout = [shownDetail, summary?.clientWidth, loadingStatus?.scrollWidth, loadingMeta?.scrollWidth].join('|');
+          if (layout === detailLayout) return;
+          detailLayout = layout;
+          showText(loadingDetail, shownDetail);
+          if (!(loadingDetail.clientWidth > 0) || loadingDetail.scrollWidth <= loadingDetail.clientWidth) return;
+          // Use portable DOM measurements: the native UI profile has no CSS text-overflow.
+          const characters = Array.from(shownDetail);
+          let low = 0, high = characters.length;
+          while (low < high) {
+            const middle = Math.ceil((low + high) / 2);
+            showText(loadingDetail, characters.slice(0, middle).join('') + '…');
+            if (loadingDetail.scrollWidth <= loadingDetail.clientWidth) low = middle;
+            else high = middle - 1;
+          }
+          showText(loadingDetail, characters.slice(0, low).join('') + '…');
+        };
+        const showMeta = () => {
+          showText(loadingMeta, shownPercent + '%' + (shownElapsed === '' ? '' : ' · ' + shownElapsed));
+          showDetail();
+          notifyUi();
+        };
+        const showPercent = (percent) => {
+          shownPercent = Math.max(shownPercent, percent);
+          showMeta();
+          if (loadingFill !== null && isElement(loadingFill)) loadingFill.style.width = shownPercent + '%';
+          setAttribute(loadingProgress, 'aria-valuenow', String(shownPercent));
+        };
+        const tickElapsed = () => {
+          elapsedTimer = undefined;
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing')) return;
+          const seconds = Math.max(0, Math.floor((clockNow() - startedAt) / 1000));
+          shownElapsed = String(labels.elapsed).replace('{seconds}', String(seconds));
+          showMeta();
+          if (!progressBound) {
+            const bytes = scriptBytes();
+            if (bytes > 0) { shownDetail = megabytes(bytes); showDetail(); notifyUi(); }
+          }
+          elapsedTimer = setStartupTimeout(tickElapsed, 500);
+        };
+        const progress = (view) => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing')) return;
+          if (view === null || typeof view !== 'object') return;
+          progressBound = true;
+          lastView = view;
+          shownActivity = typeof view.activity === 'string' ? view.activity : labels.loading;
+          shownDetail = typeof view.detail === 'string' ? view.detail : '';
+          showText(loadingStatus, shownActivity);
+          if (Number.isFinite(view.percent)) showPercent(Math.max(0, Math.min(100, Math.floor(view.percent))));
+          else { showDetail(); notifyUi(); }
+        };
+        const onEntered = (callback) => {
+          if (typeof callback === 'function') enteredCallbacks.push(callback);
+        };
+        const runEntered = () => {
+          const callbacks = enteredCallbacks;
+          enteredCallbacks = [];
+          for (const callback of callbacks) {
+            try {
+              callback();
+            } catch {
+              // An App progress owner must not block entering the game.
+            }
+          }
+        };
+        // Receipt observation outlives the loading overlay. It does not request
+        // render frames or sample rAF; one timer updates text only when changed.
+        const frameRate = (() => {
+          const node = document.querySelector('#forgeax-fps');
+          const status = document.querySelector('#forgeax-status');
+          let closed = !gamePage || node?.id !== 'forgeax-fps';
+          let session, surface, deviceGeneration = -1, lastFrame = -1;
+          let since, count = 0, timer;
+          const text = value => {
+            if (node?.textContent !== value) setText(node, value);
+          };
+          const reset = () => {
+            clearStartupTimeout(timer); timer = undefined;
+            since = undefined; count = 0;
+            text('FPS --'); setDisplay(status, 'none');
+          };
+          const tick = () => {
+            if (closed || !isForeground()) { reset(); return; }
+            const now = clockNow();
+            const elapsed = now - since;
+            if (Number.isFinite(elapsed) && elapsed > 0) {
+              text('FPS ' + (count * 1000 / elapsed).toFixed(1));
+              count = 0; since = now;
+            }
+            timer = setStartupTimeout(tick, 1000);
+          };
+          const completed = detail => {
+            const canvas = currentCanvas();
+            if (closed || (phase !== 'fading' && phase !== 'entered') || !isForeground() || session === undefined ||
+                detail?.worldIdentity !== session || detail.presentation !== 'ready' ||
+                !Number.isSafeInteger(detail.frameId) || detail.frameId < 0 ||
+                !Number.isSafeInteger(detail.deviceGeneration) || detail.deviceGeneration < 0 ||
+                (canvas === surface && detail.deviceGeneration < deviceGeneration)) return;
+            if (canvas !== surface || detail.deviceGeneration !== deviceGeneration) {
+              reset(); surface = canvas; deviceGeneration = detail.deviceGeneration; lastFrame = -1;
+            }
+            if (detail.frameId <= lastFrame) return;
+            lastFrame = detail.frameId;
+            if (since === undefined) {
+              since = clockNow();
+              setDisplay(status, 'block');
+              timer = setStartupTimeout(tick, 1000);
+            } else count += 1;
+          };
+          const onReceipt = event => { if (eventCanvas(event) === currentCanvas()) completed(event.detail); };
+          const visibilityChanged = () => reset();
+          const pageHidden = event => { if (event.persisted) reset(); else destroy(); };
+          const destroy = () => {
+            if (closed) return;
+            closed = true; reset();
+            if (host === undefined) {
+              window.removeEventListener('forgeax:frame-completed', onReceipt, { capture: true });
+              window.removeEventListener('visibilitychange', visibilityChanged);
+              window.removeEventListener('pagehide', pageHidden);
+            }
+          };
+          if (!closed && host === undefined) {
+            window.addEventListener('forgeax:frame-completed', onReceipt, { capture: true });
+            window.addEventListener('visibilitychange', visibilityChanged);
+            window.addEventListener('pagehide', pageHidden);
+          }
+          return { completed, visibilityChanged, destroy, bindSession(value) {
+            if (session === value || closed) return;
+            reset(); session = value; surface = undefined; deviceGeneration = -1; lastFrame = -1;
+          } };
+        })();
+        const accountForegroundTime = () => {
+          if (slowVisibleSince === undefined) return;
+          slowRemainingMs = Math.max(0, slowRemainingMs - Math.max(0, clockNow() - slowVisibleSince));
+          slowVisibleSince = undefined;
+        };
+        const showSlow = () => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing') || !isForeground()) return;
+          accountForegroundTime();
+          if (slowRemainingMs > 0) {
+            slowVisibleSince = clockNow();
+            slowTimer = setStartupTimeout(showSlow, slowRemainingMs);
+            return;
+          }
+          slowTimer = undefined;
+          slowVisibleSince = undefined;
+          setDisplay(loadingSlow, 'block');
+          setDisplay(loadingReload, 'inline-block');
+          notifyUi();
+        };
+        const armSlowTimer = () => {
+          if (gamePage && elapsedTimer === undefined) tickElapsed();
+          if (!gamePage || (phase !== 'loading' && phase !== 'preparing') || !isForeground()) return;
+          accountForegroundTime();
+          clearStartupTimeout(slowTimer);
+          if (slowRemainingMs <= 0) {
+            showSlow();
+            return;
+          }
+          slowVisibleSince = clockNow();
+          slowTimer = setStartupTimeout(showSlow, slowRemainingMs);
+        };
+        const appendStructuredFailure = (value, prefix, seen, lines) => {
+          const formatValue = (candidate) => {
+            if (typeof candidate === 'string') return candidate;
+            try {
+              const encoded = JSON.stringify(candidate);
+              if (encoded !== undefined) return encoded;
+            } catch {
+              // Fall through to String for unserializable diagnostics.
+            }
+            return String(candidate);
+          };
+          if (value === null || typeof value !== 'object') {
+            if (prefix && value !== undefined) lines.push(prefix + ': ' + formatValue(value));
+            return;
+          }
+          if (seen.size >= 64) {
+            lines.push((prefix || 'cause') + ': [diagnostic node limit]');
+            return;
+          }
+          if (seen.has(value)) {
+            lines.push((prefix || 'cause') + ': [circular]');
+            return;
+          }
+          seen.add(value);
+          if (Array.isArray(value)) {
+            value.forEach((nested, index) =>
+              appendStructuredFailure(nested, (prefix || 'cause') + '[' + index + ']', seen, lines),
+            );
+            return;
+          }
+          const record = value;
+          const name = typeof record.name === 'string' && record.name.length > 0
+            ? record.name
+            : undefined;
+          const code = typeof record.code === 'string' && record.code.length > 0
+            ? record.code
+            : undefined;
+          const message = typeof record.message === 'string' && record.message.length > 0
+            ? record.message
+            : undefined;
+          if (name !== undefined || code !== undefined || message !== undefined) {
+            const identity = [name || 'Error', code].filter(Boolean).join(' ');
+            lines.push((prefix ? prefix + ': ' : '') + identity + (message ? ': ' + message : ''));
+          }
+          for (const key of ['expected', 'hint', 'reason']) {
+            if (record[key] !== undefined && record[key] !== null) {
+              lines.push((prefix ? prefix + '.' : '') + key + ': ' + formatValue(record[key]));
+            }
+          }
+          for (const key of ['cause', 'detail', 'failure', 'webgpuError', 'wgpuError', 'error']) {
+            const nested = record[key];
+            const nestedPrefix = (prefix ? prefix + '.' : '') + key;
+            if (nested !== undefined && nested !== null && typeof nested === 'object') {
+              appendStructuredFailure(nested, nestedPrefix, seen, lines);
+            } else if (nested !== undefined && nested !== null) {
+              lines.push(nestedPrefix + ': ' + formatValue(nested));
+            }
+          }
+          const knownKeys = new Set([
+            'name',
+            'code',
+            'message',
+            'expected',
+            'hint',
+            'reason',
+            'cause',
+            'detail',
+            'failure',
+            'webgpuError',
+            'wgpuError',
+            'error',
+          ]);
+          for (const key of Object.keys(record)) {
+            if (knownKeys.has(key)) continue;
+            const nested = record[key];
+            const nestedPrefix = (prefix ? prefix + '.' : '') + key;
+            if (nested !== null && typeof nested === 'object') {
+              appendStructuredFailure(nested, nestedPrefix, seen, lines);
+            } else if (nested !== undefined) {
+              lines.push(nestedPrefix + ': ' + formatValue(nested));
+            }
+          }
+        };
+        const formatStartupFailure = (reason) => {
+          if (reason !== null && typeof reason === 'object') {
+            const lines = [];
+            appendStructuredFailure(reason, '', new Set(), lines);
+            if (lines.length > 0) return lines.join('\n');
+            try {
+              return JSON.stringify(reason) || 'Unknown structured startup failure';
+            } catch {
+              return 'Unserializable structured startup failure';
+            }
+          }
+          return String(reason ?? 'Unknown startup failure');
+        };
+        const show = (reason, execution) => {
+          const runtimeFailure = execution?.fault !== undefined && execution.fault !== null;
+          if (!fatalEnabled || phase === 'failed' || phase === 'destroyed' ||
+              (phase === 'entered' && !runtimeFailure)) return;
+          phase = 'failed';
+          frameRate.destroy();
+          setInputEnabled(false);
+          clearStartupWork();
+          // Retain the first cause through teardown and keep Reload alive.
+          cleanupStartupListeners();
+          bindUiKeys();
+          bindStartupInputCapture();
+          bindFatalReload();
+          bindFatalCopy();
+          let details = formatStartupFailure(reason);
+          const notice = fatal;
+          const message = runtimeFailure ? 'The game stopped because execution failed.' : 'Unable to start the game.';
+          if (/webgpu|adapter-unavailable|no usable (rendering )?backend/i.test(details)) {
+            details += '\n\nRenderer diagnosis: ForgeAX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.';
+          }
+          // Keep the existing plain-text diagnostic fallback for hosts that
+          // provide only one synthetic HTMLElement in a test harness.
+          if (notice !== null && fatalMessage === notice) {
+            notice.textContent = (runtimeFailure ? 'ForgeAX game stopped.\n' : 'ForgeAX game failed to start.\n') + message + '\n' + details;
+          } else {
+            setText(fatalMessage, message);
+            setText(fatalDetails, details);
+          }
+          uiMessage = message;
+          uiDiagnostics = details;
+          console.warn?.('[ForgeAX game failure]', message, details);
+          notifyUi();
+          if (startupCache === undefined) disposeUi('loading');
+          setDisplay(loading, 'none');
+          setDisplay(notice, 'grid');
+          setDisplay(fatalReload, 'inline-block');
+          setAttribute(loading, 'aria-hidden', 'true');
+          setAttribute(loading, 'data-fading', 'false');
+          if (gamePage && fatalReload !== null && isElement(fatalReload)) fatalReload.focus?.();
+          if (startupCache !== undefined) {
+            void startupCache.recover(details, () => {
+              // The native/dev startup oracle observes the fatal surface. Keep
+              // recovery nonterminal until its single retry has really failed.
+              uiRecovery = 'retrying';
+              notifyUi();
+              setDisplay(notice, 'none');
+              setDisplay(loading, 'grid');
+              setAttribute(loading, 'aria-hidden', 'false');
+              setText(loadingStatus, 'Refreshing cached startup resources and retrying once…');
+            }).then(result => {
+              if (phase === 'destroyed') return;
+              if (result.status === 'reloaded' || result.status === 'disabled') { disposeUi('loading'); return; }
+              setDisplay(loading, 'none');
+              setAttribute(loading, 'aria-hidden', 'true');
+              setDisplay(notice, 'grid');
+              setText(fatalMessage, message);
+              if (result.status === 'exhausted') {
+                uiRecovery = 'exhausted';
+                uiDiagnostics = details + '\n\nAutomatic startup cache recovery was attempted once.' +
+                  (result.previous ? '\nFirst failure:\n' + result.previous : '');
+              } else if (result.status === 'failed') {
+                uiRecovery = 'failed';
+                uiDiagnostics = details + '\n\nStartup cache recovery failed: ' + result.error;
+              }
+              setText(fatalDetails, uiDiagnostics);
+              notifyUi();
+              disposeUi('loading');
+            });
+          }
+
+        };
+        const prepare = () => {
+          if (!gamePage || (phase !== 'loading' && phase !== 'fading')) return;
+          if (phase === 'fading') {
+            stopFadeCanvasWatch();
+            clearStartupTimeout(fadeTimer);
+            fadeTimer = undefined;
+            setInputEnabled(false);
+            setLoadingControls(true);
+            setAttribute(loading, 'aria-hidden', 'false');
+            setAttribute(loading, 'data-fading', 'false');
+          }
+          phase = 'preparing';
+          shownActivity = labels.phases['first-frame'] ?? labels.loading;
+          notifyUi();
+          latestSubmitted = undefined;
+          submittedFrames = new Set();
+          setText(loadingStatus, labels.phases['first-frame'] ?? labels.loading);
+          armSlowTimer();
+        };
+        const enter = (event) => {
+          if (host !== undefined) frameRate.completed(event);
+          if (!gamePage || phase !== 'preparing') return;
+          if (event === null || typeof event !== 'object') return;
+          if (expectedSession === undefined || event.worldIdentity !== expectedSession) return;
+          if (
+            !Number.isSafeInteger(event.frameId) ||
+            event.frameId < 0 ||
+            !Number.isSafeInteger(event.deviceGeneration) ||
+            event.deviceGeneration < 0
+          ) return;
+          if (
+            latestSubmitted === undefined ||
+            latestSubmitted.canvas !== currentCanvas() ||
+            event.deviceGeneration !== latestSubmitted.deviceGeneration ||
+            (latestSubmitted.worldIdentity !== undefined &&
+              event.worldIdentity !== latestSubmitted.worldIdentity) ||
+            !submittedFrames.has(
+              submissionKey(event.worldIdentity, event.deviceGeneration, event.frameId),
+            )
+          ) return;
+          submittedFrames.delete(
+            submissionKey(event.worldIdentity, event.deviceGeneration, event.frameId),
+          );
+          // A pending completion is still a terminal receipt for this
+          // submitted candidate. Retire it before checking presentation so a
+          // later forged/replayed ready event cannot reuse the same frame.
+          if (event.presentation !== 'ready') return;
+          if (phase === 'fading') return;
+          phase = 'fading';
+          frameRate.completed(event);
+          clearStartupWork();
+          // The game is presentable now; the fade is cosmetic and must not
+          // swallow the first player or scripted input.
+          setInputEnabled(true);
+          startupCache?.complete();
+          runEntered();
+          const fadeGeneration = sessionGeneration;
+          const fadeCanvas = latestSubmitted.canvas;
+          // The hidden overlay keeps neither focus nor its Reload activation:
+          // Enter/Space during the fade belong to the game alone.
+          setLoadingControls(false);
+          showPercent(100);
+          setAttribute(loading, 'data-fading', 'true');
+          setAttribute(loading, 'aria-hidden', 'true');
+          watchFadeCanvas(fadeCanvas);
+          fadeTimer = setStartupTimeout(() => {
+            if (phase !== 'fading' || fadeGeneration !== sessionGeneration) return;
+            if (fadeCanvas !== currentCanvas()) {
+              prepare();
+              return;
+            }
+            stopFadeCanvasWatch();
+            phase = 'entered';
+            notifyUi();
+            disposeUi('loading');
+            setDisplay(loading, 'none');
+            setAttribute(loading, 'data-fading', 'false');
+            cleanupStartupListeners();
+          }, fadeDurationMs);
+        };
+        const destroy = (releaseUi = true) => {
+          if (phase === 'destroyed') return;
+          sessionGeneration += 1;
+          phase = 'destroyed';
+          notifyUi();
+          disposeUi('loading');
+          disposeUi('failure');
+          uiListeners.clear();
+          startupCache?.retire();
+          frameRate.destroy();
+          setInputEnabled(false);
+          // The retired startup owner no longer gates the page's UI.
+          if (releaseUi && gamePage && isElement(gameUi)) gameUi.inert = false;
+          clearStartupWork();
+          cleanupStartupListeners();
+        };
+        const onSubmitted = (event) => {
+          if (phase === 'entered' || phase === 'failed' || phase === 'destroyed') return;
+          const canvas = eventCanvas(event);
+          if (canvas !== currentCanvas()) return;
+          const detail = event?.detail;
+          if (
+            detail !== null &&
+            typeof detail === 'object' &&
+            Number.isSafeInteger(detail.frameId) &&
+            detail.frameId >= 0 &&
+            Number.isSafeInteger(detail.deviceGeneration) &&
+            detail.deviceGeneration >= 0 &&
+            expectedSession !== undefined &&
+            detail.worldIdentity === expectedSession
+          ) {
+            if (
+              latestSubmitted !== undefined &&
+              (detail.deviceGeneration !== latestSubmitted.deviceGeneration ||
+                canvas !== latestSubmitted.canvas)
+            ) {
+              if (phase === 'fading') prepare();
+              else submittedFrames = new Set();
+            }
+            latestSubmitted = {
+              canvas,
+              frameId: detail.frameId,
+              deviceGeneration: detail.deviceGeneration,
+              worldIdentity: detail.worldIdentity,
+            };
+            submittedFrames.add(
+              submissionKey(detail.worldIdentity, detail.deviceGeneration, detail.frameId),
+            );
+          }
+        };
+        const onCompleted = (event) => {
+          if (eventCanvas(event) === currentCanvas()) enter(event?.detail);
+        };
+        const onVisibilityChange = () => {
+          frameRate.visibilityChanged();
+          if (isForeground()) {
+            armSlowTimer();
+          } else {
+            accountForegroundTime();
+            clearStartupTimeout(slowTimer);
+            slowTimer = undefined;
+          }
+        };
+        // A page kept in the back/forward cache resumes as it was.
+        const onPageHide = (event) => {
+          if (event?.persisted !== true) destroy();
+        };
+        const onError = (event) => {
+          if (event?.error !== undefined) {
+            show(event.error);
+            return;
+          }
+          const target = event?.target;
+          const source =
+            target !== null &&
+            target !== undefined &&
+            (typeof target.src === 'string' || typeof target.href === 'string')
+              ? target.src ?? target.href
+              : undefined;
+          if (source !== undefined || event?.message !== undefined) {
+            show({
+              name: 'ScriptResourceError',
+              message: event?.message ?? 'startup resource failed to load',
+              ...(source === undefined ? {} : { detail: { source } }),
+            });
+            return;
+          }
+          show(event);
+        };
+        const onUnhandledRejection = (event) => show(event?.reason ?? event);
+        const setLoadingControls = (active) => {
+          if (loading !== null && isElement(loading)) {
+            loading.inert = !active;
+            const focused = document.activeElement;
+            if (!active && focused !== null && focused !== undefined && typeof loading.contains === 'function' && loading.contains(focused)) {
+              focused.blur?.();
+            }
+          }
+          if (
+            loadingReload === null ||
+            !isElement(loadingReload) ||
+            typeof loadingReload.addEventListener !== 'function'
+          ) return;
+          const listen = active ? 'addEventListener' : 'removeEventListener';
+          loadingReload[listen]('click', reload);
+          loadingReload[listen]('keydown', onStartupControlKey);
+          loadingReload[listen]('keyup', onStartupControlKey);
+        };
+        const bindUiKeys = () => {
+          for (const root of [loading, fatal]) {
+            root?.addEventListener?.('keydown', onStartupControlKey);
+            root?.addEventListener?.('keyup', onStartupControlKey);
+          }
+        };
+        bindUiKeys();
+        const cleanupStartupListeners = () => {
+          for (const root of [loading, fatal]) {
+            root?.removeEventListener?.('keydown', onStartupControlKey);
+            root?.removeEventListener?.('keyup', onStartupControlKey);
+          }
+          if (typeof window.removeEventListener === 'function') {
+            window.removeEventListener('forgeax:frame-submitted', onSubmitted, { capture: true });
+            window.removeEventListener('forgeax:frame-completed', onCompleted, { capture: true });
+            window.removeEventListener('visibilitychange', onVisibilityChange);
+            window.removeEventListener('pagehide', onPageHide);
+            window.removeEventListener('error', onError, { capture: true });
+            window.removeEventListener('unhandledrejection', onUnhandledRejection);
+          }
+          removeStartupInputCapture();
+          if (loadingReload !== null && typeof loadingReload.removeEventListener === 'function') {
+            loadingReload.removeEventListener('click', reload);
+            loadingReload.removeEventListener('keydown', onStartupControlKey);
+            loadingReload.removeEventListener('keyup', onStartupControlKey);
+          }
+          if (
+            fatalReload !== null &&
+            typeof fatalReload.removeEventListener === 'function'
+          ) {
+            fatalReload.removeEventListener('click', reload);
+            fatalReload.removeEventListener('keydown', onStartupControlKey);
+            fatalReload.removeEventListener('keyup', onStartupControlKey);
+          }
+          if (fatalCopy !== null && typeof fatalCopy.removeEventListener === 'function') {
+            fatalCopy.removeEventListener('click', onCopyDiagnostics);
+            fatalCopy.removeEventListener('keydown', onStartupControlKey);
+            fatalCopy.removeEventListener('keyup', onStartupControlKey);
+          }
+        };
+        setLoadingControls(true);
+        const bindFatalReload = () => {
+          if (
+            fatalReload === null ||
+            !isElement(fatalReload) ||
+            typeof fatalReload.addEventListener !== 'function'
+          ) return;
+          fatalReload.addEventListener('click', reload);
+          fatalReload.addEventListener('keydown', onStartupControlKey);
+          fatalReload.addEventListener('keyup', onStartupControlKey);
+        };
+        const bindFatalCopy = () => {
+          if (
+            fatalCopy === null ||
+            !isElement(fatalCopy) ||
+            typeof fatalCopy.addEventListener !== 'function'
+          ) return;
+          fatalCopy.addEventListener('click', onCopyDiagnostics);
+          fatalCopy.addEventListener('keydown', onStartupControlKey);
+          fatalCopy.addEventListener('keyup', onStartupControlKey);
+        };
+        if (gamePage) {
+          // Render Worker recovery replaces its transferred canvas. Capture
+          // nonbubbling receipts on the stable page and admit only its current
+          // canvas; retired or unrelated surfaces cannot enter this game.
+          window.addEventListener('forgeax:frame-submitted', onSubmitted, { capture: true });
+          window.addEventListener('forgeax:frame-completed', onCompleted, { capture: true });
+          window.addEventListener('visibilitychange', onVisibilityChange);
+          window.addEventListener('pagehide', onPageHide);
+          bindStartupInputCapture();
+        }
+        if (fatalEnabled) {
+          // Keep module/resource errors observable even when a workspace or
+          // preview page intentionally starts with no loading overlay.
+          window.addEventListener('error', onError, { capture: true });
+          window.addEventListener('unhandledrejection', onUnhandledRejection);
+        }
+        if (gamePage) {
+          setInputEnabled(false);
+          armSlowTimer();
+        } else {
+          setDisplay(loading, 'none');
+        }
+        const bindSession = (session) => {
+          if (typeof session !== 'string' || session.length === 0) return;
+          frameRate.bindSession(session);
+          if (phase === 'entered' || phase === 'failed' || phase === 'destroyed') return;
+          if (expectedSession === session) return;
+          expectedSession = session;
+          sessionGeneration += 1;
+          latestSubmitted = undefined;
+          submittedFrames = new Set();
+          if (phase === 'loading' || phase === 'preparing' || phase === 'fading') {
+            accountForegroundTime();
+            clearStartupWork();
+            if (phase === 'fading') setLoadingControls(true);
+            phase = 'loading';
+            setInputEnabled(false);
+            setDisplay(loading, 'grid');
+            setDisplay(fatal, 'none');
+            setAttribute(loading, 'aria-hidden', 'false');
+            setAttribute(loading, 'data-fading', 'false');
+            // A rebound session keeps showing the latest measured work.
+            if (lastView === undefined) setText(loadingStatus, labels.loading);
+            else progress(lastView);
+            armSlowTimer();
+          }
+        };
+        const startup = Object.freeze({
+          ready: () => startupCache?.ready() ?? Promise.resolve(),
+          prepare,
+          enter,
+          fail: show,
+          destroy,
+          bindInput,
+          bindSession,
+          submitted: (detail) => onSubmitted({ target: currentCanvas(), detail }),
+          visibilityChanged: onVisibilityChange,
+          progress,
+          inspect: snapshotUi,
+          onEntered,
+        });
+        
+
+        if (host === undefined) globalThis.__forgeaxStartup = startup;
+        return startup;
+      })(undefined);
+</script>
+    <script>
+      (() => {
+        // This inert marker keeps generated pages inspectable by older hosts
+        // that only parse the fatal diagnostic hook.
+        const startupFailureText = 'ForgeAX game failed to start.\n' + 'Unable to start the game.';
+        void startupFailureText;
+      })();
+    </script>
+  </body>
+</html>
