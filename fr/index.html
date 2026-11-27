@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -166,11 +166,10 @@
 </style>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
-<meta name="theme-color" content="#FFFFFF" />
-<meta name="color-scheme" content="light" />
+<link rel="stylesheet" href="/assets/vendor/fonts.css?v=b5bc5838" />
+<link rel="stylesheet" href="/assets/styles.css?v=98268fa7" />
+<meta name="theme-color" content="#000000" />
+<meta name="color-scheme" content="dark" />
 
 </head>
 <body class="lang-fr forgeax-site has-immersive home-immersive">
@@ -224,7 +223,7 @@
 
 <main class="wrap home-v2"
   data-install-bin="npx -y @forgeax/marker@0.5.0"
-  data-step1-label="1. Installer le plugin ForgeAX"
+  data-step1-label="1. Installer le moteur ForgeAX"
   data-step1-note="Certains Agents peuvent devoir être relancés après l’installation."
   data-step2-label="2. Initialiser le projet"
   data-step2-note="Choisissez un dossier local vide comme répertoire de projet, puis exécutez :">
@@ -232,7 +231,7 @@
   <!-- §1 · Hero — centered lockup + install bar -->
   <section class="hero hero--center motion-hero-in immersive-section" id="sec-hero" data-immersive-section>
     <div class="hero-brand">
-      <img class="hero-mark" src="/logo.svg?v=7" alt="ForgeAX" width="220" height="220" />
+      <iframe class="hero-scene" title="Animation principale de ForgeAX" src="/hero-scene.html?v=8" allow="autoplay"></iframe>
     </div>
     <div class="hero-lockup">
     <h1>Moteur de jeux <span class="grad nowrap">AI-Native</span></h1>
@@ -241,8 +240,9 @@
       <div class="hero-cmd" id="install">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
-              <span>GET ForgeAX</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>Obtenir ForgeAX 0.5.0</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
+              <span>Obtenir ForgeAX 0.5.0</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenu" role="listbox" hidden aria-label="Choisir une option d’installation">
@@ -255,13 +255,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="Copié" aria-label="Copier">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="Copié" title="Le navigateur peut demander d’ouvrir l’application locale. Si elle n’est pas installée, l’instruction est déjà copiée.">Copier le prompt d’installation</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanel" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">Installer aussi les plugins</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanel" data-plug-panel hidden>
+        <p class="plug-title">Cette option installe également les 5 plugins suivants</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="Lancement de l’atelier d’effets : décomposer les effets en éléments réutilisables, les prévisualiser, les combiner et les intégrer aux jeux." data-name="Atelier d’effets">
+            <span>Atelier d’effets</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page de l’atelier de personnages Gen3D couvre les modèles, le rigging et l’animation jusqu’à leur intégration au jeu. Version du manifeste : 0.2.3." data-name="Atelier de personnages Gen3D">
+            <span>Atelier de personnages Gen3D</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page présente désormais la création conversationnelle de scènes 3D et inclut la commande d’installation pour Codex." data-name="Générateur de scènes">
+            <span>Générateur de scènes</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page de l’atelier narratif présente les structures narratives vérifiables, l’adaptation d’œuvres existantes et l’installation pour les Agents." data-name="Atelier narratif">
+            <span>Atelier narratif</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="Paquet candidat autonome : écouter, ajuster et intégrer musique, effets sonores et voix aux jeux." data-name="Atelier sonore">
+            <span>Atelier sonore</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">Cliquez sur un plugin pour voir sa dernière mise à jour</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
     </div>
@@ -380,8 +410,9 @@
       <div class="hero-cmd hero-cmd--end">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
-              <span>GET ForgeAX</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>Obtenir ForgeAX 0.5.0</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
+              <span>Obtenir ForgeAX 0.5.0</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenuEnd" role="listbox" hidden aria-label="Choisir une option d’installation">
@@ -394,13 +425,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="Copié" aria-label="Copier">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="Copié" title="Le navigateur peut demander d’ouvrir l’application locale. Si elle n’est pas installée, l’instruction est déjà copiée.">Copier le prompt d’installation</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanelEnd" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">Installer aussi les plugins</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanelEnd" data-plug-panel hidden>
+        <p class="plug-title">Cette option installe également les 5 plugins suivants</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="Lancement de l’atelier d’effets : décomposer les effets en éléments réutilisables, les prévisualiser, les combiner et les intégrer aux jeux." data-name="Atelier d’effets">
+            <span>Atelier d’effets</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page de l’atelier de personnages Gen3D couvre les modèles, le rigging et l’animation jusqu’à leur intégration au jeu. Version du manifeste : 0.2.3." data-name="Atelier de personnages Gen3D">
+            <span>Atelier de personnages Gen3D</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page présente désormais la création conversationnelle de scènes 3D et inclut la commande d’installation pour Codex." data-name="Générateur de scènes">
+            <span>Générateur de scènes</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="La page de l’atelier narratif présente les structures narratives vérifiables, l’adaptation d’œuvres existantes et l’installation pour les Agents." data-name="Atelier narratif">
+            <span>Atelier narratif</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="Paquet candidat autonome : écouter, ajuster et intégrer musique, effets sonores et voix aux jeux." data-name="Atelier sonore">
+            <span>Atelier sonore</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">Cliquez sur un plugin pour voir sa dernière mise à jour</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -436,8 +497,8 @@
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
 </footer>
 
-<script src="/assets/site.js?v=c93fba97"></script>
+<script src="/assets/site.js?v=e8774712"></script>
 <script src="/assets/immersive.js?v=822d32e9"></script>
-<script src="/assets/home-v2.js?v=ef62afae"></script>
+<script src="/assets/home-v2.js?v=acbd5aba"></script>
 </body>
 </html>

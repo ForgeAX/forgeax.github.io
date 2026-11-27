@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>天工引擎 — AI-native 创作游戏</title>
+<title>天工引擎 — AI-Native 游戏引擎</title>
 <meta name="description" content="天工引擎面向专业创作者：Agent、引擎、资产、测试与构建同处一个闭环，从垂直切片一直做到正式发行。开源，Apache 2.0。" />
 <link rel="icon" href="/logo.svg?v=7" type="image/svg+xml" />
 <meta property="og:title" content="天工引擎" />
@@ -166,11 +166,10 @@
 </style>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
-<meta name="theme-color" content="#FFFFFF" />
-<meta name="color-scheme" content="light" />
+<link rel="stylesheet" href="/assets/vendor/fonts.css?v=b5bc5838" />
+<link rel="stylesheet" href="/assets/styles.css?v=98268fa7" />
+<meta name="theme-color" content="#000000" />
+<meta name="color-scheme" content="dark" />
 
 </head>
 <body class="lang-zh forgeax-site has-immersive home-immersive">
@@ -224,7 +223,7 @@
 
 <main class="wrap home-v2"
   data-install-bin="npx -y @forgeax/marker@0.5.0"
-  data-step1-label="一、安装 forgeax 插件"
+  data-step1-label="一、安装天工引擎"
   data-step1-note="部分 Agent 安装后，可能需要重新启动"
   data-step2-label="二、初始化项目"
   data-step2-note="选择一个空白的本地目录作为项目目录，在目录中执行：">
@@ -232,17 +231,18 @@
   <!-- §1 · Hero — centered lockup + install bar -->
   <section class="hero hero--center motion-hero-in immersive-section" id="sec-hero" data-immersive-section>
     <div class="hero-brand">
-      <img class="hero-mark" src="/logo.svg?v=7" alt="天工引擎" width="220" height="220" />
+      <iframe class="hero-scene" title="天工主视觉" src="/hero-scene.html?v=8" allow="autoplay"></iframe>
     </div>
     <div class="hero-lockup">
-    <h1><span class="grad nowrap">AI-native</span> <span class="brand-heavy">创作游戏</span></h1>
+    <h1><span class="grad nowrap">AI-Native</span> <span class="brand-heavy">游戏引擎</span></h1>
 
     <div class="hero-get">
       <div class="hero-cmd" id="install">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
-              <span>获取天工引擎</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>获取天工引擎0.5.0</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
+              <span>获取天工引擎0.5.0</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenu" role="listbox" hidden aria-label="选择安装方案">
@@ -255,13 +255,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="已复制" aria-label="复制">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="已复制" title="浏览器会询问是否打开本地应用。若未安装，指令仍已复制，可手动粘贴。">复制安装提示词</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanel" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">同时安装插件</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanel" data-plug-panel hidden>
+        <p class="plug-title">注：勾选后将同时安装以下 5 个插件</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="上架特效工坊：把特效拆成可复用元素，预览、组合并接入游戏。" data-name="特效工坊">
+            <span>特效工坊</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为 Gen3D 角色工坊：模型、骨骼、动作，再到游戏内交付。清单版本 0.2.3。" data-name="Gen3D 角色工坊">
+            <span>Gen3D 角色工坊</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为对话式 3D 场景创作，并公布 Codex 安装命令。" data-name="场景生成器">
+            <span>场景生成器</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为叙事工坊：可审阅的结构推导、已有作品改编，以及 Agent 安装方式。" data-name="叙事工坊">
+            <span>叙事工坊</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="独立候选包：配乐、音效和语音的试听、调音与游戏接入。" data-name="声音工坊">
+            <span>声音工坊</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">点击任一插件，查看它的最新更新</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
     </div>
@@ -380,8 +410,9 @@
       <div class="hero-cmd hero-cmd--end">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
-              <span>获取天工引擎</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>获取天工引擎0.5.0</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
+              <span>获取天工引擎0.5.0</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenuEnd" role="listbox" hidden aria-label="选择安装方案">
@@ -394,13 +425,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="已复制" aria-label="复制">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="已复制" title="浏览器会询问是否打开本地应用。若未安装，指令仍已复制，可手动粘贴。">复制安装提示词</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanelEnd" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">同时安装插件</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanelEnd" data-plug-panel hidden>
+        <p class="plug-title">注：勾选后将同时安装以下 5 个插件</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="上架特效工坊：把特效拆成可复用元素，预览、组合并接入游戏。" data-name="特效工坊">
+            <span>特效工坊</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为 Gen3D 角色工坊：模型、骨骼、动作，再到游戏内交付。清单版本 0.2.3。" data-name="Gen3D 角色工坊">
+            <span>Gen3D 角色工坊</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为对话式 3D 场景创作，并公布 Codex 安装命令。" data-name="场景生成器">
+            <span>场景生成器</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="宣传页改为叙事工坊：可审阅的结构推导、已有作品改编，以及 Agent 安装方式。" data-name="叙事工坊">
+            <span>叙事工坊</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="独立候选包：配乐、音效和语音的试听、调音与游戏接入。" data-name="声音工坊">
+            <span>声音工坊</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">点击任一插件，查看它的最新更新</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -436,8 +497,8 @@
 <div class="foot-bottom">Apache License 2.0 · © 2026 天工引擎 · github.com/ForgeAX</div>
 </footer>
 
-<script src="/assets/site.js?v=c93fba97"></script>
+<script src="/assets/site.js?v=e8774712"></script>
 <script src="/assets/immersive.js?v=822d32e9"></script>
-<script src="/assets/home-v2.js?v=ef62afae"></script>
+<script src="/assets/home-v2.js?v=acbd5aba"></script>
 </body>
 </html>

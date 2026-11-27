@@ -130,7 +130,7 @@
 
   if (!window.__forgeLucideBoot) {
     window.__forgeLucideBoot = true;
-    loadScript("https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js", function () {
+    loadScript("/assets/vendor/lucide.min.js?v=5de4fffd", function () {
       loadScript("/assets/icons.js?v=4da212e7");
     });
   }

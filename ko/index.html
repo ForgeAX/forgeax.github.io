@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -166,11 +166,10 @@
 </style>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css?v=82d476f0" />
-<meta name="theme-color" content="#FFFFFF" />
-<meta name="color-scheme" content="light" />
+<link rel="stylesheet" href="/assets/vendor/fonts.css?v=b5bc5838" />
+<link rel="stylesheet" href="/assets/styles.css?v=98268fa7" />
+<meta name="theme-color" content="#000000" />
+<meta name="color-scheme" content="dark" />
 
 </head>
 <body class="lang-ko forgeax-site has-immersive home-immersive">
@@ -224,7 +223,7 @@
 
 <main class="wrap home-v2"
   data-install-bin="npx -y @forgeax/marker@0.5.0"
-  data-step1-label="1. ForgeAX 플러그인 설치"
+  data-step1-label="1. ForgeAX 엔진 설치"
   data-step1-note="일부 Agent는 설치 후 재시작이 필요할 수 있습니다."
   data-step2-label="2. 프로젝트 초기화"
   data-step2-note="빈 로컬 디렉터리를 프로젝트 폴더로 선택한 뒤 실행:">
@@ -232,7 +231,7 @@
   <!-- §1 · Hero — centered lockup + install bar -->
   <section class="hero hero--center motion-hero-in immersive-section" id="sec-hero" data-immersive-section>
     <div class="hero-brand">
-      <img class="hero-mark" src="/logo.svg?v=7" alt="ForgeAX" width="220" height="220" />
+      <iframe class="hero-scene" title="ForgeAX 메인 비주얼" src="/hero-scene.html?v=8" allow="autoplay"></iframe>
     </div>
     <div class="hero-lockup">
     <h1><span class="grad">AI 네이티브</span> 게임 엔진</h1>
@@ -241,8 +240,9 @@
       <div class="hero-cmd" id="install">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
-              <span>GET ForgeAX</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>ForgeAX 0.5.0 받기</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenu">
+              <span>ForgeAX 0.5.0 받기</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenu" role="listbox" hidden aria-label="설치 방식 선택">
@@ -255,13 +255,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="복사됨" aria-label="복사">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="복사됨" title="브라우저가 로컬 앱 실행을 물을 수 있습니다. 설치되어 있지 않아도 안내는 이미 복사됩니다.">설치 프롬프트 복사</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanel" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">플러그인도 함께 설치</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanel" data-plug-panel hidden>
+        <p class="plug-title">선택하면 다음 플러그인 5개도 함께 설치됩니다</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="이펙트 공방 출시: 효과를 재사용 가능한 요소로 나누고 미리 보기, 조합 및 게임 통합을 지원합니다." data-name="이펙트 공방">
+            <span>이펙트 공방</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="Gen3D 캐릭터 공방 소개 페이지 업데이트: 모델, 리깅, 애니메이션부터 게임 적용까지 다룹니다. 매니페스트 버전 0.2.3." data-name="Gen3D 캐릭터 공방">
+            <span>Gen3D 캐릭터 공방</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="대화형 3D 장면 제작에 맞춰 소개 페이지를 업데이트하고 Codex 설치 명령을 공개했습니다." data-name="장면 생성기">
+            <span>장면 생성기</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="내러티브 공방 소개 페이지 업데이트: 검토 가능한 서사 구조, 기존 작품 각색 및 Agent 설치 방법을 다룹니다." data-name="내러티브 공방">
+            <span>내러티브 공방</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="독립 후보 패키지: 음악, 효과음, 음성의 미리 듣기, 조정 및 게임 통합을 지원합니다." data-name="사운드 공방">
+            <span>사운드 공방</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">플러그인을 클릭하여 최신 업데이트 확인</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
     </div>
@@ -380,8 +410,9 @@
       <div class="hero-cmd hero-cmd--end">
         <div class="hero-cmd__chip">
           <div class="hero-scheme" data-scheme>
-            <button type="button" class="hero-scheme__btn" data-scheme-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
-              <span>GET ForgeAX</span>
+            <span class="hero-scheme__btn hero-scheme__label" data-scheme-label>ForgeAX 0.5.0 받기</span>
+            <button type="button" class="hero-scheme__btn" data-scheme-toggle hidden disabled aria-expanded="false" aria-haspopup="listbox" aria-controls="fxSchemeMenuEnd">
+              <span>ForgeAX 0.5.0 받기</span>
               <i data-lucide="chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="hero-scheme__menu" id="fxSchemeMenuEnd" role="listbox" hidden aria-label="설치 방식 선택">
@@ -394,13 +425,43 @@
               <li role="none"><button type="button" role="option" aria-selected="false" data-scheme-opt data-ide="workbuddy">WorkBuddy</button></li>
             </ul>
           </div>
-          <code data-install-prompt>npx -y @forgeax/marker@0.5.0 install</code>
+          <code data-install-prompt>npm install -g @forgeax/engine@0.5.0</code>
           <button type="button" class="hero-cmd__copy" data-copy-cmd data-copied="복사됨" aria-label="복사">
             <span class="hero-cmd__ic hero-cmd__ic--copy" aria-hidden="true"><i data-lucide="copy"></i></span>
             <span class="hero-cmd__ic hero-cmd__ic--check" aria-hidden="true"><i data-lucide="check"></i></span>
           </button>
         </div>
         <button type="button" class="hero-prompt-btn" data-copy-prompt data-copied="복사됨" title="브라우저가 로컬 앱 실행을 물을 수 있습니다. 설치되어 있지 않아도 안내는 이미 복사됩니다.">설치 프롬프트 복사</button>
+      </div>
+      <label class="hero-plugin">
+        <input class="hero-plugin__input" type="checkbox" name="install-plugins" aria-controls="fxPluginPanelEnd" />
+        <span class="hero-plugin__box" aria-hidden="true"></span>
+        <span class="hero-plugin__text">플러그인도 함께 설치</span>
+      </label>
+      <div class="plug-panel" id="fxPluginPanelEnd" data-plug-panel hidden>
+        <p class="plug-title">선택하면 다음 플러그인 5개도 함께 설치됩니다</p>
+        <div class="plug-chips">
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="이펙트 공방 출시: 효과를 재사용 가능한 요소로 나누고 미리 보기, 조합 및 게임 통합을 지원합니다." data-name="이펙트 공방">
+            <span>이펙트 공방</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="Gen3D 캐릭터 공방 소개 페이지 업데이트: 모델, 리깅, 애니메이션부터 게임 적용까지 다룹니다. 매니페스트 버전 0.2.3." data-name="Gen3D 캐릭터 공방">
+            <span>Gen3D 캐릭터 공방</span><span class="plug-v">v0.2.3</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="대화형 3D 장면 제작에 맞춰 소개 페이지를 업데이트하고 Codex 설치 명령을 공개했습니다." data-name="장면 생성기">
+            <span>장면 생성기</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-10-14" data-note="내러티브 공방 소개 페이지 업데이트: 검토 가능한 서사 구조, 기존 작품 각색 및 Agent 설치 방법을 다룹니다." data-name="내러티브 공방">
+            <span>내러티브 공방</span><span class="plug-v">v0.1.0</span>
+          </button>
+          <button type="button" class="plug-chip" aria-expanded="false" data-date="2026-09-30" data-note="독립 후보 패키지: 음악, 효과음, 음성의 미리 듣기, 조정 및 게임 통합을 지원합니다." data-name="사운드 공방">
+            <span>사운드 공방</span><span class="plug-v">v0.7.0</span>
+          </button>
+        </div>
+        <p class="plug-hint">플러그인을 클릭하여 최신 업데이트 확인</p>
+        <div class="plug-detail" hidden aria-live="polite">
+          <div class="plug-d-top"><span class="plug-d-name"></span><span class="plug-d-date"></span></div>
+          <p class="plug-d-note"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -436,8 +497,8 @@
 <div class="foot-bottom">Apache License 2.0 · © 2026 ForgeAX · github.com/ForgeAX</div>
 </footer>
 
-<script src="/assets/site.js?v=c93fba97"></script>
+<script src="/assets/site.js?v=e8774712"></script>
 <script src="/assets/immersive.js?v=822d32e9"></script>
-<script src="/assets/home-v2.js?v=ef62afae"></script>
+<script src="/assets/home-v2.js?v=acbd5aba"></script>
 </body>
 </html>

@@ -399,12 +399,18 @@
   /* ── install command + paste-into-agent prompt ── */
   (function installCommand() {
     var root = document.querySelector("main.home-v2");
-    var BIN = (root && root.getAttribute("data-install-bin")) || "npx -y @forgeax/marker@0.5.0";
+    if (!root) return;
+    var BIN = root.getAttribute("data-install-bin") || "npx -y @forgeax/marker@0.5.0";
+    var ENGINE_CMD = "npm install -g @forgeax/engine@0.5.0";
+    var ENGINE_PROMPT = [
+      "For a first-time install, run `" + ENGINE_CMD + "`.",
+      "Run `npm root -g` and read `@forgeax/engine/authoring/AGENTS.md` under the returned directory.",
+      "Briefly welcome me, ask whether to create a new game or open an existing project, and wait for my choice."
+    ].join("\n");
+    var scopes = root.querySelectorAll(".hero-lockup, .endcta");
     var DEFAULT_IDE = "";
     var PREFERRED_IDE_KEY = "forgeax.preferred-ide";
     var ide = DEFAULT_IDE;
-    var command = commandFor(ide);
-    var prompt = "";
 
     function attr(name) {
       return (root && root.getAttribute(name)) || "";
@@ -470,7 +476,7 @@
       document.body.removeChild(link);
     }
 
-    function buildPrompt() {
+    function buildPrompt(command) {
       return [
         attr("data-step1-label"),
         command,
@@ -534,16 +540,33 @@
     }
 
     function applyCommand() {
-      command = commandFor(ide);
-      prompt = buildPrompt();
-      Array.prototype.forEach.call(document.querySelectorAll("[data-install-prompt]"), function (el) {
-        el.textContent = command;
-      });
-      Array.prototype.forEach.call(document.querySelectorAll("[data-copy-cmd]"), function (btn) {
-        btn.setAttribute("data-copy-text", command);
-      });
-      Array.prototype.forEach.call(document.querySelectorAll("[data-copy-prompt]"), function (btn) {
-        btn.setAttribute("data-copy-text", prompt);
+      Array.prototype.forEach.call(scopes, function (scope) {
+        var checkbox = scope.querySelector(".hero-plugin__input");
+        var plugins = !!(checkbox && checkbox.checked);
+        var command = plugins ? commandFor(ide) : ENGINE_CMD;
+        var prompt = plugins ? buildPrompt(command) : ENGINE_PROMPT;
+        var scheme = scope.querySelector("[data-scheme]");
+        if (scheme) {
+          var toggle = scheme.querySelector("[data-scheme-toggle]");
+          var label = scheme.querySelector("[data-scheme-label]");
+          if (!plugins) {
+            if (checkbox && scheme.contains(document.activeElement)) checkbox.focus();
+            closeScheme(scheme);
+          }
+          if (toggle) {
+            toggle.hidden = !plugins;
+            toggle.disabled = !plugins;
+          }
+          if (label) label.hidden = plugins;
+        }
+        var panel = scope.querySelector("[data-plug-panel]");
+        if (panel) panel.hidden = !plugins;
+        var code = scope.querySelector("[data-install-prompt]");
+        if (code) code.textContent = command;
+        var copyCommand = scope.querySelector("[data-copy-cmd]");
+        if (copyCommand) copyCommand.setAttribute("data-copy-text", command);
+        var copyPrompt = scope.querySelector("[data-copy-prompt]");
+        if (copyPrompt) copyPrompt.setAttribute("data-copy-text", prompt);
       });
     }
 
@@ -572,6 +595,10 @@
     }
 
     applyCommand();
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-plugin__input"), function (checkbox) {
+      checkbox.addEventListener("change", applyCommand);
+    });
+    window.addEventListener("pageshow", applyCommand);
 
     Array.prototype.forEach.call(document.querySelectorAll("[data-scheme]"), function (box) {
       var toggle = box.querySelector("[data-scheme-toggle]");
@@ -579,6 +606,7 @@
       if (!toggle || !menu) return;
       toggle.addEventListener("click", function (e) {
         e.stopPropagation();
+        if (toggle.disabled) return;
         var open = box.classList.contains("is-open");
         closeAllSchemes();
         if (open) return;
@@ -589,6 +617,7 @@
       Array.prototype.forEach.call(box.querySelectorAll("[data-scheme-opt]"), function (opt) {
         opt.addEventListener("click", function (e) {
           e.stopPropagation();
+          if (toggle.disabled) return;
           selectScheme(opt.getAttribute("data-ide"));
         });
       });
@@ -601,7 +630,8 @@
 
     Array.prototype.forEach.call(document.querySelectorAll("[data-copy-cmd]"), function (btn) {
       btn.addEventListener("click", function (e) {
-        var text = btn.getAttribute("data-copy-text") || command;
+        applyCommand();
+        var text = btn.getAttribute("data-copy-text") || ENGINE_CMD;
         if (!text) return;
         if (btn.tagName === "A") e.preventDefault();
         copyText(text, btn);
@@ -611,10 +641,38 @@
     Array.prototype.forEach.call(document.querySelectorAll("[data-copy-prompt]"), function (btn) {
       btn.addEventListener("click", function (e) {
         if (btn.tagName === "A") e.preventDefault();
-        var text = btn.getAttribute("data-copy-text") || prompt;
+        applyCommand();
+        var text = btn.getAttribute("data-copy-text") || ENGINE_PROMPT;
         if (!text) return;
         copyText(text, btn);
         openLocalAgent(deeplinkFor(openerIde(ide), text));
+      });
+    });
+  })();
+
+  /* Plugin release notes are independent in the top and bottom install areas. */
+  (function pluginDetails() {
+    document.querySelectorAll("[data-plug-panel]").forEach(function (panel) {
+      var chips = Array.prototype.slice.call(panel.querySelectorAll(".plug-chip"));
+      var detail = panel.querySelector(".plug-detail");
+      var hint = panel.querySelector(".plug-hint");
+      var current = null;
+      if (!detail || !hint) return;
+      chips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          current = current === chip ? null : chip;
+          chips.forEach(function (item) {
+            var selected = item === current;
+            item.classList.toggle("on", selected);
+            item.setAttribute("aria-expanded", selected ? "true" : "false");
+          });
+          detail.hidden = !current;
+          hint.hidden = !!current;
+          if (!current) return;
+          panel.querySelector(".plug-d-name").textContent = current.getAttribute("data-name");
+          panel.querySelector(".plug-d-date").textContent = current.getAttribute("data-date");
+          panel.querySelector(".plug-d-note").textContent = current.getAttribute("data-note");
+        });
       });
     });
   })();

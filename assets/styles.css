@@ -35,7 +35,7 @@
 @import url('/assets/forgeax/home-v2.css?v=9ecacb6b');
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;color-scheme:light}
+html{scroll-behavior:smooth;color-scheme:dark}
 body{
   background:var(--bg-canvas);color:var(--text-primary);
   font-family:var(--font-sans);font-size:16px;line-height:1.7;
@@ -614,3 +614,457 @@ code{overflow-wrap:anywhere;word-break:break-word}
   .forgeax-site .nav-brand{flex:0 0 auto!important;z-index:4}
   .forgeax-site .nav-right{flex:0 0 auto!important;z-index:4}
 }
+
+/* V8 dark site theme and homepage presentation. */
+
+/* ============================================================================
+   天工引擎 · 全站黑底主题（站点级覆盖层）
+   用法：在站点的公共模板 <head> 末尾、所有站点样式之后引入本文件。
+   只覆盖颜色类 token 与少量硬编码颜色，不改任何排版与间距。
+   ============================================================================ */
+:root{
+  color-scheme:dark;
+
+  /* 背景 */
+  --fx-color-surface-canvas:#000000;
+  --fx-color-surface-sidebar:#070708;
+  --fx-color-surface-inset:#070708;
+  --fx-color-surface-raised:#0C0D10;
+  --fx-color-surface-hover:#17191D;
+  --fx-color-surface-selected:#1E2025;
+  --fx-color-selection-bg:#1E2025;
+  --fx-color-selection-fg:#F2F4F7;
+
+  /* 文字 */
+  --fx-color-text-primary:#F2F4F7;
+  --fx-color-text-secondary:#A2AAB4;
+  --fx-color-text-muted:#6B7480;
+  --fx-color-text-disabled:#4A515C;
+  --fx-color-brand-on-accent:#FFFFFF;
+
+  /* 边框 */
+  --fx-color-border-subtle:rgba(255,255,255,.10);
+  --fx-color-border-default:rgba(255,255,255,.16);
+  --fx-color-border-strong:rgba(255,255,255,.30);
+  --fx-color-border-focus:#E8692C;
+
+  /* 品牌与交互按钮（橙色） */
+  --fx-color-brand-accent:#E8692C;
+  --fx-color-brand-text:#F08A55;
+  --fx-color-brand-soft:rgba(232,105,44,.14);
+  --fx-color-action-primary-bg:#E8692C;
+  --fx-color-action-primary-fg:#FFFFFF;
+  --fx-color-action-primary-hover:#F2793A;
+  --fx-color-action-secondary-bg:rgba(255,255,255,.04);
+  --fx-color-action-secondary-fg:#F2F4F7;
+  --fx-color-scrim:rgba(0,0,0,.72);
+
+  /* 玻璃面板 */
+  --glass-bg:rgba(10,11,13,.72);
+  --glass-border-subtle:rgba(255,255,255,.10);
+  --glass-frost:rgba(255,255,255,.03);
+}
+
+html,body{background:#000 !important;color:#F2F4F7}
+:focus-visible{outline-color:#E8692C}
+
+/* 去掉原站的浅色氛围层与光晕，保持纯黑底 */
+.ambient{display:none !important}
+.glow{background:none !important}
+.foot{background:#000 !important}
+
+/* 导航 */
+.nav{background:rgba(0,0,0,.86) !important;border-bottom-color:rgba(255,255,255,.08)}
+.nav-cta{background:#E8692C !important;color:#FFFFFF !important}
+.nav-cta:hover,.nav-cta:active{background:#F2793A !important;color:#FFFFFF !important}
+.lang-menu-trigger{background:transparent !important;border-color:rgba(255,255,255,.16) !important;color:#A2AAB4 !important}
+.lang-menu-trigger:hover,.lang-menu.is-open .lang-menu-trigger{color:#F2F4F7 !important;border-color:#E8692C !important}
+.lang-menu-list{background:#0C0D10 !important;border-color:rgba(255,255,255,.12) !important}
+.lang-item{color:#D5DAE1 !important}
+.lang-item:hover,.lang-item.active{background:rgba(255,255,255,.07) !important;color:#FFFFFF !important}
+
+/* 页脚、滚动提示 */
+.foot-links a:hover{color:#F08A55 !important}
+.scroll-cue{color:#A2AAB4}
+.scroll-cue:hover{color:#E8692C}
+
+/* 终端代码块：统一为深色 */
+.term{background:#0C0D10 !important;border-color:rgba(255,255,255,.10) !important}
+
+/* 教程页：tutorials-graft.css 在 .tut-graft 上重新声明了一整套浅色 neutral 变量，这里设回深色 */
+.tut-graft{
+  --fx-ref-color-neutral-0:#000000;
+  --fx-ref-color-neutral-25:#070708;
+  --fx-ref-color-neutral-50:#0C0D10;
+  --fx-ref-color-neutral-100:#17191D;
+  --fx-color-text-primary:#F2F4F7;
+  --fx-color-text-secondary:#A2AAB4;
+  --fx-color-text-muted:#6B7480;
+  --fx-color-surface-canvas:#000000;
+  --fx-color-surface-sidebar:#070708;
+  --fx-color-surface-raised:#0C0D10;
+  --fx-color-surface-hover:#17191D;
+  --fx-color-surface-selected:#1E2025;
+  --fx-color-border-subtle:rgba(255,255,255,.10);
+  --fx-color-border-default:rgba(255,255,255,.16);
+}
+.tut-graft .stage-panel-switch{background-color:rgba(12,13,16,.92) !important}
+.tut-graft .stage-wrap{background-color:#0C0D10 !important}
+.tut-graft .step-index{color:#FFFFFF}
+.tut-graft .step[aria-current="step"]{color:#F2F4F7 !important}
+
+/* 产品界面模拟（ForgeaX View 编辑器）：它模拟的是真实产品的浅色界面，保持原样。
+   把局部 token 设回原值，避免浅字落在浅底上。选择器带 .tut-graft 以压过上面的暗化变量。 */
+.fxview,
+.fx-dock-panel,
+.tut-graft .fxview,
+.tut-graft .fx-dock-panel{
+  --fx-ref-color-neutral-0:#FFFFFF;
+  --fx-ref-color-neutral-25:#FCFCFC;
+  --fx-ref-color-neutral-50:#F5F5F6;
+  --fx-ref-color-neutral-100:#EDEDED;
+  --fx-color-surface-canvas:#FFFFFF;
+  --fx-color-surface-inset:#FCFCFC;
+  --fx-color-surface-sidebar:#F5F5F6;
+  --fx-color-surface-raised:#FFFFFF;
+  --fx-color-surface-hover:#EDEDED;
+  --fx-color-surface-selected:#F5F5F6;
+  --fx-color-text-primary:#232323;
+  --fx-color-text-secondary:#626366;
+  --fx-color-text-muted:#626366;
+  --fx-color-border-subtle:#EDEDED;
+  --fx-color-border-default:#E6E6E7;
+  --fx-color-brand-text:#FC7027;
+  --fx-color-brand-accent:#FC7027;
+  --fx-color-selection-bg:#F5F5F6;
+  --fx-color-selection-fg:#232323;
+  --fx-color-action-primary-bg:#232323;
+  --fx-color-action-primary-fg:#FFFFFF;
+  color-scheme:light;
+}
+.fxview{background:#FFFFFF;color:#232323}
+/* 模拟界面里原本就是深底的元素（视口提示、toast），文字保持浅色 */
+.fxview .vp-empty,.fxview .vp-work,.fxview .toast,.tut-graft .toast{color:#F2F4F7 !important}
+
+/* 插件页：选中项与分隔符 */
+.store-ri.active{color:#F2F4F7 !important}
+.store-row-sep{color:#6B7480 !important}
+
+
+/* ===== 首页专属元素 ===== */
+/* ============================================================================
+   天工引擎 · 首页专属样式（仅首页元素）
+   依赖：forgeax-dark-theme.css 先加载。
+   首屏：主视觉铺满整个首屏（宽 100vw、高 = 一屏），标题与安装条叠在场景底部。
+   ============================================================================ */
+
+/* 版心容器原先 overflow-x:clip，会把铺满视口宽度的主视觉裁掉 */
+.forgeax-site main.home-v2{overflow-x:visible !important}
+
+/* 首屏：从“居中堆叠”改为“主视觉背景 + 叠字”。
+   --H = 一屏高度（至少 640px）；文字区从 62% 高度处开始，避开画面中心的标志 */
+.forgeax-site .home-v2 .hero--center{
+  --H:max(640px,calc(100svh - var(--nav-h,60px)));
+  justify-content:flex-start;
+  padding:calc(var(--H) * .62) 0 clamp(40px,6vh,80px);
+  min-height:var(--H);
+  isolation:isolate;
+}
+.forgeax-site .home-v2 .hero--center::before{display:none}
+
+/* 主视觉层：铺满视口宽度，高度等于整个首屏 */
+.forgeax-site.has-immersive .home-v2 .hero--center > .hero-brand{
+  position:absolute;
+  top:0;bottom:0;left:50%;
+  width:100vw;max-width:none;
+  margin:0 0 0 -50vw;
+  display:block;
+  z-index:0;
+}
+.hero-scene{display:block;width:100%;height:100%;border:0;background:#000}
+
+/* 标题与安装条叠在场景之上；空白处的鼠标事件穿透给下面的场景，保证能拖动旋转 */
+.forgeax-site .home-v2 .hero--center > .hero-lockup{position:relative;z-index:3;pointer-events:none}
+.home-v2 .hero-lockup .hero-cmd,
+.home-v2 .hero-lockup .hero-cmd *{pointer-events:auto}
+.home-v2 .hero-lockup h1{filter:drop-shadow(0 2px 18px rgba(0,0,0,.85)) drop-shadow(0 0 6px rgba(0,0,0,.45))}
+/* 标题字号与 hero 3 原设计一致（最大 72px），避免压住太多画面 */
+.forgeax-site .home-v2 .hero--center h1{font-size:clamp(36px,min(8cqi,5.2vw),72px) !important}
+
+/* Agent 图标行：紧跟安装条之后；不拦截鼠标，避免挡住场景里的播放控制条 */
+.forgeax-site .home-v2 .hero--center > .hero-agents{
+  position:relative;left:auto;right:auto;bottom:auto;
+  width:min(40rem,92vw);margin:clamp(24px,3.6vh,36px) auto 0;z-index:3;pointer-events:none;
+}
+
+/* 首屏已满屏，不再需要“向下滚动”箭头（它会压住内容） */
+.forgeax-site.home-immersive .scroll-cue{display:none !important}
+
+@media (max-width:760px){
+  .forgeax-site .home-v2 .hero--center{--H:max(560px,calc(100svh - var(--nav-h,60px)));padding-top:calc(var(--H) * .55)}
+  .forgeax-site .home-v2 .hero--center > .hero-agents{width:min(22rem,92vw)}
+}
+
+/* 安装命令条 */
+.hero-cmd__chip{background:rgba(12,13,16,.82) !important;border-color:rgba(255,255,255,.16) !important;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hero-scheme__btn{color:#FFFFFF !important;background:#E8692C !important}
+.hero-scheme__btn:hover{background:#F2793A !important}
+.hero-scheme__menu{background:#0C0D10 !important;border-color:rgba(255,255,255,.12) !important;box-shadow:0 -12px 40px rgba(0,0,0,.7) !important}
+.hero-scheme__menu button{color:#A2AAB4 !important}
+.hero-scheme__menu button:hover,.hero-scheme__menu button[aria-selected="true"]{background:rgba(255,255,255,.08) !important;color:#FFFFFF !important}
+.hero-cmd code{color:#F2F4F7 !important}
+.hero-cmd__copy{color:#A2AAB4 !important}
+.hero-cmd__copy:hover{color:#FFFFFF !important}
+.hero-prompt-btn{background:rgba(12,13,16,.6) !important;color:#F2F4F7 !important;border:1px solid rgba(255,255,255,.24) !important}
+.hero-prompt-btn:hover{border-color:#E8692C !important;color:#F08A55 !important;background:rgba(232,105,44,.12) !important}
+
+/* Agent / 平台图标：深色图标在黑底上转白 */
+.home-v2 .hero-agents__row img,.hero-agents img,.publish-item__icon img{filter:brightness(0) invert(1) !important;opacity:.78 !important}
+.publish-item.is-unsupported .publish-item__icon img{opacity:.3 !important}
+.home-v2 .hero-agents__row img:hover{opacity:1 !important}
+
+/* 案例卡片 */
+.gm-card,.gm-card .thumb{background:#0A0B0D !important}
+.gm-card{border:1px solid rgba(255,255,255,.08)}
+.gm-card:hover{border-color:rgba(232,105,44,.55)}
+
+/* 结尾 CTA、合作区 */
+.endcta .hero-cmd__chip{background:#0C0D10 !important}
+.founding{border-color:rgba(255,255,255,.10) !important}
+.founding .more,.founding a{color:#F2F4F7 !important;border-bottom-color:rgba(255,255,255,.3) !important}
+.founding .more:hover,.founding a:hover{color:#F08A55 !important;border-bottom-color:#E8692C !important}
+
+
+
+/* ===== 首页安装条 v2 ===== */
+/* ============================================================================
+   首页安装条 v2（按低保真调整外观；结构沿用原组件；颜色沿用当前黑底配色）
+   结构：[获取天工引擎 ⌄ | 命令 | 复制图标]  [复制安装提示词]
+         [ ] 同时安装插件
+   ============================================================================ */
+
+.forgeax-site .home-v2 .hero-cmd,
+.forgeax-site .home-v2 .hero-cmd--end{
+  --fx-cmd-h:48px;
+  --fx-cmd-inner:40px;
+  flex-direction:row;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  width:max-content;
+  max-width:100%;
+}
+
+.forgeax-site .home-v2 .hero-cmd__chip{
+  flex:1 1 auto;
+  width:auto;
+  min-width:0;
+  min-height:var(--fx-cmd-h);
+  gap:6px;
+  padding:4px;
+  background:#0C0D10 !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
+.forgeax-site .home-v2 .hero-cmd__chip code{
+  flex:1 1 auto;
+  min-width:0;
+  padding:0 12px 0 14px;
+  font-size:13px;
+  color:#F2F4F7 !important;
+  white-space:normal;
+  overflow:visible;
+  overflow-wrap:anywhere;
+  text-overflow:clip;
+  text-align:left;
+}
+
+.forgeax-site .home-v2 .hero-scheme__btn{
+  height:var(--fx-cmd-inner);
+  min-height:var(--fx-cmd-inner);
+  padding:0 16px;
+  font-size:13px;
+  font-weight:600;
+  color:#FFFFFF !important;
+  background:#E8692C !important;
+}
+.forgeax-site .home-v2 .hero-scheme__btn:hover{background:#F2793A !important}
+.forgeax-site .home-v2 .hero-scheme__btn[hidden]{display:none}
+.forgeax-site .home-v2 .hero-scheme__label,
+.forgeax-site .home-v2 .hero-scheme__label:hover{
+  cursor:default;
+  background:#E8692C !important;
+}
+
+.forgeax-site .home-v2 .hero-cmd__copy{
+  width:var(--fx-cmd-inner);
+  height:var(--fx-cmd-inner);
+  color:#A2AAB4 !important;
+}
+.forgeax-site .home-v2 .hero-cmd__copy:hover{
+  color:#FFFFFF !important;
+  background:rgba(255,255,255,.06) !important;
+}
+
+.forgeax-site .home-v2 .hero-prompt-btn{
+  height:var(--fx-cmd-h);
+  min-height:var(--fx-cmd-h);
+  padding:0 22px;
+  font-size:13px;
+  font-weight:600;
+  color:#F2F4F7 !important;
+  background:transparent !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  flex:0 0 auto;
+}
+.forgeax-site .home-v2 .hero-prompt-btn:hover{
+  border-color:#E8692C !important;
+  color:#F08A55 !important;
+  background:rgba(232,105,44,.08) !important;
+}
+
+/* Keep the original label's layout, but show only the copied-status overlay. */
+.forgeax-site .home-v2 .hero-prompt-btn.is-copied{
+  color:transparent !important;
+  text-shadow:none !important;
+}
+
+
+
+/* 主视觉 iframe 是不透明的黑底，且层级高于安装条的按钮，会把“复制安装提示词”压成发虚；这里把安装条整体抬到 iframe 之上 */
+.forgeax-site .home-v2 .hero--center > .hero-lockup{position:relative;z-index:5}
+.forgeax-site .home-v2 .hero-cmd{position:relative;z-index:6}
+
+/* 文字区域整体 pointer-events:none（让鼠标穿透到主视觉），这里把安装条和复选框恢复为可点击 */
+.forgeax-site .home-v2 .hero-lockup .hero-plugin,
+.forgeax-site .home-v2 .hero-lockup .hero-plugin *,
+.forgeax-site .home-v2 .hero-lockup .hero-cmd,
+.forgeax-site .home-v2 .hero-lockup .hero-cmd *{pointer-events:auto}
+
+/* 同时安装插件（仅外观） */
+.forgeax-site .home-v2 .hero-plugin{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  font-size:13px;
+  color:#A2AAB4;
+  cursor:pointer;
+  user-select:none;
+}
+.forgeax-site .home-v2 .hero-plugin__input{
+  position:absolute;
+  opacity:0;
+  width:1px;
+  height:1px;
+  margin:0;
+  pointer-events:none;
+}
+.forgeax-site .home-v2 .hero-plugin__box{
+  flex:0 0 auto;
+  position:relative;
+  width:16px;
+  height:16px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:4px;
+  background:transparent;
+  transition:background .15s ease,border-color .15s ease;
+}
+.forgeax-site .home-v2 .hero-plugin__box::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  top:1px;
+  width:4px;
+  height:8px;
+  border:solid #FFFFFF;
+  border-width:0 2px 2px 0;
+  transform:rotate(45deg);
+  opacity:0;
+}
+.forgeax-site .home-v2 .hero-plugin__input:checked + .hero-plugin__box{
+  background:#E8692C;
+  border-color:#E8692C;
+}
+.forgeax-site .home-v2 .hero-plugin__input:checked + .hero-plugin__box::after{opacity:1}
+.forgeax-site .home-v2 .hero-plugin:hover .hero-plugin__box{border-color:rgba(255,255,255,.6)}
+.forgeax-site .home-v2 .hero-plugin__input:focus-visible + .hero-plugin__box{
+  outline:2px solid #E8692C;
+  outline-offset:2px;
+}
+.forgeax-site .home-v2 .hero-plugin__text:hover{color:#F2F4F7}
+
+@media (max-width:640px){
+  .forgeax-site .home-v2 .hero-cmd,
+  .forgeax-site .home-v2 .hero-cmd--end{flex-wrap:wrap;gap:10px;--fx-cmd-h:44px;--fx-cmd-inner:36px}
+  .forgeax-site .home-v2 .hero-cmd__chip{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) var(--fx-cmd-inner);
+    flex-basis:100%;
+    padding:8px;
+    border-radius:24px;
+  }
+  .forgeax-site .home-v2 .hero-cmd__chip .hero-scheme{grid-column:1 / -1;justify-self:start}
+  .forgeax-site .home-v2 .hero-cmd__chip code{font-size:13px;padding:4px 8px}
+  .forgeax-site .home-v2 .hero-scheme__btn{padding:0 12px;font-size:12px}
+  .forgeax-site .home-v2 .hero-prompt-btn{padding:0 16px;font-size:12px}
+}
+
+
+
+/* ===== v3：插件标签 + 主视觉性能 ===== */
+/* ===== 方案B：插件名称标签（勾选后显示，点击查看最新更新）===== */
+.forgeax-site .home-v2 .hero-lockup .plug-panel,
+.forgeax-site .home-v2 .hero-lockup .plug-panel *{pointer-events:auto}
+.forgeax-site .home-v2 .plug-panel{
+  position:relative;z-index:6;
+  width:min(800px,100%);margin:18px auto 0;padding:16px 18px 14px;text-align:left;
+  background:rgba(12,13,16,.94);                /* 不用 backdrop-filter：叠在 3D 画面上的实时模糊很耗性能 */
+  border:1px solid rgba(255,255,255,.12);border-radius:16px;
+}
+.plug-title{margin:0 0 12px;font-size:13px;font-weight:600;color:#F2F4F7}
+.plug-chips{display:flex;flex-wrap:wrap;gap:8px}
+.plug-chip{
+  appearance:none;display:inline-flex;align-items:center;gap:8px;margin:0;
+  padding:7px 14px;font:inherit;font-size:12.5px;color:#D5DAE1;cursor:pointer;
+  background:transparent;border:1px solid rgba(255,255,255,.18);border-radius:999px;
+  transition:border-color .15s,background .15s,color .15s;
+}
+.plug-chip:hover{border-color:rgba(255,255,255,.4);color:#FFFFFF}
+.plug-chip.on{background:#E8692C;border-color:#E8692C;color:#FFFFFF}
+.plug-chip:focus-visible{outline:2px solid #E8692C;outline-offset:2px}
+.plug-v{font:11px ui-monospace,Menlo,monospace;color:#8A93A0}
+.plug-chip.on .plug-v{color:rgba(255,255,255,.8)}
+.plug-hint{margin:12px 0 0;font-size:12px;color:#8A93A0}
+.plug-detail{margin-top:12px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px}
+.plug-d-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plug-d-name{font-weight:600;font-size:13px;color:#F2F4F7}
+.plug-d-date{font-size:11.5px;color:#8A93A0}
+.plug-d-note{margin:6px 0 0;font-size:12.5px;line-height:1.55;color:#C3C9D2}
+.endcta .plug-panel{margin-top:16px}
+
+/* 主视觉只占一屏高度，下面的插件区不再把场景撑高（场景越大越耗性能）；底部渐隐到黑底，无接缝 */
+.forgeax-site.has-immersive .home-v2 .hero--center > .hero-brand{bottom:auto;height:var(--H)}
+.forgeax-site.has-immersive .home-v2 .hero--center > .hero-brand::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:140px;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(0,0,0,0),#000);
+}
+
+/* ===== 主视觉性能：去掉叠在实时 3D 画面上的模糊、投影滤镜与持续动画 ===== */
+.hero-cmd__chip{backdrop-filter:none !important;-webkit-backdrop-filter:none !important;background:rgba(12,13,16,.94) !important}
+.home-v2 .hero-lockup h1{filter:none !important;text-shadow:none}
+.home-v2 .hero-lockup h1 .brand-heavy{text-shadow:0 2px 18px rgba(0,0,0,.9)}   /* 渐变字是透明填充，加阴影会透出变灰，所以只给实色部分加 */
+.home-v2 .hero-lockup h1 .grad{text-shadow:none !important}
+.forgeax-site.has-immersive .hero h1 .grad{animation:none !important}
+.forge-particles{display:none !important}       /* 全屏 2D 粒子画布，黑底上几乎看不见（不透明度 0.08） */
+/* Agent 图标沿用 home-v2.css 的无缝滚动，保留悬停暂停和减少动态效果设置。 */
+.forgeax-site .home-v2 .hero-plugin{text-shadow:0 1px 10px #000,0 0 4px #000}
+
+/* 层级：安装条（含向下展开的“全部 Agent”菜单）必须在插件面板之上 */
+.forgeax-site .home-v2 .plug-panel{z-index:1}
+.forgeax-site .home-v2 .hero-cmd,
+.forgeax-site .home-v2 .hero-cmd--end{z-index:20}
