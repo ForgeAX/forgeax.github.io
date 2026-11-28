@@ -1,0 +1,1 @@
+export{mr as createBrowserFileStore,hr as createBrowserPlatform,gr as createBrowserRecordStore,_r as createBrowserRuntimePackCache,vr as createBrowserRuntimePackRecords,yr as createBrowserSaveRecords,br as createTauriFileStore,xr as createTauriRecordStore,Sr as createTauriRuntimePackCache,Cr as serveTauriStorage}from"./engine-4f53cda18c2baa0c-DtmI5HvS.js";

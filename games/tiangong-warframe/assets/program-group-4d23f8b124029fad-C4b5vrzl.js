@@ -1,1 +1,0 @@
-export{default as t}from"./physics-rapier3d-BlfJ5UA6.js";

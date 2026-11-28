@@ -1,0 +1,1 @@
+export{js as PhysicsCollisionSync,Ms as PhysicsStepSimulation,Ns as PhysicsSyncBackend,Ps as RapierPhysicsWorld3D,Fs as createRapier3DPhysicsWorld,Is as default,zs as loadRapier3D,Ls as registerPhysicsSystems,Rs as runRapierSolverWorker}from"./engine-4f53cda18c2baa0c-g3ENh6Cq.js";

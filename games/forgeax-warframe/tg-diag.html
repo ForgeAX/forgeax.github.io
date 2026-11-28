@@ -12,7 +12,7 @@ pre{white-space:pre-wrap;word-break:break-all;font:12px/1.45 ui-monospace,Menlo,
  * __TG_DIAG_REQ__ 由 inject.mjs 按构建时的管线库算出（库里最苛刻的一条管线要的限额）。 */
 (function () {
   'use strict';
-  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":30,"maxSamplersPerShaderStage":16,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":3,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":4,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":14,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
+  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":25,"maxSamplersPerShaderStage":13,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":4,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":3,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":13,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
   var g = window;
   if (g.__tgDiag) return;
   var t0 = performance.now();
@@ -388,7 +388,7 @@ pre{white-space:pre-wrap;word-break:break-all;font:12px/1.45 ui-monospace,Menlo,
 <body><main>
 <h2>天工战甲 · GPU 诊断（不会启动游戏）</h2>
 <p>① 页面打开后自动检查显卡能力。② 点「完整编译测试」会把游戏启动时要编的着色器管线全部编一遍（首次可能要 1–3 分钟，期间浏览器会比较卡），能直接看出 Windows 上哪一条编不过、总共要多久。③ 点「复制全部」把结果发回来。</p>
-<div id="bar"><button id="copy">复制全部 Copy</button><button id="run">完整编译测试（主菜单档）</button><select id="lib"><option value="tg-diag/pipeline-library-menu.json">pipeline-library-menu.json</option><option value="tg-diag/pipeline-library.json">pipeline-library.json</option></select><span id="prog"></span></div>
+<div id="bar"><button id="copy">复制全部 Copy</button><button id="run">完整编译测试（主菜单档）</button><select id="lib"><option value="tg-diag/pipeline-library-startup.json">pipeline-library-startup.json</option><option value="tg-diag/pipeline-library-background.json">pipeline-library-background.json</option></select><span id="prog"></span></div>
 <pre id="out">检查中…</pre>
 <script>
 (async function () {

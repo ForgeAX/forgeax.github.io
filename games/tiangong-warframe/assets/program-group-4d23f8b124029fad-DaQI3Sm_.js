@@ -1,0 +1,1 @@
+export{default as t}from"./physics-rapier3d-B8pu__hp.js";

@@ -84,7 +84,7 @@
  * __TG_DIAG_REQ__ 由 inject.mjs 按构建时的管线库算出（库里最苛刻的一条管线要的限额）。 */
 (function () {
   'use strict';
-  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":30,"maxSamplersPerShaderStage":16,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":3,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":4,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":14,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
+  var REQ = {"limits":{"maxBindGroups":4,"maxSampledTexturesPerShaderStage":25,"maxSamplersPerShaderStage":13,"maxStorageBuffersPerShaderStage":8,"maxStorageTexturesPerShaderStage":4,"maxUniformBuffersPerShaderStage":8,"maxDynamicUniformBuffersPerPipelineLayout":3,"maxDynamicStorageBuffersPerPipelineLayout":2,"maxColorAttachments":7,"maxColorAttachmentBytesPerSample":44,"maxVertexAttributes":13,"maxComputeInvocationsPerWorkgroup":256},"features":["depth32float-stencil8"]};
   var g = window;
   if (g.__tgDiag) return;
   var t0 = performance.now();
@@ -462,15 +462,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
     <title>天工战甲</title>
-    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#07090d;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{position:absolute;inset:0}#forgeax-loading-brand{white-space:nowrap;align-items:center;gap:9px;min-width:0;display:flex}#forgeax-loading-logo{flex:none;width:28px;height:auto;display:block}#forgeax-loading-brand-name{color:#f5f7fad1;letter-spacing:.02em;font-size:16px;font-weight:600;line-height:1}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.01em;overflow-wrap:anywhere;margin:0;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%)}#forgeax-loading-progress-content{text-align:left;gap:12px;display:grid;position:absolute;bottom:clamp(22px,6vh,52px);left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px)}#forgeax-loading-row{grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:center;column-gap:16px;display:grid}#forgeax-loading-summary{white-space:nowrap;justify-content:flex-end;align-items:baseline;gap:10px;min-width:0;font-size:13px;line-height:1.6;display:flex}#forgeax-loading-status{color:#e6ebf59e;flex:none;margin:0}#forgeax-loading-detail{color:#e6ebf56b;flex:0 auto;min-width:1em;margin:0;overflow:hidden}#forgeax-loading-detail:empty{display:none}#forgeax-loading-meta{color:#e6ebf59e;font-variant-numeric:tabular-nums;flex:none;margin:0}#forgeax-loading-progress{background:#e6ebf51c;border-radius:2px;width:100%;height:3px;overflow:hidden}#forgeax-loading-fill{background:#c6764f;width:0;height:100%;transition:width .2s linear}#forgeax-loading-slow,#forgeax-loading-reload{justify-self:end;margin:0;display:none}#forgeax-loading-reload,#forgeax-fatal-copy,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-diagnostics-header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;display:flex}#forgeax-fatal-diagnostics-title{margin:0;font-size:15px;font-weight:600}#forgeax-fatal-copy-status{color:#e6ebf5ad;min-height:1.5em;margin:0;font-size:12px}#forgeax-fatal-details{overflow-wrap:anywhere;white-space:pre-wrap;background:#0000003d;border:1px solid #e6ebf529;border-radius:5px;min-width:0;max-height:45vh;margin:0;padding:12px;overflow:auto}@media (width<=600px){#forgeax-loading-row{column-gap:10px}#forgeax-loading-brand{gap:5px}#forgeax-loading-logo{width:18px}#forgeax-loading-brand-name{font-size:12px}#forgeax-loading-summary{gap:3px;font-size:clamp(8px,2.6vw,13px)}}@media (width<=360px){#forgeax-loading-brand{gap:4px}#forgeax-loading-logo{width:16px}#forgeax-loading-brand-name{font-size:10px}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}}</style>
+    <style>html,body,#app-shell,#app{width:100%;height:100%;margin:0;overflow:hidden}body{background:0 0}#app{display:block}#app-shell{isolation:isolate;position:relative}#game-ui{pointer-events:none;position:absolute;inset:0;overflow:hidden}#forgeax-status{z-index:2147483645;color:#fff;opacity:.5;pointer-events:none;user-select:none;max-width:calc(100% - 20px);font:400 10px/14px system-ui,sans-serif;display:none;position:absolute;bottom:8px;left:10px}#forgeax-fps-history{z-index:2147483645;pointer-events:none;background:#101e23eb;border:1px solid #e9d4a869;border-radius:9px;width:276px;max-width:calc(100% - 24px);height:auto;position:absolute;top:clamp(12px,3vh,24px);left:clamp(12px,3vw,32px)}#forgeax-loading{z-index:2147483646;box-sizing:border-box;color:#e6e6e6;text-align:center;opacity:1;background:#07090d;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;transition:opacity .15s;display:grid;position:absolute;inset:0;overflow:auto}#forgeax-loading[aria-hidden=true]{opacity:0;pointer-events:none}#forgeax-loading-content{position:absolute;inset:0}#forgeax-loading-brand{white-space:nowrap;align-items:center;gap:9px;min-width:0;display:flex}#forgeax-loading-logo{flex:none;width:28px;height:auto;display:block}#forgeax-loading-brand-name{color:#f5f7fad1;letter-spacing:.02em;font-size:16px;font-weight:600;line-height:1}#forgeax-loading-title{color:#f5f7fa;letter-spacing:.01em;overflow-wrap:anywhere;margin:0;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%)}#forgeax-loading-progress-content{text-align:left;gap:12px;display:grid;position:absolute;bottom:clamp(22px,6vh,52px);left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px)}#forgeax-loading-row{grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:center;column-gap:16px;display:grid}#forgeax-loading-summary{white-space:nowrap;justify-content:flex-end;align-items:baseline;gap:10px;min-width:0;font-size:13px;line-height:1.6;display:flex}#forgeax-loading-status{color:#e6ebf59e;flex:none;margin:0}#forgeax-loading-detail{color:#e6ebf56b;flex:0 auto;min-width:1em;margin:0;overflow:hidden}#forgeax-loading-detail:empty{display:none}#forgeax-loading-meta{color:#e6ebf59e;font-variant-numeric:tabular-nums;flex:none;margin:0}#forgeax-loading-progress{background:#e6ebf51c;border-radius:2px;width:100%;height:3px;overflow:hidden}#forgeax-loading-fill{background:#c6764f;width:0;height:100%;transition:width .2s linear}#forgeax-loading-slow,#forgeax-loading-reload{justify-self:end;margin:0;display:none}@media (width<=600px){#forgeax-loading-row{column-gap:10px}#forgeax-loading-brand{gap:5px}#forgeax-loading-logo{width:18px}#forgeax-loading-brand-name{font-size:12px}#forgeax-loading-summary{gap:3px;font-size:clamp(8px,2.6vw,13px)}}@media (width<=360px){#forgeax-loading-brand{gap:4px}#forgeax-loading-logo{width:16px}#forgeax-loading-brand-name{font-size:10px}}@media (prefers-reduced-motion:reduce){#forgeax-loading,#forgeax-loading-fill{transition:none}}#forgeax-loading-reload,#forgeax-fatal-copy,#forgeax-fatal-reload{color:inherit;cursor:pointer;font:inherit;background:0 0;border:1px solid #e6ebf559;border-radius:5px;padding:7px 14px}#forgeax-fatal{z-index:2147483647;box-sizing:border-box;color:#e6e6e6;text-align:center;background:#0b0d10;place-items:center;padding:24px;font:15px/1.6 system-ui,sans-serif;display:none;position:absolute;inset:0;overflow:auto}#forgeax-fatal-content{text-align:left;gap:12px;width:min(680px,100%);display:grid}#forgeax-fatal-message{margin:0;font-size:18px}#forgeax-fatal-diagnostics-header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;display:flex}#forgeax-fatal-diagnostics-title{margin:0;font-size:15px;font-weight:600}#forgeax-fatal-copy-status{color:#e6ebf5ad;min-height:1.5em;margin:0;font-size:12px}#forgeax-fatal-details{overflow-wrap:anywhere;white-space:pre-wrap;background:#0000003d;border:1px solid #e6ebf529;border-radius:5px;min-width:0;max-height:45vh;margin:0;padding:12px;overflow:auto}</style>
 <style>#forgeax-loading{color:#e6e6e6;text-align:initial;background:0 0;padding:0;font:15px/1.6 system-ui,sans-serif;display:grid}#tg-engine-status{display:none}</style>
 
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/program-group-7a77cbf01e319472-Dr6mmJoJ.js"></script>
-    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-ee7549a7f4cd1d69-B6SGcE34.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/program-group-bbf19ed22cf73ea5-Dr6mmJoJ.js"></script>
+    <script type="module" crossorigin src="/games/tiangong-warframe/assets/index-63e8bcaa275d4c4e-DKutpAwF.js"></script>
   </head>
   <body>
     <div id="app-shell"><canvas id="app"></canvas><div id="game-ui"></div>
-    <div id="forgeax-status">Game 216dc41b98eb | Engine 0.6.0-local.eng-22s | <span id="forgeax-fps" aria-label="Completed game frames per second">FPS --</span></div>
+    <div id="forgeax-status">Game 67a673b70077 | Engine 0.6.0 | <span id="forgeax-fps" aria-label="Completed game frames per second">Render FPS --</span> <span id="forgeax-frame-gap"></span></div>
 <div id="forgeax-loading" class="forgeax-startup-custom" role="status"><span id="tg-engine-status"></span></div>
     <div id="forgeax-fatal" role="alert">
       <div id="forgeax-fatal-content">
@@ -496,7 +496,7 @@
         const findCanvas = (root) => {
           const preferred = root?.querySelector?.('canvas#app') ?? root?.querySelector?.('#app');
           if (preferred !== null && preferred !== undefined) return preferred;
-          let fallback = root?.querySelector?.('canvas');
+          let fallback = root?.querySelector?.('canvas:not(#forgeax-fps-history)');
           const descendants = root?.querySelectorAll?.('*');
           if (descendants === null || descendants === undefined) return fallback;
           for (const element of descendants) {
@@ -534,7 +534,7 @@
         const loadingProgress = document.querySelector('#forgeax-loading-progress');
         const loadingFill = document.querySelector('#forgeax-loading-fill');
         const loadingMeta = document.querySelector('#forgeax-loading-meta');
-        const labels = {"lang":"en","phases":{"engine-code":"Downloading engine code","workers":"Starting workers","downloads":"Downloading assets","assets":"Loading assets","pipelines":"Preparing shaders and pipelines","scene":"Building the scene","first-frame":"Waiting for the first frame"},"loading":"Loading…","elapsed":"{seconds} s","slow":"Still loading. You can keep waiting or reload.","reload":"Reload"};
+        const labels = {"lang":"en","phases":{"engine-code":"Downloading engine code","workers":"Starting workers","downloads":"Downloading assets","assets":"Loading assets","pipelines":"Preparing shaders and pipelines","scene":"Building the scene","first-frame":"Waiting for the first frame"},"loading":"Loading…","elapsed":"{seconds} s","slow":"Still loading. You can keep waiting or reload.","reload":"Reload","host":{"game":"Game","engine":"Engine","completedFramesPerSecond":"Completed game frames per second","startupFailed":"Unable to start the game.","runtimeFailed":"The game stopped because execution failed.","startupFailureTitle":"ForgeAX game failed to start.","runtimeFailureTitle":"ForgeAX game stopped.","diagnostics":"Diagnostics","copyDiagnostics":"Copy diagnostics","diagnosticsCopied":"Diagnostics copied.","diagnosticsCopyFailed":"Could not copy diagnostics.","javascriptRequired":"JavaScript is required to start this game. Please enable JavaScript and reload.","rendererDiagnosis":"Renderer diagnosis: ForgeAX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.","cacheRefreshing":"Refreshing cached startup resources and retrying once…","cacheRetried":"Automatic startup cache recovery was attempted once.","firstFailure":"First failure:","cacheRecoveryFailed":"Startup cache recovery failed:","unknownStructuredFailure":"Unknown structured startup failure","unserializableStructuredFailure":"Unserializable structured startup failure","unknownStartupFailure":"Unknown startup failure","diagnosticNodeLimit":"[diagnostic node limit]","circularDiagnostic":"[circular]","nativeStartupFailureTitle":"Unable to start","nativePackageFailureTitle":"Unable to load","nativeReloadHint":"Tap Reload to try again. If it fails again, close and reopen the game.","confirm":"OK"}};
         const fatal = document.querySelector('#forgeax-fatal');
         const fatalMessage = document.querySelector('#forgeax-fatal-message');
         const fatalDetails = document.querySelector('#forgeax-fatal-details');
@@ -566,8 +566,9 @@
     // lifecycle. Autonomous navigation would race that owner's retirement.
     if (host !== undefined || !gamePage || query.has('forgeaxWorkspace') ||
         !/^https?:$/.test(globalThis.location?.protocol ?? '')) return undefined;
-    const identity = {"project":"tiangong","game":"216dc41b98eb","engine":"0.6.0-local.eng-22s","revision":"6aff819da4ff1940461ca8d681828c081afa442a75dbee84ffe1f468619e5e09"};
-    const version = "ba9d7bdd941c846b0ba78fb9833f939bd3e761e4e5aa8ec29e68bd71f81ad45f";
+    const identity = {"project":"tiangong","game":"67a673b70077","engine":"0.6.0","revision":"ae977b3f7989db4d449c3379389ac0db91333cb194e99c33e619ae07e8a7179a"};
+    const versionLabels = {"game":"Game","engine":"Engine"};
+    const version = "9190d1e710dbb5e256c20ed8293a88601cd9586a91f41306409021affbaf7df2";
     const protocol = 'forgeax-startup-cache/1';
     const retryKey = 'forgeax-startup-retry';
     const original = new URL(location.href);
@@ -670,7 +671,7 @@
         if (complete || recovering) return {status: 'disabled'};
         recovering = true;
         if (retried) return {status: 'exhausted', previous: read('sessionStorage', key + '/failure')};
-        write('sessionStorage', key + '/failure', 'Game ' + identity.game + ' | Engine ' + identity.engine + '\n' + details.slice(0, 12000));
+        write('sessionStorage', key + '/failure', versionLabels.game + ' ' + identity.game + ' | ' + versionLabels.engine + ' ' + identity.engine + '\n' + details.slice(0, 12000));
         onRetry?.();
         try {
           await updateController();
@@ -810,7 +811,7 @@
             }
           }
           uiCopyStatus = copied ? 'copied' : 'failed';
-          setText(fatalCopyStatus, copied ? 'Diagnostics copied.' : 'Could not copy diagnostics.');
+          setText(fatalCopyStatus, copied ? labels.host.diagnosticsCopied : labels.host.diagnosticsCopyFailed);
           notifyUi();
           return copied;
         };
@@ -1024,30 +1025,93 @@
           }
         };
         // Receipt observation outlives the loading overlay. It does not request
-        // render frames or sample rAF; one timer updates text only when changed.
+        // render frames or sample rAF; one timer owns both HUD views.
         const frameRate = (() => {
           const node = document.querySelector('#forgeax-fps');
+          const gap = document.querySelector('#forgeax-frame-gap');
           const status = document.querySelector('#forgeax-status');
           let closed = !gamePage || node?.id !== 'forgeax-fps';
-          let session, surface, deviceGeneration = -1, lastFrame = -1;
-          let since, count = 0, timer;
-          const text = value => {
-            if (node?.textContent !== value) setText(node, value);
+          const graph = !closed && query.get('forgeax-fps-chart') === '1'
+            ? document.createElement('canvas') : null;
+          const ctx = graph?.getContext?.('2d');
+          if (ctx && status !== null) {
+            graph.id = 'forgeax-fps-history';
+            graph.width = 276;
+            graph.height = 78;
+            graph.hidden = true;
+            graph.setAttribute('role', 'img');
+            graph.setAttribute('aria-label', 'Render FPS over the last 20 seconds');
+            status.after(graph);
+          }
+          const intervalMs = ctx ? 500 : 1000;
+          const historyMs = 20_000;
+          const capacity = historyMs / intervalMs + 1;
+          const rates = ctx ? new Float32Array(capacity) : undefined;
+          const times = ctx ? new Float64Array(capacity) : undefined;
+          let next = 0, used = 0;
+          const drawGraph = (now, fps) => {
+            if (!ctx || !rates || !times) return;
+            rates[next] = fps; times[next] = now;
+            next = (next + 1) % capacity;
+            used = Math.min(used + 1, capacity);
+            const first = (next - used + capacity) % capacity;
+            let ceiling = 60;
+            for (let i = 0; i < used; i++) {
+              const index = (first + i) % capacity;
+              if (now - times[index] <= historyMs) ceiling = Math.max(ceiling, rates[index]);
+            }
+            ceiling = Math.ceil(ceiling / 30) * 30;
+            const left = 30, right = 266, top = 23, bottom = 67;
+            ctx.clearRect(0, 0, graph.width, graph.height);
+            ctx.font = '11px system-ui, sans-serif';
+            ctx.fillStyle = '#fff4de';
+            ctx.fillText('Render FPS · 20 s', 10, 15);
+            ctx.fillStyle = '#bec9be';
+            ctx.strokeStyle = '#6e898055';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 3; i++) {
+              const y = top + (bottom - top) * i / 2;
+              ctx.fillText(String(ceiling * (1 - i / 2)), 6, y + 3);
+              ctx.beginPath(); ctx.moveTo(left, y + 0.5); ctx.lineTo(right, y + 0.5); ctx.stroke();
+            }
+            ctx.strokeStyle = '#a9e0a9';
+            ctx.fillStyle = ctx.strokeStyle;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            let x = right, y = bottom;
+            for (let i = 0; i < used; i++) {
+              const index = (first + i) % capacity;
+              const age = now - times[index];
+              if (age > historyMs) continue;
+              x = right - age * (right - left) / historyMs;
+              y = bottom - rates[index] * (bottom - top) / ceiling;
+              ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.beginPath(); ctx.arc(x, y, 2.25, 0, Math.PI * 2); ctx.fill();
+            graph.hidden = false;
           };
+          let session, surface, deviceGeneration = -1, lastFrame = -1;
+          let since, previousAt, count = 0, longestGap = 0, timer;
           const reset = () => {
             clearStartupTimeout(timer); timer = undefined;
-            since = undefined; count = 0;
-            text('FPS --'); setDisplay(status, 'none');
+            since = undefined; previousAt = undefined; count = 0; longestGap = 0;
+            next = 0; used = 0;
+            if (graph !== null) graph.hidden = true;
+            showText(node, 'Render FPS --'); showText(gap, ''); setDisplay(status, 'none');
           };
           const tick = () => {
             if (closed || !isForeground()) { reset(); return; }
             const now = clockNow();
             const elapsed = now - since;
             if (Number.isFinite(elapsed) && elapsed > 0) {
-              text('FPS ' + (count * 1000 / elapsed).toFixed(1));
-              count = 0; since = now;
+              const fps = count * 1000 / elapsed;
+              showText(node, 'Render FPS ' + fps.toFixed(1));
+              showText(gap, Math.round(Math.max(longestGap, now - previousAt)) + ' ms max gap');
+              drawGraph(now, fps);
+              count = 0; longestGap = 0; since = now;
             }
-            timer = setStartupTimeout(tick, 1000);
+            timer = setStartupTimeout(tick, intervalMs);
           };
           const completed = detail => {
             const canvas = currentCanvas();
@@ -1061,11 +1125,16 @@
             }
             if (detail.frameId <= lastFrame) return;
             lastFrame = detail.frameId;
+            const now = clockNow();
             if (since === undefined) {
-              since = clockNow();
+              since = now;
               setDisplay(status, 'block');
-              timer = setStartupTimeout(tick, 1000);
-            } else count += 1;
+              timer = setStartupTimeout(tick, intervalMs);
+            } else {
+              count += 1;
+              longestGap = Math.max(longestGap, now - previousAt);
+            }
+            previousAt = now;
           };
           const onReceipt = event => { if (eventCanvas(event) === currentCanvas()) completed(event.detail); };
           const visibilityChanged = () => reset();
@@ -1136,11 +1205,11 @@
             return;
           }
           if (seen.size >= 64) {
-            lines.push((prefix || 'cause') + ': [diagnostic node limit]');
+            lines.push((prefix || 'cause') + ': ' + labels.host.diagnosticNodeLimit);
             return;
           }
           if (seen.has(value)) {
-            lines.push((prefix || 'cause') + ': [circular]');
+            lines.push((prefix || 'cause') + ': ' + labels.host.circularDiagnostic);
             return;
           }
           seen.add(value);
@@ -1209,12 +1278,12 @@
             appendStructuredFailure(reason, '', new Set(), lines);
             if (lines.length > 0) return lines.join('\n');
             try {
-              return JSON.stringify(reason) || 'Unknown structured startup failure';
+              return JSON.stringify(reason) || labels.host.unknownStructuredFailure;
             } catch {
-              return 'Unserializable structured startup failure';
+              return labels.host.unserializableStructuredFailure;
             }
           }
-          return String(reason ?? 'Unknown startup failure');
+          return String(reason ?? labels.host.unknownStartupFailure);
         };
         const show = (reason, execution) => {
           const runtimeFailure = execution?.fault !== undefined && execution.fault !== null;
@@ -1232,14 +1301,14 @@
           bindFatalCopy();
           let details = formatStartupFailure(reason);
           const notice = fatal;
-          const message = runtimeFailure ? 'The game stopped because execution failed.' : 'Unable to start the game.';
+          const message = runtimeFailure ? labels.host.runtimeFailed : labels.host.startupFailed;
           if (/webgpu|adapter-unavailable|no usable (rendering )?backend/i.test(details)) {
-            details += '\n\nRenderer diagnosis: ForgeAX supports browser WebGPU and a wgpu/WebGL2 fallback. This failure alone does not prove that WebGPU is unsupported; use the structured code, hint, and nested backend causes above.';
+            details += '\n\n' + labels.host.rendererDiagnosis;
           }
           // Keep the existing plain-text diagnostic fallback for hosts that
           // provide only one synthetic HTMLElement in a test harness.
           if (notice !== null && fatalMessage === notice) {
-            notice.textContent = (runtimeFailure ? 'ForgeAX game stopped.\n' : 'ForgeAX game failed to start.\n') + message + '\n' + details;
+            notice.textContent = (runtimeFailure ? labels.host.runtimeFailureTitle : labels.host.startupFailureTitle) + '\n' + message + '\n' + details;
           } else {
             setText(fatalMessage, message);
             setText(fatalDetails, details);
@@ -1264,7 +1333,7 @@
               setDisplay(notice, 'none');
               setDisplay(loading, 'grid');
               setAttribute(loading, 'aria-hidden', 'false');
-              setText(loadingStatus, 'Refreshing cached startup resources and retrying once…');
+              setText(loadingStatus, labels.host.cacheRefreshing);
             }).then(result => {
               if (phase === 'destroyed') return;
               if (result.status === 'reloaded' || result.status === 'disabled') { disposeUi('loading'); return; }
@@ -1274,11 +1343,11 @@
               setText(fatalMessage, message);
               if (result.status === 'exhausted') {
                 uiRecovery = 'exhausted';
-                uiDiagnostics = details + '\n\nAutomatic startup cache recovery was attempted once.' +
-                  (result.previous ? '\nFirst failure:\n' + result.previous : '');
+                uiDiagnostics = details + '\n\n' + labels.host.cacheRetried +
+                  (result.previous ? '\n' + labels.host.firstFailure + '\n' + result.previous : '');
               } else if (result.status === 'failed') {
                 uiRecovery = 'failed';
-                uiDiagnostics = details + '\n\nStartup cache recovery failed: ' + result.error;
+                uiDiagnostics = details + '\n\n' + labels.host.cacheRecoveryFailed + ' ' + result.error;
               }
               setText(fatalDetails, uiDiagnostics);
               notifyUi();
